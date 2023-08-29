@@ -8,6 +8,7 @@ public class ILearnApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ILearnApplication.class, args);
+		System.out.println("Test");
 	}
 
 }
