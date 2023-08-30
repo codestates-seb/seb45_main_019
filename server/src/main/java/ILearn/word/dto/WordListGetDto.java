@@ -1,0 +1,12 @@
+package ILearn.word.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+import java.util.List;
+
+@Getter
+@AllArgsConstructor
+public class WordListGetDto {
+    private List<Long> wordIds;
+}
