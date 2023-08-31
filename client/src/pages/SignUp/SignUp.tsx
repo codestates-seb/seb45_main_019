@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import api from '../../common/utils/api';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Copyright(props: any) {
@@ -34,15 +35,69 @@ function Copyright(props: any) {
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
+console.log(defaultTheme);
 
 export default function SignUp() {
+  const [username, setUsername] = useState('');
+  const [usernameIsValid, setUsernameIsValid] = useState(false);
+  const handleUsername = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUsername(event.target.value);
+    event.target.value.length > 5 && event.target.value.length < 20
+      ? setUsernameIsValid(true)
+      : setUsernameIsValid(false);
+  };
+
+  const [nickname, setNickname] = useState('');
+  const [nicknameIsValid, setNicknameIsValid] = useState(false);
+  const handleNickname = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNickname(event.target.value);
+    event.target.value.length > 2
+      ? setNicknameIsValid(true)
+      : setNicknameIsValid(false);
+  };
+
+  const [password, setPassword] = useState('');
+  const [passwordIsValid, setPasswordIsValid] = useState(false);
+  const handlePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
+    event.target.value.length > 2
+      ? setPasswordIsValid(true)
+      : setPasswordIsValid(false);
+  };
+
+  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [passwordConfirmIsValid, setPasswordConfirmIsValid] = useState(false);
+  const handlePasswordConfirm = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setPasswordConfirm(event.target.value);
+    event.target.value === password
+      ? setPasswordConfirmIsValid(true)
+      : setPasswordConfirmIsValid(false);
+  };
+
+  const [email, setEmail] = useState('');
+  const [emailIsValid, setEmailIsValid] = useState(false);
+  const handleEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
+    event.target.value.length > 2
+      ? setEmailIsValid(true)
+      : setEmailIsValid(false);
+  };
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
       email: data.get('email'),
+      username,
+      password_confirm: data.get('password_confirm'),
+      nickname: data.get('nickname'),
       password: data.get('password')
     });
+    if (usernameIsValid) {
+      api('/signup');
+    }
   };
 
   return (
@@ -69,38 +124,54 @@ export default function SignUp() {
             onSubmit={handleSubmit}
             sx={{ mt: 3 }}
           >
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+            <Grid container rowSpacing={2}>
+              <Grid item xs={12} sx={{ pt: '0px' }}>
                 <TextField
-                  autoComplete="given-name"
-                  name="firstName"
+                  autoComplete=""
+                  name="username"
                   required
                   fullWidth
-                  id="firstName"
-                  label="First Name"
+                  id="username"
+                  label="ID"
                   // eslint-disable-next-line jsx-a11y/no-autofocus
                   autoFocus
+                  value={username}
+                  onChange={handleUsername}
                 />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
-                />
+                {usernameIsValid ? null : (
+                  <Typography
+                    variant="overline"
+                    display="block"
+                    gutterBottom
+                    sx={{ color: 'warning.main', height: 10, pl: 1 }}
+                  >
+                    5~20 글자 영소문자, 숫자
+                  </Typography>
+                )}
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  autoComplete=""
+                  name="nickname"
                   required
                   fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
+                  id="nickname"
+                  label="Nickname"
+                  // eslint-disable-next-line jsx-a11y/no-autofocus
+                  autoFocus
+                  value={nickname}
+                  onChange={handleNickname}
                 />
+                {nicknameIsValid ? null : (
+                  <Typography
+                    variant="overline"
+                    display="block"
+                    gutterBottom
+                    sx={{ color: 'warning.main', height: 10, pl: 1 }}
+                  >
+                    5~20 글자
+                  </Typography>
+                )}
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -111,7 +182,64 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  value={password}
+                  onChange={handlePassword}
                 />
+                {passwordIsValid ? null : (
+                  <Typography
+                    variant="overline"
+                    display="block"
+                    gutterBottom
+                    sx={{ color: 'warning.main', height: 10, pl: 1 }}
+                  >
+                    8~20 글자 영문, 숫자, 특수문자 조합
+                  </Typography>
+                )}
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password_confirm"
+                  label="Confirm Password"
+                  type="password"
+                  id="password_confirm"
+                  autoComplete=""
+                  value={passwordConfirm}
+                  onChange={handlePasswordConfirm}
+                />
+                {passwordConfirmIsValid ? null : (
+                  <Typography
+                    variant="overline"
+                    display="block"
+                    gutterBottom
+                    sx={{ color: 'warning.main', height: 10, pl: 1 }}
+                  >
+                    비밀번호가 일치 하지 않습니다.
+                  </Typography>
+                )}
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  value={email}
+                  onChange={handleEmail}
+                />
+                {emailIsValid ? null : (
+                  <Typography
+                    variant="overline"
+                    display="block"
+                    gutterBottom
+                    sx={{ color: 'warning.main', height: 10, pl: 1 }}
+                  >
+                    올바른 이메일 형식이 아닙니다.
+                  </Typography>
+                )}
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
@@ -132,7 +260,7 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signin" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
