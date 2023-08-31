@@ -1,5 +1,7 @@
 package ILearn.question.entity;
 
+import ILearn.QuestionType.entity.QuestionType;
+import ILearn.chapter.entity.Chapter;
 import ILearn.manage.entity.Manage;
 import ILearn.member.entity.Member;
 import ILearn.word.entity.Word;
@@ -16,19 +18,17 @@ public class Question {
     @Column(name = "question_Id")
     private Long questionId;
 
-//    @ManyToOne
-//    @JoinColumn(name = "questionType_Id")
-//    private QuestionType questionType;
+
+    @ManyToOne
+    @JoinColumn(name = "chapterId")
+    private Chapter chapter;
+
+    @ManyToOne
+    @JoinColumn(name = "questionTypeId")
+    private QuestionType questionType;
 
     @ManyToOne
     @JoinColumn(name = "word_Id")
     private Word word;
-
-    @OneToMany(mappedBy = "question") // 여러개의 manage가 하나의 문제를 가질 수 있도록
-    private List<Manage> manages;
-
-    @ManyToOne
-    @JoinColumn(name = "manege_Id")
-    private Manage manage;
 
 }
