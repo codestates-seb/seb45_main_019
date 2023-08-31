@@ -1,5 +1,7 @@
 package ILearn.manage.entity;
 
+import ILearn.member.entity.Member;
+import ILearn.question.entity.Question;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -38,12 +40,12 @@ public class Manage {
     @Column(name = "point")
     private int point;
 
-//    @ManyToOne
-//    @JoinColumn(name = "question_Id")
-//    private Question question;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "user_Id")
-//    private Member member;
+    @ManyToOne
+    @JoinColumn(name = "question_Id")
+    private Question question;
+
+    @ManyToOne
+    @JoinColumn(name = "user_Id")
+    private Member member;
 
 }
