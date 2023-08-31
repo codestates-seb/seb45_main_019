@@ -1,7 +1,13 @@
 package ILearn.auth.config;
 
-
-
+import ILearn.auth.filter.JwtAuthenticationFilter;
+import ILearn.auth.filter.JwtVerificationFilter;
+import ILearn.auth.handler.MemberAccessDeniedHandler;
+import ILearn.auth.handler.MemberAuthenticationEntryPoint;
+import ILearn.auth.handler.MemberAuthenticationFailureHandler;
+import ILearn.auth.handler.MemberAuthenticationSuccessHandler;
+import ILearn.auth.jwt.JwtTokenizer;
+import ILearn.utils.CustomAuthorityUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -27,7 +33,7 @@ public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils; // 추가
 
-    public SecurityConfigurationV6(JwtTokenizer jwtTokenizer,
+    public SecurityConfiguration(JwtTokenizer jwtTokenizer,
                                    CustomAuthorityUtils authorityUtils) {
         this.jwtTokenizer = jwtTokenizer;
         this.authorityUtils = authorityUtils;
@@ -51,31 +57,20 @@ public class SecurityConfiguration {
                 .apply(new CustomFilterConfigurer())
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
-                                .antMatchers(HttpMethod.POST, "/*/members").permitAll()
+                        /*.antMatchers("/learning/**").permitAll() 비회원 learning 까지 이용가능 추후 확인 */
+                        .antMatchers(HttpMethod.POST, "/*/members").permitAll()
                                 .antMatchers(HttpMethod.PATCH, "/*/members/**").hasRole("USER")
                                 .antMatchers(HttpMethod.GET, "/*/members").hasRole("ADMIN")
-//                    .mvcMatchers(HttpMethod.GET, "/*/members").hasRole("ADMIN")
                                 .antMatchers(HttpMethod.GET, "/*/members/**").hasAnyRole("USER", "ADMIN")
                                 .antMatchers(HttpMethod.DELETE, "/*/members/**").hasRole("USER")
-                                .antMatchers(HttpMethod.POST, "/*/coffees").hasRole("ADMIN")
-                                .antMatchers(HttpMethod.PATCH, "/*/coffees/**").hasRole("ADMIN")
-                                .antMatchers(HttpMethod.GET, "/*/coffees/**").hasAnyRole("USER", "ADMIN")
-                                .antMatchers(HttpMethod.GET, "/*/coffees").permitAll()
-                                .antMatchers(HttpMethod.DELETE, "/*/coffees").hasRole("ADMIN")
-                                .antMatchers(HttpMethod.POST, "/*/orders").hasRole("USER")
-                                .antMatchers(HttpMethod.PATCH, "/*/orders").hasAnyRole("USER", "ADMIN")
-                                .antMatchers(HttpMethod.GET, "/*/orders/**").hasAnyRole("USER", "ADMIN")
-                                .antMatchers(HttpMethod.DELETE, "/*/orders").hasRole("USER")
                                 .anyRequest().permitAll()
                 );
         return http.build();
     }
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
-
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -85,20 +80,17 @@ public class SecurityConfiguration {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
-
-
     public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterConfigurer, HttpSecurity> {
         @Override
         public void configure(HttpSecurity builder) throws Exception {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
 
             JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
-            jwtAuthenticationFilter.setFilterProcessesUrl("/v11/auth/login");
+            jwtAuthenticationFilter.setFilterProcessesUrl("/members/login");
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
 
             JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);
-
 
             builder
                     .addFilter(jwtAuthenticationFilter)

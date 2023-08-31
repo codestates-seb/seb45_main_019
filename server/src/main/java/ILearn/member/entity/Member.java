@@ -5,7 +5,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -42,6 +44,10 @@ public class Member {
 
     @Column(name = "word_book", columnDefinition = "TEXT")
     private String wordBook;
+
+    //유저 권한 부여
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
 
 //    @OneToMany
 //    @JoinColumn(name = "word_Id")

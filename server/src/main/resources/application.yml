@@ -16,3 +16,9 @@ spring:
     key: ${JWT_SECRET_KEY}
     access-token-expiration-minutes: 40
     refresh-token-expiration-minutes: 420
+    # 추가
+    secret-key: raeseop123
+    # 추가
+    user:
+      admin:
+        username: ILearn
