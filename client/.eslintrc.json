@@ -13,10 +13,12 @@
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript",
-    "plugin:@typescript-eslint/recommended" 
+    "plugin:@typescript-eslint/eslint-recommended", 
+    "plugin:@typescript-eslint/recommended"
   ],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": "tsconfig.json",
+    "createDefaultProgram": true,
     "ecmaFeatures": {
       "jsx": true
     },
@@ -29,6 +31,9 @@
     }
   },
   "rules": {
+    "indent": ["error",2],
+    "camelcase": 1,
+    "no-var": "error",
     "react/react-in-jsx-scope": 0,
     "react/jsx-uses-react": 0,
     "comma-dangle": 0,
