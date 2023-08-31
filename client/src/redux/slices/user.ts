@@ -4,7 +4,7 @@ import { RootState } from '../store';
 export interface UserState {
   email: string;
   username: string;
-  user_Id: number;
+  userId: number;
   nickname: string;
   point: number;
   memberStatus: boolean;
@@ -13,7 +13,7 @@ export interface UserState {
 const initialState: UserState = {
   email: '',
   username: '',
-  user_Id: 0,
+  userId: 0,
   nickname: '',
   point: 0,
   memberStatus: false
@@ -26,7 +26,7 @@ export const userSlice = createSlice({
     setUser: (state, action: { payload: UserState }) => {
       state.email = action.payload.email;
       state.username = action.payload.username;
-      state.user_Id = action.payload.user_Id;
+      state.userId = action.payload.userId;
       state.nickname = action.payload.nickname;
       state.point = action.payload.point;
       state.memberStatus = action.payload.memberStatus;
