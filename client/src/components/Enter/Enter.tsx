@@ -1,8 +1,7 @@
 import { Box, Container, Typography } from '@mui/material';
-// import SRZ from '../../common/images/chapter1.png';
 
 function Enter() {
-  // const imgSrc = `../../common/images/chapter1.png`;
+  const imgSrc = `images/chapter${1}.png`;
   return (
     <Container>
       <Box>
@@ -13,7 +12,7 @@ function Enter() {
           인사나누기
         </Typography>
         <Box>
-          <img src="/images/chapter1.png" alt="enterImg" />
+          <img src={imgSrc} alt="enterImg" />
         </Box>
       </Box>
     </Container>
