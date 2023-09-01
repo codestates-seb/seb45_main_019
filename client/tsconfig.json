@@ -13,10 +13,9 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "allowJs": true,
-    "outDir": "./dist",
-    "checkJs": true,
-    "noUnusedParameters": true
+    "outDir": "./dist"
   },
   "include": ["./src"],
-  "exclude": ["node_modules", "build"]
+  "exclude": ["node_modules", "build"],
+  "typeRoots": ["src/types"]
 }
