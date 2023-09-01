@@ -1,7 +1,7 @@
 import { Box, Button, Container, Typography } from '@mui/material';
 import GuideBook from '../GuideBook/GuideBook';
 
-function Enter() {
+export default function Enter() {
   const imgSrc = `images/chapter${1}.png`;
   return (
     <Container
@@ -51,5 +51,3 @@ function Enter() {
     </Container>
   );
 }
-
-export default Enter;

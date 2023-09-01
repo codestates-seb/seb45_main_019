@@ -2,7 +2,7 @@ import { Box, List, ListItemButton, ListItemText, Avatar } from '@mui/material';
 import DoneIcon from '@mui/icons-material/Done';
 import { grey } from '@mui/material/colors';
 
-function Nav() {
+export default function Nav() {
   return (
     <Box
       sx={{
@@ -31,5 +31,3 @@ function Nav() {
     </Box>
   );
 }
-
-export default Nav;

@@ -1,7 +1,8 @@
 import React from 'react';
 import Enter from '../../components/Enter/Enter';
 import Nav from '../../components/Nav/Nav';
-function MainPage() {
+
+export default function MainPage() {
   return (
     <React.Fragment>
       <Nav />
@@ -9,5 +10,3 @@ function MainPage() {
     </React.Fragment>
   );
 }
-
-export default MainPage;
