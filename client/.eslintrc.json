@@ -9,19 +9,31 @@
     "plugin:react/recommended",
     "plugin:import/recommended",
     "plugin:jsx-a11y/recommended",
+    "plugin:prettier/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript",
+    "plugin:@typescript-eslint/eslint-recommended", 
     "plugin:@typescript-eslint/recommended"
   ],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
+    "createDefaultProgram": true,
     "ecmaFeatures": {
       "jsx": true
     },
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "rules": {
+    "indent": ["error",2],
+    "camelcase": 1,
+    "no-var": "error",
     "react/react-in-jsx-scope": 0,
     "react/jsx-uses-react": 0,
     "comma-dangle": 0,
