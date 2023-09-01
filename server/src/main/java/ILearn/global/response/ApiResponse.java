@@ -1,4 +1,4 @@
-package ILearn.global.Response;
+package ILearn.global.response;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

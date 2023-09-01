@@ -1,4 +1,4 @@
-package ILearn.global.auth.exception;
+package ILearn.global.exception;
 
 import lombok.Getter;
 

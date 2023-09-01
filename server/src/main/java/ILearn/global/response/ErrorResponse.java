@@ -1,6 +1,6 @@
-package ILearn.global.Response;
+package ILearn.global.response;
 
-import ILearn.global.auth.exception.ExceptionCode;
+import ILearn.global.exception.ExceptionCode;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;

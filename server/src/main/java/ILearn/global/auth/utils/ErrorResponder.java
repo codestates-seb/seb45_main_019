@@ -1,6 +1,6 @@
 package ILearn.global.auth.utils;
 
-import ILearn.global.Response.ErrorResponse;
+import ILearn.global.response.ErrorResponse;
 import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

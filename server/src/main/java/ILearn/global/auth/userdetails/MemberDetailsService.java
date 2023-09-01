@@ -1,7 +1,7 @@
 package ILearn.global.auth.userdetails;
 
-import ILearn.global.auth.exception.BusinessLogicException;
-import ILearn.global.auth.exception.ExceptionCode;
+import ILearn.global.exception.BusinessLogicException;
+import ILearn.global.exception.ExceptionCode;
 import ILearn.global.auth.utils.CustomAuthorityUtils;
 import ILearn.member.entity.Member;
 import ILearn.member.repository.MemberRepository;

@@ -1,7 +1,7 @@
 package ILearn.global.auth.handler;
 
 
-import ILearn.global.Response.ErrorResponse;
+import ILearn.global.response.ErrorResponse;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
