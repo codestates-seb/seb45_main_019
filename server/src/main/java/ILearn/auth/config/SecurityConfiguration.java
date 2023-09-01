@@ -7,7 +7,7 @@ import ILearn.auth.handler.MemberAuthenticationEntryPoint;
 import ILearn.auth.handler.MemberAuthenticationFailureHandler;
 import ILearn.auth.handler.MemberAuthenticationSuccessHandler;
 import ILearn.auth.jwt.JwtTokenizer;
-import ILearn.utils.CustomAuthorityUtils;
+import ILearn.auth.utils.CustomAuthorityUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -50,20 +50,16 @@ public class SecurityConfiguration {
                 .and()
                 .formLogin().disable()
                 .httpBasic().disable()
-                .exceptionHandling()
-                .authenticationEntryPoint(new MemberAuthenticationEntryPoint())  // 추가
-                .accessDeniedHandler(new MemberAccessDeniedHandler())            // 추가
-                .and()
                 .apply(new CustomFilterConfigurer())
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
-                        /*.antMatchers("/learning/**").permitAll() 비회원 learning 까지 이용가능 추후 확인 */
+                       /* .antMatchers("/learning/**").permitAll() 비로그인 로직 추후 추가 */
                         .antMatchers(HttpMethod.POST, "/*/members").permitAll()
-                                .antMatchers(HttpMethod.PATCH, "/*/members/**").hasRole("USER")
-                                .antMatchers(HttpMethod.GET, "/*/members").hasRole("ADMIN")
-                                .antMatchers(HttpMethod.GET, "/*/members/**").hasAnyRole("USER", "ADMIN")
-                                .antMatchers(HttpMethod.DELETE, "/*/members/**").hasRole("USER")
-                                .anyRequest().permitAll()
+                .antMatchers(HttpMethod.PATCH, "/*/members/**").hasRole("USER")
+                .antMatchers(HttpMethod.GET, "/*/members").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/*/members/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/*/members/**").hasRole("USER")
+                .anyRequest().permitAll()
                 );
         return http.build();
     }
@@ -93,8 +89,9 @@ public class SecurityConfiguration {
             JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);
 
             builder
-                    .addFilter(jwtAuthenticationFilter)
-                    .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);
+                    .addFilterBefore(jwtVerificationFilter, JwtAuthenticationFilter.class)
+                    .addFilter(jwtAuthenticationFilter);
         }
     }
+
 }

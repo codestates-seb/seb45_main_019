@@ -12,6 +12,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -44,14 +45,29 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             Authentication authResult) throws ServletException, IOException {
         Member member = (Member) authResult.getPrincipal();
 
+        addTokenToResponse(member, response);
+
+        this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
+    }
+
+    private void addTokenToResponse(Member member, HttpServletResponse response) {
         String accessToken = delegateAccessToken(member);
         String refreshToken = delegateRefreshToken(member);
 
-        response.setHeader("Authorization", "Bearer " + accessToken);
-        response.setHeader("Refresh", refreshToken);
+        // JWT 토큰을 쿠키로 추가
+        Cookie accessTokenCookie = new Cookie("access_token", accessToken);
+        accessTokenCookie.setHttpOnly(true);
+        accessTokenCookie.setMaxAge(jwtTokenizer.getAccessTokenExpirationMinutes() * 60); // 초 단위로 설정
+        accessTokenCookie.setPath("/"); // 쿠키의 경로 설정
+        response.addCookie(accessTokenCookie);
 
-        this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);  // 추가
+        Cookie refreshTokenCookie = new Cookie("refresh_token", refreshToken);
+        refreshTokenCookie.setHttpOnly(true);
+        refreshTokenCookie.setMaxAge(jwtTokenizer.getRefreshTokenExpirationMinutes() * 60); // 초 단위로 설정
+        refreshTokenCookie.setPath("/"); // 쿠키의 경로 설정
+        response.addCookie(refreshTokenCookie);
     }
+
 
     private String delegateAccessToken(Member member) {
         Map<String, Object> claims = new HashMap<>();

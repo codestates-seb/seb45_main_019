@@ -12,3 +12,10 @@ spring:
     properties:
       hibernate:
         format_sql: true
+jwt:
+    key: LEARN123
+    access-token-expiration-minutes: 40
+    refresh-token-expiration-minutes: 420
+user:
+    admin:
+      username: ILearn

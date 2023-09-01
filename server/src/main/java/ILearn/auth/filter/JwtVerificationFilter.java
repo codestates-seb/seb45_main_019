@@ -1,7 +1,7 @@
 package ILearn.auth.filter;
 
 import ILearn.auth.jwt.JwtTokenizer;
-import ILearn.utils.CustomAuthorityUtils;
+import ILearn.auth.utils.CustomAuthorityUtils;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

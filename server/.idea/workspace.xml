@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="177cdf59-312d-4dd9-ba90-a1eb86343878" name="Changes" comment="">
+<<<<<<< HEAD
       <change afterPath="$PROJECT_DIR$/src/main/java/ILearn/auth/filter/JwtAuthenticationFilter.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/ILearn/auth/filter/JwtVerificationFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
@@ -13,6 +14,33 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ILearn/auth/config/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ILearn/auth/config/SecurityConfiguration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ILearn/auth/jwt/jwtTokenizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ILearn/auth/jwt/JwtTokenizer.java" afterDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/src/main/java/ILearn/chapter/entity/Chapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ILearn/learning/entity/Learning.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ILearn/manage/entity/Manage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ILearn/member/dto/MemberPatchDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ILearn/member/dto/MemberPostDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ILearn/member/dto/MemberResponseDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ILearn/member/mapper/MemberMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ILearn/word/dto/WordGetDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ILearn/word/dto/WordListGetDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ILearn/word/dto/WordPostDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ILearn/word/entity/Word.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ILearn/word/repository/WordRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ILearn/word/response/WordApiResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.2.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.2.1/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.2.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.2.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.2.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.2.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.2.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.2.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.2.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.2.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/ILearn/member/entity/Member.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/ILearn/member/entity/Member.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ILearn/member/entity/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ILearn/member/entity/Member.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ILearn/member/repository/MemberRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ILearn/member/repository/MemberRepository.java" afterDir="false" />
+>>>>>>> e31b6ce2ac7f3885a710d6f7dcae6533a257985a
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,9 +55,32 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
+<<<<<<< HEAD
             <expand />
+=======
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="seb45_main_019" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="seb45_main_019" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="seb45_main_019" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+>>>>>>> e31b6ce2ac7f3885a710d6f7dcae6533a257985a
             <select />
           </tree_state>
         </projects_view>
@@ -48,6 +99,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2UQ65eECSJrRnRQjquiDyyH8EEX" />
   <component name="ProjectViewState">
@@ -75,11 +129,36 @@
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="ILearn.member.dto" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Spring Boot.ILearnApplication">
+    <configuration name="server [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>false</ForceTestExec>
+      <method v="2" />
+    </configuration>
     <configuration name="ILearnApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="seb45_main_019.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="ILearn.ILearnApplication" />
@@ -87,6 +166,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.server [build]" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -99,7 +183,12 @@
       <workItem from="1692859276125" duration="39000" />
       <workItem from="1693186793594" duration="3951000" />
       <workItem from="1693276182374" duration="21000" />
+<<<<<<< HEAD
       <workItem from="1693381161882" duration="20000" />
+=======
+      <workItem from="1693353688665" duration="9930000" />
+      <workItem from="1693380323471" duration="4826000" />
+>>>>>>> e31b6ce2ac7f3885a710d6f7dcae6533a257985a
     </task>
     <servers />
   </component>

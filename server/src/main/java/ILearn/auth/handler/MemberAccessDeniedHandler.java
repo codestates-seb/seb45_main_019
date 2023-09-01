@@ -1,6 +1,6 @@
 package ILearn.auth.handler;
 
-import ILearn.utils.ErrorResponder;
+import ILearn.auth.utils.ErrorResponder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
