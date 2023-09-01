@@ -10,7 +10,9 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 @Mapper(componentModel = "spring")
-public interface MemberMapper extends JpaRepository<Member, Long> {
+public interface MemberMapper {
+
+
     MemberMapper INSTANCE = Mappers.getMapper(MemberMapper.class);
 
     @Mapping(target = "userId", ignore = true)
