@@ -7,11 +7,11 @@ import ILearn.member.entity.Member;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 @Mapper(componentModel = "spring")
-public interface MemberMapper {
-
-
+public interface MemberMapper extends JpaRepository<Member, Long> {
+    Member findByUsernameAndPassword(String username, String password);
     MemberMapper INSTANCE = Mappers.getMapper(MemberMapper.class);
 
     @Mapping(target = "userId", ignore = true)

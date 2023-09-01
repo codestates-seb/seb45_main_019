@@ -1,6 +1,9 @@
 package ILearn.member.controller;
 
 import ILearn.global.Response.ApiResponse;
+import ILearn.global.auth.filter.JwtAuthenticationFilter;
+import ILearn.global.auth.filter.JwtVerificationFilter;
+import ILearn.global.auth.loginDto.LoginDto;
 import ILearn.member.dto.MemberPostDto;
 import ILearn.member.entity.Member;
 import ILearn.member.mapper.MemberMapper;
@@ -11,7 +14,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.Collections;
 
 @RestController
 @Validated
@@ -21,9 +26,13 @@ public class MemberController {
     private final MemberMapper memberMapper;
     private final MemberService memberService;
 
-    public MemberController(MemberMapper memberMapper,MemberService memberService) {
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    public MemberController(MemberMapper memberMapper,MemberService memberService, JwtAuthenticationFilter jwtAuthenticationFilter) {
         this.memberMapper = memberMapper;
         this.memberService = memberService;
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+
     }
 
     // 유저 회원가입
@@ -35,5 +44,25 @@ public class MemberController {
         ApiResponse<Void> response = new ApiResponse<>(true, "success");
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+    @PostMapping("/login")
+    public ResponseEntity<ApiResponse<Void>> login(@RequestBody LoginDto loginDto, HttpServletResponse response) {
+        //로그인 인증 로직을 수행하고 유효한 경우 JWT 토큰 생성 및 쿠키 추가
+        //JWT 토큰을 쿠키로 추가
+        Member authenticatedMember = performLoginAuthentication(loginDto);
+        jwtAuthenticationFilter.addTokenToResponse(authenticatedMember, response);
 
+        ApiResponse<Void> response = new ApiResponse<>(true, "로그인 되었습니다.");
+        return ResponseEntity.ok(response);
+    }
+
+    // 로그인 인증 로직을 구현하는 메서드
+    private Member performLoginAuthentication(LoginDto loginDto) {
+        // 로그인 인증 로직을 여기에 구현하고 인증된 사용자 정보를 반환
+        // 이 예시에서는 단순히 사용자 정보를 더미로 생성하여 반환합니다.
+        Member authenticatedMember = new Member();
+        authenticatedMember.setUsername(loginDto.getUsername());
+        authenticatedMember.setRoles(Collections.singletonList("USER")); // 예시롤 설정
+        return authenticatedMember;
+    }
 }
+

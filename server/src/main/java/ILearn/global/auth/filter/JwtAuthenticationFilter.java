@@ -50,7 +50,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
     }
 
-    private void addTokenToResponse(Member member, HttpServletResponse response) {
+    public void addTokenToResponse(Member member, HttpServletResponse response) {
         String accessToken = delegateAccessToken(member);
         String refreshToken = delegateRefreshToken(member);
 
