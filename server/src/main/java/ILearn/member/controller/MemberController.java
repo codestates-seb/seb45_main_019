@@ -34,7 +34,6 @@ public class MemberController {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
 
     }
-
     // 유저 회원가입
     @PostMapping
     public ResponseEntity postMember(@Valid @RequestBody MemberPostDto memberPostDto) {
@@ -55,6 +54,5 @@ public class MemberController {
         ApiResponse<Void> response = new ApiResponse<>(true, "로그인 되었습니다.");
         return ResponseEntity.ok(response);
     }
-
 }
 

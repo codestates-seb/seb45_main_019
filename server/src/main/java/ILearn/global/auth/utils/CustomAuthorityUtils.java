@@ -20,8 +20,8 @@ public class CustomAuthorityUtils {
     private final List<String> USER_ROLES_STRING = List.of("USER");
 
     // 메모리 상의 Role을 기반으로 권한 정보 생성.
-    public List<GrantedAuthority> createAuthorities(String username) { // 변경된 부분
-        if (username.equals(adminUsername)) { // 변경된 부분
+    public List<GrantedAuthority> createAuthorities(String username) {
+        if (username.equals(adminUsername)) {
             return ADMIN_ROLES;
         }
         return USER_ROLES;
