@@ -39,7 +39,6 @@ const defaultTheme = createTheme();
 console.log(defaultTheme);
 
 export default function SignUp() {
-
   const [nickname, setNickname] = useState('');
   const [nicknameIsValid, setNicknameIsValid] = useState(false);
   const handleNickname = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -126,28 +125,6 @@ export default function SignUp() {
                   id="username"
                   label="ID"
                 ></Input>
-                {/* <TextField
-                  autoComplete=""
-                  name="username"
-                  required
-                  fullWidth
-                  id="username"
-                  label="ID"
-                  // eslint-disable-next-line jsx-a11y/no-autofocus
-                  autoFocus
-                  value={username}
-                  onChange={handleUsername}
-                />
-                {usernameIsValid ? null : (
-                  <Typography
-                    variant="overline"
-                    display="block"
-                    gutterBottom
-                    sx={{ color: 'warning.main', height: 10, pl: 1 }}
-                  >
-                    5~20 글자 영소문자, 숫자
-                  </Typography> */}
-                {/* )} */}
               </Grid>
               <Grid item xs={12}>
                 <TextField

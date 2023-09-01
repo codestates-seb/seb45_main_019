@@ -10,16 +10,16 @@ export default function Input(props: {
   required?: boolean;
 }) {
   const [value, setValue] = useState('');
-  const [valueIsValid, setValueIsValid] = useState(false);
+  const [valueIsValid, setValueIsValid] = useState(true);
   const [errorMsg, setErrorMsg] = useState('');
 
-  const validation = useValidation(props.id)
+  const validation = useValidation(props.id);
 
   const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
 
-    const result = validation(value)
-    setValueIsValid(result.valid)
+    const result = validation(event.target.value);
+    setValueIsValid(result.valid);
     setErrorMsg(result.msg);
   };
   return (
