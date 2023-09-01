@@ -37,18 +37,18 @@ public class Member {
     @Column(name = "registration_date")
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date registrationDate;
-    public String getFormattedRegistrationDate() { // 가입시간 한국 시간, 연 월 일 분 초
-        TimeZone timeZone = TimeZone.getTimeZone("Asia/Seoul");
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-        sdf.setTimeZone(timeZone);
-        return sdf.format(registrationDate);
-    }
+//    public String getFormattedRegistrationDate() { // 가입시간 한국 시간, 연 월 일 분 초
+//        TimeZone timeZone = TimeZone.getTimeZone("Asia/Seoul");
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+//        sdf.setTimeZone(timeZone);
+//        return sdf.format(registrationDate);
+//    }
 
     @Column(name = "point")
     private int point;
 
-    @Column(name = "member_status")
-    private String memberStatus;
+    @Enumerated(EnumType.STRING)
+    private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE;
 
     @Column(name = "word_book", columnDefinition = "TEXT")
     private String wordBook;
@@ -69,4 +69,15 @@ public class Member {
 //    @JoinColumn(name = "manage_Id")
 //    private Manage manage;
 
+    public enum MemberStatus {
+        MEMBER_ACTIVE("활동중"),
+        MEMBER_QUIT("회원 탈퇴");
+
+        @Getter
+        private String status;
+
+        MemberStatus(String status) {
+            this.status = status;
+        }
+    }
 }
