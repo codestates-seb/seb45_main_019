@@ -1,10 +1,12 @@
 import React from 'react';
-
+import Enter from '../../components/Enter/Enter';
+import Nav from '../../components/Nav/Nav';
 function MainPage() {
   return (
-    <div>
-      <h1>I Learn</h1>
-    </div>
+    <React.Fragment>
+      <Nav />
+      <Enter />
+    </React.Fragment>
   );
 }
 
