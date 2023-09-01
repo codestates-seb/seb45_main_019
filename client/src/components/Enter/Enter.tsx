@@ -1,4 +1,5 @@
 import { Box, Button, Container, Typography } from '@mui/material';
+import GuideBook from '../GuideBook/GuideBook';
 
 function Enter() {
   const imgSrc = `images/chapter${1}.png`;
@@ -6,11 +7,11 @@ function Enter() {
     <Container
       sx={{
         display: 'flex',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         alignItems: 'center'
       }}
     >
-      <Box>
+      <Box marginRight={20}>
         <Typography
           variant="h4"
           align="center"
@@ -46,6 +47,7 @@ function Enter() {
           </Button>
         </Box>
       </Box>
+      <GuideBook />
     </Container>
   );
 }
