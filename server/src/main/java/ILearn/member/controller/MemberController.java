@@ -25,10 +25,10 @@ import java.util.Collections;
 public class MemberController {
     private final MemberMapper memberMapper;
     private final MemberService memberService;
-
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    public MemberController(MemberMapper memberMapper,MemberService memberService, JwtAuthenticationFilter jwtAuthenticationFilter) {
+    public MemberController(MemberMapper memberMapper,MemberService memberService,
+                            JwtAuthenticationFilter jwtAuthenticationFilter) {
         this.memberMapper = memberMapper;
         this.memberService = memberService;
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
@@ -44,25 +44,17 @@ public class MemberController {
         ApiResponse<Void> response = new ApiResponse<>(true, "success");
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+    //유저 로그인
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<Void>> login(@RequestBody LoginDto loginDto, HttpServletResponse response) {
         //로그인 인증 로직을 수행하고 유효한 경우 JWT 토큰 생성 및 쿠키 추가
         //JWT 토큰을 쿠키로 추가
-        Member authenticatedMember = performLoginAuthentication(loginDto);
+        Member authenticatedMember = memberService.performLoginAuthentication(loginDto);
         jwtAuthenticationFilter.addTokenToResponse(authenticatedMember, response);
 
         ApiResponse<Void> response = new ApiResponse<>(true, "로그인 되었습니다.");
         return ResponseEntity.ok(response);
     }
 
-    // 로그인 인증 로직을 구현하는 메서드
-    private Member performLoginAuthentication(LoginDto loginDto) {
-        // 로그인 인증 로직을 여기에 구현하고 인증된 사용자 정보를 반환
-        // 이 예시에서는 단순히 사용자 정보를 더미로 생성하여 반환합니다.
-        Member authenticatedMember = new Member();
-        authenticatedMember.setUsername(loginDto.getUsername());
-        authenticatedMember.setRoles(Collections.singletonList("USER")); // 예시롤 설정
-        return authenticatedMember;
-    }
 }
 

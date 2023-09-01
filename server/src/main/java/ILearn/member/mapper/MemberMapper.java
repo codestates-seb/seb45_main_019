@@ -11,7 +11,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 @Mapper(componentModel = "spring")
 public interface MemberMapper extends JpaRepository<Member, Long> {
-    Member findByUsernameAndPassword(String username, String password);
     MemberMapper INSTANCE = Mappers.getMapper(MemberMapper.class);
 
     @Mapping(target = "userId", ignore = true)
