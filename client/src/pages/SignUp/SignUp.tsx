@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import api from '../../common/utils/api';
+import Input from './Input';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Copyright(props: any) {
@@ -38,14 +39,6 @@ const defaultTheme = createTheme();
 console.log(defaultTheme);
 
 export default function SignUp() {
-  const [username, setUsername] = useState('');
-  const [usernameIsValid, setUsernameIsValid] = useState(false);
-  const handleUsername = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(event.target.value);
-    event.target.value.length > 5 && event.target.value.length < 20
-      ? setUsernameIsValid(true)
-      : setUsernameIsValid(false);
-  };
 
   const [nickname, setNickname] = useState('');
   const [nicknameIsValid, setNicknameIsValid] = useState(false);
@@ -90,12 +83,12 @@ export default function SignUp() {
     const data = new FormData(event.currentTarget);
     console.log({
       email: data.get('email'),
-      username,
+
       password_confirm: data.get('password_confirm'),
       nickname: data.get('nickname'),
       password: data.get('password')
     });
-    if (usernameIsValid) {
+    if (passwordConfirmIsValid) {
       api('/signup');
     }
   };
@@ -126,7 +119,14 @@ export default function SignUp() {
           >
             <Grid container rowSpacing={2}>
               <Grid item xs={12} sx={{ pt: '0px' }}>
-                <TextField
+                <Input
+                  autoComplete=""
+                  name="username"
+                  required
+                  id="username"
+                  label="ID"
+                ></Input>
+                {/* <TextField
                   autoComplete=""
                   name="username"
                   required
@@ -146,8 +146,8 @@ export default function SignUp() {
                     sx={{ color: 'warning.main', height: 10, pl: 1 }}
                   >
                     5~20 글자 영소문자, 숫자
-                  </Typography>
-                )}
+                  </Typography> */}
+                {/* )} */}
               </Grid>
               <Grid item xs={12}>
                 <TextField
