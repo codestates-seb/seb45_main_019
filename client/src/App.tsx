@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import MainPage from './pages/Main/MainPage';
 import { Container } from '@mui/material';
-function App() {
+export default function App() {
   return (
     <Container
       sx={{
@@ -17,5 +17,3 @@ function App() {
     </Container>
   );
 }
-
-export default App;

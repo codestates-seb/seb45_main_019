@@ -1,35 +1,33 @@
-import { Box, List, ListItemButton, ListItemText, Avatar } from '@mui/material';
-import DoneIcon from '@mui/icons-material/Done';
-import { grey } from '@mui/material/colors';
+import { Box, List } from '@mui/material';
+import { Chapter } from '../../interfaces/Chapter.interface';
+import NavItem from './NavItem';
 
-function Nav() {
+interface NavProps {
+  chapterList?: Array<Chapter>;
+  location: string;
+}
+
+export default function Nav(props: NavProps) {
+  const chapterList = props.chapterList;
+  const location = props.location;
+
   return (
     <Box
       sx={{
         width: '100%',
         maxWidth: 300,
         height: '100vh',
-        borderRight: 1,
-        borderColor: grey[300]
+        overflowY: 'scroll',
+        padding: 0
       }}
     >
-      <List>
-        <ListItemButton sx={{ borderBottom: 1, borderColor: grey[200] }}>
-          <ListItemText
-            primary="Chapter 1"
-            primaryTypographyProps={{ style: { overflowWrap: 'break-word' } }}
-            secondary="인사 나누기"
-          />
-          <Avatar sx={{ bgcolor: 'success.light' }}>
-            <DoneIcon />
-          </Avatar>
-        </ListItemButton>
-        <ListItemButton sx={{ borderBottom: 1, borderColor: grey[200] }}>
-          <ListItemText primary="Chapter 2" secondary="활동에 대해 말하기" />
-        </ListItemButton>
+      <List sx={{ padding: 0 }}>
+        {location === '/'
+          ? chapterList?.map((el) => (
+              <NavItem key={el.chapterId} chapter={el} />
+            ))
+          : null}
       </List>
     </Box>
   );
 }
-
-export default Nav;
