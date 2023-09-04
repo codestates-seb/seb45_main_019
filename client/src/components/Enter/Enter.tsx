@@ -1,8 +1,12 @@
 import { Box, Button, Container, Typography } from '@mui/material';
 import GuideBook from '../GuideBook/GuideBook';
+import { useAppSelector } from '../../redux/hooks';
 
-function Enter() {
-  const imgSrc = `images/chapter${1}.png`;
+export default function Enter() {
+  const chapter = useAppSelector((state) => state.chapter);
+  const imgSrc = `images/chapter${chapter.chapterId}.png`;
+
+  console.log(chapter);
   return (
     <Container
       sx={{
@@ -18,10 +22,10 @@ function Enter() {
           marginBottom={1}
           fontWeight={600}
         >
-          Chapter 1
+          Chapter {chapter.chapterId}
         </Typography>
         <Typography paragraph align="center" color="text.secondary">
-          인사나누기
+          {chapter.title}
         </Typography>
         <Box
           sx={{
@@ -42,8 +46,9 @@ function Enter() {
             size="large"
             color="primary"
             sx={{ marginTop: 10 }}
+            disabled={chapter.chapterStatus}
           >
-            학습하기
+            {chapter.chapterStatus ? '학습완료' : '학습하기'}
           </Button>
         </Box>
       </Box>
@@ -51,5 +56,3 @@ function Enter() {
     </Container>
   );
 }
-
-export default Enter;
