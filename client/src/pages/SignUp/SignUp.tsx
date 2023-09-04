@@ -14,6 +14,8 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import api from '../../common/utils/api';
 import Input from './Input';
+import { useNavigate } from 'react-router-dom';
+import { forEachChild } from 'typescript';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Copyright(props: any) {
@@ -39,18 +41,92 @@ const defaultTheme = createTheme();
 console.log(defaultTheme);
 
 export default function SignUp() {
+  const [password, setPassword] = useState('');
+  const [passwordIsValid, setPasswordIsValid] = useState(true);
+  const [passwordError, setPasswordError] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [passwordConfirmIsValid, setPasswordConfirmIsValid] = useState(true);
+  const [passwordConfirmError, setPasswordConfirmError] = useState('');
+  const [emailIsValid, setEmailIsValid] = useState(true);
+  const [usernameIsValid, setUsernameIsValid] = useState(true);
+  const [nicknameIsValid, setNicknameIsValid] = useState(true);
+
+  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = event.target.value;
+    setPassword(newValue);
+
+    if (
+      newValue.match(
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/
+      )
+    ) {
+      setPasswordIsValid(true);
+      setPasswordError('');
+    } else {
+      setPasswordIsValid(false);
+      setPasswordError('8~20 글자 영문, 숫자, 특수문자 조합');
+    }
+  };
+
+  const handlePasswordConfirmChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const newValue = event.target.value;
+    setPasswordConfirm(newValue);
+
+    if (newValue.match(password)) {
+      setPasswordConfirmIsValid(true);
+      setPasswordConfirmError('');
+    } else {
+      setPasswordConfirmIsValid(false);
+      setPasswordConfirmError('비밀번호가 일치하지 않습니다.');
+    }
+  };
+
+  const navigate = useNavigate();
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-
-      passwordConfirm: data.get('password_confirm'),
+    const info = {
+      username: data.get('username'),
       nickname: data.get('nickname'),
-      password: data.get('password')
-    });
-    if (data.get('password') === data.get('password_confirm')) {
-      api('/signup');
+      password: data.get('password'),
+      passwordConfirm: data.get('password_confirm'),
+      email: data.get('email')
+    };
+
+    if (
+      usernameIsValid &&
+      passwordIsValid &&
+      passwordConfirmIsValid &&
+      emailIsValid &&
+      nicknameIsValid &&
+      info.username &&
+      info.nickname &&
+      info.password &&
+      info.passwordConfirm &&
+      info.email &&
+      info.username.length > 0 &&
+      info.nickname.length > 0 &&
+      info.password.length > 0 &&
+      info.passwordConfirm.length > 0 &&
+      info.email.length > 0
+    ) {
+      api('/signup', 'post', info)
+        .then((res) => {
+          console.log(res.data.msg);
+
+          if (res.data.success) {
+            alert('가입이 성공적으로 처리되었습니다.');
+            navigate('/signin');
+          }
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    } else {
+      alert('정보를 올바르게 입력 해주세요.');
     }
   };
 
@@ -86,6 +162,9 @@ export default function SignUp() {
                   required
                   id="username"
                   label="ID"
+                  checkValid
+                  isValid={usernameIsValid}
+                  setIsValid={setUsernameIsValid}
                 ></Input>
               </Grid>
               <Grid item xs={12}>
@@ -95,27 +174,58 @@ export default function SignUp() {
                   required
                   id="nickname"
                   label="Nickname"
+                  checkValid
+                  isValid={nicknameIsValid}
+                  setIsValid={setNicknameIsValid}
                 ></Input>
               </Grid>
               <Grid item xs={12}>
-                <Input
+                <TextField
+                  fullWidth
+                  // eslint-disable-next-line jsx-a11y/no-autofocus
+                  autoFocus
+                  value={password}
+                  onChange={handlePasswordChange}
                   autoComplete="new-password"
                   name="password"
                   required
                   id="password"
                   label="Password"
                   type="password"
-                ></Input>
+                />
+                {passwordIsValid ? null : (
+                  <Typography
+                    variant="overline"
+                    display="block"
+                    gutterBottom
+                    sx={{ color: 'warning.main', height: 10, pl: 1 }}
+                  >
+                    {passwordError}
+                  </Typography>
+                )}
               </Grid>
               <Grid item xs={12}>
-                <Input
-                  autoComplete=""
-                  name="password_confirm"
-                  required
+                <TextField
+                  fullWidth
+                  // eslint-disable-next-line jsx-a11y/no-autofocus
+                  autoFocus
+                  value={passwordConfirm}
+                  onChange={handlePasswordConfirmChange}
+                  type="password"
                   id="password_confirm"
                   label="Confirm Password"
-                  type="password"
-                ></Input>
+                  name="password_confirm"
+                />
+                {passwordConfirmIsValid ? null : (
+                  <Typography
+                    variant="overline"
+                    display="block"
+                    gutterBottom
+                    sx={{ color: 'warning.main', height: 10, pl: 1 }}
+                  >
+                    {passwordConfirmError}
+                  </Typography>
+                )}
               </Grid>
               <Grid item xs={12}>
                 <Input
@@ -125,16 +235,19 @@ export default function SignUp() {
                   id="email"
                   label="Email Address"
                   type="email"
+                  checkValid
+                  isValid={emailIsValid}
+                  setIsValid={setEmailIsValid}
                 ></Input>
               </Grid>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <FormControlLabel
                   control={
                     <Checkbox value="allowExtraEmails" color="primary" />
                   }
                   label="I want to receive inspiration, marketing promotions and updates via email."
                 />
-              </Grid>
+              </Grid> */}
             </Grid>
             <Button
               type="submit"

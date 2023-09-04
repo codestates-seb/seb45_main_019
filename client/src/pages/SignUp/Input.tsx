@@ -9,20 +9,23 @@ export default function Input(props: {
   label?: string;
   required?: boolean;
   type?: string;
+  checkValid?: boolean;
+  isValid?: boolean;
+  setIsValid: (state: boolean) => void;
 }) {
   const [value, setValue] = useState('');
-  const [valueIsValid, setValueIsValid] = useState(true);
   const [errorMsg, setErrorMsg] = useState('');
 
   const validation = useValidation(props.id);
 
   const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
+    if (props.checkValid) {
+      const result = validation(event.target.value);
 
-    const result = validation(event.target.value);
-
-    setValueIsValid(result.valid);
-    setErrorMsg(result.msg);
+      props.setIsValid(result.valid);
+      setErrorMsg(result.msg);
+    }
   };
   return (
     <>
@@ -34,7 +37,7 @@ export default function Input(props: {
         value={value}
         onChange={handleValueChange}
       />
-      {valueIsValid ? null : (
+      {props.isValid ? null : (
         <Typography
           variant="overline"
           display="block"
