@@ -115,6 +115,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="ILearn.global.exception" />
       <recent name="ILearn.member.dto" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -170,6 +171,7 @@
       <workItem from="1693276182374" duration="21000" />
       <workItem from="1693353688665" duration="9930000" />
       <workItem from="1693380323471" duration="4826000" />
+      <workItem from="1693442713939" duration="56715000" />
     </task>
     <servers />
   </component>
