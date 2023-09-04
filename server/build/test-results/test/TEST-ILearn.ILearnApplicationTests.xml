@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ILearn.ILearnApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-08-30T07:10:23" hostname="namhyeon-uui-MacBookAir.local" time="0.071">
+<testsuite name="ILearn.ILearnApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-09-04T17:15:04" hostname="namhyeon-uui-MacBookAir.local" time="0.072">
   <properties/>
-  <testcase name="contextLoads()" classname="ILearn.ILearnApplicationTests" time="0.071"/>
-  <system-out><![CDATA[16:10:20.354 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
-16:10:20.361 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
-16:10:20.385 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [ILearn.ILearnApplicationTests] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
-16:10:20.397 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [ILearn.ILearnApplicationTests], using SpringBootContextLoader
-16:10:20.400 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [ILearn.ILearnApplicationTests]: class path resource [ILearn/ILearnApplicationTests-context.xml] does not exist
-16:10:20.400 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [ILearn.ILearnApplicationTests]: class path resource [ILearn/ILearnApplicationTestsContext.groovy] does not exist
-16:10:20.401 [Test worker] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [ILearn.ILearnApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
-16:10:20.401 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [ILearn.ILearnApplicationTests]: ILearnApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-16:10:20.431 [Test worker] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [ILearn.ILearnApplicationTests]
-16:10:20.468 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [/Users/hyeonwoo/Desktop/seb45_main_019/server/build/classes/java/main/ILearn/ILearnApplication.class]
-16:10:20.468 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration ILearn.ILearnApplication for test class ILearn.ILearnApplicationTests
-16:10:20.536 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [ILearn.ILearnApplicationTests]: using defaults.
-16:10:20.536 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
-16:10:20.547 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@251f7d26, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@77b21474, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@52d10fb8, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@41c07648, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@1fe8d51b, org.springframework.test.context.support.DirtiesContextTestExecutionListener@781e7326, org.springframework.test.context.transaction.TransactionalTestExecutionListener@22680f52, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@60d84f61, org.springframework.test.context.event.EventPublishingTestExecutionListener@39c11e6c, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@324dcd31, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@503d56b5, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@72bca894, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@433ffad1, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@1fc793c2, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@2575f671]
-16:10:20.550 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@21680803 testClass = ILearnApplicationTests, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@588ab592 testClass = ILearnApplicationTests, locations = '{}', classes = '{class ILearn.ILearnApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@abf688e, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@6eeade6c, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@7756c3cd, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@6cfcd46d, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@1698ee84, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@264f218], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> true]], class annotated with @DirtiesContext [false] with mode [null].
+  <testcase name="contextLoads()" classname="ILearn.ILearnApplicationTests" time="0.072"/>
+  <system-out><![CDATA[02:15:00.954 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
+02:15:00.961 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+02:15:00.985 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [ILearn.ILearnApplicationTests] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
+02:15:00.993 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [ILearn.ILearnApplicationTests], using SpringBootContextLoader
+02:15:00.996 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [ILearn.ILearnApplicationTests]: class path resource [ILearn/ILearnApplicationTests-context.xml] does not exist
+02:15:00.996 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [ILearn.ILearnApplicationTests]: class path resource [ILearn/ILearnApplicationTestsContext.groovy] does not exist
+02:15:00.996 [Test worker] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [ILearn.ILearnApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
+02:15:00.996 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [ILearn.ILearnApplicationTests]: ILearnApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+02:15:01.027 [Test worker] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [ILearn.ILearnApplicationTests]
+02:15:01.066 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [/Users/hyeonwoo/Desktop/seb45_main_019/server/build/classes/java/main/ILearn/ILearnApplication.class]
+02:15:01.066 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration ILearn.ILearnApplication for test class ILearn.ILearnApplicationTests
+02:15:01.142 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [ILearn.ILearnApplicationTests]: using defaults.
+02:15:01.142 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+02:15:01.155 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@547e29a4, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@1c807b1d, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@238b521e, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@1b39fd82, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@3e2fc448, org.springframework.test.context.support.DirtiesContextTestExecutionListener@21680803, org.springframework.test.context.transaction.TransactionalTestExecutionListener@588ab592, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@c8b96ec, org.springframework.test.context.event.EventPublishingTestExecutionListener@4cc61eb1, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@2d8f2f3a, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@2024293c, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@7048f722, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@c074c0c, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@58a55449, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@5949eba8]
+02:15:01.158 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@40e4ea87 testClass = ILearnApplicationTests, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@58783f6c testClass = ILearnApplicationTests, locations = '{}', classes = '{class ILearn.ILearnApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@60641ec8, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@f667fe, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@10c626be, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@201b6b6f, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@2bb7bd00, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@19b843ba], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> true]], class annotated with @DirtiesContext [false] with mode [null].
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -26,112 +26,171 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::               (v2.7.14)
 
-2023-08-30 16:10:20.849  INFO 48734 --- [    Test worker] ILearn.ILearnApplicationTests            : Starting ILearnApplicationTests using Java 11.0.19 on namhyeon-uui-MacBookAir.local with PID 48734 (started by hyeonwoo in /Users/hyeonwoo/Desktop/seb45_main_019/server)
-2023-08-30 16:10:20.850  INFO 48734 --- [    Test worker] ILearn.ILearnApplicationTests            : No active profile set, falling back to 1 default profile: "default"
-2023-08-30 16:10:21.327  INFO 48734 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-08-30 16:10:21.363  INFO 48734 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 30 ms. Found 1 JPA repository interfaces.
-2023-08-30 16:10:21.747  INFO 48734 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-08-30 16:10:21.781  INFO 48734 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.15.Final
-2023-08-30 16:10:21.901  INFO 48734 --- [    Test worker] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
-2023-08-30 16:10:21.969  INFO 48734 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2023-08-30 16:10:22.127  INFO 48734 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2023-08-30 16:10:22.151  INFO 48734 --- [    Test worker] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
-Hibernate: 
-    
-    drop table if exists chapter CASCADE 
-Hibernate: 
-    
-    drop table if exists learning CASCADE 
-Hibernate: 
-    
-    drop table if exists manage CASCADE 
-Hibernate: 
-    
-    drop table if exists member CASCADE 
-Hibernate: 
-    
-    drop table if exists word CASCADE 
-Hibernate: 
-    
-    create table chapter (
-       chapter_id bigint generated by default as identity,
-        primary key (chapter_id)
-    )
-Hibernate: 
-    
-    create table learning (
-       learning_id bigint generated by default as identity,
-        primary key (learning_id)
-    )
-Hibernate: 
-    
-    create table manage (
-       manage_id bigint generated by default as identity,
-        correct_time timestamp,
-        learning_name varchar(255),
-        learning_number integer,
-        learning_question integer,
-        learning_record boolean,
-        learning_status varchar(255),
-        point integer,
-        primary key (manage_id)
-    )
-Hibernate: 
-    
-    create table member (
-       user_id bigint generated by default as identity,
-        email varchar(255),
-        member_status varchar(255),
-        nickname varchar(255) not null,
-        password varchar(255) not null,
-        point integer,
-        registration_date timestamp,
-        username varchar(255) not null,
-        word_book TEXT,
-        primary key (user_id)
-    )
-Hibernate: 
-    
-    create table word (
-       word_id bigint generated by default as identity,
-        word varchar(255),
-        word_example varchar(255),
-        word_meaning varchar(255),
-        user_id bigint,
-        primary key (word_id)
-    )
-Hibernate: 
-    
-    alter table member 
-       add constraint UK_hh9kg6jti4n1eoiertn2k6qsc unique (nickname)
-Hibernate: 
-    
-    alter table member 
-       add constraint UK_gc3jmn7c2abyo3wf6syln5t2i unique (username)
-Hibernate: 
-    
-    alter table word 
-       add constraint FKbl6hgm8sjtn4wulhcy0x27nym 
-       foreign key (user_id) 
-       references member
-Hibernate: 
-    
-    alter table word 
-       add constraint FKnuac4yawnuihw6nb3jsyus9bh 
-       foreign key (word_id) 
-       references member
-2023-08-30 16:10:22.688  INFO 48734 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-08-30 16:10:22.695  INFO 48734 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-08-30 16:10:23.028  WARN 48734 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2023-08-30 16:10:23.194  INFO 48734 --- [    Test worker] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2'. Database available at 'jdbc:h2:mem:test'
-2023-08-30 16:10:23.407  WARN 48734 --- [    Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
+2023-09-05 02:15:01.584  INFO 6720 --- [    Test worker] ILearn.ILearnApplicationTests            : Starting ILearnApplicationTests using Java 11.0.19 on namhyeon-uui-MacBookAir.local with PID 6720 (started by hyeonwoo in /Users/hyeonwoo/Desktop/seb45_main_019/server)
+2023-09-05 02:15:01.585  INFO 6720 --- [    Test worker] ILearn.ILearnApplicationTests            : No active profile set, falling back to 1 default profile: "default"
+2023-09-05 02:15:02.183  INFO 6720 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-09-05 02:15:02.214  INFO 6720 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 26 ms. Found 1 JPA repository interfaces.
+2023-09-05 02:15:02.548  INFO 6720 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-09-05 02:15:02.694  INFO 6720 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-09-05 02:15:02.788  INFO 6720 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-09-05 02:15:02.827  INFO 6720 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.15.Final
+2023-09-05 02:15:02.947  INFO 6720 --- [    Test worker] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-09-05 02:15:03.019  INFO 6720 --- [    Test worker] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2023-09-05 02:15:03.603  WARN 6720 --- [    Test worker] o.h.t.s.i.ExceptionHandlerLoggedImpl     : GenerationTarget encountered exception accepting command : Error executing DDL "alter table word add column word_id bigint not null" via JDBC Statement
 
-Using generated security password: 8e63fe77-90fe-476c-b5f7-da9108567f3c
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "alter table word add column word_id bigint not null" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67) ~[hibernate-core-5.6.15.Final.jar:5.6.15.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlString(AbstractSchemaMigrator.java:581) ~[hibernate-core-5.6.15.Final.jar:5.6.15.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlStrings(AbstractSchemaMigrator.java:602) ~[hibernate-core-5.6.15.Final.jar:5.6.15.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.migrateTable(AbstractSchemaMigrator.java:314) ~[hibernate-core-5.6.15.Final.jar:5.6.15.Final]
+	at org.hibernate.tool.schema.internal.GroupedSchemaMigratorImpl.performTablesMigration(GroupedSchemaMigratorImpl.java:78) ~[hibernate-core-5.6.15.Final.jar:5.6.15.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.performMigration(AbstractSchemaMigrator.java:220) ~[hibernate-core-5.6.15.Final.jar:5.6.15.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.doMigration(AbstractSchemaMigrator.java:123) ~[hibernate-core-5.6.15.Final.jar:5.6.15.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:196) ~[hibernate-core-5.6.15.Final.jar:5.6.15.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:85) ~[hibernate-core-5.6.15.Final.jar:5.6.15.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:335) ~[hibernate-core-5.6.15.Final.jar:5.6.15.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:471) ~[hibernate-core-5.6.15.Final.jar:5.6.15.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1498) ~[hibernate-core-5.6.15.Final.jar:5.6.15.Final]
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58) ~[spring-orm-5.3.29.jar:5.3.29]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365) ~[spring-orm-5.3.29.jar:5.3.29]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409) ~[spring-orm-5.3.29.jar:5.3.29]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396) ~[spring-orm-5.3.29.jar:5.3.29]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:341) ~[spring-orm-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1863) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1800) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:620) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1157) ~[spring-context-5.3.29.jar:5.3.29]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:911) ~[spring-context-5.3.29.jar:5.3.29]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583) ~[spring-context-5.3.29.jar:5.3.29]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:731) ~[spring-boot-2.7.14.jar:2.7.14]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:408) ~[spring-boot-2.7.14.jar:2.7.14]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:307) ~[spring-boot-2.7.14.jar:2.7.14]
+	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:136) ~[spring-boot-test-2.7.14.jar:2.7.14]
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:141) ~[spring-test-5.3.29.jar:5.3.29]
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:90) ~[spring-test-5.3.29.jar:5.3.29]
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:124) ~[spring-test-5.3.29.jar:5.3.29]
+	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:190) ~[spring-test-5.3.29.jar:5.3.29]
+	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:132) ~[spring-test-5.3.29.jar:5.3.29]
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:248) ~[spring-test-5.3.29.jar:5.3.29]
+	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:138) ~[spring-test-5.3.29.jar:5.3.29]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$8(ClassBasedTestDescriptor.java:363) ~[junit-jupiter-engine-5.8.2.jar:5.8.2]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.executeAndMaskThrowable(ClassBasedTestDescriptor.java:368) ~[junit-jupiter-engine-5.8.2.jar:5.8.2]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$9(ClassBasedTestDescriptor.java:363) ~[junit-jupiter-engine-5.8.2.jar:5.8.2]
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177) ~[na:na]
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1655) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:484) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474) ~[na:na]
+	at java.base/java.util.stream.StreamSpliterators$WrappingSpliterator.forEachRemaining(StreamSpliterators.java:312) ~[na:na]
+	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:735) ~[na:na]
+	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:734) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:658) ~[na:na]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeTestInstancePostProcessors(ClassBasedTestDescriptor.java:362) ~[junit-jupiter-engine-5.8.2.jar:5.8.2]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$instantiateAndPostProcessTestInstance$6(ClassBasedTestDescriptor.java:283) ~[junit-jupiter-engine-5.8.2.jar:5.8.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.instantiateAndPostProcessTestInstance(ClassBasedTestDescriptor.java:282) ~[junit-jupiter-engine-5.8.2.jar:5.8.2]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$4(ClassBasedTestDescriptor.java:272) ~[junit-jupiter-engine-5.8.2.jar:5.8.2]
+	at java.base/java.util.Optional.orElseGet(Optional.java:369) ~[na:na]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$5(ClassBasedTestDescriptor.java:271) ~[junit-jupiter-engine-5.8.2.jar:5.8.2]
+	at org.junit.jupiter.engine.execution.TestInstancesProvider.getTestInstances(TestInstancesProvider.java:31) ~[junit-jupiter-engine-5.8.2.jar:5.8.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$prepare$0(TestMethodTestDescriptor.java:102) ~[junit-jupiter-engine-5.8.2.jar:5.8.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:101) ~[junit-jupiter-engine-5.8.2.jar:5.8.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:66) ~[junit-jupiter-engine-5.8.2.jar:5.8.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$prepare$2(NodeTestTask.java:123) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.prepare(NodeTestTask.java:123) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:90) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1541) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1541) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:107) ~[junit-platform-launcher-1.8.2.jar:1.8.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:88) ~[junit-platform-launcher-1.8.2.jar:1.8.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:54) ~[junit-platform-launcher-1.8.2.jar:1.8.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:67) ~[junit-platform-launcher-1.8.2.jar:1.8.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:52) ~[junit-platform-launcher-1.8.2.jar:1.8.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114) ~[junit-platform-launcher-1.8.2.jar:1.8.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86) ~[junit-platform-launcher-1.8.2.jar:1.8.2]
+	at org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86) ~[junit-platform-launcher-1.8.2.jar:1.8.2]
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:110) ~[na:na]
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:90) ~[na:na]
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor.stop(JUnitPlatformTestClassProcessor.java:85) ~[na:na]
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36) ~[na:na]
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24) ~[na:na]
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33) ~[na:na]
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94) ~[na:na]
+	at com.sun.proxy.$Proxy2.stop(Unknown Source) ~[na:na]
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$3.run(TestWorker.java:193) ~[na:na]
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129) ~[na:na]
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100) ~[na:na]
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60) ~[na:na]
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56) ~[na:na]
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:113) ~[na:na]
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65) ~[na:na]
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69) ~[gradle-worker.jar:na]
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74) ~[gradle-worker.jar:na]
+Caused by: org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException: NULL not allowed for column "WORD_ID"; SQL statement:
+INSERT INTO "PUBLIC"."WORD_COPY_3_0"("WORDID", "WORD", "SYMBOL", "WORDMEANING", "DETAILCATEGORIES", "WORDEXAMPLE", "WORDEXAMPLEMEANINGS") OVERRIDING SYSTEM VALUE SELECT "WORDID", "WORD", "SYMBOL", "WORDMEANING", "DETAILCATEGORIES", "WORDEXAMPLE", "WORDEXAMPLEMEANINGS" FROM "PUBLIC"."WORD" [23502-214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:508) ~[h2-2.1.214.jar:2.1.214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477) ~[h2-2.1.214.jar:2.1.214]
+	at org.h2.message.DbException.get(DbException.java:223) ~[h2-2.1.214.jar:2.1.214]
+	at org.h2.message.DbException.get(DbException.java:199) ~[h2-2.1.214.jar:2.1.214]
+	at org.h2.table.Column.validateConvertUpdateSequence(Column.java:365) ~[h2-2.1.214.jar:2.1.214]
+	at org.h2.table.Table.convertInsertRow(Table.java:926) ~[h2-2.1.214.jar:2.1.214]
+	at org.h2.command.dml.Insert.addRow(Insert.java:229) ~[h2-2.1.214.jar:2.1.214]
+	at org.h2.command.dml.Insert.insertRows(Insert.java:203) ~[h2-2.1.214.jar:2.1.214]
+	at org.h2.command.dml.Insert.update(Insert.java:135) ~[h2-2.1.214.jar:2.1.214]
+	at org.h2.command.dml.DataChangeStatement.update(DataChangeStatement.java:74) ~[h2-2.1.214.jar:2.1.214]
+	at org.h2.command.CommandContainer.update(CommandContainer.java:169) ~[h2-2.1.214.jar:2.1.214]
+	at org.h2.command.Command.executeUpdate(Command.java:252) ~[h2-2.1.214.jar:2.1.214]
+	at org.h2.command.ddl.AlterTableAlterColumn.execute(AlterTableAlterColumn.java:645) ~[h2-2.1.214.jar:2.1.214]
+	at org.h2.command.ddl.AlterTableAlterColumn.cloneTableStructure(AlterTableAlterColumn.java:557) ~[h2-2.1.214.jar:2.1.214]
+	at org.h2.command.ddl.AlterTableAlterColumn.copyData(AlterTableAlterColumn.java:339) ~[h2-2.1.214.jar:2.1.214]
+	at org.h2.command.ddl.AlterTableAlterColumn.update(AlterTableAlterColumn.java:242) ~[h2-2.1.214.jar:2.1.214]
+	at org.h2.command.CommandContainer.update(CommandContainer.java:169) ~[h2-2.1.214.jar:2.1.214]
+	at org.h2.command.Command.executeUpdate(Command.java:252) ~[h2-2.1.214.jar:2.1.214]
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:252) ~[h2-2.1.214.jar:2.1.214]
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223) ~[h2-2.1.214.jar:2.1.214]
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94) ~[HikariCP-4.0.3.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java) ~[HikariCP-4.0.3.jar:na]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54) ~[hibernate-core-5.6.15.Final.jar:5.6.15.Final]
+	... 119 common frames omitted
 
-This generated password is for development use only. Your security configuration must be updated before running your application in production.
-
-2023-08-30 16:10:23.560  INFO 48734 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@870413c, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3791160a, org.springframework.security.web.context.SecurityContextPersistenceFilter@6cb2b947, org.springframework.security.web.header.HeaderWriterFilter@4446a191, org.springframework.security.web.csrf.CsrfFilter@649a6d88, org.springframework.security.web.authentication.logout.LogoutFilter@44f88149, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@738ae785, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@4c51fc9a, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@1d9cac6e, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@431f8830, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@28d728f1, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@51d6c42d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5f510929, org.springframework.security.web.session.SessionManagementFilter@1a865ebf, org.springframework.security.web.access.ExceptionTranslationFilter@46e38c28, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@24381e4a]
-2023-08-30 16:10:23.611  INFO 48734 --- [    Test worker] ILearn.ILearnApplicationTests            : Started ILearnApplicationTests in 3.031 seconds (JVM running for 3.894)
+2023-09-05 02:15:03.644  INFO 6720 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-09-05 02:15:03.651  INFO 6720 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-09-05 02:15:04.139  WARN 6720 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-09-05 02:15:04.191  INFO 6720 --- [    Test worker] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2023-09-05 02:15:04.801  INFO 6720 --- [    Test worker] ILearn.ILearnApplicationTests            : Started ILearnApplicationTests in 3.608 seconds (JVM running for 4.466)
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

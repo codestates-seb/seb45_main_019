@@ -17,17 +17,26 @@ public class Word {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "word_Id")
+    @Column(name = "wordId")
     private Long wordId;
 
     @Column(name = "word")
     private String word;
 
+    @Column(name = "symbol")
+    private String symbol;
+
     @Column(name = "wordMeaning")
     private String wordMeaning;
 
+    @Column(name = "detailCategories")
+    private String detailCategories;
+
     @Column(name = "wordExample")
     private String wordExample;
+
+    @Column(name = "wordExampleMeanings")
+    private String wordExampleMeanings;
 
     @OneToMany(mappedBy = "word")
     private List<Question> questions = new ArrayList<>();

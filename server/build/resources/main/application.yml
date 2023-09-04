@@ -2,6 +2,7 @@ spring:
   h2:
     console:
       enabled: true
+      path: /h2
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
   mvc:
