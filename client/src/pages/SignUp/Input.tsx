@@ -8,6 +8,7 @@ export default function Input(props: {
   id?: string;
   label?: string;
   required?: boolean;
+  type?: string;
 }) {
   const [value, setValue] = useState('');
   const [valueIsValid, setValueIsValid] = useState(true);
@@ -19,18 +20,15 @@ export default function Input(props: {
     setValue(event.target.value);
 
     const result = validation(event.target.value);
+
     setValueIsValid(result.valid);
     setErrorMsg(result.msg);
   };
   return (
     <>
       <TextField
-        autoComplete={props.autoComplete}
-        name={props.name}
-        required={props.required}
         fullWidth
-        id={props.id}
-        label={props.label}
+        {...props}
         // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus
         value={value}

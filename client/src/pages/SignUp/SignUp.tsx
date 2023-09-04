@@ -39,55 +39,17 @@ const defaultTheme = createTheme();
 console.log(defaultTheme);
 
 export default function SignUp() {
-  const [nickname, setNickname] = useState('');
-  const [nicknameIsValid, setNicknameIsValid] = useState(false);
-  const handleNickname = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNickname(event.target.value);
-    event.target.value.length > 2
-      ? setNicknameIsValid(true)
-      : setNicknameIsValid(false);
-  };
-
-  const [password, setPassword] = useState('');
-  const [passwordIsValid, setPasswordIsValid] = useState(false);
-  const handlePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-    event.target.value.length > 2
-      ? setPasswordIsValid(true)
-      : setPasswordIsValid(false);
-  };
-
-  const [passwordConfirm, setPasswordConfirm] = useState('');
-  const [passwordConfirmIsValid, setPasswordConfirmIsValid] = useState(false);
-  const handlePasswordConfirm = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setPasswordConfirm(event.target.value);
-    event.target.value === password
-      ? setPasswordConfirmIsValid(true)
-      : setPasswordConfirmIsValid(false);
-  };
-
-  const [email, setEmail] = useState('');
-  const [emailIsValid, setEmailIsValid] = useState(false);
-  const handleEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
-    event.target.value.length > 2
-      ? setEmailIsValid(true)
-      : setEmailIsValid(false);
-  };
-
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
       email: data.get('email'),
 
-      password_confirm: data.get('password_confirm'),
+      passwordConfirm: data.get('password_confirm'),
       nickname: data.get('nickname'),
       password: data.get('password')
     });
-    if (passwordConfirmIsValid) {
+    if (data.get('password') === data.get('password_confirm')) {
       api('/signup');
     }
   };
@@ -127,96 +89,43 @@ export default function SignUp() {
                 ></Input>
               </Grid>
               <Grid item xs={12}>
-                <TextField
+                <Input
                   autoComplete=""
                   name="nickname"
                   required
-                  fullWidth
                   id="nickname"
                   label="Nickname"
-                  // eslint-disable-next-line jsx-a11y/no-autofocus
-                  autoFocus
-                  value={nickname}
-                  onChange={handleNickname}
-                />
-                {nicknameIsValid ? null : (
-                  <Typography
-                    variant="overline"
-                    display="block"
-                    gutterBottom
-                    sx={{ color: 'warning.main', height: 10, pl: 1 }}
-                  >
-                    5~20 글자
-                  </Typography>
-                )}
+                ></Input>
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
+                <Input
+                  autoComplete="new-password"
                   name="password"
+                  required
+                  id="password"
                   label="Password"
                   type="password"
-                  id="password"
-                  autoComplete="new-password"
-                  value={password}
-                  onChange={handlePassword}
-                />
-                {passwordIsValid ? null : (
-                  <Typography
-                    variant="overline"
-                    display="block"
-                    gutterBottom
-                    sx={{ color: 'warning.main', height: 10, pl: 1 }}
-                  >
-                    8~20 글자 영문, 숫자, 특수문자 조합
-                  </Typography>
-                )}
+                ></Input>
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
+                <Input
+                  autoComplete=""
                   name="password_confirm"
+                  required
+                  id="password_confirm"
                   label="Confirm Password"
                   type="password"
-                  id="password_confirm"
-                  autoComplete=""
-                  value={passwordConfirm}
-                  onChange={handlePasswordConfirm}
-                />
-                {passwordConfirmIsValid ? null : (
-                  <Typography
-                    variant="overline"
-                    display="block"
-                    gutterBottom
-                    sx={{ color: 'warning.main', height: 10, pl: 1 }}
-                  >
-                    비밀번호가 일치 하지 않습니다.
-                  </Typography>
-                )}
+                ></Input>
               </Grid>
               <Grid item xs={12}>
-                <TextField
+                <Input
+                  autoComplete="email"
+                  name="email"
                   required
-                  fullWidth
                   id="email"
                   label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  value={email}
-                  onChange={handleEmail}
-                />
-                {emailIsValid ? null : (
-                  <Typography
-                    variant="overline"
-                    display="block"
-                    gutterBottom
-                    sx={{ color: 'warning.main', height: 10, pl: 1 }}
-                  >
-                    올바른 이메일 형식이 아닙니다.
-                  </Typography>
-                )}
+                  type="email"
+                ></Input>
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
