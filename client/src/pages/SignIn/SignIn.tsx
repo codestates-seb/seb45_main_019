@@ -21,9 +21,10 @@ import { setUser } from '../../redux/slices/user';
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
-const [username, setUsername] = useState('');
-const [password, setPassword] = useState('');
+
 export default function SignIn() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
