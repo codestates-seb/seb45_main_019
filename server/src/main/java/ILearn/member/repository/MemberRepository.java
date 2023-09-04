@@ -7,6 +7,9 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 //@Repository
-//public class MemberRepository extends JpaRepository<Member, Long> {
+public interface MemberRepository extends JpaRepository<Member, Long> {
+    boolean existsByEmail(String email);
+    boolean existsByUsername(String username);
+    boolean existsByNickname(String nickname);
 //    Optional<Member> findByUsername(String username); // db에서 유저네임으로 조회하기위해 추가
-//}
+}

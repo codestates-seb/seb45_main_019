@@ -1,6 +1,5 @@
 package ILearn.global.Response;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class ApiResponse<T> {
+
     private boolean status;
     private String msg;
     private T data;
