@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/no-autofocus */
-import * as React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,18 +14,47 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Copyright from '../../components/Copyright/Copyright';
+import api from '../../common/utils/api';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../redux/hooks';
+import { setUser } from '../../redux/slices/user';
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
-
+const [username, setUsername] = useState('');
+const [password, setPassword] = useState('');
 export default function SignIn() {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password')
-    });
+    if (username.length > 0 && password.length > 0) {
+      api('/signin', 'post', { username, password })
+        .then((res) => {
+          if (res.data.success) {
+            // eslint-disable-next-line camelcase
+            const { email, username, user_Id, nickname, point, memberStatus } =
+              res.data.data;
+            dispatch(
+              setUser({
+                email: email,
+                username: username,
+                // eslint-disable-next-line camelcase
+                userId: user_Id,
+                nickname: nickname,
+                point: point,
+                memberStatus: memberStatus
+              })
+            );
+            navigate('/');
+          }
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    } else {
+      alert('정보를 올바르게 입력해주세요.');
+    }
   };
 
   return (
@@ -56,11 +85,13 @@ export default function SignIn() {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="username"
+              label="ID"
+              name="username"
+              autoComplete="id"
               autoFocus
+              value={username}
+              onChange={(event) => setUsername(event.target.value)}
             />
             <TextField
               margin="normal"
@@ -71,6 +102,8 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -91,7 +124,7 @@ export default function SignIn() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
