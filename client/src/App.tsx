@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import MainPage from './pages/Main/MainPage';
 import { Container } from '@mui/material';
 import SignUp from './pages/SignUp/SignUp';
+import SignIn from './pages/SignIn/SignIn';
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/signup" element={<SignUp></SignUp>} />
+        <Route path="/signin" element={<SignIn></SignIn>} />
       </Routes>
     </Container>
   );
