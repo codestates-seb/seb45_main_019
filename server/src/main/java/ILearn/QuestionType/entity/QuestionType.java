@@ -16,16 +16,16 @@ public class QuestionType {
     @Column(name = "questiontype_Id")
     private Long questiontypeId;
 
-    @Column(name = "뜻 보고 영단어 고르기")
+    @Column(name = "questiontype1")
     private String questiontype1;
 
-    @Column(name = "영단어 보고 뜻 고르기")
+    @Column(name = "questiontype2")
     private String questiontype2;
 
-    @Column(name = "소리 듣고 문제 맞추기")
+    @Column(name = "questiontype3")
     private String questiontype3;
 
-    @Column(name = "빈칸에 알맞은 단어 고르기")
+    @Column(name = "questiontype4")
     private String questiontype4;
 
     @OneToMany(mappedBy = "questionType")
