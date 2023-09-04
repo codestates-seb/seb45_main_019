@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-autofocus */
 import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -14,6 +15,8 @@ import api from '../../common/utils/api';
 import Input from './Input';
 import { useNavigate } from 'react-router-dom';
 import Copyright from '../../components/Copyright/Copyright';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
@@ -144,6 +147,7 @@ export default function SignUp() {
                   checkValid
                   isValid={usernameIsValid}
                   setIsValid={setUsernameIsValid}
+                  autoFocus
                 ></Input>
               </Grid>
               <Grid item xs={12}>
@@ -194,6 +198,7 @@ export default function SignUp() {
                   id="password_confirm"
                   label="Confirm Password"
                   name="password_confirm"
+                  required
                 />
                 {passwordConfirmIsValid ? null : (
                   <Typography
@@ -208,7 +213,7 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <Input
-                  autoComplete="email"
+                  autoComplete=""
                   name="email"
                   required
                   id="email"
@@ -219,14 +224,14 @@ export default function SignUp() {
                   setIsValid={setEmailIsValid}
                 ></Input>
               </Grid>
-              {/* <Grid item xs={12}>
+              <Grid item xs={12}>
                 <FormControlLabel
                   control={
                     <Checkbox value="allowExtraEmails" color="primary" />
                   }
                   label="I want to receive inspiration, marketing promotions and updates via email."
                 />
-              </Grid> */}
+              </Grid>
             </Grid>
             <Button
               type="submit"
