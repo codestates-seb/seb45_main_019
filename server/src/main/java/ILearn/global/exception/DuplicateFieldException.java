@@ -1,7 +1,7 @@
 package ILearn.global.exception;
 
-import ILearn.global.response.ApiResponse;
-import ILearn.global.response.ApiResponseException;
+import ILearn.global.Response.ApiResponse;
+import ILearn.global.Response.ApiResponseException;
 
 public class DuplicateFieldException extends ApiResponseException {
     public DuplicateFieldException(String fieldName) {

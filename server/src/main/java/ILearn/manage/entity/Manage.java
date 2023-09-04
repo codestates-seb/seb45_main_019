@@ -1,10 +1,15 @@
 package ILearn.manage.entity;
 
+import ILearn.chapter.entity.Chapter;
+import ILearn.member.entity.Member;
+import ILearn.question.entity.Question;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -16,20 +21,17 @@ public class Manage {
     @Column(name = "manage_Id")
     private Long manageId;
 
-    @Column(name = "learningName")
-    private String learningName;
+    @Column(name = "chapterName")
+    private String chapterName;
 
-    @Column(name = "learningNumber")
-    private int learningNumber;
+    @Column(name = "chapterQuestion")
+    private int chapterQuestion;
 
-    @Column(name = "learningQuestion")
-    private int learningQuestion;
+    @Column(name = "chapterStatus")
+    private String chapterStatus;
 
-    @Column(name = "learningStatus")
-    private String learningStatus;
-
-    @Column(name = "learningRecord")
-    private Boolean learningRecord;
+    @Column(name = "chapterRecord")
+    private Boolean chapterRecord;
 
     @Column(name = "correctTime")
     @Temporal(TemporalType.TIMESTAMP)
@@ -38,12 +40,15 @@ public class Manage {
     @Column(name = "point")
     private int point;
 
-//    @ManyToOne
-//    @JoinColumn(name = "question_Id")
-//    private Question question;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "user_Id")
-//    private Member member;
+    @ManyToOne
+    @JoinColumn(name = "question_Id")
+    private Question question;
+
+    @ManyToOne
+    @JoinColumn(name = "user_Id")
+    private Member member;
+
+    @OneToMany(mappedBy = "manage")
+    private List<Chapter> chapters = new ArrayList<>();
 
 }

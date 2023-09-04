@@ -48,6 +48,9 @@ dependencies {
 
 	// DB 관련 Dependencies
 	runtimeOnly 'com.h2database:h2'
+
+	//swagger 관련 추가
+	implementation 'io.springfox:springfox-boot-starter:3.0.0'
 }
 
 tasks.named('test') {

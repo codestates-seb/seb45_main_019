@@ -1,4 +1,4 @@
-package ILearn.global.response;
+package ILearn.global.Response;
 
 public class ApiResponseException extends RuntimeException{
     private final ApiResponse<?> response;

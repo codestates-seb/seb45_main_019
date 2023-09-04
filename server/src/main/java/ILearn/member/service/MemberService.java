@@ -1,8 +1,8 @@
 package ILearn.member.service;
 
 import ILearn.global.exception.DuplicateFieldException;
-import ILearn.global.response.ApiResponseException;
-import ILearn.global.response.ApiResponse;
+import ILearn.global.Response.ApiResponseException;
+import ILearn.global.Response.ApiResponse;
 import ILearn.member.dto.MemberPatchDto;
 import ILearn.member.dto.MemberResponseDto;
 import ILearn.member.entity.Member;
