@@ -2,6 +2,8 @@ package ILearn.global.auth.config;
 
 import ILearn.global.auth.filter.JwtAuthenticationFilter;
 import ILearn.global.auth.filter.JwtVerificationFilter;
+import ILearn.global.auth.handler.MemberAccessDeniedHandler;
+import ILearn.global.auth.handler.MemberAuthenticationEntryPoint;
 import ILearn.global.auth.handler.MemberAuthenticationFailureHandler;
 import ILearn.global.auth.handler.MemberAuthenticationSuccessHandler;
 import ILearn.global.auth.jwt.JwtTokenizer;
@@ -29,7 +31,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity(debug = true)
 public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
-    private final CustomAuthorityUtils authorityUtils; // 추가
+    private final CustomAuthorityUtils authorityUtils;
 
     public SecurityConfiguration(JwtTokenizer jwtTokenizer,
                                    CustomAuthorityUtils authorityUtils) {
@@ -48,16 +50,19 @@ public class SecurityConfiguration {
                 .and()
                 .formLogin().disable()
                 .httpBasic().disable()
+                .exceptionHandling()
+                .authenticationEntryPoint(new MemberAuthenticationEntryPoint())  // 추가
+                .accessDeniedHandler(new MemberAccessDeniedHandler())            // 추가
+                .and()
                 .apply(new CustomFilterConfigurer())
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
-                       /* .antMatchers("/learning/**").permitAll() 비로그인 로직 추후 추가 */
-                        .antMatchers(HttpMethod.POST, "/*/members").permitAll()
-                .antMatchers(HttpMethod.PATCH, "/*/members/**").hasRole("USER")
-                .antMatchers(HttpMethod.GET, "/*/members").hasRole("ADMIN")
-                .antMatchers(HttpMethod.GET, "/*/members/**").hasAnyRole("USER", "ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/*/members/**").hasRole("USER")
-                .anyRequest().permitAll()
+                                .antMatchers(HttpMethod.POST, "/*/members").permitAll()
+                                .antMatchers(HttpMethod.PATCH, "/*/members/**").hasRole("USER")
+                                .antMatchers(HttpMethod.GET, "/*/members").hasRole("ADMIN")
+                                .antMatchers(HttpMethod.GET, "/*/members/**").hasAnyRole("USER", "ADMIN")
+                                .antMatchers(HttpMethod.DELETE, "/*/members/**").hasRole("USER")
+                                .anyRequest().permitAll()
                 );
         return http.build();
     }
@@ -83,13 +88,11 @@ public class SecurityConfiguration {
             jwtAuthenticationFilter.setFilterProcessesUrl("/members/login");
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
-
             JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);
 
             builder
-                    .addFilterBefore(jwtVerificationFilter, JwtAuthenticationFilter.class)
-                    .addFilter(jwtAuthenticationFilter);
+                    .addFilter(jwtAuthenticationFilter)
+                    .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);
         }
     }
-
 }

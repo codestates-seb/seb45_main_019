@@ -1,11 +1,12 @@
 package ILearn.member.service;
 
+import ILearn.global.auth.jwt.JwtTokenizer;
 import ILearn.global.auth.loginDto.LoginDto;
 import ILearn.member.entity.Member;
 import ILearn.member.mapper.MemberMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
+import java.util.*;
 
 import ILearn.global.exception.DuplicateFieldException;
 import ILearn.global.response.ApiResponseException;
@@ -17,8 +18,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
-import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,10 +25,12 @@ import java.util.stream.Collectors;
 public class MemberService {
     private final Validator validator;
     private final MemberRepository memberRepository;
+    private final JwtTokenizer jwtTokenizer;
 
-    public MemberService(Validator validator, MemberRepository memberRepository) {
+    public MemberService(Validator validator, MemberRepository memberRepository, JwtTokenizer jwtTokenizer) {
         this.validator = validator;
         this.memberRepository = memberRepository;
+        this.jwtTokenizer = jwtTokenizer;
     }
 
     // 회원가입
@@ -38,6 +39,7 @@ public class MemberService {
 
         return memberRepository.save(member);
     }
+
 
     // 회원조회
     public MemberResponseDto getMember(Long user_id) {
@@ -105,14 +107,6 @@ public class MemberService {
         }
         return optionalMember.get();
     }
-    public Member performLoginAuthentication(LoginDto loginDto) {
-        //사용자명과 비밀번호로 인증을 수행하고 인증된 사용자 정보를 반환
-        //데이터베이스에서 사용자를 조회하고 인증되면 사용자 정보를 반환
-        Member authenticatedMember = new Member();
-        authenticatedMember.setUsername(loginDto.getUsername());
-        authenticatedMember.setRoles(Collections.singletonList("USER")); // 예시롤 설정
-        return authenticatedMember;
-    }
 
     // [회원수정] 작성 양식에 맞추지 않거나, 중복된 닉네임에 대한 유효성 검사
     private void patchValidateAndCheckDuplicate(MemberPatchDto patchDto) {
@@ -132,4 +126,3 @@ public class MemberService {
 
     }
 }
-
