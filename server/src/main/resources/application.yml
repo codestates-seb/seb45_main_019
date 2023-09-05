@@ -16,3 +16,9 @@ spring:
     hibernate:
       ddl-auto: update
     database-platform: org.hibernate.dialect.H2Dialect
+  cors:
+    allowed-origins: ""
+    allowed-methods: ""
+    allowed-headers: ""
+    exposed-headers: ""
+    allow-credentials: true
