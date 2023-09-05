@@ -74,7 +74,7 @@ export default function SignUp() {
       username: data.get('username'),
       nickname: data.get('nickname'),
       password: data.get('password'),
-      passwordConfirm: data.get('password_confirm'),
+      // passwordConfirm: data.get('password_confirm'),
       email: data.get('email')
     };
 
@@ -87,19 +87,18 @@ export default function SignUp() {
       info.username &&
       info.nickname &&
       info.password &&
-      info.passwordConfirm &&
+      // info.passwordConfirm &&
       info.email &&
       info.username.length > 0 &&
       info.nickname.length > 0 &&
       info.password.length > 0 &&
-      info.passwordConfirm.length > 0 &&
+      // info.passwordConfirm.length > 0 &&
       info.email.length > 0
     ) {
       api('/members', 'post', info)
         .then((res) => {
           console.log(res.data.msg);
-
-          if (res.data.success) {
+          if (res.data.status) {
             alert('가입이 성공적으로 처리되었습니다.');
             navigate('/signin');
           }
