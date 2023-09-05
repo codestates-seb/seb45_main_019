@@ -19,6 +19,9 @@ public class Chapter {
     @Column(name = "chapter_id")
     private Long chapterId;
 
+    @Column(name = "chapter_title")
+    private String title;
+
     @OneToMany(mappedBy = "chapter")
     private List<Question> questions = new ArrayList<>();
 

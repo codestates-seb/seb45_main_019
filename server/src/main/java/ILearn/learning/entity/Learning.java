@@ -1,5 +1,7 @@
 package ILearn.learning.entity;
 
+import ILearn.chapter.entity.Chapter;
+import ILearn.member.entity.Member;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,11 +17,11 @@ public class Learning {
     @Column(name = "learning_Id")
     private Long learningId;
 
-//    @ManyToOne
-//    @JoinColumn(name = "chapter_Id")
-//    private Chapter chapter;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "user_Id")
-//    private Member member;
+    @ManyToOne
+    @JoinColumn(name = "chapter_Id")
+    private Chapter chapter;
+
+    @ManyToOne
+    @JoinColumn(name = "user_Id")
+    private Member member;
 }
