@@ -12,6 +12,7 @@ export default function Input(props: {
   checkValid?: boolean;
   isValid?: boolean;
   setIsValid: (state: boolean) => void;
+  autoFocus?: boolean;
 }) {
   const [value, setValue] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
