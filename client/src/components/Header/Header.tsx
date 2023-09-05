@@ -19,15 +19,13 @@ import { useState } from 'react';
 export default function Header() {
   const location = useLocation().pathname;
 
-  // 로그인 기능 완료 후 전역 상태로 변경
+  // TODO : 로그인 기능 완료 후 전역 상태로 변경
   const [loggedIn, setLoggedIn] = useState(false);
 
   // TODO: 로그아웃 처리
   const handleLogout = () => {
     console.log('log out');
   };
-
-  console.log(location);
 
   if (location === '/learn') return null;
 
@@ -50,7 +48,7 @@ export default function Header() {
             />
           </Link>
           <Stack direction={'row'} spacing={2}>
-            <Link to="/learn">
+            <Link to="/">
               <Tooltip title="단어장">
                 <IconButton
                   size="medium"
@@ -77,7 +75,7 @@ export default function Header() {
                 </IconButton>
               </Tooltip>
             ) : (
-              <Link to="/">
+              <Link to="/signin">
                 <Tooltip title="로그인">
                   <IconButton size="medium" color="primary">
                     <LoginRounded fontSize="inherit" />

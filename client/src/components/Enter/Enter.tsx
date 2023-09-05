@@ -1,12 +1,12 @@
 import { Box, Button, Container, Typography } from '@mui/material';
 import GuideBook from '../GuideBook/GuideBook';
 import { useAppSelector } from '../../redux/hooks';
+import { Link } from 'react-router-dom';
 
 export default function Enter() {
   const chapter = useAppSelector((state) => state.chapter);
   const imgSrc = `images/chapter${chapter.chapterId}.png`;
 
-  console.log(chapter);
   return (
     <Container
       sx={{
@@ -48,7 +48,9 @@ export default function Enter() {
             sx={{ marginTop: 10 }}
             disabled={chapter.chapterStatus}
           >
-            {chapter.chapterStatus ? '학습완료' : '학습하기'}
+            <Link to="/learn" style={{ color: '#fff' }}>
+              {chapter.chapterStatus ? '학습완료' : '학습하기'}
+            </Link>
           </Button>
         </Box>
       </Box>
