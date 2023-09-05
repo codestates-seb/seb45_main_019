@@ -16,7 +16,6 @@ export default function Nav(props: NavProps) {
       sx={{
         width: '100%',
         maxWidth: 300,
-        height: '100vh',
         overflowY: 'scroll',
         padding: 0
       }}
