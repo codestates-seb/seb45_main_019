@@ -17,7 +17,7 @@ public class CorsConfig implements WebMvcConfigurer {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080", "http://localhost:3000", "http://i-learn.s3-website.ap-northeast-2.amazonaws.com/"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080", "http://localhost:3000", "http://i-learn.s3-website.ap-northeast-2.amazonaws.com", "http://ec2-13-209-48-235.ap-northeast-2.compute.amazonaws.com:8080"));
         configuration.setAllowedMethods(Arrays.asList("GET", "PATCH", "DELETE", "POST", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setExposedHeaders(Arrays.asList("Authorization", "Refresh", "memberId"));
@@ -31,7 +31,7 @@ public class CorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:8080", "http://localhost:3000", "http://i-learn.s3-website.ap-northeast-2.amazonaws.com/")
+                .allowedOrigins("http://localhost:8080", "http://localhost:3000", "http://i-learn.s3-website.ap-northeast-2.amazonaws.com", "http://ec2-13-209-48-235.ap-northeast-2.compute.amazonaws.com:8080")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // OPTIONS 메서드 추가
                 .allowedHeaders("Authorization", "Content-Type")
                 .exposedHeaders("Authorization", "Custom-Header")
