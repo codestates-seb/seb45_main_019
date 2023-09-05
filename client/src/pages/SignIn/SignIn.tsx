@@ -47,6 +47,9 @@ export default function SignIn() {
                 memberStatus: memberStatus
               })
             );
+
+            // localStorage.setItem('token', res.headers.Authorization);
+
             navigate('/');
           }
         })
