@@ -6,7 +6,8 @@ import { Chapter, UserChapter } from '../../interfaces/Chapter.interface';
 import { useLocation } from 'react-router-dom';
 import { useAppDispatch } from '../../redux/hooks';
 import { setChapter } from '../../redux/slices/chapter';
-import Header from '../../components/Header/Header';
+import { GlobalContainer } from '../../style/Global.styled';
+
 export default function MainPage() {
   const [chapterList, setChapterList] = useState<Chapter[]>([]);
   // const [userChapter, setUserChapter] = useState<UserChapter>();
@@ -46,10 +47,9 @@ export default function MainPage() {
   }, []);
 
   return (
-    <React.Fragment>
-      <Header />
+    <GlobalContainer>
       <Nav chapterList={chapterList} location={location} />
       <Enter />
-    </React.Fragment>
+    </GlobalContainer>
   );
 }

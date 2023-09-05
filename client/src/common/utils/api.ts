@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 const SERVER_URL =
-  // 'http://ec2-13-209-48-235.ap-northeast-2.compute.amazonaws.com:8080';
-  'https://b0bf-14-36-94-78.ngrok-free.app';
+  'http://ec2-13-209-48-235.ap-northeast-2.compute.amazonaws.com:8080';
 
 const api = (
   uri: string,
