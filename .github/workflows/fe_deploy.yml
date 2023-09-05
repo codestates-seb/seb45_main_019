@@ -13,7 +13,7 @@ jobs:
         run: npm i --force
         working-directory: ./client
       - name: Build
-        run: npm run build
+        run: CI='' npm run build
         working-directory: ./client
       - name: SHOW AWS CLI VERSION
         run: |
