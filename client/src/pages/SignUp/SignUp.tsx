@@ -95,7 +95,7 @@ export default function SignUp() {
       info.passwordConfirm.length > 0 &&
       info.email.length > 0
     ) {
-      api('/signup', 'post', info)
+      api('/members', 'post', info)
         .then((res) => {
           console.log(res.data.msg);
 
