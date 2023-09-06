@@ -99,7 +99,7 @@ export default function SignUp() {
         .then((res) => {
           console.log(res.data.msg);
 
-          if (res.data.success) {
+          if (res.data.status) {
             alert('가입이 성공적으로 처리되었습니다.');
             navigate('/signin');
           }
