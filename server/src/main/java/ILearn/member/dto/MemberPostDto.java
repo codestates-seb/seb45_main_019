@@ -16,22 +16,22 @@ import javax.validation.constraints.Pattern;
 @NoArgsConstructor
 public class MemberPostDto {
 
-    @NotBlank(message = "아이디를 입력해주세요")
+    @NotBlank(message = "USERNAME_NOT_BLANK") // 아이디를 입력해주세요.
     @Pattern(regexp = "^[a-z0-9]{5,20}$",
-            message = "아이디는 5~20자 영소문자와 숫자로 이루어져야 합니다")
+            message = "USERNAME_ERROR") // 아이디는 5~20자 영소문자와 숫자로 이루어져야 합니다.
     private String username;
 
-    @NotBlank(message = "비밀번호를 입력해주세요")
+    @NotBlank(message = "PASSWORD_NOT_BLANK") // 비밀번호를 입력해주세요.
     @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,20}$",
-            message = "비밀번호는 하나 이상의 영문, 숫자, 특수 문자를 포함, 8~20자리 입니다")
+            message = "PASSWORD_ERROR") // 비밀번호는 하나 이상의 영문, 숫자, 특수 문자를 포함, 8~20자리 입니다.
     private String password;
 
-    @NotBlank(message = "닉네임을 입력해주세요")
-    @Pattern(regexp = "^[A-Za-z0-9가-힣]{5,20}$",
-            message = "닉네임은 5~20글자로 이루어져야 합니다")
+    @NotBlank(message = "NICKNAME_NOT_BLANK") // 닉네임을 입력해주세요
+    @Pattern(regexp = "^[A-Za-z0-9가-힣$@!%*#?&]{5,20}$",
+            message = "NICKNAME_ERROR") // 닉네임은 5~20글자로 이루어져야 하며, 특수문자도 포함 가능합니다.
     private String nickname;
 
-    @NotBlank(message = "이메일을 입력해주세요")
-    @Email(message = "올바른 이메일 형식을 입력해주세요")
+    @NotBlank(message = "EMAIL_NOT_BLANK") // 이메일을 입력해주세요.
+    @Email(message = "EMAIL_ERROR") // 올바른 이메일 형식을 입력해주세요.
     private String email;
 }

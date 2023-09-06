@@ -4,12 +4,14 @@ import ILearn.global.exception.DuplicateFieldException;
 import ILearn.global.Response.ApiResponseException;
 import ILearn.global.Response.ApiResponse;
 import ILearn.member.dto.MemberPatchDto;
+import ILearn.member.dto.MemberPostDto;
 import ILearn.member.dto.MemberResponseDto;
 import ILearn.member.entity.Member;
 import ILearn.member.mapper.MemberMapper;
 import ILearn.member.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.FieldError;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
@@ -68,6 +70,7 @@ public class MemberService {
 
     // [회원가입] 작성 양식에 맞추지 않거나, 중복된 이메일, 아이디, 닉네임에 대한 유효성 검사
     private void validateAndCheckDuplicate(Member member) {
+        int errorCode = 0;
         // Dto의 애너테이션 유효성검사를 실행하고
         Set<ConstraintViolation<Member>> violations = validator.validate(member);
 
@@ -77,17 +80,17 @@ public class MemberService {
                     .map(violation -> violation.getPropertyPath() + ": " + violation.getMessage())
                     .collect(Collectors.joining(", "));
 
-            throw new ApiResponseException(new ApiResponse<>(false, errorMsg), new RuntimeException(errorMsg));
+            throw new ApiResponseException(new ApiResponse<>(false, errorCode, errorMsg), new RuntimeException(errorMsg));
         }
         // 중복검사 로직
         if (memberRepository.existsByEmail(member.getEmail())) {
-            throw new DuplicateFieldException("이메일");
+            throw new DuplicateFieldException("EMAIL", 900);
         }
         if (memberRepository.existsByUsername(member.getUsername())) {
-            throw new DuplicateFieldException("아이디");
+            throw new DuplicateFieldException("USERNAME", 901);
         }
         if (memberRepository.existsByNickname(member.getNickname())) {
-            throw new DuplicateFieldException("닉네임");
+            throw new DuplicateFieldException("NICKNAME", 902);
         }
     }
 
@@ -96,7 +99,7 @@ public class MemberService {
         Optional<Member> optionalMember = memberRepository.findById(user_id);
 
         if (optionalMember.isEmpty()) {
-            ApiResponse<Void> response = new ApiResponse<>(false, "유저가 존재하지 않습니다.");
+            ApiResponse<Void> response = new ApiResponse<>(false, 920,"USER_NOT_FOUND");
             throw new ApiResponseException(response, new RuntimeException());
         }
         return optionalMember.get();
@@ -104,18 +107,37 @@ public class MemberService {
 
     // [회원수정] 작성 양식에 맞추지 않거나, 중복된 닉네임에 대한 유효성 검사
     private void patchValidateAndCheckDuplicate(MemberPatchDto patchDto) {
+
         Set<ConstraintViolation<MemberPatchDto>> violations = validator.validate(patchDto);
 
         if (!violations.isEmpty()) {
             String errorMsg = violations.stream()
                     .map(violation -> violation.getPropertyPath() + ": " + violation.getMessage())
-                    .collect(Collectors.joining(", "));
+                    .findFirst()
+                    .orElse("유효성 검사에 실패했습니다(디폴트 메세지)");
 
-            throw new ApiResponseException(new ApiResponse<>(false, errorMsg), new RuntimeException(errorMsg));
+            // 필요없이 출력되는 부분 삭제
+            String replaceErrorMsg = errorMsg
+                    .replace("nickname: ", "")
+                    .replace("password: ", "");
+
+            int errorCode = 0;
+            // 리팩토링 필요, ExceptionAdvice 클래스를 사용하는게 과연 맞는일인가?
+            if (replaceErrorMsg.contains("PASSWORD_NOT_BLANK")) {
+                errorCode = 905;
+            } else if(replaceErrorMsg.contains("PASSWORD_ERROR")) {
+                errorCode = 906;
+            } else if (replaceErrorMsg.contains("NICKNAME_NOT_BLANK")) {
+                errorCode = 907;
+            } else if(replaceErrorMsg.contains("NICKNAME_ERROR")) {
+                errorCode = 908;
+            }
+
+            throw new ApiResponseException(new ApiResponse<>(false, errorCode, replaceErrorMsg), new RuntimeException(replaceErrorMsg));
         }
 
         if (memberRepository.existsByNickname(patchDto.getNickname())) {
-            throw new DuplicateFieldException("닉네임");
+            throw new DuplicateFieldException("NICKNAME", 902);
         }
     }
 }

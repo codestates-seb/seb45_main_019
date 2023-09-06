@@ -1,6 +1,8 @@
 package ILearn.member.entity;
 
+//import ILearn.chapter.entity.Chapter;
 import ILearn.chapter.entity.Chapter;
+
 import javax.persistence.*;
 
 @Entity
