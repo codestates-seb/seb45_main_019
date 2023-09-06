@@ -7,6 +7,7 @@ import ILearn.member.entity.Member;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 @Mapper(componentModel = "spring")
 public interface MemberMapper {

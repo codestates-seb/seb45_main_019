@@ -1,7 +1,7 @@
 package ILearn.word.service;
 
-import ILearn.global.Response.ApiResponse;
-import ILearn.global.Response.ApiResponseException;
+import ILearn.global.response.ApiResponse;
+import ILearn.global.response.ApiResponseException;
 import ILearn.member.dto.MemberResponseDto;
 import ILearn.member.entity.Member;
 import ILearn.member.mapper.MemberMapper;

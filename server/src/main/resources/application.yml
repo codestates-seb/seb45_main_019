@@ -21,3 +21,10 @@ spring:
     hibernate:
       ddl-auto: update
     database-platform: org.hibernate.dialect.H2Dialect
+jwt:
+    key: LEARN123
+    access-token-expiration-minutes: 40
+    refresh-token-expiration-minutes: 420
+user:
+    admin:
+      username: raeseop123
