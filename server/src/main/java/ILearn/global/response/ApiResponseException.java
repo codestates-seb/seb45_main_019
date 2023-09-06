@@ -7,6 +7,7 @@ public class ApiResponseException extends RuntimeException{
         this.response = response;
     }
     public ApiResponse<?> getResponse() {
+
         return response;
     }
 }
