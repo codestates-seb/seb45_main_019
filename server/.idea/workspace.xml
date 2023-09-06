@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="177cdf59-312d-4dd9-ba90-a1eb86343878" name="Changes" comment="">
 <<<<<<< HEAD
+<<<<<<< HEAD
       <change afterPath="$PROJECT_DIR$/src/main/java/ILearn/auth/filter/JwtAuthenticationFilter.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/ILearn/auth/filter/JwtVerificationFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
@@ -41,6 +42,13 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/ILearn/member/entity/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ILearn/member/entity/Member.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ILearn/member/repository/MemberRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ILearn/member/repository/MemberRepository.java" afterDir="false" />
 >>>>>>> e31b6ce2ac7f3885a710d6f7dcae6533a257985a
+=======
+      <change afterPath="$PROJECT_DIR$/src/main/java/ILearn/question/entity/Question.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ILearn/manage/entity/Manage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ILearn/manage/entity/Manage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ILearn/word/dto/WordGetDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ILearn/word/dto/WordGetDto.java" afterDir="false" />
+>>>>>>> e04f851ab3a922a2d63d09c7fe9c99724c5ee55a
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,6 +128,7 @@
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;project.structure.last.edited&quot;: &quot;SDK Location&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
@@ -130,6 +139,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="ILearn.question.entity" />
       <recent name="ILearn.member.dto" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -184,7 +194,12 @@
       <workItem from="1693186793594" duration="3951000" />
       <workItem from="1693276182374" duration="21000" />
 <<<<<<< HEAD
+<<<<<<< HEAD
       <workItem from="1693381161882" duration="20000" />
+=======
+      <workItem from="1693353688665" duration="14166000" />
+      <workItem from="1693442252405" duration="3429000" />
+>>>>>>> e04f851ab3a922a2d63d09c7fe9c99724c5ee55a
 =======
       <workItem from="1693353688665" duration="9930000" />
       <workItem from="1693380323471" duration="4826000" />

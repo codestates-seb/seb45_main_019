@@ -2,6 +2,8 @@ package ILearn.member.service;
 
 
 import ILearn.global.auth.utils.CustomAuthorityUtils;
+import ILearn.global.response.ApiResponse;
+import ILearn.global.response.ApiResponseException;
 import ILearn.member.entity.Member;
 import ILearn.member.mapper.MemberMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -10,12 +12,11 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 import ILearn.global.exception.DuplicateFieldException;
-import ILearn.global.response.ApiResponseException;
-import ILearn.global.response.ApiResponse;
 import ILearn.member.dto.MemberPatchDto;
 import ILearn.member.dto.MemberResponseDto;
 import ILearn.member.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
+
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
@@ -149,7 +150,7 @@ public class MemberService{
                 errorCode = 908;
             }
 
-            throw new ApiResponseException(new ApiResponse<>(false, errorCode, replaceErrorMsg), new RuntimeException(replaceErrorMsg));
+            throw new ApiResponseException(new ApiResponse<Object>(false, errorCode, replaceErrorMsg), new RuntimeException(replaceErrorMsg));
         }
 
         if (memberRepository.existsByNickname(patchDto.getNickname())) {

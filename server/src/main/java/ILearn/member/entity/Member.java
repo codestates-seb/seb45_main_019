@@ -1,5 +1,8 @@
 package ILearn.member.entity;
 
+import ILearn.learning.entity.Learning;
+import ILearn.manage.entity.Manage;
+import ILearn.question.entity.Question;
 import ILearn.word.entity.Word;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -40,6 +44,7 @@ public class Member {
     @Column(name = "registration_date")
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date registrationDate;
+
 //    public String getFormattedRegistrationDate() { // 가입시간 한국 시간, 연 월 일 분 초
 //        TimeZone timeZone = TimeZone.getTimeZone("Asia/Seoul");
 //        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
@@ -65,20 +70,24 @@ public class Member {
 //    private List<Word> words;
 //
     @OneToMany
-    @JoinColumn(name = "word_Id")
+    @JoinColumn(name = "member")
     private List<Word> words;
 
-//    @OneToMany
-//    @JoinColumn(name = "learning_Id")
-//    private List<Learning> learnings;
-//
-//    @OneToMany
-//    @JoinColumn(name = "question_Id")
-//    private List<Question> questions;
-//
-//    @OneToOne
-//    @JoinColumn(name = "manage_Id")
-//    private Manage manage;
+    @OneToMany
+    @JoinColumn(name = "learning_Id")
+    private List<Learning> learnings;
+
+    @OneToMany
+    @JoinColumn(name = "question_Id")
+    private List<Question> questions;
+
+    @OneToOne
+    @JoinColumn(name = "manage_Id")
+    private Manage manage;
+
+    @OneToMany(mappedBy = "member")
+    private List<MemberChapter> memberChapters = new ArrayList<>();
+
 
     public enum MemberStatus {
         MEMBER_ACTIVE("활동중"),

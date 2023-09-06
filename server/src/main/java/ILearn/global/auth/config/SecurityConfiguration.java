@@ -55,7 +55,7 @@ public class SecurityConfiguration {
                 .apply(new CustomFilterConfigurer())
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
-                        .antMatchers("/chapter/**").permitAll() // "/chapter" 경로의 모든 서비스를 비 로그인 사용자에게 허용
+                        .antMatchers("/learning/**").permitAll() // "/learning" 경로의 모든 서비스를 비 로그인 사용자에게 허용
                         .antMatchers(HttpMethod.POST, "/members").permitAll() // 회원가입 엔드포인트 허용
                         .antMatchers(HttpMethod.PATCH, "/members/**").hasRole("USER") // 회원 업데이트를 USER 역할을 가진 사용자에게만 허용
                         .antMatchers(HttpMethod.GET, "/members/**").hasAnyRole("USER", "ADMIN") // 회원 정보 조회를 USER 및 ADMIN 역할을 가진 사용자에게 허용
@@ -72,7 +72,7 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    CorsConfigurationSource corsConfigurationSource() {
+    CorsConfigurationSource corsConfigurationSources() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("*"));
         configuration.setAllowedMethods(Arrays.asList("GET","POST", "PATCH", "DELETE"));
