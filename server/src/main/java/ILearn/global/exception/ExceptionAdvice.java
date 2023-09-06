@@ -19,12 +19,41 @@ public class ExceptionAdvice {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiResponse<?> methodArgumentExceptionHandler(MethodArgumentNotValidException e) {
-        List<String> errorMessages = e.getBindingResult().getFieldErrors().stream()
+//         = = = = = = 애너테이션 유효성 검사에 대해 모든 예외 메세지를 담아서 반환 = = = = = = =
+//        List<String> errorMessages = e.getBindingResult().getFieldErrors().stream()
+//                .map(FieldError::getDefaultMessage)
+//                .collect(Collectors.toList());
+//
+//        String errorMessage = String.join(", ", errorMessages);
+//
+//        return new ApiResponseException(new ApiResponse<>(false, errorMessage), e).getResponse();
+
+//         = = = = = = 애너테이션 유효성 검사에 대해 하나의 예외 메세지를 담아서 반환 = = = = = = =
+        String errorMessage = e.getBindingResult().getFieldErrors().stream()
                 .map(FieldError::getDefaultMessage)
-                .collect(Collectors.toList());
+                .findFirst()
+                .orElse("유효성 검사에 실패했습니다(디폴트 메시지)");
 
-        String errorMessage = String.join(", ", errorMessages);
+        int errorCode = 0;
 
-        return new ApiResponseException(new ApiResponse<>(false, errorMessage), e).getResponse();
+        if (errorMessage.contains("USERNAME_NOT_BLANK")) {
+            errorCode = 903;
+        } else if(errorMessage.contains("USERNAME_ERROR")) {
+            errorCode = 904;
+        } else if (errorMessage.contains("PASSWORD_NOT_BLANK")) {
+            errorCode = 905;
+        } else if(errorMessage.contains("PASSWORD_ERROR")) {
+            errorCode = 906;
+        } else if (errorMessage.contains("NICKNAME_NOT_BLANK")) {
+            errorCode = 907;
+        } else if(errorMessage.contains("NICKNAME_ERROR")) {
+            errorCode = 908;
+        } else if(errorMessage.contains("EMAIL_NOT_BLANK")) {
+            errorCode = 909;
+        } else if (errorMessage.contains("EMAIL_ERROR")) {
+            errorCode = 910;
+        }
+
+        return new ApiResponseException(new ApiResponse<>(false, errorCode, errorMessage), e).getResponse();
     }
 }

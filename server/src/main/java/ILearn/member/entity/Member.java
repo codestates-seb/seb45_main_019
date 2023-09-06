@@ -41,6 +41,7 @@ public class Member {
     @Column(name = "registration_date")
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date registrationDate;
+
 //    public String getFormattedRegistrationDate() { // 가입시간 한국 시간, 연 월 일 분 초
 //        TimeZone timeZone = TimeZone.getTimeZone("Asia/Seoul");
 //        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");

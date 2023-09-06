@@ -2,13 +2,10 @@ package ILearn.question.entity;
 
 import ILearn.QuestionType.entity.QuestionType;
 import ILearn.chapter.entity.Chapter;
-import ILearn.manage.entity.Manage;
-import ILearn.member.entity.Member;
 import ILearn.word.entity.Word;
 import lombok.Getter;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Getter
 @Entity

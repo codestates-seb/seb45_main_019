@@ -2,23 +2,22 @@ spring:
   h2:
     console:
       enabled: true
+      path: /h2
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
   datasource:
-    url: jdbc:h2:mem:testdb
+    url: jdbc:h2:mem:test
     driver-class-name: org.h2.Driver
     username: sa
     password:
+  sql:
+    init:
+      schema-locations: classpath*:db.h2/schema.sql
+      data-locations: classpath*:db.h2/data.sql
   jpa:
     hibernate:
       ddl-auto: update
     database-platform: org.hibernate.dialect.H2Dialect
-  cors:
-    allowed-origins: ""
-    allowed-methods: ""
-    allowed-headers: ""
-    exposed-headers: ""
-    allow-credentials: true

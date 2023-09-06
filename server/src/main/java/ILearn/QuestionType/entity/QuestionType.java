@@ -13,23 +13,21 @@ import java.util.List;
 public class QuestionType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "questiontype_Id")
-    private Long questiontypeId;
+    @Column(name = "questionType_Id")
+    private Long questionTypeId;
 
-    @Column(name = "questiontype1")
-    private String questiontype1;
+    @Column(name = "questionType1")
+    private String questionType1;
 
-    @Column(name = "questiontype2")
-    private String questiontype2;
+    @Column(name = "questionType2")
+    private String questionType2;
 
-    @Column(name = "questiontype3")
-    private String questiontype3;
+    @Column(name = "questionType3")
+    private String questionType3;
 
-    @Column(name = "questiontype4")
-    private String questiontype4;
+    @Column(name = "questionType4")
+    private String questionType4;
 
     @OneToMany(mappedBy = "questionType")
     private List<Question>questions;
-
-
 }
