@@ -3,6 +3,7 @@ package ILearn.global.auth.jwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.security.Keys;
@@ -61,7 +62,6 @@ public class JwtTokenizer {
                 .signWith(key)
                 .compact();
     }
-
     // 검증 후, Claims을 반환 하는 용도
     public Jws<Claims> getClaims(String jws, String base64EncodedSecretKey) {
         Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
@@ -91,7 +91,7 @@ public class JwtTokenizer {
     }
     private Key getKeyFromBase64EncodedKey(String base64EncodedSecretKey) {
         byte[] keyBytes = Decoders.BASE64.decode(base64EncodedSecretKey);
-        Key key = Keys.hmacShaKeyFor(keyBytes);
+        Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
         return key;
     }

@@ -2,20 +2,16 @@ package ILearn.global.auth.config;
 
 import ILearn.global.auth.filter.JwtAuthenticationFilter;
 import ILearn.global.auth.filter.JwtVerificationFilter;
-import ILearn.global.auth.handler.MemberAccessDeniedHandler;
-import ILearn.global.auth.handler.MemberAuthenticationEntryPoint;
 import ILearn.global.auth.handler.MemberAuthenticationFailureHandler;
 import ILearn.global.auth.handler.MemberAuthenticationSuccessHandler;
 import ILearn.global.auth.jwt.JwtTokenizer;
 import ILearn.global.auth.utils.CustomAuthorityUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -26,6 +22,12 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.Arrays;
 
 import static org.springframework.security.config.Customizer.withDefaults;
+
+
+import org.springframework.http.HttpMethod;
+
+import org.springframework.security.config.http.SessionCreationPolicy;
+
 
 @Configuration
 @EnableWebSecurity(debug = true)
@@ -50,26 +52,25 @@ public class SecurityConfiguration {
                 .and()
                 .formLogin().disable()
                 .httpBasic().disable()
-                .exceptionHandling()
-                .authenticationEntryPoint(new MemberAuthenticationEntryPoint())  // 추가
-                .accessDeniedHandler(new MemberAccessDeniedHandler())            // 추가
-                .and()
                 .apply(new CustomFilterConfigurer())
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
-                                .antMatchers(HttpMethod.POST, "/*/members").permitAll()
-                                .antMatchers(HttpMethod.PATCH, "/*/members/**").hasRole("USER")
-                                .antMatchers(HttpMethod.GET, "/*/members").hasRole("ADMIN")
-                                .antMatchers(HttpMethod.GET, "/*/members/**").hasAnyRole("USER", "ADMIN")
-                                .antMatchers(HttpMethod.DELETE, "/*/members/**").hasRole("USER")
-                                .anyRequest().permitAll()
+                        .antMatchers("/chapter/**").permitAll() // "/chapter" 경로의 모든 서비스를 비 로그인 사용자에게 허용
+                        .antMatchers(HttpMethod.POST, "/members").permitAll() // 회원가입 엔드포인트 허용
+                        .antMatchers(HttpMethod.PATCH, "/members/**").hasRole("USER") // 회원 업데이트를 USER 역할을 가진 사용자에게만 허용
+                        .antMatchers(HttpMethod.GET, "/members/**").hasAnyRole("USER", "ADMIN") // 회원 정보 조회를 USER 및 ADMIN 역할을 가진 사용자에게 허용
+                        .antMatchers(HttpMethod.DELETE, "/members/**").hasRole("USER") // 회원 삭제를 USER 역할을 가진 사용자에게만 허용
+                        .anyRequest().authenticated() // 나머지 요청은 인증된 사용자에게만 허용
+
                 );
         return http.build();
     }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
+
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -79,6 +80,8 @@ public class SecurityConfiguration {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
+
     public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterConfigurer, HttpSecurity> {
         @Override
         public void configure(HttpSecurity builder) throws Exception {
@@ -89,7 +92,6 @@ public class SecurityConfiguration {
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
             JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);
-
             builder
                     .addFilter(jwtAuthenticationFilter)
                     .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);

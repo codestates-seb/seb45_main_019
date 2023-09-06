@@ -18,6 +18,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -69,27 +70,38 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         refreshTokenCookie.setPath("/"); // 쿠키의 경로 설정
         response.addCookie(refreshTokenCookie);
     }
+
     private String delegateAccessToken(Member member) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("username", member.getUsername());
         claims.put("roles", member.getRoles());
 
         String subject = member.getUsername();
-        Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getAccessTokenExpirationMinutes());
-
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
+
+        // JWT 토큰의 만료 시간을 계산하여 설정
+        Calendar expirationCalendar = Calendar.getInstance();
+        expirationCalendar.add(Calendar.MINUTE, jwtTokenizer.getAccessTokenExpirationMinutes());
+        Date expiration = expirationCalendar.getTime();
 
         String accessToken = jwtTokenizer.generateAccessToken(claims, subject, expiration, base64EncodedSecretKey);
 
         return accessToken;
     }
+
     private String delegateRefreshToken(Member member) {
         String subject = member.getUsername();
-        Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getRefreshTokenExpirationMinutes());
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
+
+        // JWT 토큰의 만료 시간을 계산하여 설정
+        Calendar expirationCalendar = Calendar.getInstance();
+        expirationCalendar.add(Calendar.MINUTE, jwtTokenizer.getRefreshTokenExpirationMinutes());
+        Date expiration = expirationCalendar.getTime();
 
         String refreshToken = jwtTokenizer.generateRefreshToken(subject, expiration, base64EncodedSecretKey);
 
         return refreshToken;
     }
+
+
 }

@@ -4,12 +4,14 @@ import ILearn.member.dto.MemberPatchDto;
 import ILearn.member.dto.MemberPostDto;
 import ILearn.member.dto.MemberResponseDto;
 import ILearn.member.entity.Member;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-09-02T01:21:37+0900",
+    date = "2023-09-06T13:57:15+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.2.1.jar, environment: Java 11.0.15 (Oracle Corporation)"
 )
 @Component
@@ -60,6 +62,10 @@ public class MemberMapperImpl implements MemberMapper {
         memberResponseDto.setPoint( member.getPoint() );
         if ( member.getMemberStatus() != null ) {
             memberResponseDto.setMemberStatus( member.getMemberStatus().name() );
+        }
+        List<String> list = member.getRoles();
+        if ( list != null ) {
+            memberResponseDto.setRoles( new ArrayList<String>( list ) );
         }
 
         return memberResponseDto;

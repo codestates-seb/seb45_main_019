@@ -78,7 +78,6 @@ public class ErrorResponse {
             this.rejectedValue = rejectedValue;
             this.reason = reason;
         }
-
         public static List<ConstraintViolationError> of(
                 Set<ConstraintViolation<?>> constraintViolations) {
             return constraintViolations.stream()

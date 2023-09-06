@@ -29,8 +29,12 @@ public class MemberDetailsService implements UserDetailsService {
         Optional<Member> optionalMember = memberRepository.findByUsername(username);
         Member findMember = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
 
+        Collection<? extends GrantedAuthority> authorities = authorityUtils.createAuthorities(findMember.getEmail());
+
+
         return new MemberDetails(findMember);
     }
+
 
     private final class MemberDetails extends Member implements UserDetails {
         MemberDetails(Member member) {
@@ -48,7 +52,7 @@ public class MemberDetailsService implements UserDetailsService {
 
         @Override
         public String getUsername() {
-            return getUsername();
+            return super.getUsername();
         }
 
         @Override
