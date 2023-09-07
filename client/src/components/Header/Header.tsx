@@ -16,7 +16,6 @@ import {
   LoginRounded
 } from '@mui/icons-material';
 import { useState } from 'react';
-import Speaker from '../Speaker/Speaker';
 export default function Header() {
   const location = useLocation().pathname;
 
