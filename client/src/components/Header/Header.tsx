@@ -69,7 +69,6 @@ export default function Header() {
                 </IconButton>
               </Tooltip>
             </Link>
-            <Speaker text="By setting the onvoiceschanged event handler, you can wait for the voices to be loaded, and then the synth.getVoices() method will return the full list of available voices. When you run this code, it should log the full list of voices to the console."></Speaker>
             {loggedIn ? (
               <Tooltip title="로그아웃">
                 <IconButton size="medium" onClick={handleLogout}>
