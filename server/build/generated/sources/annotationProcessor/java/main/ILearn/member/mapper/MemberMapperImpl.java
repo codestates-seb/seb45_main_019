@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-09-06T16:37:36+0900",
-    comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.2.1.jar, environment: Java 11.0.15 (Oracle Corporation)"
+    date = "2023-09-07T22:54:07+0900",
+    comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.2.1.jar, environment: Java 11.0.19 (Azul Systems, Inc.)"
 )
 @Component
 public class MemberMapperImpl implements MemberMapper {
