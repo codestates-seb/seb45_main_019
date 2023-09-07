@@ -8,3 +8,14 @@ CREATE TABLE IF NOT EXISTS WORD (
        wordExampleMeaning VARCHAR(255),
        PRIMARY KEY (wordId)
 );
+
+CREATE TABLE IF NOT EXISTS QUESTION (
+       questionId bigint NOT NULL,
+       chapterId BIGINT,
+       questionType BIGINT,
+       question VARCHAR(255),
+       examples VARCHAR(255),
+       correct VARCHAR(255),
+       translation VARCHAR(255),
+       PRIMARY KEY (questionId)
+);

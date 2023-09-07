@@ -6,23 +6,31 @@ import ILearn.word.entity.Word;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Entity
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "question_Id")
+    @Column(name = "QUESTIONID")
     private Long questionId;
 
+    @Column(name = "QUESTIONTYPE")
+    private Long questionType;
+    private String question;
+//    @ElementCollection(fetch = FetchType.EAGER)
+    private String examples;
+    private String correct;
+    private String translation;
 
     @ManyToOne
-    @JoinColumn(name = "chapterId")
+    @JoinColumn(name = "CHAPTER_ID")
     private Chapter chapter;
 
-    @ManyToOne
-    @JoinColumn(name = "questionTypeId")
-    private QuestionType questionType;
+//    @ManyToOne
+//    @JoinColumn(name = "questionTypeId")
+//    private QuestionType questionType;
 
     @ManyToOne
     @JoinColumn(name = "word_Id")
