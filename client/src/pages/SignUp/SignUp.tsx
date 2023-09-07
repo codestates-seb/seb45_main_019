@@ -223,7 +223,6 @@ export default function SignUp() {
                 <TextField
                   fullWidth
                   // eslint-disable-next-line jsx-a11y/no-autofocus
-                  autoFocus
                   value={password}
                   onChange={handlePasswordChange}
                   autoComplete="new-password"
@@ -247,7 +246,6 @@ export default function SignUp() {
                 <TextField
                   fullWidth
                   // eslint-disable-next-line jsx-a11y/no-autofocus
-                  autoFocus
                   value={passwordConfirm}
                   onChange={handlePasswordConfirmChange}
                   type="password"
