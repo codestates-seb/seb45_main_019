@@ -64,7 +64,7 @@ export default function SignUp() {
     const newValue = event.target.value;
     setPasswordConfirm(newValue);
 
-    if (newValue.match(password)) {
+    if (newValue === password) {
       setPasswordConfirmIsValid(true);
       setPasswordConfirmError('');
     } else {
