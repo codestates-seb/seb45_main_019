@@ -1,16 +1,13 @@
 /* eslint-disable jsx-a11y/no-autofocus */
 import React, { useState } from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { alpha, createTheme, ThemeProvider } from '@mui/material/styles';
 import api from '../../common/utils/api';
 import Input from './Input';
 import Copyright from '../../components/Copyright/Copyright';
@@ -18,8 +15,19 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { GlobalContainer } from '../../style/Global.styled';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
+import { Card, CardMedia } from '@mui/material';
 // TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme();
+const defaultTheme = createTheme({
+  components: {
+    MuiFormControlLabel: {
+      styleOverrides: {
+        label: {
+          fontSize: 14
+        }
+      }
+    }
+  }
+});
 // console.log(defaultTheme);
 
 export default function SignUp() {
@@ -125,138 +133,182 @@ export default function SignUp() {
               alignItems: 'center'
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Sign up
-            </Typography>
-            <Box
-              component="form"
-              noValidate
-              onSubmit={handleSubmit}
-              sx={{ mt: 3 }}
-            >
-              <Grid container rowSpacing={2}>
-                <Grid item xs={12} sx={{ pt: '0px' }}>
-                  <Input
-                    autoComplete=""
-                    name="username"
-                    required
-                    id="username"
-                    label="ID"
-                    checkValid
-                    isValid={usernameIsValid}
-                    setIsValid={setUsernameIsValid}
-                    autoFocus
-                  ></Input>
-                </Grid>
-                <Grid item xs={12}>
-                  <Input
-                    autoComplete=""
-                    name="nickname"
-                    required
-                    id="nickname"
-                    label="Nickname"
-                    checkValid
-                    isValid={nicknameIsValid}
-                    setIsValid={setNicknameIsValid}
-                  ></Input>
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    fullWidth
-                    // eslint-disable-next-line jsx-a11y/no-autofocus
-                    autoFocus
-                    value={password}
-                    onChange={handlePasswordChange}
-                    autoComplete="new-password"
-                    name="password"
-                    required
-                    id="password"
-                    label="Password"
-                    type="password"
-                  />
-                  {passwordIsValid ? null : (
-                    <Typography
-                      variant="overline"
-                      display="block"
-                      gutterBottom
-                      sx={{ color: 'warning.main', height: 10, pl: 1 }}
-                    >
-                      {passwordError}
-                    </Typography>
-                  )}
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    fullWidth
-                    // eslint-disable-next-line jsx-a11y/no-autofocus
-                    autoFocus
-                    value={passwordConfirm}
-                    onChange={handlePasswordConfirmChange}
-                    type="password"
-                    id="password_confirm"
-                    label="Confirm Password"
-                    name="password_confirm"
-                    required
-                  />
-                  {passwordConfirmIsValid ? null : (
-                    <Typography
-                      variant="overline"
-                      display="block"
-                      gutterBottom
-                      sx={{ color: 'warning.main', height: 10, pl: 1 }}
-                    >
-                      {passwordConfirmError}
-                    </Typography>
-                  )}
-                </Grid>
-                <Grid item xs={12}>
-                  <Input
-                    autoComplete=""
-                    name="email"
-                    required
-                    id="email"
-                    label="Email Address"
-                    type="email"
-                    checkValid
-                    isValid={emailIsValid}
-                    setIsValid={setEmailIsValid}
-                  ></Input>
-                </Grid>
-                <Grid item xs={12}>
-                  <FormControlLabel
-                    control={
-                      <Checkbox value="allowExtraEmails" color="primary" />
-                    }
-                    label="I want to receive inspiration, marketing promotions and updates via email."
-                  />
-                </Grid>
-              </Grid>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+            <Box sx={{ mb: 3, display: 'inline-flex' }}>
+              <Link
+                component={RouterLink}
+                to="/"
+                underline="none"
+                sx={{ display: 'inline-flex' }}
               >
-                Sign Up
-              </Button>
-              <Grid container justifyContent="flex-end">
-                <Grid item>
-                  <Link
-                    component={RouterLink}
-                    to="/signin"
-                    style={{ fontSize: 14 }}
-                  >
-                    {'Already have an account? Sign in'}
-                  </Link>
-                  {/* <Link href="/signin" variant="body2">
-                    Already have an account? Sign in
-                  </Link> */}
-                </Grid>
-              </Grid>
+                <img src={`images/main-logo.png`} alt="Jumbo React" />
+              </Link>
             </Box>
+            <Card
+              sx={{
+                maxWidth: '100%',
+                width: 360,
+                mb: 4,
+                borderRadius: '12px',
+                boxShadow: (theme) =>
+                  alpha(theme.palette.primary.light, 0.5) +
+                  ` 0px 0.5rem 1.25rem`
+              }}
+            >
+              <Box sx={{ position: 'relative', height: '200px' }}>
+                <CardMedia
+                  component="img"
+                  alt="green iguana"
+                  height="200"
+                  image={`images/sign.png`}
+                />
+                <Box
+                  sx={{
+                    flex: 1,
+                    inset: 0,
+                    position: 'absolute',
+                    display: 'flex',
+                    alignItems: 'center',
+                    backgroundColor: (theme) =>
+                      alpha(theme.palette.common.black, 0.5),
+                    p: (theme) => theme.spacing(3)
+                  }}
+                >
+                  <Typography
+                    variant={'h2'}
+                    sx={{
+                      color: 'common.white',
+                      fontSize: '1.5rem',
+                      mb: 0,
+                      fontWeight: 400
+                    }}
+                  >
+                    Sign Up
+                  </Typography>
+                </Box>
+              </Box>
+              <Box
+                component="form"
+                noValidate
+                onSubmit={handleSubmit}
+                sx={{
+                  mt: 1,
+                  padding: '24px'
+                }}
+              >
+                <Input
+                  autoComplete=""
+                  name="username"
+                  required
+                  id="username"
+                  label="ID"
+                  checkValid
+                  isValid={usernameIsValid}
+                  setIsValid={setUsernameIsValid}
+                  autoFocus
+                  margin="normal"
+                ></Input>
+
+                <Input
+                  autoComplete=""
+                  name="nickname"
+                  required
+                  id="nickname"
+                  label="Nickname"
+                  checkValid
+                  isValid={nicknameIsValid}
+                  setIsValid={setNicknameIsValid}
+                  margin="normal"
+                ></Input>
+
+                <TextField
+                  fullWidth
+                  // eslint-disable-next-line jsx-a11y/no-autofocus
+                  autoFocus
+                  value={password}
+                  onChange={handlePasswordChange}
+                  autoComplete="new-password"
+                  name="password"
+                  required
+                  id="password"
+                  label="Password"
+                  type="password"
+                  margin="normal"
+                />
+                {passwordIsValid ? null : (
+                  <Typography
+                    display="block"
+                    gutterBottom
+                    sx={{ color: 'warning.main', mb: 0, fontSize: 12, pl: 1 }}
+                  >
+                    {passwordError}
+                  </Typography>
+                )}
+
+                <TextField
+                  fullWidth
+                  // eslint-disable-next-line jsx-a11y/no-autofocus
+                  autoFocus
+                  value={passwordConfirm}
+                  onChange={handlePasswordConfirmChange}
+                  type="password"
+                  id="password_confirm"
+                  label="Confirm Password"
+                  name="password_confirm"
+                  required
+                  margin="normal"
+                />
+                {passwordConfirmIsValid ? null : (
+                  <Typography
+                    display="block"
+                    gutterBottom
+                    sx={{ color: 'warning.main', pl: 1, mb: 0, fontSize: 12 }}
+                  >
+                    {passwordConfirmError}
+                  </Typography>
+                )}
+
+                <Input
+                  autoComplete=""
+                  name="email"
+                  required
+                  id="email"
+                  label="Email Address"
+                  type="email"
+                  checkValid
+                  isValid={emailIsValid}
+                  setIsValid={setEmailIsValid}
+                  margin="normal"
+                ></Input>
+
+                <FormControlLabel
+                  control={
+                    <Checkbox value="allowExtraEmails" color="primary" />
+                  }
+                  label="I want to receive inspiration, marketing promotions and updates via email."
+                  sx={{ mt: 3 }}
+                />
+
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  Sign Up
+                </Button>
+                <Link
+                  component={RouterLink}
+                  to="/signin"
+                  sx={{
+                    fontSize: 14,
+                    display: 'block',
+                    textAlign: 'center'
+                  }}
+                >
+                  {'Already have an account? Sign in'}
+                </Link>
+              </Box>
+            </Card>
           </Box>
           <Copyright sx={{ mt: 5 }} />
         </Container>

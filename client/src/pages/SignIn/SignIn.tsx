@@ -142,8 +142,6 @@ export default function SignIn() {
                 noValidate
                 sx={{
                   mt: 1,
-                  paddingLeft: '24px',
-                  paddingRight: '24px',
                   padding: '24px'
                 }}
               >
@@ -183,7 +181,6 @@ export default function SignIn() {
                 <FormControlLabel
                   control={<Checkbox value="remember" color="primary" />}
                   label="Remember me"
-                  sx={{ fontSize: 4 }}
                 />
                 <Button
                   type="submit"
@@ -196,7 +193,7 @@ export default function SignIn() {
                 <Link
                   component={RouterLink}
                   to="/signup"
-                  style={{
+                  sx={{
                     fontSize: 14,
                     display: 'block',
                     textAlign: 'center'
