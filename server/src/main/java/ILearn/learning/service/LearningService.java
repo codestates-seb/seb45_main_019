@@ -1,5 +1,6 @@
 package ILearn.learning.service;
 
+import ILearn.chapter.dto.ChapterInfo;
 import ILearn.chapter.response.ChapterResponse;
 import ILearn.learning.dto.LearningDataDto;
 import ILearn.learning.entity.Learning;
@@ -23,27 +24,25 @@ public class LearningService {
         this.learningRepository = learningRepository;
     }
 
-    public LearningResponse getLearningDetails(Long learningId) {
-        // Learning 엔터티를 가져오는 로직
-        Learning learning = learningRepository.findById(learningId).orElse(null);
+    public List<ChapterInfo> getChapterListForLearning() {
+        // 여기에서 챕터 정보를 데이터베이스 또는 다른 소스에서 가져옵니다.
+        List<ChapterInfo> chapterList = new ArrayList<>(); // 초기화된 빈 리스트 생성
 
-        if (learning != null) {
-            // 원하는 형식의 응답 데이터 생성
-            LearningDataDto learningData = new LearningDataDto(learning);
-            List<ChapterResponse> chapterList = new ArrayList<>();
+        // 데이터베이스에서 챕터 정보를 가져오는 코드
+        List<Learning> learningList = learningRepository.findAll(); // Learning 엔티티로부터 학습 목록을 가져옴
 
-            // 여러 개의 챕터 정보를 생성하고 리스트에 추가
-            ChapterResponse chapterResponse = new ChapterResponse();
-            chapterResponse.setTitle(learningData.getChapterTitle());
-            chapterResponse.setChapterId(learningData.getChapterId());
-
-            chapterList.add(chapterResponse);
-
-            // LearningResponse 를 생성하여 응답 데이터 반환
-            return new LearningResponse(true, "success" );
-        } else {
-            // 원하는 예외 처리 로직을 추가
-            return new LearningResponse(false, "Learning not found", null);
+        // Learning 엔티티에서 ChapterInfo로 변환
+        for (Learning learning : learningList) {
+            ChapterInfo chapterInfo = new ChapterInfo(
+                    learning.getChapter().getTitle(), // 챕터 제목 가져오기
+                    learning.getChapter().getChapterId(), // 챕터 ID 가져오기
+                    learning.getChapter().getWords().stream()
+                            .map(Word::getWordId) // 챕터에 속한 단어 ID 목록 가져오기
+                            .collect(Collectors.toList())
+            );
+            chapterList.add(chapterInfo);
         }
+
+        return chapterList;
     }
 }

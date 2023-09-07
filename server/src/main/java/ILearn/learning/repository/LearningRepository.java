@@ -10,6 +10,5 @@ import java.util.List;
 
 @Repository
 public interface LearningRepository extends JpaRepository<Learning, Long> {
-    //사용자 userId를 기반으로 사용자가 이용 가능한 챕터 목록 가저오기
-    List<Chapter> findChaptersByUserId(@Param("userId") Long userId);
+        List<Learning> findByMemberId(Long memberId);
 }

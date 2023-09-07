@@ -1,22 +1,26 @@
 package ILearn.learning.dto;
 
-import ILearn.chapter.response.ChapterResponse;
-import ILearn.learning.entity.Learning;
+
+
+import ILearn.chapter.dto.ChapterInfo;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
 
+
 @Getter
 @Setter
 public class LearningDataDto {
-    private String chapterTitle;
-    private Long chapterId;
+    private boolean status;
+    private String msg;
+//    private Object data;
+    private List<ChapterInfo> chapterList;
 
-    public LearningDataDto(Learning learning) {
-        if (learning != null && learning.getChapter() != null) {
-            this.chapterTitle = learning.getChapter().getTitle();
-            this.chapterId = learning.getChapter().getChapterId();
-        }
+    public LearningDataDto(boolean status, String msg,List<ChapterInfo> chapterList) {
+        this.status = status;
+        this.msg = msg;
+//        this.data = data;
+        this.chapterList = chapterList;
     }
 }

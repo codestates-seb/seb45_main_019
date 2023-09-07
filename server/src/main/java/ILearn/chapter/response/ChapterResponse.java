@@ -11,5 +11,5 @@ import java.util.List;
 public class ChapterResponse {
     private String title;
     private Long chapterId;
-    private List<Word> words;
+    private List<Long> wordIds;
 }

@@ -42,12 +42,12 @@ public class Member {
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date registrationDate;
 
-//    public String getFormattedRegistrationDate() { // 가입시간 한국 시간, 연 월 일 분 초
-//        TimeZone timeZone = TimeZone.getTimeZone("Asia/Seoul");
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-//        sdf.setTimeZone(timeZone);
-//        return sdf.format(registrationDate);
-//    }
+    public String getFormattedRegistrationDate() { // 가입시간 한국 시간, 연 월 일 분 초
+        TimeZone timeZone = TimeZone.getTimeZone("Asia/Seoul");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        sdf.setTimeZone(timeZone);
+        return sdf.format(registrationDate);
+    }
 
     @Column(name = "point")
     private int point;

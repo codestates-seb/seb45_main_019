@@ -3,6 +3,7 @@ package ILearn.learning.entity;
 import ILearn.chapter.entity.Chapter;
 import ILearn.member.entity.Member;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Learning {
 
     @Id
@@ -24,4 +26,9 @@ public class Learning {
     @ManyToOne
     @JoinColumn(name = "user_Id")
     private Member member;
+
+    @Column(name = "user_Id", insertable = false, updatable = false)
+    private Long userId;
+
+
 }
