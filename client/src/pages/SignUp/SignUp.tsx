@@ -304,6 +304,7 @@ export default function SignUp() {
                     display: 'block',
                     textAlign: 'center'
                   }}
+                  underline="none"
                 >
                   {'Already have an account? Sign in'}
                 </Link>
