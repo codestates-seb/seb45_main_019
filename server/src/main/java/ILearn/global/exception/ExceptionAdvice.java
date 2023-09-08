@@ -1,7 +1,7 @@
 package ILearn.global.exception;
 
-import ILearn.global.Response.ApiResponse;
-import ILearn.global.Response.ApiResponseException;
+import ILearn.global.response.ApiResponse;
+import ILearn.global.response.ApiResponseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;

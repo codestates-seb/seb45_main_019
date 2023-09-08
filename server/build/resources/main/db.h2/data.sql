@@ -1,6 +1,6 @@
 INSERT INTO WORD (WORDID, WORD, SYMBOL, WORDMEANING, DETAILCATEGORIES, WORDEXAMPLE, WORDEXAMPLEMEANING)
 VALUES (1, 'hello', 'həˈloʊ', '안녕하세요, 안부, 여보세요', '감탄사, 명사', 'Hello John, how are you?', '안녕하세요, 존. 어떻게 지내세요?'),
-       (2, 'bye', 'baɪ', '안녕, 부전승', '감탄사', 'Bye! See you next week.', '안녕! 다음주에 봐.'),
+       (2, 'bye', 'baɪ', '안녕, 부전승', '감탄사', 'Bye See you next week.', '안녕 다음주에 봐.'),
        (3, 'hi', 'haɪ', '안녕', '감탄사', 'Hi guys!', '안녕, 친구들!'),
        (4,'Shopaholic', 'ˌʃɑːpəˈhɒlɪk', '쇼핑 중독자, 쇼핑 중독의', '명사', 'She''s a shopaholic and cant resist buying new clothes.', '그녀는 쇼핑 중독자로 새 옷을 사지 않을 수 없어.'),
        (5, 'Discount', 'ˈdɪskaʊnt', '할인, 할인가', '명사', 'I got a 20% discount on these shoes.', '이 신발을 20% 할인받았어.'),
@@ -30,4 +30,28 @@ VALUES (1, 'hello', 'həˈloʊ', '안녕하세요, 안부, 여보세요', '감�
        (29, 'Ate', 'eɪt', '먹었던, 먹은', '과거형', 'I ate sushi for dinner last night.', '어젠 저녁에 초밥을 먹었어요.'),
        (30, 'Traveled', 'ˈtrævəld', '여행했던, 여행한', '과거분사', 'We traveled to Europe last summer.', '저희는 지난 여름에 유럽으로 여행했어요.');
 
-
+INSERT INTO QUESTION (QUESTIONID, QUESTIONTYPE, QUESTION, EXAMPLES, CORRECT, TRANSLATION)
+VALUES (1, 1, 'hello','''안녕하세요'', ''쇼핑 중독자'', ''할인'', ''식사 중인''','안녕하세요', ''),
+       (2, 2, '안녕하세요','''Shopaholic'', ''Assistance'', ''hello'', ''Visited''','hello',''),
+       (3, 3, 'hello','[hello]','hello',''),
+       (4, 4, '_ John, how are you?','''Shopaholic'', ''Assistance'', ''hello'', ''Visited''','hello','존. 어떻게 지내세요?'),
+       (5, 1, 'bye', '''심문하다'', ''방문한'', ''안녕'', ''지도를 보다''','안녕',''),
+       (6, 2, '안녕', '''Traveled'', ''Chat'', ''He'', ''bye''','bye',''),
+       (7, 3, 'bye', '[bye]', 'bye',''),
+       (8, 4, '_ See you next week.','''Traveled'', ''Chat'', ''He'', ''bye''','bye','안녕 다음주에 봐.'),
+       (9, 1, 'hi', '''그는'', ''안녕'', ''먹었던'', ''대화하다''','안녕',''),
+       (10, 2, '안녕','''hi'', ''Friendly'', ''Simmer'', ''Ingredients''','hi',''),
+       (11, 3, 'hi', '[hi]', 'hi', ''),
+       (12, 4, '_ guys!', '''hi'', ''Friendly'', ''Simmer'', ''Ingredients''','hi', '안녕, 친구들!'),
+       (13, 1, 'Shopaholic', '''쇼핑 중독자'', ''잡담하다'', ''양념'', ''흐린''','쇼핑 중독자',''),
+       (14, 2, '쇼핑 중독자', '''Ate'', ''Neighbor'', ''Shopaholic'', ''Eating''', 'Shopaholic',''),
+       (15, 3, 'Shopaholic', '[Shopaholic]','Shopaholic',''),
+       (16, 4, 'She''s a _ and cant resist buying new clothes.', '''Ate'', ''Neighbor'', ''Shopaholic'', ''Eating''', 'Shopaholic', '그녀는 쇼핑 중독자로 새 옷을 사지 않을 수 없어.'),
+       (17, 1, 'Discount', '''길 안내'', ''여행한'', ''계산대'', ''할인''','할인',''),
+       (18, 2, '할인', '''They'', ''Eating'', ''Discount'', ''Response''', 'Discount', ''),
+       (19, 3, 'Discount','[Discount]','Discount',''),
+       (20, 4, 'I got a 20% _ on these shoes.', '''Discount'', ''Traveled'', ''Week'', ''Resist''', 'Discount', '이 신발을 20% 할인받았어.'),
+       (21, 1, 'Checkout', '''도움'', ''방문했던'', ''계산'', ''답변''', '계산', ''),
+       (22, 2, '계산', '''Breezy'', ''Checkout'', ''Sunny'', ''Overcast''', '''Checkout', ''),
+       (23, 3, 'Checkout', '[Checkout]', 'Checkout', ''),
+       (24, 4, 'Let''s head to the _ to pay for our items.', '''Breezy'', ''Checkout'', ''Sunny'', ''Overcast'', ''Checkout', 'Checkout', '우리 물건 계산하러 계산대로 가자.')

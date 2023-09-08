@@ -1,7 +1,7 @@
 package ILearn.member.controller;
 
-import ILearn.global.Response.ApiResponseException;
-import ILearn.global.Response.ApiResponse;
+import ILearn.global.response.ApiResponseException;
+import ILearn.global.response.ApiResponse;
 import ILearn.member.dto.MemberPatchDto;
 import ILearn.member.dto.MemberPostDto;
 import ILearn.member.dto.MemberResponseDto;

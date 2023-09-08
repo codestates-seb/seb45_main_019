@@ -15,15 +15,28 @@ import java.util.List;
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "question_Id")
+    @Column(name = "QUESTIONID")
     private Long questionId;
 
     @OneToMany
     private List<ChapterQuestion> chapterQuestions = new ArrayList<>();
 
+    @Column(name = "QUESTIONTYPE")
+    private Long questionType;
+    private String question;
+//    @ElementCollection(fetch = FetchType.EAGER)
+    private String examples;
+    private String correct;
+    private String translation;
+
     @ManyToOne
-    @JoinColumn(name = "questionTypeId")
-    private QuestionType questionType;
+    @JoinColumn(name = "CHAPTER_ID")
+    private Chapter chapter;
+
+
+//    @ManyToOne
+//    @JoinColumn(name = "questionTypeId")
+//    private QuestionType questionType;
 
     @ManyToOne
     @JoinColumn(name = "word_Id")

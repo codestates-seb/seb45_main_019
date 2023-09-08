@@ -1,33 +1,43 @@
 package ILearn.member.service;
 
-import ILearn.global.exception.DuplicateFieldException;
-import ILearn.global.Response.ApiResponseException;
-import ILearn.global.Response.ApiResponse;
-import ILearn.member.dto.MemberPatchDto;
-import ILearn.member.dto.MemberPostDto;
-import ILearn.member.dto.MemberResponseDto;
+
+import ILearn.global.auth.utils.CustomAuthorityUtils;
+import ILearn.global.response.ApiResponse;
+import ILearn.global.response.ApiResponseException;
 import ILearn.member.entity.Member;
 import ILearn.member.mapper.MemberMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.util.*;
+
+import ILearn.global.exception.DuplicateFieldException;
+import ILearn.member.dto.MemberPatchDto;
+import ILearn.member.dto.MemberResponseDto;
 import ILearn.member.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
-import org.springframework.validation.FieldError;
+
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
-import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-public class MemberService {
+public class MemberService{
     private final Validator validator;
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final CustomAuthorityUtils authorityUtils;
 
-    public MemberService(Validator validator, MemberRepository memberRepository) {
+    public MemberService(Validator validator, MemberRepository memberRepository,
+                        PasswordEncoder passwordEncoder,
+                        CustomAuthorityUtils authorityUtils){
         this.validator = validator;
         this.memberRepository = memberRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.authorityUtils = authorityUtils;
+
     }
 
     // 회원가입
@@ -36,7 +46,6 @@ public class MemberService {
 
         return memberRepository.save(member);
     }
-
     // 회원조회
     public MemberResponseDto getMember(Long user_id) {
         Member findMember = findVerifiedMember(user_id);
@@ -58,6 +67,7 @@ public class MemberService {
 
         return memberRepository.save(findMember);
     }
+
 
     // 회원탈퇴
     public void deleteMember(Long user_id) {
@@ -82,6 +92,14 @@ public class MemberService {
 
             throw new ApiResponseException(new ApiResponse<>(false, errorCode, errorMsg), new RuntimeException(errorMsg));
         }
+        // 추가: Password 암호화
+        String encryptedPassword = passwordEncoder.encode(member.getPassword());
+        member.setPassword(encryptedPassword);
+
+        // 추가: DB에 User Role 저장
+        List<String> roles = authorityUtils.createRoles(member.getUsername());
+        member.setRoles(roles);
+
         // 중복검사 로직
         if (memberRepository.existsByEmail(member.getEmail())) {
             throw new DuplicateFieldException("EMAIL", 900);
@@ -93,7 +111,6 @@ public class MemberService {
             throw new DuplicateFieldException("NICKNAME", 902);
         }
     }
-
     // [회원조회] 존재하지 않는 유저정보 유효성 검사
     public Member findVerifiedMember(Long user_id) {
         Optional<Member> optionalMember = memberRepository.findById(user_id);
@@ -133,7 +150,7 @@ public class MemberService {
                 errorCode = 908;
             }
 
-            throw new ApiResponseException(new ApiResponse<>(false, errorCode, replaceErrorMsg), new RuntimeException(replaceErrorMsg));
+            throw new ApiResponseException(new ApiResponse<Object>(false, errorCode, replaceErrorMsg), new RuntimeException(replaceErrorMsg));
         }
 
         if (memberRepository.existsByNickname(patchDto.getNickname())) {
@@ -141,4 +158,3 @@ public class MemberService {
         }
     }
 }
-

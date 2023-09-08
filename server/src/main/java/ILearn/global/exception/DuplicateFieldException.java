@@ -1,11 +1,11 @@
 package ILearn.global.exception;
 
-import ILearn.global.Response.ApiResponse;
-import ILearn.global.Response.ApiResponseException;
+import ILearn.global.response.ApiResponse;
+import ILearn.global.response.ApiResponseException;
 
 public class DuplicateFieldException extends ApiResponseException {
-    public DuplicateFieldException(String fieldName, int errorCode) {
-        super(new ApiResponse<>(false, errorCode, fieldName + "_EXIST."), new RuntimeException());
+    public DuplicateFieldException(String fieldName, int i) {
+        super(new ApiResponse<>(false, "중복된 " + fieldName + " 입니다."), new RuntimeException());
 
     }
 }

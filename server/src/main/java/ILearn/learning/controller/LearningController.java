@@ -1,7 +1,6 @@
 package ILearn.learning.controller;
 
 import ILearn.chapter.dto.ChapterInfo;
-import ILearn.global.Response.ApiResponse;
 import ILearn.learning.dto.LearningDataDto;
 import ILearn.learning.service.LearningService;
 import io.swagger.annotations.Api;
