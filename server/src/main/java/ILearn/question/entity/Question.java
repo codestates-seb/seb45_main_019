@@ -2,10 +2,12 @@ package ILearn.question.entity;
 
 import ILearn.QuestionType.entity.QuestionType;
 import ILearn.chapter.entity.Chapter;
+import ILearn.chapter.entity.ChapterQuestion;
 import ILearn.word.entity.Word;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -15,6 +17,9 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "QUESTIONID")
     private Long questionId;
+
+    @OneToMany
+    private List<ChapterQuestion> chapterQuestions = new ArrayList<>();
 
     @Column(name = "QUESTIONTYPE")
     private Long questionType;
@@ -27,6 +32,7 @@ public class Question {
     @ManyToOne
     @JoinColumn(name = "CHAPTER_ID")
     private Chapter chapter;
+
 
 //    @ManyToOne
 //    @JoinColumn(name = "questionTypeId")
