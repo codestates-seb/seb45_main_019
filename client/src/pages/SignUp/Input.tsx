@@ -13,6 +13,7 @@ export default function Input(props: {
   isValid?: boolean;
   setIsValid: (state: boolean) => void;
   autoFocus?: boolean;
+  margin?: 'none' | 'normal' | 'dense' | undefined;
 }) {
   const [value, setValue] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
@@ -32,18 +33,23 @@ export default function Input(props: {
     <>
       <TextField
         fullWidth
-        {...props}
+        autoComplete={props.autoComplete}
+        name={props.name}
+        id={props.id}
+        label={props.label}
+        required={props.required}
+        type={props.type}
         // eslint-disable-next-line jsx-a11y/no-autofocus
-        autoFocus
+        autoFocus={props.autoFocus}
+        margin={props.margin}
         value={value}
         onChange={handleValueChange}
       />
       {props.isValid ? null : (
         <Typography
-          variant="overline"
           display="block"
           gutterBottom
-          sx={{ color: 'warning.main', height: 10, pl: 1 }}
+          sx={{ color: 'warning.main', mb: 0, fontSize: 12, pl: 1 }}
         >
           {errorMsg}
         </Typography>
