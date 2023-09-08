@@ -39,7 +39,7 @@ public class MemberController {
     @ApiOperation(value = "유저 회원가입", notes = "새로운 유저를 등록합니다.")
     @ApiResponses({
             @io.swagger.annotations.ApiResponse(code = 201, message = "회원가입 성공"),
-            @io.swagger.annotations.ApiResponse(code = 400, message = "잘못된 요청 형식"),
+            @io.swagger.annotations.ApiResponse(code = 400, message = "이메일 중복"),
     })
     public ResponseEntity postMember(@Valid @RequestBody MemberPostDto memberPostDto) {
         try {
