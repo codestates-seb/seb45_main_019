@@ -10,5 +10,5 @@ import java.util.List;
 
 @Repository
 public interface LearningRepository extends JpaRepository<Learning, Long> {
-        List<Learning> findByUserId(Long userId);
+        List<Learning> findByUserId(Long userId);// 사용자 학습 목록 조회
 }

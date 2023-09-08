@@ -14,13 +14,11 @@ import java.util.List;
 public class LearningDataDto {
     private boolean status;
     private String msg;
-//    private Object data;
     private List<ChapterInfo> chapterList;
 
     public LearningDataDto(boolean status, String msg,List<ChapterInfo> chapterList) {
         this.status = status;
         this.msg = msg;
-//        this.data = data;
         this.chapterList = chapterList;
     }
 }
