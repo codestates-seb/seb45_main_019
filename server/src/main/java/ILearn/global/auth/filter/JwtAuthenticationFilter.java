@@ -2,6 +2,7 @@ package ILearn.global.auth.filter;
 
 import ILearn.global.auth.jwt.JwtTokenizer;
 import ILearn.global.auth.loginDto.LoginDto;
+import ILearn.global.auth.utils.CustomAuthorityUtils;
 import ILearn.member.entity.Member;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
@@ -18,18 +19,18 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenizer jwtTokenizer;
 
-    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtTokenizer jwtTokenizer) {
+    private final CustomAuthorityUtils authorityUtils;
+
+    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenizer = jwtTokenizer;
+        this.authorityUtils = authorityUtils;
     }
     @SneakyThrows
     @Override
@@ -60,13 +61,13 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         // JWT 토큰을 쿠키로 추가
         Cookie accessTokenCookie = new Cookie("access_token", accessToken);
         accessTokenCookie.setHttpOnly(true);
-        accessTokenCookie.setMaxAge(jwtTokenizer.getAccessTokenExpirationMinutes() * 60); // 초 단위로 설정
+        accessTokenCookie.setMaxAge(jwtTokenizer.getAccessTokenExpirationMinutes());
         accessTokenCookie.setPath("/"); // 쿠키의 경로 설정
         response.addCookie(accessTokenCookie);
 
         Cookie refreshTokenCookie = new Cookie("refresh_token", refreshToken);
         refreshTokenCookie.setHttpOnly(true);
-        refreshTokenCookie.setMaxAge(jwtTokenizer.getRefreshTokenExpirationMinutes() * 60); // 초 단위로 설정
+        refreshTokenCookie.setMaxAge(jwtTokenizer.getRefreshTokenExpirationMinutes());
         refreshTokenCookie.setPath("/"); // 쿠키의 경로 설정
         response.addCookie(refreshTokenCookie);
     }
@@ -74,7 +75,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     private String delegateAccessToken(Member member) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("username", member.getUsername());
-        claims.put("roles", member.getRoles());
+
+        // 사용자의 역할 정보를 가져오고 "ROLE_" 접두사를 붙여서 리스트로 변환
+        List<String> roles = authorityUtils.createRoles(member.getUsername());
+
+        claims.put("roles", roles);
 
         String subject = member.getUsername();
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
@@ -88,7 +93,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         return accessToken;
     }
-
     private String delegateRefreshToken(Member member) {
         String subject = member.getUsername();
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
@@ -102,6 +106,4 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         return refreshToken;
     }
-
-
 }

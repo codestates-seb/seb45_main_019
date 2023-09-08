@@ -19,6 +19,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+
 import java.util.Arrays;
 
 import static org.springframework.security.config.Customizer.withDefaults;
@@ -55,14 +56,13 @@ public class SecurityConfiguration {
                 .apply(new CustomFilterConfigurer())
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
-                        .antMatchers("/**").permitAll() // "/learning" 경로의 모든 서비스를 비 로그인 사용자에게 허용
-                        .antMatchers(HttpMethod.POST, "/members").permitAll() // 회원가입 엔드포인트 허용
-                        .antMatchers(HttpMethod.PATCH, "/members/**").hasRole("USER") // 회원 업데이트를 USER 역할을 가진 사용자에게만 허용
-                        .antMatchers(HttpMethod.GET, "/members/**").hasAnyRole("USER", "ADMIN") // 회원 정보 조회를 USER 및 ADMIN 역할을 가진 사용자에게 허용
-                        .antMatchers(HttpMethod.DELETE, "/members/**").hasRole("USER") // 회원 삭제를 USER 역할을 가진 사용자에게만 허용
-                        .anyRequest().authenticated() // 나머지 요청은 인증된 사용자에게만 허용
-
+                        .antMatchers(HttpMethod.POST, "/members").permitAll()
+                        .antMatchers(HttpMethod.PATCH, "/members/**").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/members/**").hasAnyRole("USER", "ADMIN")
+                        .antMatchers(HttpMethod.DELETE, "/members/**").hasRole("USER")
+                        .anyRequest().authenticated()
                 );
+
         return http.build();
     }
 
@@ -87,7 +87,7 @@ public class SecurityConfiguration {
         public void configure(HttpSecurity builder) throws Exception {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
 
-            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
+            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer, authorityUtils);
             jwtAuthenticationFilter.setFilterProcessesUrl("/members/login");
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
