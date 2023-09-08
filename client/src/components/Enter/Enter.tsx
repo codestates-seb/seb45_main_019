@@ -41,17 +41,17 @@ export default function Enter() {
             style={{ width: '400px', height: '370px' }}
             alt="enterImg"
           />
-          <Button
-            variant="contained"
-            size="large"
-            color="primary"
-            sx={{ marginTop: 10 }}
-            disabled={chapter.chapterStatus}
-          >
-            <Link to="/learn" style={{ color: '#fff' }}>
+          <Link to="/learn" style={{ color: '#fff' }}>
+            <Button
+              variant="contained"
+              size="large"
+              color="primary"
+              sx={{ marginTop: 10 }}
+              disabled={chapter.chapterStatus}
+            >
               {chapter.chapterStatus ? '학습완료' : '학습하기'}
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </Box>
       </Box>
       <GuideBook />

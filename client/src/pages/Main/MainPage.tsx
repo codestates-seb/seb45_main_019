@@ -7,6 +7,8 @@ import { useLocation } from 'react-router-dom';
 import { useAppDispatch } from '../../redux/hooks';
 import { setChapter } from '../../redux/slices/chapter';
 import { GlobalContainer } from '../../style/Global.styled';
+import Header from '../../components/Header/Header';
+import { Box } from '@mui/material';
 
 export default function MainPage() {
   const [chapterList, setChapterList] = useState<Chapter[]>([]);
@@ -47,9 +49,19 @@ export default function MainPage() {
   }, []);
 
   return (
-    <GlobalContainer>
+    <Box
+      sx={{
+        display: 'flex',
+        width: '100%',
+        minHeight: 'calc(100vh - 70px)',
+        backgroundColor: '#f5f7fa'
+      }}
+    >
       <Nav chapterList={chapterList} location={location} />
-      <Enter />
-    </GlobalContainer>
+      <Box sx={{ width: '100%', marginLeft: '270px' }}>
+        <Header invisiblePath={true} />
+        <Enter />
+      </Box>
+    </Box>
   );
 }

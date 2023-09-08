@@ -27,11 +27,15 @@ export const GlobalStyle = createGlobalStyle`
     outline: none;
     cursor: pointer;
   }
+  html{
+    background-color: #f5f7fa;
+  }
 `;
 
 export const GlobalContainer = styled.div`
   display: flex;
   width: 100%;
-  min-height: calc(100vh - 64px);
-  margin-top: 64px;
+  min-height: calc(100vh - 70px);
+  margin-top: 70px;
+  background-color: #f5f7fa;
 `;
