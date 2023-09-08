@@ -2,6 +2,8 @@ package ILearn.global.auth.config;
 
 import ILearn.global.auth.filter.JwtAuthenticationFilter;
 import ILearn.global.auth.filter.JwtVerificationFilter;
+import ILearn.global.auth.handler.MemberAccessDeniedHandler;
+import ILearn.global.auth.handler.MemberAuthenticationEntryPoint;
 import ILearn.global.auth.handler.MemberAuthenticationFailureHandler;
 import ILearn.global.auth.handler.MemberAuthenticationSuccessHandler;
 import ILearn.global.auth.jwt.JwtTokenizer;
@@ -29,7 +31,6 @@ import org.springframework.http.HttpMethod;
 
 import org.springframework.security.config.http.SessionCreationPolicy;
 
-
 @Configuration
 @EnableWebSecurity(debug = true)
 public class SecurityConfiguration {
@@ -53,16 +54,20 @@ public class SecurityConfiguration {
                 .and()
                 .formLogin().disable()
                 .httpBasic().disable()
+                .exceptionHandling()
+                .authenticationEntryPoint(new MemberAuthenticationEntryPoint())
+                .accessDeniedHandler(new MemberAccessDeniedHandler())
+                .and()
                 .apply(new CustomFilterConfigurer())
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
-                        .antMatchers(HttpMethod.POST, "/members").permitAll()
-                        .antMatchers(HttpMethod.PATCH, "/members/**").hasRole("USER")
-                        .antMatchers(HttpMethod.GET, "/members/**").hasAnyRole("USER", "ADMIN")
-                        .antMatchers(HttpMethod.DELETE, "/members/**").hasRole("USER")
-                        .anyRequest().authenticated()
+                                .antMatchers(HttpMethod.POST, "/*/members").permitAll()
+                                .antMatchers(HttpMethod.PATCH, "/*/members/**").hasRole("USER")
+                                .antMatchers(HttpMethod.GET, "/*/members").hasRole("ADMIN")
+                                .antMatchers(HttpMethod.GET, "/*/members/**").hasAnyRole("USER", "ADMIN")
+                                .antMatchers(HttpMethod.DELETE, "/*/members/**").hasRole("USER")
+                                .anyRequest().permitAll()
                 );
-
         return http.build();
     }
 
@@ -72,7 +77,7 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    CorsConfigurationSource corsConfigurationSources() {
+    CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("*"));
         configuration.setAllowedMethods(Arrays.asList("GET","POST", "PATCH", "DELETE"));
@@ -87,11 +92,14 @@ public class SecurityConfiguration {
         public void configure(HttpSecurity builder) throws Exception {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
 
-            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer, authorityUtils);
+            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
             jwtAuthenticationFilter.setFilterProcessesUrl("/members/login");
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
+
             JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);
+
+
             builder
                     .addFilter(jwtAuthenticationFilter)
                     .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);

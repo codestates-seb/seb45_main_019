@@ -21,17 +21,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenizer jwtTokenizer;
 
-    private final CustomAuthorityUtils authorityUtils;
-
-    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils) {
+    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtTokenizer jwtTokenizer) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenizer = jwtTokenizer;
-        this.authorityUtils = authorityUtils;
     }
+
     @SneakyThrows
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) {
@@ -42,6 +44,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         return authenticationManager.authenticate(authenticationToken);
     }
+
     @Override
     protected void successfulAuthentication(HttpServletRequest request,
                                             HttpServletResponse response,
@@ -61,13 +64,13 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         // JWT 토큰을 쿠키로 추가
         Cookie accessTokenCookie = new Cookie("access_token", accessToken);
         accessTokenCookie.setHttpOnly(true);
-        accessTokenCookie.setMaxAge(jwtTokenizer.getAccessTokenExpirationMinutes());
+        accessTokenCookie.setMaxAge(jwtTokenizer.getAccessTokenExpirationMinutes() * 60);
         accessTokenCookie.setPath("/"); // 쿠키의 경로 설정
         response.addCookie(accessTokenCookie);
 
         Cookie refreshTokenCookie = new Cookie("refresh_token", refreshToken);
         refreshTokenCookie.setHttpOnly(true);
-        refreshTokenCookie.setMaxAge(jwtTokenizer.getRefreshTokenExpirationMinutes());
+        refreshTokenCookie.setMaxAge(jwtTokenizer.getRefreshTokenExpirationMinutes() * 60);
         refreshTokenCookie.setPath("/"); // 쿠키의 경로 설정
         response.addCookie(refreshTokenCookie);
     }
@@ -75,32 +78,22 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     private String delegateAccessToken(Member member) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("username", member.getUsername());
-
-        // 사용자의 역할 정보를 가져오고 "ROLE_" 접두사를 붙여서 리스트로 변환
-        List<String> roles = authorityUtils.createRoles(member.getUsername());
-
-        claims.put("roles", roles);
+        claims.put("roles", member.getRoles());
 
         String subject = member.getUsername();
-        String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
+        Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getAccessTokenExpirationMinutes());
 
-        // JWT 토큰의 만료 시간을 계산하여 설정
-        Calendar expirationCalendar = Calendar.getInstance();
-        expirationCalendar.add(Calendar.MINUTE, jwtTokenizer.getAccessTokenExpirationMinutes());
-        Date expiration = expirationCalendar.getTime();
+        String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
 
         String accessToken = jwtTokenizer.generateAccessToken(claims, subject, expiration, base64EncodedSecretKey);
 
         return accessToken;
     }
+
     private String delegateRefreshToken(Member member) {
         String subject = member.getUsername();
+        Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getRefreshTokenExpirationMinutes());
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
-
-        // JWT 토큰의 만료 시간을 계산하여 설정
-        Calendar expirationCalendar = Calendar.getInstance();
-        expirationCalendar.add(Calendar.MINUTE, jwtTokenizer.getRefreshTokenExpirationMinutes());
-        Date expiration = expirationCalendar.getTime();
 
         String refreshToken = jwtTokenizer.generateRefreshToken(subject, expiration, base64EncodedSecretKey);
 

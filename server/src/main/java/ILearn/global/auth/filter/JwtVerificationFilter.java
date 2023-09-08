@@ -2,6 +2,7 @@ package ILearn.global.auth.filter;
 
 import ILearn.global.auth.jwt.JwtTokenizer;
 import ILearn.global.auth.utils.CustomAuthorityUtils;
+import ILearn.global.response.ApiResponse;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;
 import org.springframework.context.annotation.Bean;
@@ -48,7 +49,7 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    private Map<String, Object> verifyJws(HttpServletRequest request) {
+    private Map<String, Object> verifyJws(HttpServletRequest request) throws IOException {
         String accessToken = null;
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
@@ -60,22 +61,22 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
         }
     }
 
-    if (accessToken == null) {
-        // 쿠키에 토큰이 없을 경우 처리
-        // 예: 로그인 페이지로 리다이렉트 또는 오류 응답 반환
-    }
+        if (accessToken == null) {
+            // 예: 로그인 페이지로 리다이렉트
+            ApiResponse.sendRedirect("/members/login"); // 로그인 페이지 URL로 리다이렉트
+            return null; // 더 이상 진행하지 않도록 반환
+        }
 
-    String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
+
+        String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
     Map<String, Object> claims = jwtTokenizer.getClaims(accessToken, base64EncodedSecretKey).getBody();
 
     return claims;
 }
     private void setAuthenticationToContext(Map<String, Object> claims) {
         String username = (String) claims.get("username");
-        List<String> roles = (List<String>) claims.get("roles");
-        List<GrantedAuthority> authorities = authorityUtils.createAuthorities(roles);
+        List<GrantedAuthority> authorities = authorityUtils.createAuthorities((List)claims.get("roles"));
         Authentication authentication = new UsernamePasswordAuthenticationToken(username, null, authorities);
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
-
 }
