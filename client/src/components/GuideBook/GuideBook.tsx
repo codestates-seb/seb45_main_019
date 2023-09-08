@@ -12,7 +12,7 @@ import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import SearchIcon from '@mui/icons-material/Search';
 import { useAppSelector } from '../../redux/hooks';
 import Modal from '@mui/material/Modal';
-import React, { useState } from 'react'; // useState 추가
+import React, { useState } from 'react';
 
 const style = {
   position: 'absolute' as const,
@@ -25,9 +25,6 @@ const style = {
   boxShadow: 24,
   p: 4
 };
-
-// ...
-
 export default function GuideBook() {
   const [open, setOpen] = React.useState(false);
   const [selectedWordId, setSelectedWordId] = useState<number | null>(null);
