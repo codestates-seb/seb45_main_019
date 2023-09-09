@@ -53,7 +53,7 @@ export default function Header(props: HeaderProp) {
         >
           {props.invisiblePath ? null : (
             <Link to="/">
-              <img src="./images/main_logo.png" alt="Main Logo" />
+              <img src="./images/main-logo.png" alt="Main Logo" />
             </Link>
           )}
 

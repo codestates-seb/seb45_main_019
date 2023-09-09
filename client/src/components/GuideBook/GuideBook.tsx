@@ -36,7 +36,7 @@ export default function GuideBook() {
   const chapter = useAppSelector((state) => state.chapter);
 
   return (
-    <Box sx={{ width: '100%', background: grey[200] }}>
+    <Box sx={{ width: '100%' }}>
       <div>
         {chapter.chapterWords.map((el) => (
           <div key={el}>

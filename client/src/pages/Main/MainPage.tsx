@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Enter from '../../components/Enter/Enter';
 import Nav from '../../components/Nav/Nav';
-import { chapterData, userChapterData } from '../../common/data/chapterData';
+import { chapterData, userChapterAllData } from '../../common/data/chapterData';
 import { Chapter, UserChapter } from '../../interfaces/Chapter.interface';
 import { useLocation } from 'react-router-dom';
 import { useAppDispatch } from '../../redux/hooks';
@@ -20,7 +20,7 @@ export default function MainPage() {
     // 회원정보가 있는 유저일 경우
     // 챕터 완료 상태 변경
     const changeStatusList = chapterData.map((chapter) => {
-      const sameChapter = userChapterData?.chapterList.find(
+      const sameChapter = userChapterAllData?.chapterList.find(
         (userChapter) => userChapter.chapterId === chapter.chapterId
       );
 
@@ -28,14 +28,14 @@ export default function MainPage() {
         return {
           ...chapter,
           chapterStatus: true,
-          learningChapterId: userChapterData.learningChapterId,
+          learningChapterId: userChapterAllData.learningChapterId,
           progress: sameChapter?.progress
         };
       } else {
         return {
           ...chapter,
           chapterStatus: false,
-          learningChapterId: userChapterData.learningChapterId,
+          learningChapterId: userChapterAllData.learningChapterId,
           progress: sameChapter?.progress
         };
       }

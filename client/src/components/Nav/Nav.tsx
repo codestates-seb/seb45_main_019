@@ -33,7 +33,7 @@ export default function Nav(props: NavProps) {
         }}
       >
         <Link to="/">
-          <img src="./images/main_logo.png" alt="Main Logo" />
+          <img src="./images/main-logo.png" alt="Main Logo" />
         </Link>
       </Box>
       <List
