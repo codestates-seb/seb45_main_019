@@ -40,9 +40,7 @@ export default function GuideBook() {
       <div>
         {chapter.chapterWords.map((el) => (
           <div key={el}>
-            <Card
-              sx={{ width: '100%', marginBottom: '16px', marginTop: '16px' }}
-            >
+            <Card sx={{ width: '100%', marginBottom: '40px' }}>
               <CardHeader
                 action={
                   <Button onClick={() => handleOpen(el)}>

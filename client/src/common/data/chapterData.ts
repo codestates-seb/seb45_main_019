@@ -93,7 +93,7 @@ export const userChapterAllData: UserChapter = {
     {
       chapterId: 3,
       chapterStatus: false,
-      progress: [1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0]
+      progress: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     }
   ],
   learningChapterId: 3

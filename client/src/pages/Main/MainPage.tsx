@@ -58,7 +58,12 @@ export default function MainPage() {
       }}
     >
       <Nav chapterList={chapterList} location={location} />
-      <Box sx={{ width: '100%', marginLeft: '270px' }}>
+      <Box
+        sx={{
+          width: 'calc(100% - 270px)',
+          marginLeft: '270px'
+        }}
+      >
         <Header invisiblePath={true} />
         <Enter />
       </Box>
