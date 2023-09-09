@@ -29,9 +29,6 @@ public class MemberDetailsService implements UserDetailsService {
         Optional<Member> optionalMember = memberRepository.findByUsername(username);
         Member findMember = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
 
-        Collection<? extends GrantedAuthority> authorities = authorityUtils.createAuthorities(findMember.getEmail());
-
-
         return new MemberDetails(findMember);
     }
 
@@ -40,7 +37,6 @@ public class MemberDetailsService implements UserDetailsService {
         MemberDetails(Member member) {
             setUserId(member.getUserId());
             setUsername(member.getUsername());
-            setEmail(member.getEmail());
             setPassword(member.getPassword());
             setRoles(member.getRoles());
         }

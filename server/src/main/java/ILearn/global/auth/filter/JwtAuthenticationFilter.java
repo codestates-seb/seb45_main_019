@@ -2,6 +2,7 @@ package ILearn.global.auth.filter;
 
 import ILearn.global.auth.jwt.JwtTokenizer;
 import ILearn.global.auth.loginDto.LoginDto;
+import ILearn.global.auth.utils.CustomAuthorityUtils;
 import ILearn.member.entity.Member;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
@@ -18,7 +19,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Calendar;
+import java.util.*;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +33,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         this.authenticationManager = authenticationManager;
         this.jwtTokenizer = jwtTokenizer;
     }
+
     @SneakyThrows
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) {
@@ -41,6 +44,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         return authenticationManager.authenticate(authenticationToken);
     }
+
     @Override
     protected void successfulAuthentication(HttpServletRequest request,
                                             HttpServletResponse response,
@@ -60,13 +64,13 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         // JWT 토큰을 쿠키로 추가
         Cookie accessTokenCookie = new Cookie("access_token", accessToken);
         accessTokenCookie.setHttpOnly(true);
-        accessTokenCookie.setMaxAge(jwtTokenizer.getAccessTokenExpirationMinutes() * 60); // 초 단위로 설정
+        accessTokenCookie.setMaxAge(jwtTokenizer.getAccessTokenExpirationMinutes() * 60);
         accessTokenCookie.setPath("/"); // 쿠키의 경로 설정
         response.addCookie(accessTokenCookie);
 
         Cookie refreshTokenCookie = new Cookie("refresh_token", refreshToken);
         refreshTokenCookie.setHttpOnly(true);
-        refreshTokenCookie.setMaxAge(jwtTokenizer.getRefreshTokenExpirationMinutes() * 60); // 초 단위로 설정
+        refreshTokenCookie.setMaxAge(jwtTokenizer.getRefreshTokenExpirationMinutes() * 60);
         refreshTokenCookie.setPath("/"); // 쿠키의 경로 설정
         response.addCookie(refreshTokenCookie);
     }
@@ -77,12 +81,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         claims.put("roles", member.getRoles());
 
         String subject = member.getUsername();
-        String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
+        Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getAccessTokenExpirationMinutes());
 
-        // JWT 토큰의 만료 시간을 계산하여 설정
-        Calendar expirationCalendar = Calendar.getInstance();
-        expirationCalendar.add(Calendar.MINUTE, jwtTokenizer.getAccessTokenExpirationMinutes());
-        Date expiration = expirationCalendar.getTime();
+        String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
 
         String accessToken = jwtTokenizer.generateAccessToken(claims, subject, expiration, base64EncodedSecretKey);
 
@@ -91,17 +92,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     private String delegateRefreshToken(Member member) {
         String subject = member.getUsername();
+        Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getRefreshTokenExpirationMinutes());
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
 
-        // JWT 토큰의 만료 시간을 계산하여 설정
-        Calendar expirationCalendar = Calendar.getInstance();
-        expirationCalendar.add(Calendar.MINUTE, jwtTokenizer.getRefreshTokenExpirationMinutes());
-        Date expiration = expirationCalendar.getTime();
-
         String refreshToken = jwtTokenizer.generateRefreshToken(subject, expiration, base64EncodedSecretKey);
-
         return refreshToken;
     }
-
-
 }

@@ -3,6 +3,8 @@ package ILearn.global.response;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.io.IOException;
+
 // 공통 응답 클래스
 @Getter
 @NoArgsConstructor
@@ -48,5 +50,10 @@ public class ApiResponse<T> {
 
     public void setError(int error) {
         this.error = error;
+    }
+
+    // [리다이렉트] 특정 URL로 리다이렉트
+    public static void sendRedirect(String redirectUrl) throws IOException {
+        ApiResponse.sendRedirect(redirectUrl);
     }
 }
