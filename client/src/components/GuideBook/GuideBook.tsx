@@ -5,7 +5,8 @@ import {
   CardHeader,
   CardActions,
   CardContent,
-  Button
+  Button,
+  IconButton
 } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
@@ -13,6 +14,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import { useAppSelector } from '../../redux/hooks';
 import Modal from '@mui/material/Modal';
 import React, { useState } from 'react';
+import Word from '../Word/Word';
+import { word } from '../../common/data/wordData';
 
 const style = {
   position: 'absolute' as const,
@@ -38,14 +41,14 @@ export default function GuideBook() {
   return (
     <Box sx={{ width: '100%' }}>
       <div>
-        {chapter.chapterWords.map((el) => (
+        {chapter.wordId.map((el) => (
           <div key={el}>
             <Card sx={{ width: '100%', marginBottom: '40px' }}>
               <CardHeader
                 action={
-                  <Button onClick={() => handleOpen(el)}>
-                    <SearchIcon />
-                  </Button>
+                  <IconButton onClick={() => handleOpen(el)}>
+                    <SearchIcon sx={{ color: 'primary.main' }} />
+                  </IconButton>
                 }
                 title={`단어 ID : ${el}`}
                 subheader="[발음기호]"
@@ -60,52 +63,8 @@ export default function GuideBook() {
                   <VolumeUpIcon />
                 </Button>
                 <Modal open={open} onClose={handleClose}>
-                  <Box sx={style}>
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                      <div
-                        style={{
-                          display: 'flex',
-                          justifyContent: 'space-between',
-                          alignItems: 'center'
-                        }}
-                      >
-                        <Typography
-                          variant="h4"
-                          color="text.secondary"
-                        >{`단어 ID : ${selectedWordId}`}</Typography>
-                        <Typography>(스피커)</Typography>
-                        <Typography>[발음기호]</Typography>
-                        <Button
-                          variant="outlined"
-                          style={{ marginLeft: '8px' }}
-                        >
-                          단어장 추가
-                        </Button>
-                      </div>
-                      <Typography variant="body2" color="text.secondary">
-                        1. 자본 2. 수도 3. 자금 4. 자산 5. 대문자
-                      </Typography>
-                      <div style={{ display: 'flex' }}>
-                        <Button
-                          variant="outlined"
-                          style={{ marginRight: '8px' }}
-                        >
-                          명사
-                        </Button>
-                        <Button variant="outlined">형용사</Button>
-                      </div>
-                      <Box
-                        sx={{
-                          width: 300,
-                          height: 300,
-                          backgroundColor: 'primary.dark',
-                          '&:hover': {
-                            backgroundColor: 'primary.main',
-                            opacity: [0.9, 0.8, 0.7]
-                          }
-                        }}
-                      />
-                    </div>
+                  <Box>
+                    <Word wordInfo={word}></Word>
                   </Box>
                 </Modal>
               </CardActions>

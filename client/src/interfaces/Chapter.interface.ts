@@ -1,7 +1,7 @@
 export interface Chapter {
   chapterId: number;
   title: string;
-  chapterWords: Array<number>;
+  wordId: Array<number>;
   chapterStatus?: boolean;
   learningChapterId?: number;
   progress?: number[];

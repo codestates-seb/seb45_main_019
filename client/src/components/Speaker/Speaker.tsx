@@ -1,11 +1,15 @@
-import { IconButton } from '@mui/material';
+import { IconButton, ThemeProvider, createTheme } from '@mui/material';
 import RecordVoiceOverIcon from '@mui/icons-material/RecordVoiceOver';
 import { playText } from '../../common/utils/speak';
-
+const defaultTheme = createTheme();
 export default function Speaker(props: { text: string }) {
   return (
-    <IconButton onClick={() => playText(props.text)}>
-      <RecordVoiceOverIcon></RecordVoiceOverIcon>
-    </IconButton>
+    <ThemeProvider theme={defaultTheme}>
+      <IconButton onClick={() => playText(props.text)} sx={{ m: 0 }}>
+        <RecordVoiceOverIcon
+          sx={{ color: 'primary.main' }}
+        ></RecordVoiceOverIcon>
+      </IconButton>
+    </ThemeProvider>
   );
 }
