@@ -8,6 +8,7 @@ import ILearn.member.dto.MemberResponseDto;
 import ILearn.member.entity.Member;
 import ILearn.member.mapper.MemberMapper;
 import ILearn.member.service.MemberService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +26,7 @@ import javax.validation.constraints.Positive;
 @RequestMapping("/members")
 @Slf4j
 @EnableSwagger2
+@Api(tags = "Member Controller", description = "Member 관련 API")
 public class MemberController {
     private final MemberMapper memberMapper;
     private final MemberService memberService;

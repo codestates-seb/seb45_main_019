@@ -61,11 +61,9 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
         }
     }
 
-//        if (accessToken == null) {
-//            // 예: 로그인 페이지로 리다이렉트
-//            ApiResponse.sendRedirect("/members/login"); // 로그인 페이지 URL로 리다이렉트
-//            return null; // 더 이상 진행하지 않도록 반환
-//        }
+        if (accessToken == null) {
+            return null;
+        }
 
 
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());

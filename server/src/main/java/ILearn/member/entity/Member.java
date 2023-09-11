@@ -81,10 +81,6 @@ public class Member {
     @JoinColumn(name = "manage_Id")
     private Manage manage;
 
-    @OneToMany(mappedBy = "member")
-    private List<MemberChapter> memberChapters = new ArrayList<>();
-
-
     public enum MemberStatus {
         MEMBER_ACTIVE("활동중"),
         MEMBER_QUIT("회원 탈퇴");
