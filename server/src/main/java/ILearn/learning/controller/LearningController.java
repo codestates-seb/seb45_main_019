@@ -21,7 +21,7 @@ import java.util.List;
 
 @RestController
 @Validated
-@RequestMapping("/learning")
+//@RequestMapping("/learning")
 @Slf4j
 @EnableSwagger2
 @Api(tags = "Learning Controller", description = "Learning 관련 API")

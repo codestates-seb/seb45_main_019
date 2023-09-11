@@ -8,6 +8,8 @@ import ILearn.global.auth.handler.MemberAuthenticationFailureHandler;
 import ILearn.global.auth.handler.MemberAuthenticationSuccessHandler;
 import ILearn.global.auth.jwt.JwtTokenizer;
 import ILearn.global.auth.utils.CustomAuthorityUtils;
+import ILearn.member.entity.Member;
+import ILearn.member.repository.MemberRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -36,11 +38,14 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
+    private final MemberRepository memberRepository;
 
     public SecurityConfiguration(JwtTokenizer jwtTokenizer,
-                                   CustomAuthorityUtils authorityUtils) {
+                                 CustomAuthorityUtils authorityUtils,
+                                 MemberRepository memberRepository) {
         this.jwtTokenizer = jwtTokenizer;
         this.authorityUtils = authorityUtils;
+        this.memberRepository = memberRepository;
     }
 
     @Bean
@@ -63,7 +68,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
                                 .antMatchers(HttpMethod.POST, "/*/members").permitAll()
                                 .antMatchers(HttpMethod.PATCH, "/*/members/**").hasRole("USER")
-                                .antMatchers(HttpMethod.GET, "/*/members").hasRole("ADMIN")
+//                                .antMatchers(HttpMethod.GET, "/*/members").hasRole("ADMIN")
                                 .antMatchers(HttpMethod.GET, "/*/members/**").hasAnyRole("USER", "ADMIN")
                                 .antMatchers(HttpMethod.DELETE, "/*/members/**").hasRole("USER")
                                 .anyRequest().permitAll()
@@ -79,8 +84,9 @@ public class SecurityConfiguration {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PATCH", "DELETE"));
+        configuration.setAllowedOrigins(Arrays.asList("http://i-learn.s3-website.ap-northeast-2.amazonaws.com", "http://localhost:8080", "http://localhost:3000", "https://d5e1-14-36-94-78.ngrok-free.app"));
+        configuration.setAllowedMethods(Arrays.asList("*"));
+        configuration.addAllowedHeader("*");
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
@@ -94,7 +100,7 @@ public class SecurityConfiguration {
 
             JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
             jwtAuthenticationFilter.setFilterProcessesUrl("/members/login");
-            jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
+            jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler(memberRepository));
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
 
             JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);

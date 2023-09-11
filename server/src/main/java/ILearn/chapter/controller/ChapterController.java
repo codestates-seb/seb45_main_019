@@ -16,7 +16,7 @@ import javax.validation.constraints.Positive;
 import java.util.List;
 
 @RestController
-@RequestMapping("/chapters")
+@RequestMapping("/learning")
 public class ChapterController {
 
     private final ChapterService chapterService;

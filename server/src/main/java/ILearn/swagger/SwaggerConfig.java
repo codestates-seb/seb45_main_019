@@ -32,7 +32,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("ILearn.learning.controller"))
+                .apis(RequestHandlerSelectors.basePackage("ILearn.word.controller"))
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(apiInfo());
