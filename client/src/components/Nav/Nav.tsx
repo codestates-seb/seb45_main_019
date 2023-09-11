@@ -1,16 +1,33 @@
 import { Box, List } from '@mui/material';
 import { Chapter } from '../../interfaces/Chapter.interface';
-import NavItem from './NavItem';
 import { Link } from 'react-router-dom';
+import MainNavItem from './MainNavItem';
 
 interface NavProps {
-  chapterList?: Array<Chapter>;
+  chapterList?: Chapter[];
   location: string;
+  memberStatus: boolean;
+  myWordList?: number[];
 }
 
 export default function Nav(props: NavProps) {
   const chapterList = props.chapterList;
   const location = props.location;
+  const myWordList = props.myWordList;
+
+  console.log(props);
+  function handleNavPage() {
+    if (location === '/') {
+      return chapterList?.map((el) => (
+        <MainNavItem key={el.chapterId} chapter={el} />
+      ));
+    } else if (location === '/my-word') {
+      // word page
+      return myWordList;
+    } else {
+      return null;
+    }
+  }
 
   return (
     <Box
@@ -59,11 +76,7 @@ export default function Nav(props: NavProps) {
           }
         }}
       >
-        {location === '/'
-          ? chapterList?.map((el) => (
-              <NavItem key={el.chapterId} chapter={el} />
-            ))
-          : null}
+        {handleNavPage()}
       </List>
     </Box>
   );

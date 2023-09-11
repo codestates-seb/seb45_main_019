@@ -4,77 +4,77 @@ export const chapterData: Array<Chapter> = [
   {
     title: '인사 나누기',
     chapterId: 1,
-    chapterWords: [1, 2, 3]
+    wordId: [1, 2, 3]
   },
   {
     title: '쇼핑 및 주문하기',
     chapterId: 2,
-    chapterWords: [4, 5, 6]
+    wordId: [4, 5, 6]
   },
   {
     title: '활동에 대해 말하기',
     chapterId: 3,
-    chapterWords: [71, 28, 66]
+    wordId: [71, 28, 66]
   },
   {
     title: '활동에 대해 말하기',
     chapterId: 3,
-    chapterWords: [71, 28, 66]
+    wordId: [71, 28, 66]
   },
   {
     title: '활동에 대해 말하기',
     chapterId: 3,
-    chapterWords: [71, 28, 66]
+    wordId: [71, 28, 66]
   },
   {
     title: '활동에 대해 말하기',
     chapterId: 3,
-    chapterWords: [71, 28, 66]
+    wordId: [71, 28, 66]
   },
   {
     title: '활동에 대해 말하기',
     chapterId: 3,
-    chapterWords: [71, 28, 66]
+    wordId: [71, 28, 66]
   },
   {
     title: '활동에 대해 말하기',
     chapterId: 3,
-    chapterWords: [71, 28, 66]
+    wordId: [71, 28, 66]
   },
   {
     title: '활동에 대해 말하기',
     chapterId: 3,
-    chapterWords: [71, 28, 66]
+    wordId: [71, 28, 66]
   },
   {
     title: '활동에 대해 말하기',
     chapterId: 3,
-    chapterWords: [71, 28, 66]
+    wordId: [71, 28, 66]
   },
   {
     title: '활동에 대해 말하기',
     chapterId: 3,
-    chapterWords: [71, 28, 66]
+    wordId: [71, 28, 66]
   },
   {
     title: '활동에 대해 말하기',
     chapterId: 3,
-    chapterWords: [71, 28, 66]
+    wordId: [71, 28, 66]
   },
   {
     title: '활동에 대해 말하기',
     chapterId: 3,
-    chapterWords: [71, 28, 66]
+    wordId: [71, 28, 66]
   },
   {
     title: '활동에 대해 말하기',
     chapterId: 3,
-    chapterWords: [71, 28, 66]
+    wordId: [71, 28, 66]
   },
   {
     title: 'end',
     chapterId: 3,
-    chapterWords: [71, 28, 66]
+    wordId: [71, 28, 66]
   }
 ];
 

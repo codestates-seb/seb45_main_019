@@ -38,7 +38,7 @@ export default function Progress({ progress }: Progress) {
     if (idx === 0 || idx === 3 || idx === 6) {
       qType = '영단어 선택하기';
     } else if (idx === 1 || idx === 4 || idx === 7) {
-      qType = '힌글 뜻 선택하기';
+      qType = '의미 선택하기';
     } else if (idx === 2 || idx === 5 || idx === 8) {
       qType = '소리 듣고 입력하기';
     } else {

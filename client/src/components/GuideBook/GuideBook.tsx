@@ -38,7 +38,7 @@ export default function GuideBook() {
   return (
     <Box sx={{ width: '100%' }}>
       <div>
-        {chapter.chapterWords.map((el) => (
+        {chapter.wordId.map((el) => (
           <div key={el}>
             <Card sx={{ width: '100%', marginBottom: '40px' }}>
               <CardHeader
