@@ -7,13 +7,78 @@ export const chapterData: Array<Chapter> = [
     chapterWords: [1, 2, 3]
   },
   {
-    title: '활동에 대해 말하기',
+    title: '쇼핑 및 주문하기',
     chapterId: 2,
     chapterWords: [4, 5, 6]
+  },
+  {
+    title: '활동에 대해 말하기',
+    chapterId: 3,
+    chapterWords: [71, 28, 66]
+  },
+  {
+    title: '활동에 대해 말하기',
+    chapterId: 3,
+    chapterWords: [71, 28, 66]
+  },
+  {
+    title: '활동에 대해 말하기',
+    chapterId: 3,
+    chapterWords: [71, 28, 66]
+  },
+  {
+    title: '활동에 대해 말하기',
+    chapterId: 3,
+    chapterWords: [71, 28, 66]
+  },
+  {
+    title: '활동에 대해 말하기',
+    chapterId: 3,
+    chapterWords: [71, 28, 66]
+  },
+  {
+    title: '활동에 대해 말하기',
+    chapterId: 3,
+    chapterWords: [71, 28, 66]
+  },
+  {
+    title: '활동에 대해 말하기',
+    chapterId: 3,
+    chapterWords: [71, 28, 66]
+  },
+  {
+    title: '활동에 대해 말하기',
+    chapterId: 3,
+    chapterWords: [71, 28, 66]
+  },
+  {
+    title: '활동에 대해 말하기',
+    chapterId: 3,
+    chapterWords: [71, 28, 66]
+  },
+  {
+    title: '활동에 대해 말하기',
+    chapterId: 3,
+    chapterWords: [71, 28, 66]
+  },
+  {
+    title: '활동에 대해 말하기',
+    chapterId: 3,
+    chapterWords: [71, 28, 66]
+  },
+  {
+    title: '활동에 대해 말하기',
+    chapterId: 3,
+    chapterWords: [71, 28, 66]
+  },
+  {
+    title: 'end',
+    chapterId: 3,
+    chapterWords: [71, 28, 66]
   }
 ];
 
-export const userChapterData: UserChapter = {
+export const userChapterAllData: UserChapter = {
   chapterList: [
     {
       chapterId: 1,
@@ -24,7 +89,12 @@ export const userChapterData: UserChapter = {
       chapterId: 2,
       chapterStatus: false,
       progress: [1, 1, 1, 1, 1, 1, 2, 2, 0, 0, 0, 0]
+    },
+    {
+      chapterId: 3,
+      chapterStatus: false,
+      progress: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     }
   ],
-  learningChapterId: 2
+  learningChapterId: 3
 };

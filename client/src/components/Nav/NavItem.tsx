@@ -25,19 +25,26 @@ export default function NavItem(props: NavItemProps) {
         <ListItemButton
           onClick={handleSelectChapter}
           sx={{
-            borderBottom: 1,
-            borderBottomColor: grey[200],
-            borderLeft: 8,
+            marginRight: '5px',
+            backgroundColor:
+              chapter.chapterId === selectedChapter.chapterId
+                ? '#1976d21a'
+                : null,
+            borderRadius: '0 30px 30px 0',
+            borderLeft: 5,
             borderLeftColor:
               chapter.chapterId === selectedChapter.chapterId
                 ? 'primary.main'
-                : '#1976d200'
+                : '#1976d200',
+            ':hover': { borderLeftColor: 'rgba(0,0,0,.2)' }
           }}
         >
           <ListItemText primary={chapterBigTitle} secondary={chapter.title} />
           {chapter.chapterStatus ? (
-            <Avatar sx={{ bgcolor: 'success.main' }}>
-              <DoneIcon />
+            <Avatar
+              sx={{ bgcolor: 'success.main', width: '27px', height: '27px' }}
+            >
+              <DoneIcon fontSize="small" />
             </Avatar>
           ) : null}
         </ListItemButton>

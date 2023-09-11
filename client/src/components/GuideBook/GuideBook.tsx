@@ -36,13 +36,11 @@ export default function GuideBook() {
   const chapter = useAppSelector((state) => state.chapter);
 
   return (
-    <Box sx={{ width: '100%', background: grey[200] }}>
+    <Box sx={{ width: '100%' }}>
       <div>
         {chapter.chapterWords.map((el) => (
           <div key={el}>
-            <Card
-              sx={{ width: '100%', marginBottom: '16px', marginTop: '16px' }}
-            >
+            <Card sx={{ width: '100%', marginBottom: '40px' }}>
               <CardHeader
                 action={
                   <Button onClick={() => handleOpen(el)}>

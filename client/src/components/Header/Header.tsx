@@ -9,14 +9,18 @@ import {
   Tooltip
 } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
-import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
-import {
-  AccountCircleRounded,
-  BookRounded,
-  LoginRounded
-} from '@mui/icons-material';
+
 import { useState } from 'react';
-export default function Header() {
+import { alpha } from '@mui/material/styles';
+import ClassOutlinedIcon from '@mui/icons-material/ClassOutlined';
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
+import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import FactCheckOutlinedIcon from '@mui/icons-material/FactCheckOutlined';
+interface HeaderProp {
+  invisiblePath?: boolean;
+}
+export default function Header(props: HeaderProp) {
   const location = useLocation().pathname;
 
   // TODO : 로그인 기능 완료 후 전역 상태로 변경
@@ -27,58 +31,101 @@ export default function Header() {
     console.log('log out');
   };
 
-  if (location === '/learn') return null;
-
   return (
-    <AppBar sx={{ backgroundColor: '#fff' }}>
+    <AppBar
+      sx={{
+        backdropFilter: 'blur(6px)',
+        backgroundColor: alpha('#f5f7fa', 0.8),
+        boxShadow: 'none',
+        position: props.invisiblePath ? 'sticky' : 'fixed',
+        height: '70px'
+      }}
+    >
       <Container maxWidth={false}>
         <Toolbar
           disableGutters
           sx={{
             display: 'flex',
-            justifyContent: 'space-between',
-            width: '100%'
+            justifyContent: props.invisiblePath ? 'flex-end' : 'space-between',
+            width: '100%',
+            paddingRight: props.invisiblePath ? '15px' : null
           }}
         >
-          <Link to="/">
-            <img
-              src="./images/main_logo1.png"
-              alt="Main Logo"
-              style={{ width: '200px' }}
-            />
-          </Link>
-          <Stack direction={'row'} spacing={2}>
+          {props.invisiblePath ? null : (
+            <Link to="/">
+              <img src="./images/main-logo.png" alt="Main Logo" />
+            </Link>
+          )}
+
+          <Stack direction={'row'} spacing={1}>
             <Link to="/">
               <Tooltip title="단어장">
                 <IconButton
-                  size="medium"
-                  color={loggedIn ? 'primary' : 'default'}
+                  sx={{
+                    width: '40px',
+                    height: '40px',
+                    boxShadow: 'rgba(0, 0, 0, 0.2) 0px 5px 10px',
+                    color: loggedIn ? 'primary.main' : 'default'
+                  }}
                 >
-                  <BookRounded fontSize="inherit" />
+                  <ClassOutlinedIcon fontSize="small" />
                 </IconButton>
               </Tooltip>
             </Link>
             <Link to="/">
-              <Tooltip title="마이 페이지">
+              <Tooltip title="학습 기록">
                 <IconButton
-                  size="medium"
-                  color={loggedIn ? 'primary' : 'default'}
+                  sx={{
+                    width: '40px',
+                    height: '40px',
+                    boxShadow: 'rgba(0, 0, 0, 0.2) 0px 5px 10px',
+                    color: loggedIn ? 'primary.main' : 'default'
+                  }}
                 >
-                  <AccountCircleRounded fontSize="inherit" />
+                  <FactCheckOutlinedIcon fontSize="small" />
+                </IconButton>
+              </Tooltip>
+            </Link>
+            <Link to="/">
+              <Tooltip title="내 정보">
+                <IconButton
+                  sx={{
+                    width: '40px',
+                    height: '40px',
+                    boxShadow: 'rgba(0, 0, 0, 0.2) 0px 5px 10px',
+                    color: loggedIn ? 'primary.main' : 'default'
+                  }}
+                >
+                  <PersonOutlineOutlinedIcon fontSize="small" />
                 </IconButton>
               </Tooltip>
             </Link>
             {loggedIn ? (
               <Tooltip title="로그아웃">
-                <IconButton size="medium" onClick={handleLogout}>
-                  <LogoutRoundedIcon fontSize="inherit" />
+                <IconButton
+                  onClick={handleLogout}
+                  sx={{
+                    width: '40px',
+                    height: '40px',
+                    boxShadow: 'rgba(0, 0, 0, 0.2) 0px 5px 10px',
+                    color: 'default'
+                  }}
+                >
+                  <LogoutOutlinedIcon fontSize="small" />
                 </IconButton>
               </Tooltip>
             ) : (
               <Link to="/signin">
                 <Tooltip title="로그인">
-                  <IconButton size="medium" color="primary">
-                    <LoginRounded fontSize="inherit" />
+                  <IconButton
+                    sx={{
+                      width: '40px',
+                      height: '40px',
+                      boxShadow: 'rgba(0, 0, 0, 0.2) 0px 5px 10px',
+                      color: 'primary.main'
+                    }}
+                  >
+                    <LoginOutlinedIcon fontSize="small" />
                   </IconButton>
                 </Tooltip>
               </Link>
