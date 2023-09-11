@@ -3,9 +3,11 @@ package ILearn.word.entity;
 import ILearn.chapter.entity.Chapter;
 import ILearn.member.entity.Member;
 import ILearn.question.entity.Question;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -34,17 +36,21 @@ public class Word {
     @Column(name = "DETAILCATEGORIES")
     private String detailCategories;
 
+    @Column(name = "DETAILDESCRIPTIONS")
+    private String detailDescriptions;
+
     @Column(name = "WORDEXAMPLE")
     private String wordExample;
 
     @Column(name = "WORDEXAMPLEMEANING")
     private String wordExampleMeaning;
 
-    @OneToMany(mappedBy = "word")
-    private List<Question> questions = new ArrayList<>();
+    @OneToMany(mappedBy = "word", cascade = CascadeType.REMOVE)
+    private List<Question> questions;
 
     @ManyToOne
-    @JoinColumn(name = "chapter_Id")
+    @JoinColumn(name = "CHAPTER_ID")
+    @JsonIgnore
     private Chapter chapter;
 
     @ManyToOne

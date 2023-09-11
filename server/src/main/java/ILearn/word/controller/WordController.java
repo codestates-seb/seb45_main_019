@@ -2,11 +2,7 @@ package ILearn.word.controller;
 
 import ILearn.global.response.ApiResponse;
 import ILearn.global.response.ApiResponseException;
-import ILearn.member.dto.MemberResponseDto;
-import ILearn.member.mapper.MemberMapper;
-import ILearn.member.service.MemberService;
 import ILearn.word.dto.WordGetDto;
-import ILearn.word.mapper.WordMapper;
 import ILearn.word.service.WordService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
