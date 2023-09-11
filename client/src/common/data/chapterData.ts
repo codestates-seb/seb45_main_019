@@ -23,7 +23,7 @@ export const chapterData: Array<Chapter> = [
   },
   {
     title: '활동에 대해 말하기',
-    chapterId: 3,
+    chapterId: 5,
     wordId: [71, 28, 66]
   },
   {
@@ -33,7 +33,7 @@ export const chapterData: Array<Chapter> = [
   },
   {
     title: '활동에 대해 말하기',
-    chapterId: 3,
+    chapterId: 7,
     wordId: [71, 28, 66]
   },
   {
@@ -43,36 +43,6 @@ export const chapterData: Array<Chapter> = [
   },
   {
     title: '활동에 대해 말하기',
-    chapterId: 3,
-    wordId: [71, 28, 66]
-  },
-  {
-    title: '활동에 대해 말하기',
-    chapterId: 3,
-    wordId: [71, 28, 66]
-  },
-  {
-    title: '활동에 대해 말하기',
-    chapterId: 3,
-    wordId: [71, 28, 66]
-  },
-  {
-    title: '활동에 대해 말하기',
-    chapterId: 3,
-    wordId: [71, 28, 66]
-  },
-  {
-    title: '활동에 대해 말하기',
-    chapterId: 3,
-    wordId: [71, 28, 66]
-  },
-  {
-    title: '활동에 대해 말하기',
-    chapterId: 3,
-    wordId: [71, 28, 66]
-  },
-  {
-    title: 'end',
     chapterId: 3,
     wordId: [71, 28, 66]
   }
