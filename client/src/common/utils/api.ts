@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-const SERVER_URL =
-  'http://ec2-13-209-48-235.ap-northeast-2.compute.amazonaws.com:8080';
+const SERVER_URL = process.env.REACT_APP_API_URL;
 
 const api = (
   uri: string,
@@ -13,7 +12,8 @@ const api = (
     method: method ? method : 'get',
     url: SERVER_URL + uri,
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'ngrok-skip-browser-warning': '69420'
       // Add more headers as needed
       // Authorization: token
     },

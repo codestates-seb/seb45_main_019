@@ -1,14 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-
-export interface UserState {
-  email: string;
-  username: string;
-  userId: number;
-  nickname: string;
-  point: number;
-  memberStatus: boolean;
-}
+import { UserState } from '../../interfaces/User.interface';
 
 const initialState: UserState = {
   email: '',
