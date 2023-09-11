@@ -65,10 +65,6 @@ public class Member {
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
 
-//    @OneToMany
-//    @JoinColumn(name = "word_Id")
-//    private List<Word> words;
-//
     @OneToMany
     @JoinColumn(name = "member")
     private List<Word> words;

@@ -9,10 +9,11 @@ import javax.persistence.FetchType;
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
+@Setter
 public class QuestionGetDto {
-    private Long chapterId;
     private Long questionId;
+    private Long chapterNum;
+    private Long wordNum;
     private Long questionType;
     private String question;
     private String examples;

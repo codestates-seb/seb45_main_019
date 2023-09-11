@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<dataSource name="seb45">
-  <database-model serializer="dbm" dbms="H2" family-id="H2" format-version="4.49">
-    <root id="1"/>
-    <database id="2" parent="1" name="SEB45">
-      <Current>1</Current>
-    </database>
-  </database-model>
-</dataSource>

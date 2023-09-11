@@ -52,6 +52,10 @@ dependencies {
 
 	//swagger 관련 추가
 	implementation 'io.springfox:springfox-boot-starter:3.0.0'
+
+	//sql 관련 추가
+	runtimeOnly 'mysql:mysql-connector-java'
+	implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.22'
 }
 
 tasks.named('test') {

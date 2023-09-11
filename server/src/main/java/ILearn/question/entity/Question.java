@@ -1,16 +1,16 @@
 package ILearn.question.entity;
 
-import ILearn.QuestionType.entity.QuestionType;
 import ILearn.chapter.entity.Chapter;
-import ILearn.chapter.entity.ChapterQuestion;
 import ILearn.word.entity.Word;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@Setter
 @Entity
 public class Question {
     @Id
@@ -18,28 +18,23 @@ public class Question {
     @Column(name = "QUESTIONID")
     private Long questionId;
 
-    @OneToMany
-    private List<ChapterQuestion> chapterQuestions = new ArrayList<>();
-
     @Column(name = "QUESTIONTYPE")
     private Long questionType;
     private String question;
-//    @ElementCollection(fetch = FetchType.EAGER)
     private String examples;
     private String correct;
     private String translation;
+    private Long wordNum;
+    private Long chapterNum;
 
     @ManyToOne
     @JoinColumn(name = "CHAPTER_ID")
+    @JsonIgnore
     private Chapter chapter;
 
-
-//    @ManyToOne
-//    @JoinColumn(name = "questionTypeId")
-//    private QuestionType questionType;
-
     @ManyToOne
-    @JoinColumn(name = "word_Id")
+    @JoinColumn(name = "WORDID")
+    @JsonIgnore
     private Word word;
 
 }
