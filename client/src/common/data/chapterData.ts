@@ -18,64 +18,64 @@ export const chapterData: Array<Chapter> = [
   },
   {
     title: '활동에 대해 말하기',
-    chapterId: 3,
+    chapterId: 4,
     chapterWords: [71, 28, 66]
   },
   {
     title: '활동에 대해 말하기',
-    chapterId: 3,
+    chapterId: 5,
     chapterWords: [71, 28, 66]
   },
   {
     title: '활동에 대해 말하기',
-    chapterId: 3,
+    chapterId: 6,
     chapterWords: [71, 28, 66]
   },
   {
     title: '활동에 대해 말하기',
-    chapterId: 3,
+    chapterId: 7,
     chapterWords: [71, 28, 66]
   },
   {
     title: '활동에 대해 말하기',
-    chapterId: 3,
+    chapterId: 8,
     chapterWords: [71, 28, 66]
   },
   {
     title: '활동에 대해 말하기',
-    chapterId: 3,
+    chapterId: 9,
     chapterWords: [71, 28, 66]
   },
   {
     title: '활동에 대해 말하기',
-    chapterId: 3,
-    chapterWords: [71, 28, 66]
-  },
-  {
-    title: '활동에 대해 말하기',
-    chapterId: 3,
-    chapterWords: [71, 28, 66]
-  },
-  {
-    title: '활동에 대해 말하기',
-    chapterId: 3,
-    chapterWords: [71, 28, 66]
-  },
-  {
-    title: '활동에 대해 말하기',
-    chapterId: 3,
-    chapterWords: [71, 28, 66]
-  },
-  {
-    title: '활동에 대해 말하기',
-    chapterId: 3,
-    chapterWords: [71, 28, 66]
-  },
-  {
-    title: 'end',
-    chapterId: 3,
+    chapterId: 10,
     chapterWords: [71, 28, 66]
   }
+  // {
+  //   title: '활동에 대해 말하기',
+  //   chapterId: 3,
+  //   chapterWords: [71, 28, 66]
+  // },
+  // {
+  //   title: '활동에 대해 말하기',
+  //   chapterId: 3,
+  //   chapterWords: [71, 28, 66]
+  // },
+  // {
+  //   title: '활동에 대해 말하기',
+  //   chapterId: 3,
+  //   chapterWords: [71, 28, 66]
+  // },
+  // {
+  //   title: '활동에 대해 말하기',
+  //   chapterId: 3,
+  //   chapterWords: [71, 28, 66]
+  // },
+  // {
+  //   title: 'end',
+  //   chapterId: 3,
+  //   chapterWords: [71, 28, 66]
+  // }
 ];
 
 export const userChapterAllData: UserChapter = {
