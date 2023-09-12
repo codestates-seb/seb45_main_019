@@ -1,4 +1,8 @@
-import { Chapter, UserChapter } from '../../interfaces/Chapter.interface';
+import {
+  Chapter,
+  UserChapter,
+  UserChapterListItem
+} from '../../interfaces/Chapter.interface';
 
 export const chapterData: Array<Chapter> = [
   {
@@ -67,4 +71,10 @@ export const userChapterAllData: UserChapter = {
     }
   ],
   learningChapterId: 3
+};
+
+export const userChapterData: UserChapterListItem = {
+  chapterId: 1,
+  chapterStatus: false,
+  progress: [1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 };

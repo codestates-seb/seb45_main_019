@@ -17,57 +17,65 @@ export default function MainPage() {
   const location = useLocation().pathname;
   const dispatch = useAppDispatch();
   const userInfo = useAppSelector((state) => state.user);
+  const selectedChapter = useAppSelector((state) => state.chapter);
 
   const getChapter = useQuery({
     queryKey: ['getChapterList'],
-    queryFn: () => api('/learning', 'get').then(({ data }) => data.data)
+    queryFn: async () => {
+      try {
+        const response = await api('/learning', 'get');
+        return response.data.data;
+      } catch (error) {
+        return alert('Error');
+      }
+    }
   });
 
   useEffect(() => {
-    if (getChapter.isError) {
-      alert('Error!');
-    }
-
-    if (!getChapter.isLoading) {
-      if (!userInfo.memberStatus && !localStorage.getItem('userChapter')) {
-        const localUserChapter = {
-          chapterList: [{}],
-          learningChapterId: 1
-        };
-
-        for (let i = 0; i < getChapter.data.length; i++) {
-          localUserChapter.chapterList[i] = {
-            chapterId: i + 1,
-            chapterStatus: false,
-            progress: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-          };
-        }
-        localStorage.setItem('userChapter', JSON.stringify(localUserChapter));
-      }
-
+    // data가 들어왔을때 실행
+    if (getChapter.data !== undefined) {
+      const chapterData: Chapter[] = getChapter.data;
       let userChapter: UserChapter = {
         chapterList: [
           {
             chapterId: 1,
             chapterStatus: false,
-            progress: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            progress: [0]
           }
         ],
         learningChapterId: 1
       };
-      const chapterData: Chapter[] = getChapter.data;
 
-      if (userInfo.memberStatus) {
-        console.log('get 유저 챕터');
-      } else {
+      // 비회원 접속 시 userChapter 세팅
+      if (!userInfo.memberStatus) {
+        // 로컬스토리지 정보가 없을 시 초기 세팅
+        if (!localStorage.getItem('userChapter')) {
+          const localUserChapter = {
+            chapterList: [{}],
+            learningChapterId: 1
+          };
+
+          for (let i = 0; i < getChapter.data.length; i++) {
+            localUserChapter.chapterList[i] = {
+              chapterId: i + 1,
+              chapterStatus: false,
+              progress: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            };
+          }
+          localStorage.setItem('userChapter', JSON.stringify(localUserChapter));
+        }
         const localUserChapter = localStorage.getItem('userChapter');
         if (localUserChapter !== null) {
           const parseUserChapter = JSON.parse(localUserChapter);
 
           userChapter = parseUserChapter;
         }
+      } else {
+        // 유저 로그인 시 userChapter 세팅
+        console.log('get 유저 챕터');
       }
 
+      // 챕터 데이터랑 유저 챕터 정보랑 mapping
       const changeStatusList = chapterData.map((chapter) => {
         const sameChapter = userChapter?.chapterList.find(
           (userChapter) => userChapter.chapterId === chapter.chapterId
@@ -89,11 +97,15 @@ export default function MainPage() {
           };
         }
       });
-      console.log(changeStatusList);
+      // 변경된 챕터리스트로 setState
       setChapterList(changeStatusList);
-      dispatch(setChapter(changeStatusList[0]));
+
+      // 첫 접속시 Enter, Nav 첫 챕터로 세팅
+      if (selectedChapter.chapterId === 0) {
+        dispatch(setChapter(changeStatusList[0]));
+      }
     }
-  }, [getChapter.isLoading]);
+  }, [getChapter.data]);
 
   return (
     <Box
@@ -104,11 +116,7 @@ export default function MainPage() {
         backgroundColor: '#f5f7fa'
       }}
     >
-      <Nav
-        chapterList={chapterList}
-        location={location}
-        memberStatus={userInfo.memberStatus}
-      />
+      <Nav chapterList={chapterList} location={location} />
       <Box
         sx={{
           width: 'calc(100% - 270px)',

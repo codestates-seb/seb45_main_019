@@ -8,7 +8,7 @@ import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
 import { Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
 
-interface Progress {
+export interface Progress {
   progress: number[];
 }
 export default function Progress({ progress }: Progress) {
@@ -36,7 +36,7 @@ export default function Progress({ progress }: Progress) {
     }
 
     if (idx === 0 || idx === 3 || idx === 6) {
-      qType = '영단어 선택하기';
+      qType = '단어 선택하기';
     } else if (idx === 1 || idx === 4 || idx === 7) {
       qType = '의미 선택하기';
     } else if (idx === 2 || idx === 5 || idx === 8) {
