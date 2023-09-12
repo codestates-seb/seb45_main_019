@@ -8,12 +8,12 @@ import {
 import React, { useState, useEffect } from 'react';
 import Speaker from '../Speaker/Speaker';
 import { WordInterface } from '../../interfaces/Word.interface';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { getWord } from './Word.api';
 const defaultTheme = createTheme();
 console.log(defaultTheme);
 
-export default function Word(props: { wordId: string }) {
+export default function Word(props: { wordId: number }) {
   const [detailCategory, setDetailCategory] = useState(0);
 
   const [wordInfo, setWordInfo] = useState<WordInterface>({
@@ -22,18 +22,21 @@ export default function Word(props: { wordId: string }) {
     symbol: '',
     wordMeaning: [],
     detailCategories: [],
-    detailDescriptions: [],
+    detailDescriptions: [[]],
     wordExample: [],
     wordExampleMeaning: []
   });
 
   const word = useQuery({
-    queryKey: ['wordInfo'],
+    queryKey: ['word'],
     queryFn: () => getWord(props.wordId)
   });
 
   useEffect(() => {
-    if (word.data) {
+    console.log(wordInfo);
+    console.log(word.data);
+
+    if (!word.isLoading && word.data) {
       setWordInfo(word.data);
     }
   }, [word]);
