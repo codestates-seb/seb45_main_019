@@ -10,7 +10,6 @@ import Speaker from '../Speaker/Speaker';
 import { WordInterface } from '../../interfaces/Word.interface';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { getWord } from './Word.api';
-import { AxiosError } from 'axios';
 const defaultTheme = createTheme();
 console.log(defaultTheme);
 
