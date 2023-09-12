@@ -3,7 +3,6 @@ package ILearn.chapter.entity;
 import ILearn.manage.entity.Manage;
 import ILearn.question.entity.Question;
 import ILearn.word.entity.Word;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -22,8 +21,7 @@ public class Chapter {
 
 //    private boolean chapterStatus = false;
 
-    @OneToMany(mappedBy = "chapter")
-    @JsonIgnore
+    @OneToMany(mappedBy = "chapter", cascade = CascadeType.REMOVE)
     private List<Question> questions;
 
     @OneToMany(mappedBy = "chapter", cascade = CascadeType.REMOVE)

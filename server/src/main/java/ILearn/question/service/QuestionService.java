@@ -1,7 +1,6 @@
 package ILearn.question.service;
 
 import ILearn.chapter.entity.Chapter;
-import ILearn.chapter.repository.ChapterRepository;
 import ILearn.global.response.ApiResponse;
 import ILearn.global.response.ApiResponseException;
 import ILearn.question.dto.QuestionGetDto;
@@ -16,7 +15,6 @@ import ILearn.word.service.WordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -41,7 +39,7 @@ public class QuestionService {
 
      */
 
-    private int currentQuestionNum = 1;
+    private int currentQuestionNum = 0;
 
     public List<Question> generateQuestionsByWordId(QuestionTypeDto questionTypeDto) {
         List<Question> questions = new ArrayList<>();
@@ -192,12 +190,12 @@ public class QuestionService {
     }
 
     public Question findVerifiedQuestion(Long questionId) {
-        Optional<Question> optionalMember = questionRepository.findById(questionId);
+        Optional<Question> optionalQuestion = questionRepository.findByQuestionNum(questionId);
 
-        if (optionalMember.isEmpty()) {
+        if (optionalQuestion.isEmpty()) {
             ApiResponse<Void> response = new ApiResponse<>(false, 940, "QUESTION_NOT_FOUND");
             throw new ApiResponseException(response, new RuntimeException());
         }
-        return optionalMember.get();
+        return optionalQuestion.get();
     }
 }

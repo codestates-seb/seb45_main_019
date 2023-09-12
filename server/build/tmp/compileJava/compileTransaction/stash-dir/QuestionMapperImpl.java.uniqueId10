@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-09-12T15:43:08+0900",
+    date = "2023-09-13T04:38:31+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.2.1.jar, environment: Java 11.0.19 (Azul Systems, Inc.)"
 )
 @Component
@@ -25,7 +25,9 @@ public class QuestionMapperImpl implements QuestionMapper {
         questionGetDto.setQuestionId( question.getQuestionId() );
         questionGetDto.setChapterNum( question.getChapterNum() );
         questionGetDto.setWordNum( question.getWordNum() );
-        questionGetDto.setQuestionNum( question.getQuestionNum() );
+        if ( question.getQuestionNum() != null ) {
+            questionGetDto.setQuestionNum( question.getQuestionNum().intValue() );
+        }
         questionGetDto.setQuestionType( question.getQuestionType() );
         questionGetDto.setQuestion( question.getQuestion() );
         questionGetDto.setExamples( question.getExamples() );
@@ -62,7 +64,7 @@ public class QuestionMapperImpl implements QuestionMapper {
         Question question = new Question();
 
         question.setQuestionId( questionGetDto.getQuestionId() );
-        question.setQuestionNum( questionGetDto.getQuestionNum() );
+        question.setQuestionNum( (long) questionGetDto.getQuestionNum() );
         question.setQuestionType( questionGetDto.getQuestionType() );
         question.setQuestion( questionGetDto.getQuestion() );
         question.setExamples( questionGetDto.getExamples() );

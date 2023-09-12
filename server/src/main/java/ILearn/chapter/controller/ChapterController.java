@@ -8,6 +8,7 @@ import ILearn.global.response.ApiResponse;
 import ILearn.global.response.ApiResponseException;
 import ILearn.member.dto.MemberResponseDto;
 import ILearn.question.dto.QuestionGetDto;
+import ILearn.question.dto.QuestionGetListDto;
 import ILearn.question.entity.Question;
 import ILearn.question.service.QuestionService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Positive;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/learning")
@@ -25,7 +28,6 @@ import java.util.List;
 public class ChapterController {
 
     private final ChapterService chapterService;
-    private final QuestionService questionService;
 
     @GetMapping
     public ResponseEntity<?> getChapters() {
@@ -40,16 +42,16 @@ public class ChapterController {
         }
     }
 
-//    @GetMapping("/{chapterNum}/{questionId}")
-//    public ResponseEntity<?> getQuestion(@PathVariable("chapterNum") @Positive Long chapterNum, @PathVariable("questionId") @Positive Long questionId) {
-//        try {
-//            QuestionGetDto question = questionService.getQuestion(questionId);
-//            ApiResponse<QuestionGetDto> response = new ApiResponse<>(true, "success", question);
-//
-//            return ResponseEntity.ok(response);
-//        } catch (ApiResponseException ex) {
-//            ApiResponse<?> response = ex.getResponse();
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
-//        }
-//    }
+    @GetMapping("/{chapterNum}/{questionNum}")
+    public ResponseEntity<?> getQuestion(@PathVariable("chapterNum") @Positive Long chapterNum, @PathVariable("questionNum") @Positive Long questionNum) {
+        try {
+            Question question = chapterService.getQuestionByChapterAndNum(chapterNum, questionNum);
+            ApiResponse<Question> response = new ApiResponse<>(true, "success", question);
+
+            return ResponseEntity.ok(response);
+        } catch (ApiResponseException ex) {
+            ApiResponse<?> response = ex.getResponse();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+    }
 }
