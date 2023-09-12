@@ -47,7 +47,15 @@ dependencies {
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
 	// DB 관련 Dependencies
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	runtimeOnly 'com.h2database:h2'
+
+	//swagger 관련 추가
+	implementation 'io.springfox:springfox-boot-starter:3.0.0'
+
+	//sql 관련 추가
+	runtimeOnly 'mysql:mysql-connector-java'
+	implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.22'
 }
 
 tasks.named('test') {
