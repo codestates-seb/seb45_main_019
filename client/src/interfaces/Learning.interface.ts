@@ -1,4 +1,4 @@
-export interface LearningInterface {
+export interface Learning {
   questionNum: number;
   questionType: number;
   question: string; // 뜻 또는 단어
