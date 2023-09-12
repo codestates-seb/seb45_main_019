@@ -5,13 +5,41 @@ import {
   createTheme,
   Button
 } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Speaker from '../Speaker/Speaker';
 import { WordInterface } from '../../interfaces/Word.interface';
+import { useQuery } from '@tanstack/react-query';
+import { getWord } from './Word.api';
 const defaultTheme = createTheme();
 
-export default function Word(props: { wordInfo: WordInterface }) {
+export default function Word(props: { wordId: number }) {
   const [detailCategory, setDetailCategory] = useState(0);
+
+  const [wordInfo, setWordInfo] = useState<WordInterface>({
+    wordId: 0,
+    word: '',
+    symbol: '',
+    wordMeaning: [],
+    detailCategories: [],
+    detailDescriptions: [[]],
+    wordExample: [],
+    wordExampleMeaning: []
+  });
+
+  const word = useQuery({
+    queryKey: ['word'],
+    queryFn: () => getWord(props.wordId)
+  });
+
+  useEffect(() => {
+    console.log(wordInfo);
+    console.log(word.data);
+
+    if (!word.isLoading && word.data) {
+      setWordInfo(word.data);
+    }
+  }, [word]);
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box
@@ -38,16 +66,16 @@ export default function Word(props: { wordInfo: WordInterface }) {
               color: 'text.primary'
             }}
           >
-            {props.wordInfo.word}
+            {wordInfo.word}
           </Typography>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            <Typography>{props.wordInfo.symbol}</Typography>
-            <Speaker text={props.wordInfo.word}></Speaker>
+            <Typography>{wordInfo.symbol}</Typography>
+            <Speaker text={wordInfo.word}></Speaker>
             <Button variant="outlined">단어장 추가</Button>
           </Box>
         </Box>
         <Box sx={{ display: 'flex', flexShrink: 1, gap: 1 }}>
-          {props.wordInfo.wordMeaning.map((el, key) => (
+          {wordInfo.wordMeaning.map((el, key) => (
             <Typography
               variant="subtitle1"
               key={key}
@@ -68,7 +96,7 @@ export default function Word(props: { wordInfo: WordInterface }) {
             gap: 1
           }}
         >
-          {props.wordInfo.detailCategories.map((el, key) => (
+          {wordInfo.detailCategories.map((el, key) => (
             <Button
               key={key + '1234'}
               variant={detailCategory === key ? 'contained' : 'outlined'}
@@ -90,25 +118,23 @@ export default function Word(props: { wordInfo: WordInterface }) {
               boxShadow: (theme) => theme.shadows[3]
             }}
           >
-            {props.wordInfo.detailDescriptions[detailCategory].map(
-              (el, key) => (
-                <Typography
-                  variant="body1"
-                  key={key}
-                  sx={{
-                    color: 'text.primary',
-                    fontSize: 14,
-                    fontWeight: 'fontWeightBold',
-                    borderBottom: 1,
-                    pb: 1,
-                    mb: 1,
-                    borderColor: 'grey.400'
-                  }}
-                >
-                  {key + 1}. {el}{' '}
-                </Typography>
-              )
-            )}
+            {wordInfo.detailDescriptions[detailCategory].map((el, key) => (
+              <Typography
+                variant="body1"
+                key={key}
+                sx={{
+                  color: 'text.primary',
+                  fontSize: 14,
+                  fontWeight: 'fontWeightBold',
+                  borderBottom: 1,
+                  pb: 1,
+                  mb: 1,
+                  borderColor: 'grey.400'
+                }}
+              >
+                {key + 1}. {el}{' '}
+              </Typography>
+            ))}
           </Box>
           <Box
             sx={{
@@ -119,7 +145,7 @@ export default function Word(props: { wordInfo: WordInterface }) {
               boxShadow: (theme) => theme.shadows[3]
             }}
           >
-            {props.wordInfo.wordExample.map((el, key) => (
+            {wordInfo.wordExample.map((el, key) => (
               <Box
                 key={key}
                 sx={{ borderBottom: 1, mb: 1, borderColor: 'grey.400' }}
@@ -147,7 +173,7 @@ export default function Word(props: { wordInfo: WordInterface }) {
                       fontWeight: 'fontWeightBold'
                     }}
                   >
-                    {props.wordInfo.wordExampleMeaning[key]}
+                    {wordInfo.wordExampleMeaning[key]}
                   </Typography>
                 </Box>
               </Box>

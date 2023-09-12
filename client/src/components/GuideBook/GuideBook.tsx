@@ -64,7 +64,7 @@ export default function GuideBook() {
                 </Button>
                 <Modal open={open} onClose={handleClose}>
                   <Box>
-                    <Word wordInfo={word}></Word>
+                    <Word wordId={el}></Word>
                   </Box>
                 </Modal>
               </CardActions>
