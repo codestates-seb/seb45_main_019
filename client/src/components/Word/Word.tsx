@@ -33,7 +33,7 @@ export default function Word(props: { wordId: string }) {
   });
 
   useEffect(() => {
-    if (word.isSuccess && word.data) {
+    if (word.data) {
       setWordInfo(word.data);
     }
   }, [word]);
