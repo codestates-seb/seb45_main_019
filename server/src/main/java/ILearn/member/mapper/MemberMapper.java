@@ -16,14 +16,14 @@ public interface MemberMapper {
     MemberMapper INSTANCE = Mappers.getMapper(MemberMapper.class);
 
     @Mapping(target = "userId", ignore = true)
-    @Mapping(target = "registrationDate", ignore = true)
+//    @Mapping(target = "registrationDate", ignore = true)
     @Mapping(target = "point", ignore = true)
     @Mapping(target = "memberStatus", ignore = true)
     @Mapping(target = "wordBook", ignore = true)
     Member memberPostDtoToEntity(MemberPostDto memberPostDto);
 
     @Mapping(target = "userId", ignore = true)
-    @Mapping(target = "registrationDate", ignore = true)
+//    @Mapping(target = "registrationDate", ignore = true)
     @Mapping(target = "point", ignore = true)
     @Mapping(target = "memberStatus", ignore = true)
     @Mapping(target = "wordBook", ignore = true)

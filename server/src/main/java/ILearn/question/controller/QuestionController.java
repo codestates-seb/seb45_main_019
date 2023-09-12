@@ -54,11 +54,4 @@ public class QuestionController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
     }
-
-//    @GetMapping("/{questionId}")
-//    public ResponseEntity<List<Question>> getQuizQuestions(@PathVariable("questionId") Long questionId) {
-//        List<Question> question = questionService.generateQuestionsByWordId(questionId);
-//
-//        return ResponseEntity.ok(question);
-//    }
 }

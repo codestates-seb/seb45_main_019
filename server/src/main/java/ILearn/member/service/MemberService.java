@@ -72,7 +72,7 @@ public class MemberService{
     // 회원탈퇴
     public void deleteMember(Long user_id) {
         Member findMember = findVerifiedMember(user_id);
-        findMember.setMemberStatus(Member.MemberStatus.MEMBER_QUIT);
+        findMember.setMemberStatus(false);
         memberRepository.save(findMember);
     }
 
