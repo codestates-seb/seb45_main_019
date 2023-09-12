@@ -9,7 +9,6 @@ import React, { useState } from 'react';
 import Speaker from '../Speaker/Speaker';
 import { WordInterface } from '../../interfaces/Word.interface';
 const defaultTheme = createTheme();
-console.log(defaultTheme);
 
 export default function Word(props: { wordInfo: WordInterface }) {
   const [detailCategory, setDetailCategory] = useState(0);

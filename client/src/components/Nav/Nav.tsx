@@ -6,8 +6,7 @@ import MainNavItem from './MainNavItem';
 interface NavProps {
   chapterList?: Chapter[];
   location: string;
-  memberStatus: boolean;
-  myWordList?: number[];
+  myWordList?: number[]; // TODO: Word 인터페이스 추가
 }
 
 export default function Nav(props: NavProps) {
@@ -15,14 +14,13 @@ export default function Nav(props: NavProps) {
   const location = props.location;
   const myWordList = props.myWordList;
 
-  console.log(props);
   function handleNavPage() {
     if (location === '/') {
       return chapterList?.map((el) => (
         <MainNavItem key={el.chapterId} chapter={el} />
       ));
     } else if (location === '/my-word') {
-      // word page
+      // WordNavItem.tsx 렌더링
       return myWordList;
     } else {
       return null;

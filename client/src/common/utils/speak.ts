@@ -7,7 +7,6 @@ synth.onvoiceschanged = () => {
   const desiredVoice = synth
     .getVoices()
     .find((voice) => voice.name === desiredVoiceName);
-  console.log('loaded');
   if (desiredVoice) {
     utterance.voice = desiredVoice;
   }
