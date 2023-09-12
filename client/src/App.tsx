@@ -5,12 +5,13 @@ import SignUp from './pages/SignUp/SignUp';
 import SignIn from './pages/SignIn/SignIn';
 
 import Header from './components/Header/Header';
-import Learn from './pages/Learn/Learn';
+import Questions from './pages/Questions/Questions';
+import WordPage from './pages/Word/WordPage';
 export default function App() {
   const location = useLocation().pathname;
 
   function handleHeaderVisible() {
-    if (location === '/learn' || location === '/') {
+    if (location === '/learn/question' || location === '/') {
       return null;
     }
     return <Header />;
@@ -21,9 +22,10 @@ export default function App() {
       {handleHeaderVisible()}
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route path="/learn" element={<Learn />} />
+        <Route path="/learn/question" element={<Questions />} />
         <Route path="/signup" element={<SignUp></SignUp>} />
         <Route path="/signin" element={<SignIn></SignIn>} />
+        <Route path="/my-word" element={<WordPage />} />
       </Routes>
     </Container>
   );

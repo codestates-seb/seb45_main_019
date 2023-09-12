@@ -5,7 +5,7 @@ import { Chapter } from '../../interfaces/Chapter.interface';
 const initialState: Chapter = {
   title: '인사 나누기',
   chapterId: 1,
-  chapterWords: [1, 2, 3],
+  wordId: [1, 2, 3],
   chapterStatus: false,
   learningChapterId: 1,
   progress: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]

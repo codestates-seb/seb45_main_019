@@ -8,7 +8,7 @@ import {
   IconButton,
   Tooltip
 } from '@mui/material';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { useState } from 'react';
 import { alpha } from '@mui/material/styles';
@@ -17,19 +17,37 @@ import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import FactCheckOutlinedIcon from '@mui/icons-material/FactCheckOutlined';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { setUser } from '../../redux/slices/user';
 interface HeaderProp {
   invisiblePath?: boolean;
 }
 export default function Header(props: HeaderProp) {
-  const location = useLocation().pathname;
+  const navigate = useNavigate();
 
-  // TODO : 로그인 기능 완료 후 전역 상태로 변경
-  const [loggedIn, setLoggedIn] = useState(false);
+  const userInfo = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
 
-  // TODO: 로그아웃 처리
   const handleLogout = () => {
-    console.log('log out');
+    dispatch(
+      setUser({
+        email: '',
+        username: '',
+        userId: 0,
+        nickname: '',
+        point: 0,
+        memberStatus: false
+      })
+    );
   };
+
+  function handleNavigate(page: string) {
+    if (userInfo.memberStatus) {
+      navigate(page);
+    } else {
+      alert('로그인 후 이용해주세요.');
+    }
+  }
 
   return (
     <AppBar
@@ -58,49 +76,46 @@ export default function Header(props: HeaderProp) {
           )}
 
           <Stack direction={'row'} spacing={1}>
-            <Link to="/">
-              <Tooltip title="단어장">
-                <IconButton
-                  sx={{
-                    width: '40px',
-                    height: '40px',
-                    boxShadow: 'rgba(0, 0, 0, 0.2) 0px 5px 10px',
-                    color: loggedIn ? 'primary.main' : 'default'
-                  }}
-                >
-                  <ClassOutlinedIcon fontSize="small" />
-                </IconButton>
-              </Tooltip>
-            </Link>
-            <Link to="/">
-              <Tooltip title="학습 기록">
-                <IconButton
-                  sx={{
-                    width: '40px',
-                    height: '40px',
-                    boxShadow: 'rgba(0, 0, 0, 0.2) 0px 5px 10px',
-                    color: loggedIn ? 'primary.main' : 'default'
-                  }}
-                >
-                  <FactCheckOutlinedIcon fontSize="small" />
-                </IconButton>
-              </Tooltip>
-            </Link>
-            <Link to="/">
-              <Tooltip title="내 정보">
-                <IconButton
-                  sx={{
-                    width: '40px',
-                    height: '40px',
-                    boxShadow: 'rgba(0, 0, 0, 0.2) 0px 5px 10px',
-                    color: loggedIn ? 'primary.main' : 'default'
-                  }}
-                >
-                  <PersonOutlineOutlinedIcon fontSize="small" />
-                </IconButton>
-              </Tooltip>
-            </Link>
-            {loggedIn ? (
+            <Tooltip title="단어장">
+              <IconButton
+                onClick={() => handleNavigate('/my-word')}
+                sx={{
+                  width: '40px',
+                  height: '40px',
+                  boxShadow: 'rgba(0, 0, 0, 0.2) 0px 5px 10px',
+                  color: userInfo.memberStatus ? 'primary.main' : 'default'
+                }}
+              >
+                <ClassOutlinedIcon fontSize="small" />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="학습 기록">
+              <IconButton
+                onClick={() => handleNavigate('/my-record')}
+                sx={{
+                  width: '40px',
+                  height: '40px',
+                  boxShadow: 'rgba(0, 0, 0, 0.2) 0px 5px 10px',
+                  color: userInfo.memberStatus ? 'primary.main' : 'default'
+                }}
+              >
+                <FactCheckOutlinedIcon fontSize="small" />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="내 정보">
+              <IconButton
+                onClick={() => handleNavigate('/my-profile')}
+                sx={{
+                  width: '40px',
+                  height: '40px',
+                  boxShadow: 'rgba(0, 0, 0, 0.2) 0px 5px 10px',
+                  color: userInfo.memberStatus ? 'primary.main' : 'default'
+                }}
+              >
+                <PersonOutlineOutlinedIcon fontSize="small" />
+              </IconButton>
+            </Tooltip>
+            {userInfo.memberStatus ? (
               <Tooltip title="로그아웃">
                 <IconButton
                   onClick={handleLogout}

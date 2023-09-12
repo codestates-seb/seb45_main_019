@@ -40,7 +40,7 @@ export default function SignIn() {
     if (username.length > 0 && password.length > 0) {
       api('/members/login', 'post', { username, password })
         .then((res) => {
-          if (res.data.success) {
+          if (res.data.status) {
             // eslint-disable-next-line camelcase
             const { email, username, user_Id, nickname, point, memberStatus } =
               res.data.data;
