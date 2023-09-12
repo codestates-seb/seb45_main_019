@@ -27,6 +27,8 @@ public class Question {
     private Long wordNum;
     private Long chapterNum;
 
+    private Long progress;
+
     @ManyToOne
     @JoinColumn(name = "CHAPTER_ID")
     @JsonIgnore

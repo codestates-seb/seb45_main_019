@@ -20,6 +20,8 @@ public class Chapter {
     @Column(name = "CHAPTER_TITLE")
     private String title;
 
+//    private boolean chapterStatus = false;
+
     @OneToMany(mappedBy = "chapter")
     @JsonIgnore
     private List<Question> questions;
