@@ -5,6 +5,7 @@ import ILearn.chapter.repository.ChapterRepository;
 import ILearn.global.response.ApiResponse;
 import ILearn.global.response.ApiResponseException;
 import ILearn.question.dto.QuestionGetDto;
+import ILearn.question.dto.QuestionGetListDto;
 import ILearn.question.dto.QuestionTypeDto;
 import ILearn.question.entity.Question;
 import ILearn.question.mapper.QuestionMapper;
@@ -40,6 +41,8 @@ public class QuestionService {
 
      */
 
+    private int currentQuestionNum = 1;
+
     public List<Question> generateQuestionsByWordId(QuestionTypeDto questionTypeDto) {
         List<Question> questions = new ArrayList<>();
 
@@ -63,6 +66,7 @@ public class QuestionService {
                     questionGetDto = new QuestionGetDto();
                     break;
             }
+
             Question question = questionMapper.toEntity(questionGetDto);
             questions.add(question);
         }
@@ -87,6 +91,7 @@ public class QuestionService {
         List<String> examples = wordService.getRandomWordMeanings(wordId, 3);
 
         QuestionGetDto questionDto = questionMapper.entityToResponseDto(question);
+        questionDto.setQuestionNum(updateQuestionNum());
         questionDto.setWordNum(word.getWordId());
         questionDto.setChapterNum(chapter.getChapterId());
         questionDto.setQuestionType(1L);
@@ -110,6 +115,7 @@ public class QuestionService {
         List<String> examples = wordService.getRandomWords(wordId, 3);
 
         QuestionGetDto questionDto = questionMapper.entityToResponseDto(question);
+        questionDto.setQuestionNum(updateQuestionNum());
         questionDto.setWordNum(word.getWordId());
         questionDto.setChapterNum(chapter.getChapterId());
         questionDto.setQuestionType(2L);
@@ -131,6 +137,7 @@ public class QuestionService {
         Question question = new Question();
 
         QuestionGetDto questionDto = questionMapper.entityToResponseDto(question);
+        questionDto.setQuestionNum(updateQuestionNum());
         questionDto.setWordNum(word.getWordId());
         questionDto.setChapterNum(chapter.getChapterId());
         questionDto.setQuestionType(3L);
@@ -157,6 +164,7 @@ public class QuestionService {
         List<String> examples = wordService.getRandomWords(wordId, 3);
 
         QuestionGetDto questionDto = questionMapper.entityToResponseDto(question);
+        questionDto.setQuestionNum(updateQuestionNum());
         questionDto.setWordNum(word.getWordId());
         questionDto.setChapterNum(chapter.getChapterId());
         questionDto.setQuestionType(4L);
@@ -168,9 +176,17 @@ public class QuestionService {
         return questionDto;
     }
 
-    public QuestionGetDto getQuestion(Long questionId) {
+    public int updateQuestionNum() {
+        currentQuestionNum++;
+        if (currentQuestionNum > 12) {
+            currentQuestionNum = 1;
+        }
+        return currentQuestionNum;
+    }
+
+    public QuestionGetListDto getQuestion(Long questionId) {
         Question findQuestion = findVerifiedQuestion(questionId);
-        QuestionGetDto questionGetDto = QuestionMapper.INSTANCE.entityToResponseDto(findQuestion);
+        QuestionGetListDto questionGetDto = QuestionMapper.INSTANCE.entityListToResponseDto(findQuestion);
 
         return questionGetDto;
     }

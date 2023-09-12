@@ -1,6 +1,7 @@
 package ILearn.question.mapper;
 
 import ILearn.question.dto.QuestionGetDto;
+import ILearn.question.dto.QuestionGetListDto;
 import ILearn.question.entity.Question;
 import ILearn.word.dto.WordGetDto;
 import ILearn.word.entity.Word;
@@ -14,6 +15,8 @@ public interface QuestionMapper {
     QuestionMapper INSTANCE = Mappers.getMapper(QuestionMapper.class);
 
     QuestionGetDto entityToResponseDto(Question question);
+
+    QuestionGetListDto entityListToResponseDto(Question question);
 
     Question toEntity(QuestionGetDto questionGetDto);
 }

@@ -1,13 +1,14 @@
 package ILearn.question.mapper;
 
 import ILearn.question.dto.QuestionGetDto;
+import ILearn.question.dto.QuestionGetListDto;
 import ILearn.question.entity.Question;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-09-12T14:56:43+0900",
+    date = "2023-09-12T16:15:33+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.2.1.jar, environment: Java 11.0.19 (Azul Systems, Inc.)"
 )
 @Component
@@ -24,6 +25,9 @@ public class QuestionMapperImpl implements QuestionMapper {
         questionGetDto.setQuestionId( question.getQuestionId() );
         questionGetDto.setChapterNum( question.getChapterNum() );
         questionGetDto.setWordNum( question.getWordNum() );
+        if ( question.getQuestionNum() != null ) {
+            questionGetDto.setQuestionNum( question.getQuestionNum().intValue() );
+        }
         questionGetDto.setQuestionType( question.getQuestionType() );
         questionGetDto.setQuestion( question.getQuestion() );
         questionGetDto.setExamples( question.getExamples() );
@@ -31,6 +35,24 @@ public class QuestionMapperImpl implements QuestionMapper {
         questionGetDto.setTranslation( question.getTranslation() );
 
         return questionGetDto;
+    }
+
+    @Override
+    public QuestionGetListDto entityListToResponseDto(Question question) {
+        if ( question == null ) {
+            return null;
+        }
+
+        QuestionGetListDto questionGetListDto = new QuestionGetListDto();
+
+        questionGetListDto.setQuestionNum( question.getQuestionNum() );
+        questionGetListDto.setQuestionType( question.getQuestionType() );
+        questionGetListDto.setQuestion( question.getQuestion() );
+        questionGetListDto.setExamples( question.getExamples() );
+        questionGetListDto.setCorrect( question.getCorrect() );
+        questionGetListDto.setTranslation( question.getTranslation() );
+
+        return questionGetListDto;
     }
 
     @Override
@@ -42,6 +64,7 @@ public class QuestionMapperImpl implements QuestionMapper {
         Question question = new Question();
 
         question.setQuestionId( questionGetDto.getQuestionId() );
+        question.setQuestionNum( (long) questionGetDto.getQuestionNum() );
         question.setQuestionType( questionGetDto.getQuestionType() );
         question.setQuestion( questionGetDto.getQuestion() );
         question.setExamples( questionGetDto.getExamples() );

@@ -14,6 +14,7 @@ public class QuestionGetDto {
     private Long questionId;
     private Long chapterNum;
     private Long wordNum;
+    private int questionNum;
     private Long questionType;
     private String question;
     private String examples;

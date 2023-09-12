@@ -3,6 +3,7 @@ package ILearn.question.controller;
 import ILearn.global.response.ApiResponse;
 import ILearn.global.response.ApiResponseException;
 import ILearn.question.dto.QuestionGetDto;
+import ILearn.question.dto.QuestionGetListDto;
 import ILearn.question.dto.QuestionTypeDto;
 import ILearn.question.entity.Question;
 import ILearn.question.service.QuestionService;
@@ -44,8 +45,8 @@ public class QuestionController {
     @GetMapping("/{questionId}")
     public ResponseEntity<ApiResponse<?>> getMember(@PathVariable @Positive Long questionId) {
         try {
-            QuestionGetDto question = questionService.getQuestion(questionId);
-            ApiResponse<QuestionGetDto> response = new ApiResponse<>(true, "success", question);
+            QuestionGetListDto question = questionService.getQuestion(questionId);
+            ApiResponse<QuestionGetListDto> response = new ApiResponse<>(true, "success", question);
 
             return ResponseEntity.ok(response);
 
