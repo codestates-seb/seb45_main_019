@@ -11,9 +11,9 @@ public class WordGetDto {
     private Long wordId;
     private String word;
     private String symbol;
-    private String wordMeaning;
-    private String detailCategories;
-    private String detailDescriptions;
-    private String wordExample;
-    private String wordExampleMeaning;
+    private List<String> wordMeaning;
+    private List<String> detailCategories;
+    private List<String> detailDescriptions;
+    private List<String> wordExample;
+    private List<String> wordExampleMeaning;
 }

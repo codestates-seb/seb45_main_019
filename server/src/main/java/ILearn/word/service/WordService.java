@@ -9,13 +9,10 @@ import ILearn.word.dto.WordGetDto;
 import ILearn.word.entity.Word;
 import ILearn.word.mapper.WordMapper;
 import ILearn.word.repository.WordRepository;
-import ILearn.word.response.WordApiResponse;
 import ILearn.word.response.WordBookResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -48,7 +45,7 @@ public class WordService {
         List<String> randomWords = new ArrayList<>();
         Random random = new Random();
 
-//        WordId = 문제Id 에 해당하는 단어를 가져와서 먼저 리스트에 추가
+//        WordId 에 해당하는 단어를 가져와서 먼저 리스트에 추가
         Optional<Word> wordById = wordRepository.findById(wordId);
         Word word = wordById.get();
         randomWords.add(word.getWord());
@@ -68,28 +65,43 @@ public class WordService {
         return randomWords;
     }
 
-    public List<String> getRandomWordMeanings(long wordId, int count) {
-        List<Word> allWords = wordRepository.findAll();
-        List<String> randomWordMeanings = new ArrayList<>();
-        Random random = new Random();
-
+    public String getRandomWordMeaning(long wordId) {
         Optional<Word> wordById = wordRepository.findById(wordId);
         Word word = wordById.get();
-        randomWordMeanings.add(word.getWordMeaning());
+
+        // word.getWordMeaning() 배열에서 랜덤한 인덱스를 생성
+        int randomIndex = new Random().nextInt(word.getWordMeaning().size());
+
+        // 랜덤한 인덱스의 데이터를 반환
+        return word.getWordMeaning().get(0);
+    }
+
+    public List<String> getRandomWordMeanings(long wordId, int count) {
+        List<String> randomWordMeanings = new ArrayList<>();
+
+        // 주어진 wordId에 해당하는 단어의 wordMeaning을 가져옴
+        String randomWordMeaning = getRandomWordMeaning(wordId);
+        randomWordMeanings.add(randomWordMeaning);
+
+        // 나머지 데이터를 랜덤하게 채움
+        List<Word> allWords = wordRepository.findAll();
+        Random random = new Random();
 
         while (randomWordMeanings.size() < count + 1 && allWords.size() > 0) {
             int randomIndex = random.nextInt(allWords.size());
             Word randomWord = allWords.get(randomIndex);
 
-//            중복 컷
-            if (!randomWordMeanings.contains(randomWord.getWordMeaning())) {
-                randomWordMeanings.add(randomWord.getWordMeaning());
+            // 중복 제거
+            String randomWordMeaningToAdd = getRandomWordMeaning(randomWord.getWordId());
+            if (!randomWordMeanings.contains(randomWordMeaningToAdd)) {
+                randomWordMeanings.add(randomWordMeaningToAdd);
             }
             allWords.remove(randomIndex);
         }
 
         return randomWordMeanings;
     }
+
 
     //유저 단어장 추가 로직
     public WordBookResponse addWordToVocabulary(Long userId, Long wordId) {

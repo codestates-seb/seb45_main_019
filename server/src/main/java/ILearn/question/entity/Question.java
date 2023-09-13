@@ -31,7 +31,7 @@ public class Question {
     @JsonIgnore
     private Long chapterNum;
     @JsonIgnore
-    private Long progress;
+    private int progress = 0;
 
     @ManyToOne
     @JoinColumn(name = "CHAPTER_ID")

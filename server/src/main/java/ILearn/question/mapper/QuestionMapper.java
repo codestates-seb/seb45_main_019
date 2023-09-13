@@ -10,6 +10,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface QuestionMapper {
     QuestionMapper INSTANCE = Mappers.getMapper(QuestionMapper.class);
@@ -17,6 +19,10 @@ public interface QuestionMapper {
     QuestionGetDto entityToResponseDto(Question question);
 
     QuestionGetListDto entityListToResponseDto(Question question);
+    default String map(List<String> question) {
+        String result = String.join(", ", question);
+        return result;
+    }
 
     Question toEntity(QuestionGetDto questionGetDto);
 }

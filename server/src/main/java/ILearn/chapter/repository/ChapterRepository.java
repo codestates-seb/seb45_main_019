@@ -17,7 +17,6 @@ public interface ChapterRepository extends JpaRepository<Chapter, Long> {
     // Chapter 엔티티에서 questions와 관련된 정보를 가져오는 쿼리 메서드 정의
     List<Chapter> findByQuestions(Question question);
 
-    @Query("SELECT w.wordId FROM Chapter c JOIN c.words w WHERE c.chapterId = 1")
-    List<Long> findWordIdsByChapterId();
-
+    @Query("SELECT c.chapterId FROM Chapter c")
+    List<Long> findAllChapterIds();
 }

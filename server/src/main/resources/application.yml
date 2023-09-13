@@ -24,12 +24,6 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 
-  sql:
-    init:
-      schema-locations: classpath*:db.h2/schema.sql
-      data-locations: classpath*:db.h2/data.sql
-
-
   jpa:
     hibernate:
       ddl-auto: update
