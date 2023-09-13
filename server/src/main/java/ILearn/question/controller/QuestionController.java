@@ -45,13 +45,14 @@ public class QuestionController {
     public ResponseEntity<ApiResponse<?>> getMember(@PathVariable @Positive Long questionId) {
         try {
             QuestionGetDto question = questionService.getQuestion(questionId);
-            ApiResponse<QuestionGetDto> response = new ApiResponse<>(true, "success", question);
+            ApiResponse<QuestionGetDto> response = new ApiResponse<>(true, 0, "success", question);
 
             return ResponseEntity.ok(response);
 
         } catch (ApiResponseException ex) {
             ApiResponse<?> response = ex.getResponse();
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+
         }
     }
 

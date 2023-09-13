@@ -72,6 +72,14 @@ public class MemberService{
     // 회원탈퇴
     public void deleteMember(Long user_id) {
         Member findMember = findVerifiedMember(user_id);
+
+        if(findMember != null){
+            log.info("회원 삭제 전 로그 : 사용자 이름 - {}",findMember.getUsername());
+        } else {
+            log.info("회원을 찾을 수 없음: 사용자 이름 - {}",user_id);
+            return;
+        }
+
         findMember.setMemberStatus(Member.MemberStatus.MEMBER_QUIT);
         memberRepository.save(findMember);
     }
@@ -157,4 +165,5 @@ public class MemberService{
             throw new DuplicateFieldException("NICKNAME", 902);
         }
     }
+
 }

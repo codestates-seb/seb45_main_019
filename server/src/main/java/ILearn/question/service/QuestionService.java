@@ -12,7 +12,10 @@ import ILearn.question.repository.QuestionRepository;
 import ILearn.word.entity.Word;
 import ILearn.word.repository.WordRepository;
 import ILearn.word.service.WordService;
+import com.google.protobuf.ServiceException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -36,6 +39,7 @@ public class QuestionService {
         4. 챕터에서 문제를 가져올 수 있는 메서드 추가
         5. 챕터에 chapterStatus, progress 구현(문제를 어디까지 풀었나, 챕터 진행 상황 상세조회)
         6. /learning 에서 chapterList 를 조회
+
         7. 예외 에러코드 정리
 
      */
@@ -168,12 +172,16 @@ public class QuestionService {
         return questionDto;
     }
 
+
+    // 문제 조회 예외 처리 1. 문제 유무 확인 2.
+
     public QuestionGetDto getQuestion(Long questionId) {
         Question findQuestion = findVerifiedQuestion(questionId);
         QuestionGetDto questionGetDto = QuestionMapper.INSTANCE.entityToResponseDto(findQuestion);
 
         return questionGetDto;
     }
+
 
     public Question findVerifiedQuestion(Long questionId) {
         Optional<Question> optionalMember = questionRepository.findById(questionId);
@@ -184,4 +192,6 @@ public class QuestionService {
         }
         return optionalMember.get();
     }
+
+
 }
