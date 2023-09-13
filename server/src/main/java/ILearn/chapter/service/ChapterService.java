@@ -51,8 +51,8 @@ public class ChapterService {
     }
 
     // ChapterNum 에 해당하는 question 을 조회
-    public Question getQuestionByChapterAndNum(Long chapterNum, Long questionNum) {
-        Optional<Question> question = questionRepository.findByChapterNumAndQuestionNum(chapterNum, questionNum);
+    public Question getQuestionByChapterAndNum(Long chapterId, Long questionNum) {
+        Optional<Question> question = questionRepository.findByChapterNumAndQuestionNum(chapterId, questionNum);
 
         if (question.isEmpty()) {
             ApiResponse<Void> response = new ApiResponse<>(false, 941, "QUESTION_NOT_FOUND_IN_CHAPTER");

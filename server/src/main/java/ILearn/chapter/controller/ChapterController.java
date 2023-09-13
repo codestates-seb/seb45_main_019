@@ -42,10 +42,10 @@ public class ChapterController {
         }
     }
 
-    @GetMapping("/{chapterNum}/{questionNum}")
-    public ResponseEntity<?> getQuestion(@PathVariable("chapterNum") @Positive Long chapterNum, @PathVariable("questionNum") @Positive Long questionNum) {
+    @GetMapping("/{chapterId}/{questionNum}")
+    public ResponseEntity<?> getQuestion(@PathVariable("chapterId") @Positive Long chapterId, @PathVariable("questionNum") @Positive Long questionNum) {
         try {
-            Question question = chapterService.getQuestionByChapterAndNum(chapterNum, questionNum);
+            Question question = chapterService.getQuestionByChapterAndNum(chapterId, questionNum);
             ApiResponse<Question> response = new ApiResponse<>(true, "success", question);
 
             return ResponseEntity.ok(response);
