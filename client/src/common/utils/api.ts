@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // const SERVER_URL = process.env.REACT_APP_API_URL;
-const SERVER_URL = 'https://83cb-14-36-94-78.ngrok-free.app';
+const SERVER_URL = 'https://abe8-14-36-94-78.ngrok-free.app';
 
 const api = (
   uri: string,
