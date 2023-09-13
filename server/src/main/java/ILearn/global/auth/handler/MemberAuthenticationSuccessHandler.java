@@ -49,7 +49,7 @@ public class MemberAuthenticationSuccessHandler implements AuthenticationSuccess
             memberResponseDto.setEmail(member.getEmail());
             memberResponseDto.setNickname(member.getNickname());
             memberResponseDto.setPoint(member.getPoint());
-            memberResponseDto.setMemberStatus(member.isMemberStatus());
+//            memberResponseDto.setMemberStatus(member.isMemberStatus());
             memberResponseDto.setRoles(member.getRoles());
 
             // ApiResponse 생성 및 MemberResponseDto를 data로 설정
