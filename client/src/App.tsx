@@ -7,11 +7,16 @@ import SignIn from './pages/SignIn/SignIn';
 import Header from './components/Header/Header';
 import Questions from './pages/Questions/Questions';
 import WordPage from './pages/Word/WordPage';
+import Result from './pages/Result/Result';
 export default function App() {
   const location = useLocation().pathname;
 
   function handleHeaderVisible() {
-    if (location === '/learn/question' || location === '/') {
+    if (
+      location === '/learn/question' ||
+      location === '/' ||
+      location === '/learn/result'
+    ) {
       return null;
     }
     return <Header />;
@@ -23,6 +28,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/learn/question" element={<Questions />} />
+        <Route path="/learn/result" element={<Result />} />
         <Route path="/signup" element={<SignUp></SignUp>} />
         <Route path="/signin" element={<SignIn></SignIn>} />
         <Route path="/my-word" element={<WordPage />} />
