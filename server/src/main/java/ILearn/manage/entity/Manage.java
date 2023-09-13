@@ -3,6 +3,7 @@ package ILearn.manage.entity;
 import ILearn.chapter.entity.Chapter;
 import ILearn.member.entity.Member;
 import ILearn.question.entity.Question;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -40,15 +41,14 @@ public class Manage {
     @Column(name = "point")
     private int point;
 
-    @ManyToOne
-    @JoinColumn(name = "question_Id")
-    private Question question;
+//    @ManyToOne
+//    @JoinColumn(name = "question_Id")
+//    private Question question;
 
-    @ManyToOne
-    @JoinColumn(name = "user_Id")
+    @OneToOne
+    @JoinColumn(name = "user_id")
     private Member member;
 
     @OneToMany(mappedBy = "manage")
     private List<Chapter> chapters = new ArrayList<>();
-
 }

@@ -1,4 +1,10 @@
 package ILearn.manage.dto;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class ManagePatchDto {
     private Long manageId;
     private Long chapterId;

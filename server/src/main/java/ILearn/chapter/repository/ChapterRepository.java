@@ -19,4 +19,6 @@ public interface ChapterRepository extends JpaRepository<Chapter, Long> {
 
     @Query("SELECT c.chapterId FROM Chapter c")
     List<Long> findAllChapterIds();
+
+    List<Chapter> findAllByMemberUserId(Long userId);
 }

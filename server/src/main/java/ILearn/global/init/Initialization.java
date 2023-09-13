@@ -2,15 +2,11 @@ package ILearn.global.init;
 
 import ILearn.chapter.entity.Chapter;
 import ILearn.chapter.repository.ChapterRepository;
-import ILearn.question.dto.QuestionGetDto;
-import ILearn.question.dto.QuestionTypeDto;
 import ILearn.question.entity.Question;
-import ILearn.question.mapper.QuestionMapper;
 import ILearn.question.repository.QuestionRepository;
 import ILearn.question.service.QuestionService;
 import ILearn.word.entity.Word;
 import ILearn.word.repository.WordRepository;
-import ILearn.word.service.WordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -19,7 +15,7 @@ import java.util.*;
 
 @Component
 @RequiredArgsConstructor
-public class WordAndChapterInit implements CommandLineRunner {
+public class Initialization implements CommandLineRunner {
     private final WordRepository wordRepository;
     private final ChapterRepository chapterRepository;
     private final QuestionRepository questionRepository;

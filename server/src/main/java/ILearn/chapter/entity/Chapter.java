@@ -1,6 +1,7 @@
 package ILearn.chapter.entity;
 
 import ILearn.manage.entity.Manage;
+import ILearn.member.entity.Member;
 import ILearn.question.entity.Question;
 import ILearn.word.entity.Word;
 import lombok.Getter;
@@ -30,7 +31,11 @@ public class Chapter {
     private List<Word> words;
 
     @ManyToOne
-    @JoinColumn(name = "manage")
+    @JoinColumn(name = "manage_Id")
     private Manage manage;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Member member;
 
 }
