@@ -42,14 +42,16 @@ export default function SignIn() {
         .then((res) => {
           if (res.data.status) {
             // eslint-disable-next-line camelcase
-            const { email, username, user_Id, nickname, point, memberStatus } =
+            const { email, username, userId, nickname, point, memberStatus } =
               res.data.data;
+            console.log(res.data.data);
+
             dispatch(
               setUser({
                 email: email,
                 username: username,
                 // eslint-disable-next-line camelcase
-                userId: user_Id,
+                userId: userId,
                 nickname: nickname,
                 point: point,
                 memberStatus: memberStatus
