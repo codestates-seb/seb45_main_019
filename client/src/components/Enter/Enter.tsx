@@ -3,7 +3,7 @@ import GuideBook from '../GuideBook/GuideBook';
 import { useAppSelector } from '../../redux/hooks';
 import { Link } from 'react-router-dom';
 import { grey } from '@mui/material/colors';
-import Progress from '../Progress/MainProgress';
+import MainProgress from '../Progress/MainProgress';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import EastOutlinedIcon from '@mui/icons-material/EastOutlined';
 export default function Enter() {
@@ -149,7 +149,7 @@ export default function Enter() {
             </Box>
           </Box>
 
-          <Progress progress={chapter.progress!} />
+          <MainProgress progress={chapter.progress!} />
         </Box>
       </Box>
     </Container>

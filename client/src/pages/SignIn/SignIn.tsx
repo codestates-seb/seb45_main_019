@@ -42,14 +42,15 @@ export default function SignIn() {
         .then((res) => {
           if (res.data.status) {
             // eslint-disable-next-line camelcase
-            const { email, username, user_Id, nickname, point, memberStatus } =
+            const { email, username, userId, nickname, point, memberStatus } =
               res.data.data;
+
             dispatch(
               setUser({
                 email: email,
                 username: username,
                 // eslint-disable-next-line camelcase
-                userId: user_Id,
+                userId: userId,
                 nickname: nickname,
                 point: point,
                 memberStatus: memberStatus
@@ -59,6 +60,8 @@ export default function SignIn() {
             // localStorage.setItem('token', res.headers.Authorization);
 
             navigate('/');
+          } else {
+            alert('존재하지 않는 유저입니다.');
           }
         })
         .catch((error) => {

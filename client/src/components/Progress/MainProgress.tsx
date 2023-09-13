@@ -11,7 +11,7 @@ import { grey } from '@mui/material/colors';
 export interface Progress {
   progress: number[];
 }
-export default function Progress({ progress }: Progress) {
+export default function MainProgress({ progress }: Progress) {
   function itemMapping(el: number, idx: number) {
     let status = '';
     let point = '';
