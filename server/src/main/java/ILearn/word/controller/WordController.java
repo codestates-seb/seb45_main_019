@@ -1,6 +1,7 @@
 package ILearn.word.controller;
 
 import ILearn.global.response.ApiResponseException;
+import ILearn.word.dto.WordAddDelDto;
 import ILearn.word.dto.WordBookGetDto;
 import ILearn.word.dto.WordGetDto;
 import ILearn.word.response.WordApiResponse;
@@ -36,12 +37,12 @@ public class WordController {
     @PostMapping("/members/{userId}")
     @ApiOperation(value = "유저 단어장 추가", notes = "유저가 단어장에 단어를 추가합니다")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "추가 성공", response = WordBookResponse.class)
+            @ApiResponse(code = 200, message = "추가 성공", response = WordAddDelDto.class)
     })
     public ResponseEntity<WordBookResponse> addWordToVocabulary(
             @PathVariable Long userId,
-            @RequestBody Map<String, Long> requestBody) {
-        Long wordId = requestBody.get("wordId");
+            @RequestBody WordAddDelDto requestBody) {
+        Long wordId = requestBody.getWordId();
         WordBookResponse response = wordService.addWordToVocabulary(userId, wordId);
 
         // 요청이 성공하면 아래와 같이 WordApiResponse를 그대로 반환
@@ -83,8 +84,8 @@ public class WordController {
     })
     public ResponseEntity<WordBookResponse> deleteWordFromVocabulary(
             @PathVariable Long userId,
-            @RequestBody Map<String, Long> requestBody) {
-        Long wordId = requestBody.get("wordId");
+            @RequestBody WordAddDelDto requestBody) {
+        Long wordId = requestBody.getWordId();
         boolean deleted = wordService.deleteWordFromVocabulary(userId, wordId);
 
         if (deleted) {
