@@ -59,6 +59,7 @@ export default function MainPage() {
           }
           localStorage.setItem('userChapter', JSON.stringify(localUserChapter));
         }
+        // 로컬스토리지 정보가 있을 시 가져와서 진행
         const localUserChapter = localStorage.getItem('userChapter');
         if (localUserChapter !== null) {
           const parseUserChapter = JSON.parse(localUserChapter);
