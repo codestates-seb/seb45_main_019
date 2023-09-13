@@ -8,33 +8,28 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setChapter } from '../../redux/slices/chapter';
 import Header from '../../components/Header/Header';
 import { Box } from '@mui/material';
-import { useQuery } from '@tanstack/react-query';
-import api from '../../common/utils/api';
+import useAllChapterQuery from '../../quries/useAllChapterQuery';
 
 export default function MainPage() {
   const [chapterList, setChapterList] = useState<Chapter[]>([]);
-  // const [userChapter, setUserChapter] = useState<UserChapter>();
   const location = useLocation().pathname;
   const dispatch = useAppDispatch();
   const userInfo = useAppSelector((state) => state.user);
   const selectedChapter = useAppSelector((state) => state.chapter);
 
-  const getChapter = useQuery({
-    queryKey: ['getChapterList'],
-    queryFn: async () => {
-      try {
-        const response = await api('/learning', 'get');
-        return response.data.data;
-      } catch (error) {
-        return alert('Error');
-      }
-    }
-  });
+  const {
+    error: allChapterError,
+    isLoading: allChapterLoading,
+    data: allChapterList
+  } = useAllChapterQuery();
+
+  if (allChapterError) {
+    alert('네트워크 에러가 발생했습니다.');
+  }
 
   useEffect(() => {
     // data가 들어왔을때 실행
-    if (getChapter.data !== undefined) {
-      const chapterData: Chapter[] = getChapter.data;
+    if (allChapterList !== undefined) {
       let userChapter: UserChapter = {
         chapterList: [
           {
@@ -55,7 +50,7 @@ export default function MainPage() {
             learningChapterId: 1
           };
 
-          for (let i = 0; i < getChapter.data.length; i++) {
+          for (let i = 0; i < allChapterList.data.length; i++) {
             localUserChapter.chapterList[i] = {
               chapterId: i + 1,
               chapterStatus: false,
@@ -76,7 +71,7 @@ export default function MainPage() {
       }
 
       // 챕터 데이터랑 유저 챕터 정보랑 mapping
-      const changeStatusList = chapterData.map((chapter) => {
+      const changeStatusList = allChapterList.data.map((chapter) => {
         const sameChapter = userChapter?.chapterList.find(
           (userChapter) => userChapter.chapterId === chapter.chapterId
         );
@@ -105,7 +100,7 @@ export default function MainPage() {
         dispatch(setChapter(changeStatusList[0]));
       }
     }
-  }, [getChapter.data]);
+  }, [allChapterLoading]);
 
   return (
     <Box
