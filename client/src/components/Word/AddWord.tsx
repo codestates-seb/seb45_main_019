@@ -17,7 +17,7 @@ export default function AddWord(props: { wordId: number }) {
 
   const [wordInWords, setWordInWords] = useState(false);
   useEffect(() => {
-    if (user.memberStatus)
+    if (user.memberStatus && data)
       data.wordIds.includes(props.wordId)
         ? setWordInWords(true)
         : setWordInWords(false);

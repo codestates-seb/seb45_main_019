@@ -44,7 +44,6 @@ export default function SignIn() {
             // eslint-disable-next-line camelcase
             const { email, username, userId, nickname, point, memberStatus } =
               res.data.data;
-            console.log(res.data.data);
 
             dispatch(
               setUser({
@@ -61,6 +60,8 @@ export default function SignIn() {
             // localStorage.setItem('token', res.headers.Authorization);
 
             navigate('/');
+          } else {
+            alert('존재하지 않는 유저입니다.');
           }
         })
         .catch((error) => {
