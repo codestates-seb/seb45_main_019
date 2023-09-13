@@ -57,8 +57,8 @@ public class Member {
     @Column(name = "point")
     private int point;
 
-    @Column(name = "member_status")
-    private boolean memberStatus = true;
+    @Enumerated(EnumType.STRING)
+    private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE;
 
     @Column(name = "word_book", columnDefinition = "TEXT")
     private String wordBook;
@@ -86,5 +86,18 @@ public class Member {
     @JoinColumn(name = "manage_Id")
     @JsonIgnore
     private Manage manage;
+
+
+    public enum MemberStatus {
+        MEMBER_ACTIVE("활동중"),
+        MEMBER_QUIT("회원 탈퇴");
+
+        @Getter
+        private String status;
+
+        MemberStatus(String status) {
+            this.status = status;
+        }
+    }
 
 }
