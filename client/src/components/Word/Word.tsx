@@ -7,12 +7,28 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 import Speaker from '../Speaker/Speaker';
-import { WordInterface } from '../../interfaces/Word.interface';
+import { useQuery } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
+import api from '../../common/utils/api';
+import AddWord from './AddWord';
 const defaultTheme = createTheme();
 console.log(defaultTheme);
 
-export default function Word(props: { wordInfo: WordInterface }) {
+export default function Word(props: { wordId: number }) {
   const [detailCategory, setDetailCategory] = useState(0);
+
+  const { isLoading, error, data } = useQuery({
+    queryKey: ['word', props.wordId],
+    queryFn: () => api(`/words/${props.wordId}`).then(({ data }) => data.data)
+  });
+
+  if (isLoading) return <div> 로딩중... </div>;
+
+  if (error) {
+    const myError = error as AxiosError;
+    return <div> 에러: {myError.message} </div>;
+  }
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box
@@ -39,28 +55,29 @@ export default function Word(props: { wordInfo: WordInterface }) {
               color: 'text.primary'
             }}
           >
-            {props.wordInfo.word}
+            {data.word}
           </Typography>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            <Typography>{props.wordInfo.symbol}</Typography>
-            <Speaker text={props.wordInfo.word}></Speaker>
-            <Button variant="outlined">단어장 추가</Button>
+            <Typography>{data.symbol}</Typography>
+            <Speaker text={data.word}></Speaker>
+            <AddWord wordId={props.wordId}></AddWord>
           </Box>
         </Box>
         <Box sx={{ display: 'flex', flexShrink: 1, gap: 1 }}>
-          {props.wordInfo.wordMeaning.map((el, key) => (
-            <Typography
-              variant="subtitle1"
-              key={key}
-              sx={{
-                color: 'text.primary',
-                fontWeight: 'fontWeightBold',
-                fontSize: 19
-              }}
-            >
-              {`${key + 1}. ${el} `}
-            </Typography>
-          ))}
+          {data.wordMeaning &&
+            data.wordMeaning.map((el: string, key: number) => (
+              <Typography
+                variant="subtitle1"
+                key={key}
+                sx={{
+                  color: 'text.primary',
+                  fontWeight: 'fontWeightBold',
+                  fontSize: 19
+                }}
+              >
+                {`${key + 1}. ${el} `}
+              </Typography>
+            ))}
         </Box>
         <Box
           sx={{
@@ -69,15 +86,16 @@ export default function Word(props: { wordInfo: WordInterface }) {
             gap: 1
           }}
         >
-          {props.wordInfo.detailCategories.map((el, key) => (
-            <Button
-              key={key + '1234'}
-              variant={detailCategory === key ? 'contained' : 'outlined'}
-              onClick={() => setDetailCategory(key)}
-            >
-              {el}
-            </Button>
-          ))}
+          {data.detailCategories &&
+            data.detailCategories.map((el: string, key: number) => (
+              <Button
+                key={key + '1234'}
+                variant={detailCategory === key ? 'contained' : 'outlined'}
+                onClick={() => setDetailCategory(key)}
+              >
+                {el}
+              </Button>
+            ))}
 
           <Button></Button>
         </Box>
@@ -91,8 +109,9 @@ export default function Word(props: { wordInfo: WordInterface }) {
               boxShadow: (theme) => theme.shadows[3]
             }}
           >
-            {props.wordInfo.detailDescriptions[detailCategory].map(
-              (el, key) => (
+            {/* {wordInfo.detailDescriptions[detailCategory].map((el, key) => ( */}
+            {data.detailDescriptions &&
+              data.detailDescriptions.map((el: string, key: number) => (
                 <Typography
                   variant="body1"
                   key={key}
@@ -108,8 +127,7 @@ export default function Word(props: { wordInfo: WordInterface }) {
                 >
                   {key + 1}. {el}{' '}
                 </Typography>
-              )
-            )}
+              ))}
           </Box>
           <Box
             sx={{
@@ -120,39 +138,40 @@ export default function Word(props: { wordInfo: WordInterface }) {
               boxShadow: (theme) => theme.shadows[3]
             }}
           >
-            {props.wordInfo.wordExample.map((el, key) => (
-              <Box
-                key={key}
-                sx={{ borderBottom: 1, mb: 1, borderColor: 'grey.400' }}
-              >
-                <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                  <Typography
-                    variant="body1"
-                    sx={{
-                      color: 'text.primary',
-                      fontSize: 14,
-                      fontWeight: 'fontWeightBold'
-                    }}
-                  >
-                    {el}{' '}
-                  </Typography>
-                  <Speaker text={el}></Speaker>
+            {data.wordExample &&
+              data.wordExample.map((el: string, key: number) => (
+                <Box
+                  key={key}
+                  sx={{ borderBottom: 1, mb: 1, borderColor: 'grey.400' }}
+                >
+                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                    <Typography
+                      variant="body1"
+                      sx={{
+                        color: 'text.primary',
+                        fontSize: 14,
+                        fontWeight: 'fontWeightBold'
+                      }}
+                    >
+                      {el}{' '}
+                    </Typography>
+                    <Speaker text={el}></Speaker>
+                  </Box>
+                  <Box>
+                    <Typography
+                      variant="body1"
+                      sx={{
+                        color: 'text.primary',
+                        mb: 1,
+                        fontSize: 14,
+                        fontWeight: 'fontWeightBold'
+                      }}
+                    >
+                      {data.wordExampleMeaning[key]}
+                    </Typography>
+                  </Box>
                 </Box>
-                <Box>
-                  <Typography
-                    variant="body1"
-                    sx={{
-                      color: 'text.primary',
-                      mb: 1,
-                      fontSize: 14,
-                      fontWeight: 'fontWeightBold'
-                    }}
-                  >
-                    {props.wordInfo.wordExampleMeaning[key]}
-                  </Typography>
-                </Box>
-              </Box>
-            ))}
+              ))}
           </Box>
         </Box>
       </Box>
