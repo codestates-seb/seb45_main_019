@@ -1,5 +1,6 @@
 package ILearn.member.entity;
 
+import ILearn.chapter.entity.Chapter;
 import ILearn.learning.entity.Learning;
 import ILearn.manage.entity.Manage;
 import ILearn.question.entity.Question;
@@ -46,7 +47,7 @@ public class Member {
     @Temporal(value = TemporalType.TIMESTAMP)
     @JsonIgnore
     private Date registrationDate;
-//
+
 //    public String getFormattedRegistrationDate() { // 가입시간 한국 시간, 연 월 일 분 초
 //        TimeZone timeZone = TimeZone.getTimeZone("Asia/Seoul");
 //        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
@@ -57,8 +58,8 @@ public class Member {
     @Column(name = "point")
     private int point;
 
-    @Column(name = "member_status")
-    private boolean memberStatus = true;
+    @Enumerated(EnumType.STRING)
+    private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE;
 
     @Column(name = "word_book", columnDefinition = "TEXT")
     private String wordBook;
@@ -73,18 +74,36 @@ public class Member {
     private List<Word> words;
 
     @OneToMany
-    @JoinColumn(name = "learning_Id")
+    @JoinColumn(name = "member")
     @JsonIgnore
     private List<Learning> learnings;
 
     @OneToMany
-    @JoinColumn(name = "question_Id")
+    @JoinColumn(name = "member")
     @JsonIgnore
     private List<Question> questions;
 
+    @OneToMany
+    @JoinColumn(name = "member")
+    @JsonIgnore
+    private List<Chapter> chapters;
+
     @OneToOne
-    @JoinColumn(name = "manage_Id")
+    @JoinColumn(name = "MANAGE_ID")
     @JsonIgnore
     private Manage manage;
+
+
+    public enum MemberStatus {
+        MEMBER_ACTIVE("활동중"),
+        MEMBER_QUIT("회원 탈퇴");
+
+        @Getter
+        private String status;
+
+        MemberStatus(String status) {
+            this.status = status;
+        }
+    }
 
 }

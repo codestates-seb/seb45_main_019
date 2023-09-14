@@ -17,7 +17,6 @@ public class MemberResponseDto { //회원 정보 조회 응답 형식
         private String email;
         private String nickname;
         private int point;
-        private boolean memberStatus;
+        private String memberStatus;
         private List<String> roles;
-
 }

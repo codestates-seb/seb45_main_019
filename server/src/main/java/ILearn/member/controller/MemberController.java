@@ -1,5 +1,6 @@
 package ILearn.member.controller;
 
+import ILearn.chapter.dto.ChapterInfo;
 import ILearn.global.response.ApiResponseException;
 import ILearn.global.response.ApiResponse;
 import ILearn.member.dto.MemberPatchDto;
@@ -8,6 +9,7 @@ import ILearn.member.dto.MemberResponseDto;
 import ILearn.member.entity.Member;
 import ILearn.member.mapper.MemberMapper;
 import ILearn.member.service.MemberService;
+import ILearn.word.response.WordBookResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponses;
@@ -20,6 +22,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.util.Map;
 
 @RestController
 @Validated
@@ -106,14 +109,27 @@ public class MemberController {
     })
     public ResponseEntity<ApiResponse<?>> deleteMember(@PathVariable Long user_id) {
         try {
-            memberService.deleteMember(user_id);
+            Member member = memberService.findVerifiedMember(user_id);
 
-            ApiResponse<Void> response = new ApiResponse<>(true, "success");
-            return ResponseEntity.ok(response);
+            if(member != null){
+                if(member.getMemberStatus() == Member.MemberStatus.MEMBER_ACTIVE) {
+                    memberService.deleteMember(user_id);
+                    ApiResponse<Void> response = new ApiResponse<>(true,0,"success",null);
+                    return ResponseEntity.ok(response);
+                } else {
 
-        } catch (ApiResponseException ex) {
+                    ApiResponse<Void> response = new ApiResponse<>(false,920,"USER_NOT_FOUND",null);
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+                }
+            } else {
+                // 회원을 찾을 수 없는 경우에 대한 예외 처리
+                ApiResponse<Void> response = new ApiResponse<>(false, 920, "USER_NOT_FOUND", null);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+            }
+        } catch (ApiResponseException ex){
+
             ApiResponse<?> response = ex.getResponse();
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
 }

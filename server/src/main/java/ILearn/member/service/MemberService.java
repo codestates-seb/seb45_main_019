@@ -1,11 +1,22 @@
 package ILearn.member.service;
 
 
+import ILearn.chapter.dto.ChapterInfo;
+import ILearn.chapter.entity.Chapter;
+import ILearn.chapter.repository.ChapterRepository;
 import ILearn.global.auth.utils.CustomAuthorityUtils;
+import ILearn.global.init.MemberInitialization;
 import ILearn.global.response.ApiResponse;
 import ILearn.global.response.ApiResponseException;
+import ILearn.manage.dto.ManageListDto;
+import ILearn.manage.entity.Manage;
+import ILearn.manage.repository.ManageRepository;
+import ILearn.manage.service.ManageService;
 import ILearn.member.entity.Member;
 import ILearn.member.mapper.MemberMapper;
+import ILearn.word.entity.Word;
+import ILearn.word.response.WordBookResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -24,28 +35,65 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-public class MemberService{
+@RequiredArgsConstructor
+public class MemberService {
     private final Validator validator;
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
+    private final MemberInitialization memberInitialization;
+    private final ManageRepository manageRepository;
 
-    public MemberService(Validator validator, MemberRepository memberRepository,
-                        PasswordEncoder passwordEncoder,
-                        CustomAuthorityUtils authorityUtils){
-        this.validator = validator;
-        this.memberRepository = memberRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.authorityUtils = authorityUtils;
-
-    }
 
     // 회원가입
     public Member createMember(Member member) {
         validateAndCheckDuplicate(member);
+        memberRepository.save(member);
 
-        return memberRepository.save(member);
+//        Long manageId = generateManageId();
+//        member.setManageId(manageId);
+
+//        Optional<Long> maxManageId = manageRepository.findMaxManageId();
+//
+//        // 최대값이 없으면 0으로 설정
+//        Long nextManageId = maxManageId.orElse(0L) + 1;
+//
+//        // Manage 엔티티 초기화
+//        Manage manage = new Manage();
+////        manage.setManageId(nextManageId);
+//        manage.setChapterStatus(false);
+//        manage.setProgress(List.of(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+//        manageRepository.save(manage);
+
+
+        memberInitialization.initializeData();
+
+
+        Manage chapterManage = new Manage();
+        chapterManage.setManageNum(member.getUserId());
+
+
+        return member;
     }
+
+//    private Long generateManageId() {
+//        // 현재 저장된 manageId 중 최대값 조회
+//        Optional<Long> maxManageId = manageRepository.findMaxManageId();
+//
+//        // 최대값이 없으면 0으로 설정
+//        Long nextManageId = maxManageId.orElse(0L) + 1;
+//
+//        // Manage 엔티티 초기화
+//        Manage manage = new Manage();
+//        manage.setManageId(nextManageId);
+//        manage.setChapterStatus(false);
+//        manage.setProgress(List.of(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+//        manageRepository.save(manage);
+//
+//        return nextManageId;
+//    }
+
+
     // 회원조회
     public MemberResponseDto getMember(Long user_id) {
         Member findMember = findVerifiedMember(user_id);
@@ -72,7 +120,15 @@ public class MemberService{
     // 회원탈퇴
     public void deleteMember(Long user_id) {
         Member findMember = findVerifiedMember(user_id);
-        findMember.setMemberStatus(false);
+
+        if(findMember != null){
+            log.info("회원 삭제 전 로그 : 사용자 이름 - {}",findMember.getUsername());
+        } else {
+            log.info("회원을 찾을 수 없음: 사용자 이름 - {}",user_id);
+            return;
+        }
+
+        findMember.setMemberStatus(Member.MemberStatus.MEMBER_QUIT);
         memberRepository.save(findMember);
     }
 

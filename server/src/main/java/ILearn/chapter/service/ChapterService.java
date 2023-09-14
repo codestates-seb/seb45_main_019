@@ -5,9 +5,13 @@ import ILearn.chapter.entity.Chapter;
 import ILearn.chapter.repository.ChapterRepository;
 import ILearn.global.response.ApiResponse;
 import ILearn.global.response.ApiResponseException;
+import ILearn.manage.dto.ManageGetDto;
+import ILearn.manage.entity.Manage;
+import ILearn.manage.service.ManageService;
 import ILearn.member.dto.MemberResponseDto;
 import ILearn.member.entity.Member;
 import ILearn.member.mapper.MemberMapper;
+import ILearn.member.repository.MemberRepository;
 import ILearn.question.entity.Question;
 import ILearn.question.repository.QuestionRepository;
 import ILearn.word.entity.Word;
@@ -28,6 +32,8 @@ public class ChapterService {
 
     private final ChapterRepository chapterRepository;
     private final QuestionRepository questionRepository;
+    private final MemberRepository memberRepository;
+    private final ManageService manageService;
 
     // Chapter List 조회
     public List<ChapterInfo> getById() {
@@ -61,5 +67,4 @@ public class ChapterService {
 
         return question.get();
     }
-
 }

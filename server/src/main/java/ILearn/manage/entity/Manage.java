@@ -2,8 +2,6 @@ package ILearn.manage.entity;
 
 import ILearn.chapter.entity.Chapter;
 import ILearn.member.entity.Member;
-import ILearn.question.entity.Question;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,17 +17,24 @@ public class Manage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "manage_Id")
+    @Column(name = "MANAGE_ID")
     private Long manageId;
+
+    private Long manageNum;
+
+    private Long chapterId;
+
+    @Column(name = "chapterStatus")
+    private boolean chapterStatus = false;
+
+    @ElementCollection
+    private List<Integer> progress = List.of(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
     @Column(name = "chapterName")
     private String chapterName;
 
     @Column(name = "chapterQuestion")
     private int chapterQuestion;
-
-    @Column(name = "chapterStatus")
-    private String chapterStatus;
 
     @Column(name = "chapterRecord")
     private Boolean chapterRecord;
@@ -50,5 +55,5 @@ public class Manage {
     private Member member;
 
     @OneToMany(mappedBy = "manage")
-    private List<Chapter> chapters = new ArrayList<>();
+    private List<Chapter> chapterList;
 }

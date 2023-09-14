@@ -22,6 +22,15 @@ public class Chapter {
     @Column(name = "CHAPTER_TITLE")
     private String title;
 
+    @Column(name = "CHAPTER_STATUS")
+    private boolean chapterStatus; // 챕터의 상태
+
+    @ElementCollection
+    private List<String> chapterList;
+
+    @ElementCollection
+    private List<Integer> progress = List.of(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
 //    private boolean chapterStatus = false;
 
     @OneToMany(mappedBy = "chapter", cascade = CascadeType.REMOVE)
