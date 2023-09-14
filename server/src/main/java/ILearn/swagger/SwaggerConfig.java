@@ -32,7 +32,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("ILearn.word.controller"))
+                .apis(RequestHandlerSelectors.basePackage("ILearn"))
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(apiInfo());
@@ -40,8 +40,8 @@ public class SwaggerConfig implements WebMvcConfigurer {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("ILearn Member API")
-                .description("ILearn Member 서비스 API 문서")
+                .title("ILearn API")
+                .description("ILearn 서비스 API 문서")
                 .version("1.0")
                 .build();
     }

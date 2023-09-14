@@ -11,6 +11,9 @@ import ILearn.question.dto.QuestionGetDto;
 import ILearn.question.dto.QuestionGetListDto;
 import ILearn.question.entity.Question;
 import ILearn.question.service.QuestionService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,11 +28,16 @@ import java.util.Map;
 @RestController
 @RequestMapping("/learning")
 @RequiredArgsConstructor
+@Api(tags = "챕터 목록 전체 조회", description = "Chapter 관련 API")
 public class ChapterController {
 
     private final ChapterService chapterService;
 
     @GetMapping
+    @ApiOperation(value = "모든 Chapter 조회", notes = "모든 Chapter 정보를 조회합니다.")
+    @ApiResponses({
+            @io.swagger.annotations.ApiResponse(code = 200, message = "성공", response = ChapterInfo.class)
+    })
     public ResponseEntity<?> getChapters() {
         try {
             List<ChapterInfo> responseList = chapterService.getById();
