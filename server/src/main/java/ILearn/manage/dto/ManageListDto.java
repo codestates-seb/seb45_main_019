@@ -11,5 +11,4 @@ public class ManageListDto {
     private Long chapterId;
     private boolean chapterStatus;
     private List<Integer> progress;
-
 }

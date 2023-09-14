@@ -50,49 +50,19 @@ public class MemberService {
         validateAndCheckDuplicate(member);
         memberRepository.save(member);
 
-//        Long manageId = generateManageId();
-//        member.setManageId(manageId);
+        memberInitialization.initializeData(member);
 
-//        Optional<Long> maxManageId = manageRepository.findMaxManageId();
+//        Optional<Long> maxManageIdOptional = manageRepository.findMaxManageId();
+//        if (maxManageIdOptional.isPresent()) {
+//            Long maxManageId = maxManageIdOptional.get();
+//            Manage chapterManage = new Manage();
+//            chapterManage.setManageNum(maxManageId + 1);
 //
-//        // 최대값이 없으면 0으로 설정
-//        Long nextManageId = maxManageId.orElse(0L) + 1;
-//
-//        // Manage 엔티티 초기화
-//        Manage manage = new Manage();
-////        manage.setManageId(nextManageId);
-//        manage.setChapterStatus(false);
-//        manage.setProgress(List.of(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-//        manageRepository.save(manage);
-
-
-        memberInitialization.initializeData();
-
-
-        Manage chapterManage = new Manage();
-        chapterManage.setManageNum(member.getUserId());
-
+//            manageRepository.save(chapterManage);
+//        }
 
         return member;
     }
-
-//    private Long generateManageId() {
-//        // 현재 저장된 manageId 중 최대값 조회
-//        Optional<Long> maxManageId = manageRepository.findMaxManageId();
-//
-//        // 최대값이 없으면 0으로 설정
-//        Long nextManageId = maxManageId.orElse(0L) + 1;
-//
-//        // Manage 엔티티 초기화
-//        Manage manage = new Manage();
-//        manage.setManageId(nextManageId);
-//        manage.setChapterStatus(false);
-//        manage.setProgress(List.of(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-//        manageRepository.save(manage);
-//
-//        return nextManageId;
-//    }
-
 
     // 회원조회
     public MemberResponseDto getMember(Long user_id) {

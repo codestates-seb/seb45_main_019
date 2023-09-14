@@ -88,10 +88,10 @@ public class Member {
     @JsonIgnore
     private List<Chapter> chapters;
 
-    @OneToOne
-    @JoinColumn(name = "MANAGE_ID")
+    @OneToMany
+    @JoinColumn(name = "member")
     @JsonIgnore
-    private Manage manage;
+    private List<Manage> manage;
 
 
     public enum MemberStatus {

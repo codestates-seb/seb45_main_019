@@ -32,8 +32,6 @@ public class ChapterService {
 
     private final ChapterRepository chapterRepository;
     private final QuestionRepository questionRepository;
-    private final MemberRepository memberRepository;
-    private final ManageService manageService;
 
     // Chapter List 조회
     public List<ChapterInfo> getById() {

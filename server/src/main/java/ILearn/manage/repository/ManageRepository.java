@@ -1,6 +1,8 @@
 package ILearn.manage.repository;
 
+import ILearn.manage.dto.ManageListDto;
 import ILearn.manage.entity.Manage;
+import ILearn.member.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -16,5 +18,10 @@ public interface ManageRepository extends JpaRepository<Manage, Long> {
     @Query("SELECT MAX(m.manageId) FROM Manage m")
     Optional<Long> findMaxManageId();
 
-    Manage findTopByOrderByManageNumDesc();
+//    Optional<Manage> findByMemberAndChapterId(Long userId, Long chapterId);
+
+    List<Manage> findByMember(Member member);
+
+    Optional<Manage> findByManageNumAndChapterId(Long userId, Long chapterId);
+
 }

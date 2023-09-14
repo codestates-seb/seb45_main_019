@@ -5,6 +5,7 @@ import ILearn.chapter.service.ChapterService;
 import ILearn.global.response.ApiResponse;
 import ILearn.global.response.ApiResponseException;
 import ILearn.manage.dto.ManageGetDto;
+import ILearn.manage.dto.ManagePatchDto;
 import ILearn.manage.entity.Manage;
 import ILearn.manage.service.ManageService;
 import lombok.RequiredArgsConstructor;
@@ -39,34 +40,21 @@ public class ManageController {
     @GetMapping("/{userId}/{chapterId}")
     public ResponseEntity<ApiResponse<?>> getChapterByUserIdAndChapterId(@PathVariable Long userId, @PathVariable Long chapterId) {
         try {
-            ManageGetDto chapter = manageService.getChapterByUserIdAndChapterId(userId, chapterId);
+            ManageGetDto manageData = manageService.getChapterByUserIdAndChapterId(userId, chapterId);
 
-            ApiResponse<ManageGetDto> response = new ApiResponse<>(true, "success", chapter);
+            ApiResponse<ManageGetDto> response = new ApiResponse<>(true, "success", manageData);
+
             return ResponseEntity.ok(response);
+
         } catch (ApiResponseException ex) {
             ApiResponse<?> response = ex.getResponse();
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
     }
 
-        @PatchMapping("/{userId}/{chapterId}")
-        public void saveDummyData(@PathVariable Long userId, @PathVariable Long chapterId) {
-            manageService.saveDummyData(userId, chapterId);
-        }
-
-    }
-
-//    @GetMapping("/{userId}")
-//    private ResponseEntity<ApiResponse<?>> memberChapterListGet(@PathVariable @Positive Long userId) {
-//        try {
-//            List<ManageListDto> manage = manageService.retrieveChapterList(userId);
-//            ApiResponse<List<ManageListDto>> response = new ApiResponse<>(true, "success", manage);
-//
-//            return ResponseEntity.ok(response);
-//
-//        } catch (ApiResponseException ex) {
-//            ApiResponse<?> response = ex.getResponse();
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+//        @PatchMapping("/{userId}/{chapterId}")
+//        public void saveDummyData(@PathVariable Long userId, @PathVariable Long chapterId, @RequestBody ManagePatchDto patchDto) {
+//            manageService.upDateManage(userId, chapterId, patchDto);
 //        }
-//    }
+    }
 

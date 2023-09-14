@@ -46,11 +46,7 @@ public class Manage {
     @Column(name = "point")
     private int point;
 
-//    @ManyToOne
-//    @JoinColumn(name = "question_Id")
-//    private Question question;
-
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private Member member;
 

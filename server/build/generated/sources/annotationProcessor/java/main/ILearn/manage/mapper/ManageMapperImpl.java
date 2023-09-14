@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-09-14T17:45:42+0900",
+    date = "2023-09-15T04:06:27+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.2.1.jar, environment: Java 11.0.19 (Azul Systems, Inc.)"
 )
 @Component
@@ -28,6 +28,38 @@ public class ManageMapperImpl implements ManageMapper {
         manageGetDto.setChapterList( chapterListToManageListDtoList( manage.getChapterList() ) );
 
         return manageGetDto;
+    }
+
+    @Override
+    public ManageListDto toManageListDto(Manage manage) {
+        if ( manage == null ) {
+            return null;
+        }
+
+        ManageListDto manageListDto = new ManageListDto();
+
+        manageListDto.setChapterId( manage.getChapterId() );
+        manageListDto.setChapterStatus( manage.isChapterStatus() );
+        List<Integer> list = manage.getProgress();
+        if ( list != null ) {
+            manageListDto.setProgress( new ArrayList<Integer>( list ) );
+        }
+
+        return manageListDto;
+    }
+
+    @Override
+    public List<ManageListDto> toManageListDtoList(List<Manage> manages) {
+        if ( manages == null ) {
+            return null;
+        }
+
+        List<ManageListDto> list = new ArrayList<ManageListDto>( manages.size() );
+        for ( Manage manage : manages ) {
+            list.add( toManageListDto( manage ) );
+        }
+
+        return list;
     }
 
     protected ManageListDto chapterToManageListDto(Chapter chapter) {
