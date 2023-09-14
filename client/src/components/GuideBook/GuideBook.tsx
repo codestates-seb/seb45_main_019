@@ -30,7 +30,7 @@ const style = {
 };
 export default function GuideBook() {
   const [open, setOpen] = React.useState(false);
-  const [selectedWordId, setSelectedWordId] = useState<number | null>(null);
+  const [selectedWordId, setSelectedWordId] = useState(0);
   const handleOpen = (wordId: number) => {
     setSelectedWordId(wordId);
     setOpen(true);
@@ -62,15 +62,15 @@ export default function GuideBook() {
                 <Button>
                   <VolumeUpIcon />
                 </Button>
-                <Modal open={open} onClose={handleClose}>
-                  <Box>
-                    <Word wordInfo={word}></Word>
-                  </Box>
-                </Modal>
               </CardActions>
             </Card>
           </div>
         ))}
+        <Modal open={open} onClose={handleClose}>
+          <Box>
+            <Word wordId={selectedWordId}></Word>
+          </Box>
+        </Modal>
       </div>
     </Box>
   );
