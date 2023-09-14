@@ -12,8 +12,7 @@ const api = (
     method: method ? method : 'get',
     url: SERVER_URL + uri,
     headers: {
-      'Content-Type': 'application/json',
-      'ngrok-skip-browser-warning': '69420'
+      'Content-Type': 'application/json'
       // Add more headers as needed
       // Authorization: token
     },
