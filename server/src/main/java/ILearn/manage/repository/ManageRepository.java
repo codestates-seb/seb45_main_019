@@ -24,4 +24,5 @@ public interface ManageRepository extends JpaRepository<Manage, Long> {
 
     Optional<Manage> findByManageNumAndChapterId(Long userId, Long chapterId);
 
+
 }

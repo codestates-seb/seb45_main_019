@@ -52,6 +52,22 @@ public class ManageController {
         }
     }
 
+    // 챕터 진행 수정
+    @PatchMapping("/{userId}/{chapterId}")
+    public ResponseEntity<ApiResponse<?>> chapterPatch(@PathVariable Long userId, @PathVariable Long chapterId, @RequestBody ManagePatchDto patchDto) {
+        try {
+            Manage manage = manageService.updateManage(userId, chapterId, patchDto);
+
+            ApiResponse<Manage> response = new ApiResponse<>(true, "success");
+
+            return ResponseEntity.ok(response);
+
+        } catch (ApiResponseException ex) {
+            ApiResponse<?> response = ex.getResponse();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+    }
+
 //        @PatchMapping("/{userId}/{chapterId}")
 //        public void saveDummyData(@PathVariable Long userId, @PathVariable Long chapterId, @RequestBody ManagePatchDto patchDto) {
 //            manageService.upDateManage(userId, chapterId, patchDto);

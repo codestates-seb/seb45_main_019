@@ -52,15 +52,6 @@ public class MemberService {
 
         memberInitialization.initializeData(member);
 
-//        Optional<Long> maxManageIdOptional = manageRepository.findMaxManageId();
-//        if (maxManageIdOptional.isPresent()) {
-//            Long maxManageId = maxManageIdOptional.get();
-//            Manage chapterManage = new Manage();
-//            chapterManage.setManageNum(maxManageId + 1);
-//
-//            manageRepository.save(chapterManage);
-//        }
-
         return member;
     }
 
