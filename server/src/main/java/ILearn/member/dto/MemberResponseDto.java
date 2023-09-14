@@ -19,5 +19,4 @@ public class MemberResponseDto { //회원 정보 조회 응답 형식
         private int point;
         private String memberStatus;
         private List<String> roles;
-
 }

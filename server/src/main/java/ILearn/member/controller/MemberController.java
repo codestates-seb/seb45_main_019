@@ -1,5 +1,6 @@
 package ILearn.member.controller;
 
+import ILearn.chapter.dto.ChapterInfo;
 import ILearn.global.response.ApiResponseException;
 import ILearn.global.response.ApiResponse;
 import ILearn.member.dto.MemberPatchDto;
@@ -8,6 +9,7 @@ import ILearn.member.dto.MemberResponseDto;
 import ILearn.member.entity.Member;
 import ILearn.member.mapper.MemberMapper;
 import ILearn.member.service.MemberService;
+import ILearn.word.response.WordBookResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponses;
@@ -20,6 +22,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.util.Map;
 
 @RestController
 @Validated

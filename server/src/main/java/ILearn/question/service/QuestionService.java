@@ -1,10 +1,10 @@
 package ILearn.question.service;
 
 import ILearn.chapter.entity.Chapter;
-import ILearn.chapter.repository.ChapterRepository;
 import ILearn.global.response.ApiResponse;
 import ILearn.global.response.ApiResponseException;
 import ILearn.question.dto.QuestionGetDto;
+import ILearn.question.dto.QuestionGetListDto;
 import ILearn.question.dto.QuestionTypeDto;
 import ILearn.question.entity.Question;
 import ILearn.question.mapper.QuestionMapper;
@@ -17,11 +17,13 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class QuestionService {
 
     private final WordRepository wordRepository;
@@ -40,7 +42,9 @@ public class QuestionService {
 
      */
 
-    public List<Question> generateQuestionsByWordId(QuestionTypeDto questionTypeDto) {
+    private int currentQuestionNum = 0;
+
+    public List<Question> generateQuestionsByWordId(Long wordId) {
         List<Question> questions = new ArrayList<>();
 
         for (int i = 1; i < 5; i++) {
@@ -48,21 +52,22 @@ public class QuestionService {
 
             switch (i) {
                 case 1:
-                    questionGetDto = wordToWordMeaningMcq(questionTypeDto.getWordId());
+                    questionGetDto = wordToWordMeaningMcq(wordId);
                     break;
                 case 2:
-                    questionGetDto = wordMeaningToWordMcq(questionTypeDto.getWordId());
+                    questionGetDto = wordMeaningToWordMcq(wordId);
                     break;
                 case 3:
-                    questionGetDto = pronunciationToSpellingSaq(questionTypeDto.getWordId());
+                    questionGetDto = pronunciationToSpellingSaq(wordId);
                     break;
                 case 4:
-                    questionGetDto = blankToWordMcq(questionTypeDto.getWordId());
+                    questionGetDto = blankToWordMcq(wordId);
                     break;
                 default:
                     questionGetDto = new QuestionGetDto();
                     break;
             }
+
             Question question = questionMapper.toEntity(questionGetDto);
             questions.add(question);
         }
@@ -83,17 +88,19 @@ public class QuestionService {
 
         Question question = new Question();
 
-        // examples 에 랜덤한 단어 3개와 정답(WordId) 을 가져옴
+        // examples 에 랜덤한 단어 3개와 정답(WordId) 을 가져오고 shuffle
         List<String> examples = wordService.getRandomWordMeanings(wordId, 3);
+        Collections.shuffle(examples);
 
         QuestionGetDto questionDto = questionMapper.entityToResponseDto(question);
+        questionDto.setQuestionNum(updateQuestionNum());
         questionDto.setWordNum(word.getWordId());
         questionDto.setChapterNum(chapter.getChapterId());
         questionDto.setQuestionType(1L);
         questionDto.setQuestion(word.getWord());
         questionDto.setExamples(examples.toString());
         questionDto.setTranslation("");
-        questionDto.setCorrect(word.getWordMeaning());
+        questionDto.setCorrect(word.getWordMeaning().get(0));
 
         return questionDto;
     }
@@ -108,12 +115,14 @@ public class QuestionService {
         Question question = new Question();
 
         List<String> examples = wordService.getRandomWords(wordId, 3);
+        Collections.shuffle(examples);
 
         QuestionGetDto questionDto = questionMapper.entityToResponseDto(question);
+        questionDto.setQuestionNum(updateQuestionNum());
         questionDto.setWordNum(word.getWordId());
         questionDto.setChapterNum(chapter.getChapterId());
         questionDto.setQuestionType(2L);
-        questionDto.setQuestion(word.getWordMeaning());
+        questionDto.setQuestion(word.getWordMeaning().toString());
         questionDto.setExamples(examples.toString());
         questionDto.setTranslation("");
         questionDto.setCorrect(word.getWord());
@@ -131,6 +140,7 @@ public class QuestionService {
         Question question = new Question();
 
         QuestionGetDto questionDto = questionMapper.entityToResponseDto(question);
+        questionDto.setQuestionNum(updateQuestionNum());
         questionDto.setWordNum(word.getWordId());
         questionDto.setChapterNum(chapter.getChapterId());
         questionDto.setQuestionType(3L);
@@ -151,37 +161,47 @@ public class QuestionService {
 
         Question question = new Question();
 
-        String originalString = word.getWordExample().toLowerCase();
+        String originalString = word.getWordExample().toString();
         String replacedString = originalString.replaceAll(word.getWord().toLowerCase(), "_");
 
         List<String> examples = wordService.getRandomWords(wordId, 3);
+        Collections.shuffle(examples);
 
         QuestionGetDto questionDto = questionMapper.entityToResponseDto(question);
+        questionDto.setQuestionNum(updateQuestionNum());
         questionDto.setWordNum(word.getWordId());
         questionDto.setChapterNum(chapter.getChapterId());
         questionDto.setQuestionType(4L);
         questionDto.setQuestion(replacedString.substring(0, 1).toUpperCase() + replacedString.substring(1));
         questionDto.setExamples(examples.toString());
-        questionDto.setTranslation(word.getWordExampleMeaning());
+        questionDto.setTranslation(word.getWordExampleMeaning().toString());
         questionDto.setCorrect(word.getWord());
 
         return questionDto;
     }
 
-    public QuestionGetDto getQuestion(Long questionId) {
+    public int updateQuestionNum() {
+        currentQuestionNum++;
+        if (currentQuestionNum > 12) {
+            currentQuestionNum = 1;
+        }
+        return currentQuestionNum;
+    }
+
+    public QuestionGetListDto getQuestion(Long questionId) {
         Question findQuestion = findVerifiedQuestion(questionId);
-        QuestionGetDto questionGetDto = QuestionMapper.INSTANCE.entityToResponseDto(findQuestion);
+        QuestionGetListDto questionGetDto = QuestionMapper.INSTANCE.entityListToResponseDto(findQuestion);
 
         return questionGetDto;
     }
 
     public Question findVerifiedQuestion(Long questionId) {
-        Optional<Question> optionalMember = questionRepository.findById(questionId);
+        Optional<Question> optionalQuestion = questionRepository.findByQuestionNum(questionId);
 
-        if (optionalMember.isEmpty()) {
+        if (optionalQuestion.isEmpty()) {
             ApiResponse<Void> response = new ApiResponse<>(false, 940, "QUESTION_NOT_FOUND");
             throw new ApiResponseException(response, new RuntimeException());
         }
-        return optionalMember.get();
+        return optionalQuestion.get();
     }
 }

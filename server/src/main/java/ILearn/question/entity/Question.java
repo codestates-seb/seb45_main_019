@@ -16,7 +16,9 @@ public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "QUESTIONID")
+    @JsonIgnore
     private Long questionId;
+    private Long questionNum;
 
     @Column(name = "QUESTIONTYPE")
     private Long questionType;
@@ -24,10 +26,10 @@ public class Question {
     private String examples;
     private String correct;
     private String translation;
+    @JsonIgnore
     private Long wordNum;
+    @JsonIgnore
     private Long chapterNum;
-
-    private Long progress;
 
     @ManyToOne
     @JoinColumn(name = "CHAPTER_ID")

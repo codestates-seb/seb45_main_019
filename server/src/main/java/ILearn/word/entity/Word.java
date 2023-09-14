@@ -20,7 +20,7 @@ import java.util.List;
 public class Word {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "WORDID")
     private Long wordId;
 
@@ -31,19 +31,29 @@ public class Word {
     private String symbol;
 
     @Column(name = "WORDMEANING")
-    private String wordMeaning;
+    @ElementCollection
+    @CollectionTable(name = "wordArray")
+    private List<String> wordMeaning;
 
     @Column(name = "DETAILCATEGORIES")
-    private String detailCategories;
+    @ElementCollection
+    @CollectionTable(name = "wordArray")
+    private List<String> detailCategories;
 
     @Column(name = "DETAILDESCRIPTIONS")
-    private String detailDescriptions;
+    @ElementCollection
+    @CollectionTable(name = "wordArray")
+    private List<String> detailDescriptions;
 
     @Column(name = "WORDEXAMPLE")
-    private String wordExample;
+    @ElementCollection
+    @CollectionTable(name = "wordArray")
+    private List<String> wordExample;
 
     @Column(name = "WORDEXAMPLEMEANING")
-    private String wordExampleMeaning;
+    @ElementCollection
+    @CollectionTable(name = "wordArray")
+    private List<String> wordExampleMeaning;
 
     @OneToMany(mappedBy = "word", cascade = CascadeType.REMOVE)
     private List<Question> questions;
