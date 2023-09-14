@@ -17,15 +17,15 @@ export default function MainPage() {
   const userInfo = useAppSelector((state) => state.user);
   const selectedChapter = useAppSelector((state) => state.chapter);
 
-  const {
-    error: allChapterError,
-    isLoading: allChapterLoading,
-    data: allChapterList
-  } = useAllChapterQuery();
+  const { data: allChapterList } = useAllChapterQuery();
 
-  if (allChapterError) {
-    alert('네트워크 에러가 발생했습니다.');
-  }
+  //onError callback
+  //default config
+  //error code
+  //loading, error page - 404(페이지 잔존 여부)
+
+  //1. 로컬/서버 분리
+  //2. token으로 구분
 
   useEffect(() => {
     // data가 들어왔을때 실행
@@ -101,7 +101,7 @@ export default function MainPage() {
         dispatch(setChapter(changeStatusList[0]));
       }
     }
-  }, [allChapterLoading]);
+  }, [allChapterList]);
 
   return (
     <Box
