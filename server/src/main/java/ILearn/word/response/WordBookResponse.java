@@ -16,7 +16,7 @@ public class WordBookResponse {
     @ApiModelProperty(value = "응답 메시지", example = "success")
     private String msg;
 
-    @ApiModelProperty(value = "데이터 객체", example = "{}")
+    @ApiModelProperty(value = "데이터 객체", example = "null")
     private Object data;
 
     public WordBookResponse(boolean status, String msg, Object data) {
