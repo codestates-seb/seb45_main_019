@@ -7,8 +7,13 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
+<<<<<<< HEAD
     date = "2023-09-13T14:09:42+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.2.1.jar, environment: Java 11.0.20 (Azul Systems, Inc.)"
+=======
+    date = "2023-09-13T18:07:12+0900",
+    comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.2.1.jar, environment: Java 11.0.18 (Azul Systems, Inc.)"
+>>>>>>> 25e41d3102e14aadc558b393dddfd76e709f15cf
 )
 @Component
 public class WordMapperImpl implements WordMapper {
