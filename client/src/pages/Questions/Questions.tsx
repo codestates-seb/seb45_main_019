@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import QTypeChoice from '../../components/Questions/QTypeChoice';
 import QTypeTyping from '../../components/Questions/QTypeTyping';
-import Progress from '../../components/Questions/Progress';
+import Progress from '../../components/Progress/Progress';
 export default function Questions() {
   const navigate = useNavigate();
 
