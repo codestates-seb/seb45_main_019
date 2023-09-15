@@ -16,7 +16,7 @@ export default function Enter() {
       if (chapter.progress![i] === 1) {
         if (i === 9 || i === 10 || i === 11) {
           point += 3;
-        } else if (i === 2 || i === 5 || i === 8) {
+        } else if (i === 3 || i === 6 || i === 9) {
           point += 2;
         } else {
           point += 1;
