@@ -69,8 +69,7 @@ export const userChapterAllData: UserChapter = {
       chapterStatus: false,
       progress: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     }
-  ],
-  learningChapterId: 3
+  ]
 };
 
 export const userChapterData: UserChapterListItem = {

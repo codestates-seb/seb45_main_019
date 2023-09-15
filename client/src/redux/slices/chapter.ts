@@ -7,7 +7,6 @@ const initialState: Chapter = {
   chapterId: 0,
   wordId: [0],
   chapterStatus: false,
-  learningChapterId: 0,
   progress: [0]
 };
 

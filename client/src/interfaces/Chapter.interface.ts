@@ -3,7 +3,6 @@ export interface Chapter {
   title: string;
   wordId: Array<number>;
   chapterStatus?: boolean;
-  learningChapterId?: number;
   progress?: number[];
 }
 
@@ -15,7 +14,6 @@ export interface UserChapterListItem {
 
 export interface UserChapter {
   chapterList: Array<UserChapterListItem>;
-  learningChapterId: number;
 }
 
 export interface ChapterListItem {
