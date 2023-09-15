@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import Input from '../../pages/SignUp/Input';
-import api from '../../common/utils/api';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { useQuery } from '@tanstack/react-query';
+import api from '../../common/utils/api';
 import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack';
-import { alpha, createTheme, ThemeProvider } from '@mui/material/styles';
+import { AxiosError } from 'axios';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useAppSelector } from '../../redux/hooks';
 
 const defaultTheme = createTheme({
   components: {
@@ -34,40 +35,76 @@ const topMargin = {
   alignItems: 'center',
   marginTop: '20px'
 };
+
 export default function MyPage() {
-  const [isEditing, setIsEditing] = useState(false); // 추가: 수정 모드 여부를 나타내는 상태 변수
+  const userInfo = useAppSelector((state) => state.user);
+  const { isLoading, error, data } = useQuery({
+    queryKey: ['username', userInfo.userId],
+    queryFn: () => api(`/members/${user}`, 'get').then(({ data }) => data.data)
+  });
+  if (isLoading)
+    return (
+      <Box
+        sx={{
+          backgroundColor: 'white',
+          width: '55rem',
+          height: '40rem',
+          p: 4,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 2,
+          borderRadius: 4,
+          boxShadow: (theme) => theme.shadows[3]
+        }}
+      >
+        {' '}
+        로딩중...{' '}
+      </Box>
+    );
 
-  const nickname = 'Einstein';
-  const username = 'einstein12';
-  const email = 'einstein12@nnnnn.com';
+  if (error) {
+    const myError = error as AxiosError;
+    return (
+      <Box
+        sx={{
+          backgroundColor: 'white',
+          width: '55rem',
+          height: '40rem',
+          p: 4,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 2,
+          borderRadius: 4,
+          boxShadow: (theme) => theme.shadows[3]
+        }}
+      >
+        {' '}
+        에러: {myError.message}{' '}
+      </Box>
+    );
+  }
+  const [user, setUser] = useState(false);
+  const [editedUser, setEditedUser] = useState({
+    nickname: data.nickname,
+    username: data.username,
+    email: data.email
+  });
 
-  // 각 필드의 상태 변수 추가
-  const [editedNickname, setEditedNickname] = useState(nickname);
-  const [editedUsername, setEditedUsername] = useState(username);
-  const [editedEmail, setEditedEmail] = useState(email);
-
-  // 필드를 수정 모드로 전환하는 함수
   const handleEditClick = () => {
-    setIsEditing(true);
+    setUser(true);
   };
 
-  // 수정을 완료하고 필드를 읽기 전용 모드로 전환하는 함수
-  const handleSaveClick = () => {
-    setIsEditing(false);
+  const handleReadClick = () => {
+    setUser(false);
   };
 
-  // 각 필드의 값을 수정하는 함수
-  const handleNicknameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEditedNickname(event.target.value);
-  };
-
-  const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEditedUsername(event.target.value);
-  };
-
-  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEditedEmail(event.target.value);
-  };
+  const handleFieldChange =
+    (fieldName: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      setEditedUser({
+        ...editedUser,
+        [fieldName]: event.target.value
+      });
+    };
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -75,7 +112,7 @@ export default function MyPage() {
         <Card sx={{ minWidth: 1000 }}>
           <CardContent style={{ paddingLeft: '60px', paddingTop: '50px' }}>
             <Typography variant="h5" component="div">
-              Einstein
+              {data.username}
             </Typography>
             <Typography variant="body2">2023년 8월 28일 가입</Typography>
           </CardContent>
@@ -89,15 +126,16 @@ export default function MyPage() {
               닉네임
             </Typography>
             <TextField
-              required={isEditing}
+              required={user}
               id="outlined-read-only-input"
-              value={editedNickname} // 수정된 값 사용
-              onChange={handleNicknameChange} // 값 변경 핸들러
+              value={editedUser.nickname}
+              onChange={handleFieldChange('nickname')}
               InputProps={{
-                readOnly: !isEditing
+                readOnly: !user
               }}
             />
           </div>
+
           <div style={topMargin}>
             <Typography
               variant="h6"
@@ -107,12 +145,12 @@ export default function MyPage() {
               아이디
             </Typography>
             <TextField
-              required={isEditing}
+              required={user}
               id="outlined-read-only-input"
-              value={editedUsername} // 수정된 값 사용
-              onChange={handleUsernameChange} // 값 변경 핸들러
+              value={editedUser.username}
+              onChange={handleFieldChange('username')}
               InputProps={{
-                readOnly: !isEditing
+                readOnly: !user
               }}
             />
           </div>
@@ -125,12 +163,12 @@ export default function MyPage() {
               이메일
             </Typography>
             <TextField
-              required={isEditing}
+              required={user}
               id="outlined-read-only-input"
-              value={editedEmail} // 수정된 값 사용
-              onChange={handleEmailChange} // 값 변경 핸들러
+              value={editedUser.email}
+              onChange={handleFieldChange('email')}
               InputProps={{
-                readOnly: !isEditing
+                readOnly: !user
               }}
             />
           </div>
@@ -143,7 +181,7 @@ export default function MyPage() {
             }}
           >
             <div style={centerStyle}>
-              {!isEditing && (
+              {!user && (
                 <Button
                   variant="outlined"
                   style={{ marginLeft: '8px' }}
@@ -152,15 +190,16 @@ export default function MyPage() {
                   내 정보 수정
                 </Button>
               )}
-              {isEditing && (
+              {user && (
                 <Button
                   variant="outlined"
                   style={{ marginLeft: '8px' }}
-                  onClick={handleSaveClick}
+                  onClick={handleReadClick}
                 >
                   수정완료
                 </Button>
               )}
+
               <Button variant="outlined" style={{ marginLeft: '8px' }}>
                 계정 삭제
               </Button>
