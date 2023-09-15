@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import api from '../../common/utils/api';
 import { useAppSelector } from '../../redux/hooks';
@@ -62,11 +62,13 @@ export default function AddWord(props: { wordId: number }) {
     return <div> 에러: {myError.message} </div>;
   }
   return (
-    <Button
-      variant={wordInWords ? 'outlined' : 'contained'}
-      onClick={handeClick}
-    >
-      {wordInWords ? '단어장 해제' : '단어장 추가'}
-    </Button>
+    <Box sx={{}}>
+      <Button
+        variant={wordInWords ? 'outlined' : 'contained'}
+        onClick={handeClick}
+      >
+        {wordInWords ? '단어장 해제' : '단어장 추가'}
+      </Button>
+    </Box>
   );
 }
