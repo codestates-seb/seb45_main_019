@@ -4,13 +4,13 @@ export interface Chapter {
   wordId: Array<number>;
   chapterStatus?: boolean;
   learningChapterId?: number;
-  progress?: (0 | 1 | 2)[];
+  progress?: number[];
 }
 
 export interface UserChapterListItem {
   chapterId: number;
   chapterStatus: boolean;
-  progress: (0 | 1 | 2)[];
+  progress: number[];
 }
 
 export interface UserChapter {

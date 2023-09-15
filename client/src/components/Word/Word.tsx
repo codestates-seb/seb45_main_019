@@ -22,52 +22,21 @@ export default function Word(props: { wordId: number }) {
     queryFn: () => api(`/words/${props.wordId}`).then(({ data }) => data.data)
   });
 
-  if (isLoading)
-    return (
-      <Box
-        sx={{
-          backgroundColor: 'white',
-          width: '55rem',
-          height: '40rem',
-          p: 4,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 2,
-          borderRadius: 4,
-          boxShadow: (theme) => theme.shadows[3]
-        }}
-      >
-        {' '}
-        로딩중...{' '}
-      </Box>
-    );
+  if (isLoading) return <div> 로딩중... </div>;
 
   if (error) {
     const myError = error as AxiosError;
-    return (
-      <Box
-        sx={{
-          backgroundColor: 'white',
-          width: '55rem',
-          height: '40rem',
-          p: 4,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 2,
-          borderRadius: 4,
-          boxShadow: (theme) => theme.shadows[3]
-        }}
-      >
-        {' '}
-        에러: {myError.message}{' '}
-      </Box>
-    );
+    return <div> 에러: {myError.message} </div>;
   }
 
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box
         sx={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
           backgroundColor: 'white',
           width: '55rem',
           height: '40rem',
@@ -75,8 +44,7 @@ export default function Word(props: { wordId: number }) {
           display: 'flex',
           flexDirection: 'column',
           gap: 2,
-          borderRadius: 4,
-          boxShadow: (theme) => theme.shadows[3]
+          borderRadius: 4
         }}
       >
         <Box sx={{ display: 'flex', flexShrink: 1, gap: 1, alignItems: 'end' }}>
@@ -89,18 +57,9 @@ export default function Word(props: { wordId: number }) {
           >
             {data.word}
           </Typography>
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              flex: 1
-            }}
-          >
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <Typography>{data.symbol}</Typography>
-              <Speaker text={data.word}></Speaker>
-            </Box>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <Typography>{data.symbol}</Typography>
+            <Speaker text={data.word}></Speaker>
             <AddWord wordId={props.wordId}></AddWord>
           </Box>
         </Box>
