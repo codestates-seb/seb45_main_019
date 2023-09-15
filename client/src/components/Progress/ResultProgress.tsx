@@ -3,7 +3,7 @@ import React from 'react';
 import CircleIcon from '@mui/icons-material/Circle';
 
 interface ProgressProps {
-  progress: number[];
+  progress: (0 | 1 | 2)[];
 }
 // const defaultTheme = createTheme();
 // console.log(defaultTheme.palette.);
@@ -40,7 +40,12 @@ export const Progress = ({ progress }: ProgressProps) => {
               sx={{
                 width: '5rem',
                 // color: 'error.dark',
-                color: 'success.dark',
+                color:
+                  el === 1
+                    ? 'success.dark'
+                    : el == 2
+                    ? 'error.dark'
+                    : 'grey[300]',
                 fontSize: 100,
                 m: 0,
                 p: 0
