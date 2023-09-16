@@ -104,7 +104,7 @@ export default function Header(props: HeaderProp) {
             </Tooltip>
             <Tooltip title="내 정보">
               <IconButton
-                onClick={() => handleNavigate('/my-profile')}
+                onClick={() => handleNavigate('/my-page')}
                 sx={{
                   width: '40px',
                   height: '40px',
