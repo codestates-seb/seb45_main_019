@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -76,28 +76,29 @@ export default function MyPage() {
   //       로딩중...{' '}
   //     </Box>
   //   );
-
-  // if (error) {
-  //   const myError = error as AxiosError;
-  //   return (
-  //     <Box
-  //       sx={{
-  //         backgroundColor: 'white',
-  //         width: '55rem',
-  //         height: '40rem',
-  //         p: 4,
-  //         display: 'flex',
-  //         flexDirection: 'column',
-  //         gap: 2,
-  //         borderRadius: 4,
-  //         boxShadow: (theme) => theme.shadows[3]
-  //       }}
-  //     >
-  //       {' '}
-  //       에러: {myError.message}{' '}
-  //     </Box>
-  //   );
-  // }
+  /*
+  if (error) {
+    const myError = error as AxiosError;
+    return (
+      <Box
+        sx={{
+          backgroundColor: 'white',
+          width: '55rem',
+          height: '40rem',
+          p: 4,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 2,
+          borderRadius: 4,
+          boxShadow: (theme) => theme.shadows[3]
+        }}
+      >
+        {' '}
+        에러: {myError.message}{' '}
+      </Box>
+    );
+  }
+  */
 
   const handleEditClick = () => {
     setEditFlag(true);
