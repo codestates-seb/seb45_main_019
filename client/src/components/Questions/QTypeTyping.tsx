@@ -1,4 +1,4 @@
-import { Box, TextField } from '@mui/material';
+import { Box, TextField, Typography } from '@mui/material';
 
 // 효재님 이제 QType3 하시는거 같은데 제가 Questions쪽이
 // 아직 안됐는데 문제 타입별로 컴포넌트에 문제 props를 내려줄
@@ -12,12 +12,8 @@ interface QTypeTypingProps {
 export default function QTypeTyping() {
   return (
     <Box sx={{ mt: 10 }}>
-      <p>입력문제</p>
+      <Typography></Typography>
       <Box sx={{ display: 'flex' }}>
-        <TextField sx={{ width: '4rem' }}></TextField>
-        <TextField sx={{ width: '4rem' }}></TextField>
-        <TextField sx={{ width: '4rem' }}></TextField>
-        <TextField sx={{ width: '4rem' }}></TextField>
         <TextField sx={{ width: '4rem' }}></TextField>
       </Box>
     </Box>
