@@ -3,12 +3,11 @@ import { RootState } from '../store';
 import { Chapter } from '../../interfaces/Chapter.interface';
 
 const initialState: Chapter = {
-  title: '인사 나누기',
-  chapterId: 1,
-  wordId: [1, 2, 3],
+  title: '',
+  chapterId: 0,
+  wordId: [0],
   chapterStatus: false,
-  learningChapterId: 1,
-  progress: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  progress: [0]
 };
 
 export const chapterSlice = createSlice({

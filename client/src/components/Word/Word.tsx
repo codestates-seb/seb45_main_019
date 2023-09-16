@@ -12,7 +12,6 @@ import { AxiosError } from 'axios';
 import api from '../../common/utils/api';
 import AddWord from './AddWord';
 const defaultTheme = createTheme();
-console.log(defaultTheme);
 
 export default function Word(props: { wordId: number }) {
   const [detailCategory, setDetailCategory] = useState(0);

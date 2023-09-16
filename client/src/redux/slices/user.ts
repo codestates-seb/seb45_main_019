@@ -2,13 +2,21 @@ import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import { UserState } from '../../interfaces/User.interface';
 
+// const initialState: UserState = {
+//   email: '',
+//   username: '',
+//   userId: 1,
+//   nickname: '',
+//   point: 0,
+//   memberStatus: false
+// };
 const initialState: UserState = {
   email: '',
-  username: '',
-  userId: 0,
-  nickname: '',
+  username: 'aa',
+  userId: 1,
+  nickname: 'sasas',
   point: 0,
-  memberStatus: false
+  memberStatus: true
 };
 
 export const userSlice = createSlice({
