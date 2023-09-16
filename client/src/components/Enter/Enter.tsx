@@ -10,22 +10,6 @@ import { pointAcc } from '../../common/utils/pointCalculator';
 export default function Enter() {
   const chapter = useAppSelector((state) => state.chapter);
 
-  // function pointAcc() {
-  //   let point = 0;
-
-  //   for (let i = 0; i < chapter.progress!.length; i++) {
-  //     if (chapter.progress![i] === 1) {
-  //       if (i === 9 || i === 10 || i === 11) {
-  //         point += 3;
-  //       } else if (i === 2 || i === 5 || i === 8) {
-  //         point += 2;
-  //       } else {
-  //         point += 1;
-  //       }
-  //     }
-  //   }
-  //   return point;
-  // }
   return (
     <Container
       sx={{

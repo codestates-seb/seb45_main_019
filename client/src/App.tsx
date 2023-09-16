@@ -9,12 +9,12 @@ import Questions from './pages/Questions/Questions';
 import WordPage from './pages/Word/WordPage';
 import Result from './pages/Result/Result';
 export default function App() {
-  const location = useLocation().pathname;
+  const { pathname: location } = useLocation();
 
   function handleHeaderVisible() {
     if (
-      location === '/learn/question' ||
       location === '/' ||
+      location === '/learn/question' ||
       location === '/learn/result'
     ) {
       return null;
