@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import { playText } from '../../common/utils/speak';
 
-export default function SelectButton() {
+interface SelectButtonProps {
+  text: string;
+}
+export default function SelectButton({ text }: SelectButtonProps) {
   const [isThick, setIsThick] = useState(false);
 
   const handleClick = () => {
-    playText('Hello');
+    playText(text);
     setIsThick(!isThick);
   };
 
@@ -19,9 +22,8 @@ export default function SelectButton() {
           borderWidth: isThick ? '4px' : '1px',
           borderColor: isThick ? 'gray' : 'inherit'
         }}
-        href={'#outlined-buttons'}
       >
-        Hello
+        {text}
       </Button>
     </div>
   );
