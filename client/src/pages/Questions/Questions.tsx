@@ -23,8 +23,9 @@ export default function Questions() {
 
   const selectedChapter = useAppSelector((state) => state.chapter);
   const userInfo = useAppSelector((state) => state.user);
-  const [progress, setProgress] = useState<number[]>([]);
+  const [progress, setProgress] = useState<(0 | 1 | 2)[]>([]);
 
+  // function getUserChapter(): UserChapterListItem {}
   useEffect(() => {
     let selectedUserChapter: UserChapterListItem = {
       chapterId: 1,

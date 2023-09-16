@@ -28,7 +28,7 @@ export default function MainPage() {
   const { data: allChapterList } = useAllChapterQuery();
   const { data: allUserChapterList } = useAllUserChapterQuery(userInfo.userId);
 
-  function getUserChapter(): UserChapter {
+  function getUserChapters(): UserChapter {
     if (!userInfo.memberStatus) {
       localStorageInit(allChapterList as ChapterList);
       return localStorageGet();
@@ -37,8 +37,8 @@ export default function MainPage() {
     }
   }
 
-  function setUserChapter(): void {
-    const userChapter = getUserChapter();
+  function setUserChapters(): void {
+    const userChapter = getUserChapters();
 
     const changeStatusList = allChapterList!.data.map((chapter) => {
       const sameChapter = userChapter?.data.find(
@@ -70,7 +70,7 @@ export default function MainPage() {
 
   useEffect(() => {
     if (allChapterList !== undefined) {
-      setUserChapter();
+      setUserChapters();
     }
   }, [allChapterList]);
   return (

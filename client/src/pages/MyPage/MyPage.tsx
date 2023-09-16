@@ -37,66 +37,74 @@ const topMargin = {
 };
 
 export default function MyPage() {
+  const [editFlag, setEditFlag] = useState(false);
+  const [editedUser, setEditedUser] = useState({
+    nickname: '',
+    username: '',
+    email: ''
+  });
+  // const [user, setUser] = useState(false);
+  // const [editedUser, setEditedUser] = useState({
+  //   nickname: data.nickname,
+  //   username: data.username,
+  //   email: data.email
+  // });
+
   const userInfo = useAppSelector((state) => state.user);
   const { isLoading, error, data } = useQuery({
     queryKey: ['username', userInfo.userId],
     queryFn: () =>
       api(`/members/${userInfo.userId}`, 'get').then(({ data }) => data.data)
   });
-  if (isLoading)
-    return (
-      <Box
-        sx={{
-          backgroundColor: 'white',
-          width: '55rem',
-          height: '40rem',
-          p: 4,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 2,
-          borderRadius: 4,
-          boxShadow: (theme) => theme.shadows[3]
-        }}
-      >
-        {' '}
-        로딩중...{' '}
-      </Box>
-    );
 
-  if (error) {
-    const myError = error as AxiosError;
-    return (
-      <Box
-        sx={{
-          backgroundColor: 'white',
-          width: '55rem',
-          height: '40rem',
-          p: 4,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 2,
-          borderRadius: 4,
-          boxShadow: (theme) => theme.shadows[3]
-        }}
-      >
-        {' '}
-        에러: {myError.message}{' '}
-      </Box>
-    );
-  }
-  const [user, setUser] = useState(false);
-  const [editedUser, setEditedUser] = useState({
-    nickname: data.nickname,
-    username: data.username,
-    email: data.email
-  });
+  // if (isLoading)
+  //   return (
+  //     <Box
+  //       sx={{
+  //         backgroundColor: 'white',
+  //         width: '55rem',
+  //         height: '40rem',
+  //         p: 4,
+  //         display: 'flex',
+  //         flexDirection: 'column',
+  //         gap: 2,
+  //         borderRadius: 4,
+  //         boxShadow: (theme) => theme.shadows[3]
+  //       }}
+  //     >
+  //       {' '}
+  //       로딩중...{' '}
+  //     </Box>
+  //   );
+
+  // if (error) {
+  //   const myError = error as AxiosError;
+  //   return (
+  //     <Box
+  //       sx={{
+  //         backgroundColor: 'white',
+  //         width: '55rem',
+  //         height: '40rem',
+  //         p: 4,
+  //         display: 'flex',
+  //         flexDirection: 'column',
+  //         gap: 2,
+  //         borderRadius: 4,
+  //         boxShadow: (theme) => theme.shadows[3]
+  //       }}
+  //     >
+  //       {' '}
+  //       에러: {myError.message}{' '}
+  //     </Box>
+  //   );
+  // }
 
   const handleEditClick = () => {
-    setUser(true);
+    setEditFlag(true);
   };
 
   const handleReadClick = () => {
-    setUser(false);
+    setEditFlag(false);
   };
 
   const handleFieldChange =
@@ -107,13 +115,24 @@ export default function MyPage() {
       });
     };
 
+  useEffect(() => {
+    if (data !== undefined) {
+      setEditedUser({
+        nickname: data.nickname,
+        username: data.username,
+        email: data.email
+      });
+    }
+  }, [data]);
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <div style={centerStyle}>
         <Card sx={{ minWidth: 1000 }}>
           <CardContent style={{ paddingLeft: '60px', paddingTop: '50px' }}>
             <Typography variant="h5" component="div">
-              {data.username}
+              {/* {data.username} */}
+              {editedUser.username}
             </Typography>
             <Typography variant="body2">2023년 8월 28일 가입</Typography>
           </CardContent>
@@ -127,12 +146,12 @@ export default function MyPage() {
               닉네임
             </Typography>
             <TextField
-              required={user}
+              required={editFlag}
               id="outlined-read-only-input"
               value={editedUser.nickname}
               onChange={handleFieldChange('nickname')}
               InputProps={{
-                readOnly: !user
+                readOnly: !editFlag
               }}
             />
           </div>
@@ -146,12 +165,12 @@ export default function MyPage() {
               아이디
             </Typography>
             <TextField
-              required={user}
+              required={editFlag}
               id="outlined-read-only-input"
               value={editedUser.username}
               onChange={handleFieldChange('username')}
               InputProps={{
-                readOnly: !user
+                readOnly: !editFlag
               }}
             />
           </div>
@@ -164,12 +183,12 @@ export default function MyPage() {
               이메일
             </Typography>
             <TextField
-              required={user}
+              required={editFlag}
               id="outlined-read-only-input"
               value={editedUser.email}
               onChange={handleFieldChange('email')}
               InputProps={{
-                readOnly: !user
+                readOnly: !editFlag
               }}
             />
           </div>
@@ -182,7 +201,7 @@ export default function MyPage() {
             }}
           >
             <div style={centerStyle}>
-              {!user && (
+              {!editFlag && (
                 <Button
                   variant="outlined"
                   style={{ marginLeft: '8px' }}
@@ -191,7 +210,7 @@ export default function MyPage() {
                   내 정보 수정
                 </Button>
               )}
-              {user && (
+              {editFlag && (
                 <Button
                   variant="outlined"
                   style={{ marginLeft: '8px' }}
