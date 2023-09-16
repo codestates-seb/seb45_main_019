@@ -8,6 +8,7 @@ import Header from './components/Header/Header';
 import Questions from './pages/Questions/Questions';
 import WordPage from './pages/Word/WordPage';
 import Result from './pages/Result/Result';
+
 export default function App() {
   const { pathname: location } = useLocation();
 
