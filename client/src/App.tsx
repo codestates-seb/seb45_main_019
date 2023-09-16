@@ -34,9 +34,6 @@ export default function App() {
         <Route path="/signin" element={<SignIn></SignIn>} />
         <Route path="/my-word" element={<WordPage />} />
         <Route path="/my-page" element={<MyPage />} />
-
-        {/*테스트코드*/}
-        <Route path="/1" element={<QTypeTyping></QTypeTyping>} />
       </Routes>
     </Container>
   );
