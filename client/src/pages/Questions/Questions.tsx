@@ -4,7 +4,7 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import QTypeChoice from '../../components/Questions/QTypeChoice';
 import QTypeTyping from '../../components/Questions/QTypeTyping';
 import { useEffect, useState } from 'react';
-import { userChapterData } from '../../common/data/chapterData';
+
 import QuestionProgress from '../../components/Progress/QuestionProgress';
 import { grey } from '@mui/material/colors';
 import { useAppSelector } from '../../redux/hooks';

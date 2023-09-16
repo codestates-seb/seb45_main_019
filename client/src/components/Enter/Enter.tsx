@@ -9,6 +9,7 @@ import EastOutlinedIcon from '@mui/icons-material/EastOutlined';
 export default function Enter() {
   const chapter = useAppSelector((state) => state.chapter);
 
+  console.log(chapter);
   function pointAcc() {
     let point = 0;
 

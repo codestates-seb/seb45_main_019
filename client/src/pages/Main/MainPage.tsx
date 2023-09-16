@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Enter from '../../components/Enter/Enter';
 import Nav from '../../components/Nav/Nav';
-// import { chapterData, userChapterAllData } from '../../common/data/chapterData';
 import {
   Chapter,
   ChapterList,
@@ -27,15 +26,7 @@ export default function MainPage() {
   const selectedChapter = useAppSelector((state) => state.chapter);
 
   const { data: allChapterList } = useAllChapterQuery();
-  const { data: allUserChapterList } = useAllUserChapterQuery(1);
-
-  //onError callback
-  //default config
-  //error code
-  //loading, error page - 404(페이지 잔존 여부)
-
-  //1. 로컬/서버 분리
-  //2. token으로 구분
+  const { data: allUserChapterList } = useAllUserChapterQuery(userInfo.userId);
 
   function getUserChapter(): UserChapter {
     if (!userInfo.memberStatus) {
@@ -46,12 +37,11 @@ export default function MainPage() {
     }
   }
 
-  // data가 들어왔을때 실행
-  if (allChapterList !== undefined && allUserChapterList !== undefined) {
+  function setUserChapter(): void {
     const userChapter = getUserChapter();
 
-    const changeStatusList = allChapterList.data.map((chapter) => {
-      const sameChapter = userChapter?.chapterList.find(
+    const changeStatusList = allChapterList!.data.map((chapter) => {
+      const sameChapter = userChapter?.data.find(
         (userChapter) => userChapter.chapterId === chapter.chapterId
       );
 
@@ -70,62 +60,19 @@ export default function MainPage() {
       }
     });
 
-    if (changeStatusList.length === 19) {
-      setChapterList(changeStatusList);
-    }
+    setChapterList(changeStatusList);
 
     // 첫 접속시 Enter, Nav 첫 챕터로 세팅
     if (selectedChapter.chapterId === 0) {
       dispatch(setChapter(changeStatusList[0]));
     }
-    // console.log(changeStatusList);
-    // console.log(chapterList);
-    // setChapterList(changeStatusList);
-    // let userChapter: UserChapter = {
-    //   chapterList: [
-    //     {
-    //       chapterId: 1,
-    //       chapterStatus: false,
-    //       progress: [0]
-    //     }
-    //   ]
-    // };
-
-    // 챕터 데이터랑 유저 챕터 정보랑 mapping
-    // const changeStatusList = allChapterList!.data.map((chapter) => {
-    //   const sameChapter = userChapter?.chapterList.find(
-    //     (userChapter) => userChapter.chapterId === chapter.chapterId
-    //   );
-
-    //   if (sameChapter?.chapterStatus) {
-    //     return {
-    //       ...chapter,
-    //       chapterStatus: true,
-    //       progress: sameChapter?.progress
-    //     };
-    //   } else {
-    //     return {
-    //       ...chapter,
-    //       chapterStatus: false,
-    //       progress: sameChapter?.progress
-    //     };
-    //   }
-    // });
-    // // 변경된 챕터리스트로 setState
-    // setChapterList(changeStatusList);
-
-    // // 첫 접속시 Enter, Nav 첫 챕터로 세팅
-    // if (selectedChapter.chapterId === 0) {
-    //   dispatch(setChapter(changeStatusList[0]));
-    // }
   }
 
-  // console.log(chapterList);
-
   useEffect(() => {
-    // console.log('effect');
-  }, []);
-
+    if (allChapterList !== undefined) {
+      setUserChapter();
+    }
+  }, [allChapterList]);
   return (
     <Box
       sx={{
@@ -135,12 +82,7 @@ export default function MainPage() {
         backgroundColor: '#f5f7fa'
       }}
     >
-      {/* <Nav chapterList={chapterList} location={location} /> */}
-      <Nav
-        userChapterData={allUserChapterList!}
-        chapterList={allChapterList!}
-        location={location}
-      />
+      <Nav chapterList={chapterList} location={location} />
       <Box
         sx={{
           width: 'calc(100% - 270px)',

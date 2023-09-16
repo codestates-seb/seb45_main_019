@@ -3,16 +3,16 @@ import { ChapterList, UserChapter } from '../../interfaces/Chapter.interface';
 export function localStorageInit(allChapterList: ChapterList) {
   if (localStorageIsNull()) {
     const localUserChapter: UserChapter = {
-      chapterList: []
+      data: []
     };
     const initList = allChapterList.data.map((el, idx) => {
       return {
         chapterId: idx + 1,
         chapterStatus: false,
-        progress: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        progress: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] as (0 | 1 | 2)[]
       };
     });
-    localUserChapter.chapterList = initList;
+    localUserChapter.data = initList;
 
     localStorageSet(localUserChapter);
   }

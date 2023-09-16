@@ -1,16 +1,10 @@
 import { Box, List } from '@mui/material';
-import {
-  Chapter,
-  ChapterList,
-  UserChapter
-} from '../../interfaces/Chapter.interface';
+import { Chapter } from '../../interfaces/Chapter.interface';
 import { Link } from 'react-router-dom';
 import MainNavItem from './MainNavItem';
 
 interface NavProps {
-  // chapterList?: Chapter[];
-  chapterList: ChapterList;
-  userChapterData: UserChapter;
+  chapterList?: Chapter[];
   location: string;
   myWordList?: number[]; // TODO: Word 인터페이스 추가
 }
@@ -19,23 +13,19 @@ export default function Nav(props: NavProps) {
   const chapterList = props.chapterList;
   const location = props.location;
   const myWordList = props.myWordList;
-  const userChapterData = props.userChapterData;
 
-  console.log(chapterList);
-  console.log(userChapterData);
-
-  // function handleNavPage() {
-  //   if (location === '/') {
-  //     return chapterList?.map((el) => (
-  //       <MainNavItem key={el.chapterId} chapter={el} />
-  //     ));
-  //   } else if (location === '/my-word') {
-  //     // WordNavItem.tsx 렌더링
-  //     return myWordList;
-  //   } else {
-  //     return null;
-  //   }
-  // }
+  function handleNavPage() {
+    if (location === '/') {
+      return chapterList?.map((el) => (
+        <MainNavItem key={el.chapterId} chapter={el} />
+      ));
+    } else if (location === '/my-word') {
+      // WordNavItem.tsx 렌더링
+      return myWordList;
+    } else {
+      return null;
+    }
+  }
 
   return (
     <Box
@@ -84,7 +74,7 @@ export default function Nav(props: NavProps) {
           }
         }}
       >
-        {/* {handleNavPage()} */}
+        {handleNavPage()}
       </List>
     </Box>
   );

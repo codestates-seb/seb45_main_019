@@ -13,7 +13,7 @@ export interface UserChapterListItem {
 }
 
 export interface UserChapter {
-  chapterList: Array<UserChapterListItem>;
+  data: Array<UserChapterListItem>;
 }
 
 export interface ChapterListItem {
