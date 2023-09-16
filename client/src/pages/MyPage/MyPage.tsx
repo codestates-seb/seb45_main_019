@@ -40,7 +40,8 @@ export default function MyPage() {
   const userInfo = useAppSelector((state) => state.user);
   const { isLoading, error, data } = useQuery({
     queryKey: ['username', userInfo.userId],
-    queryFn: () => api(`/members/${user}`, 'get').then(({ data }) => data.data)
+    queryFn: () =>
+      api(`/members/${userInfo.userId}`, 'get').then(({ data }) => data.data)
   });
   if (isLoading)
     return (
