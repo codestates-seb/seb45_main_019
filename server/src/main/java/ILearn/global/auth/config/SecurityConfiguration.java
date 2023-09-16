@@ -66,12 +66,24 @@ public class SecurityConfiguration {
                 .apply(new CustomFilterConfigurer())
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
-                                .antMatchers(HttpMethod.POST, "/*/members").permitAll()
-                                .antMatchers(HttpMethod.PATCH, "/*/members/**").hasRole("USER")
-//                                .antMatchers(HttpMethod.GET, "/*/members").hasRole("ADMIN")
-                                .antMatchers(HttpMethod.GET, "/*/members/**").permitAll()
-                                .antMatchers(HttpMethod.DELETE, "/*/members/**").permitAll()
-                                .anyRequest().permitAll()
+                        .antMatchers(HttpMethod.GET, "/learning").permitAll()
+                        .antMatchers(HttpMethod.GET, "/members/*").permitAll()
+                        .antMatchers(HttpMethod.DELETE, "/members/*").permitAll()
+                        .antMatchers(HttpMethod.GET, "/words/*").permitAll()
+                        .antMatchers(HttpMethod.GET, "/learning/**/").permitAll()
+                        .antMatchers(HttpMethod.POST, "/members").permitAll()
+                        .antMatchers(HttpMethod.POST, "/members/login").permitAll()
+                        .antMatchers(HttpMethod.PATCH, "/members/*").permitAll()
+                        .antMatchers(HttpMethod.PATCH, "/manage/*/").permitAll()
+                        .antMatchers(HttpMethod.GET, "/manage/*").permitAll()
+                        .antMatchers(HttpMethod.GET, "/manage/*/*").permitAll()
+                        .antMatchers(HttpMethod.PATCH, "/manage/*/*").permitAll()
+                        .antMatchers(HttpMethod.GET, "/manage/*/daily").permitAll()
+                        .antMatchers(HttpMethod.POST, "/words/members/*").permitAll()
+                        .antMatchers(HttpMethod.DELETE, "/words/members/*").permitAll()
+                        .antMatchers(HttpMethod.GET, "/words/members/*").permitAll()
+//                        .anyRequest().authenticated()
+                        .anyRequest().permitAll() // h2 데이터베이스 사용
                 );
         return http.build();
     }

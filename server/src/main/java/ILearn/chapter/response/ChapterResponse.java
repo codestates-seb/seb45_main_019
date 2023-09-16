@@ -1,8 +1,6 @@
 package ILearn.chapter.response;
 
 import ILearn.chapter.dto.ChapterInfo;
-import ILearn.chapter.entity.Chapter;
-import ILearn.word.entity.Word;
 import lombok.Getter;
 import lombok.Setter;
 

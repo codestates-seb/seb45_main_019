@@ -2,11 +2,16 @@ package ILearn.global.init;
 
 import ILearn.chapter.entity.Chapter;
 import ILearn.chapter.repository.ChapterRepository;
+import ILearn.member.dto.MemberPostDto;
+
+import ILearn.member.entity.Member;
+import ILearn.member.service.MemberService;
 import ILearn.question.entity.Question;
 import ILearn.question.repository.QuestionRepository;
 import ILearn.question.service.QuestionService;
 import ILearn.word.entity.Word;
 import ILearn.word.repository.WordRepository;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -20,6 +25,8 @@ public class Initialization implements CommandLineRunner {
     private final ChapterRepository chapterRepository;
     private final QuestionRepository questionRepository;
     private final QuestionService questionService;
+    private final MemberService memberService;
+
 
     public void run(String... args) {
 
@@ -742,6 +749,15 @@ public class Initialization implements CommandLineRunner {
                 }
             }
         }
+
+        // 테스트 계정 생성
+        Member member = new Member();
+        member.setUsername("test1");
+        member.setPassword("password11!!");
+        member.setNickname("memberTest");
+        member.setEmail("test@test.test");
+        memberService.createMember(member);
+
     }
 }
 
