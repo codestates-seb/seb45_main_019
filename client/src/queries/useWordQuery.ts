@@ -1,6 +1,7 @@
 import api from '../common/utils/api';
 import { useQuery } from '@tanstack/react-query';
 import { WordInterface } from '../interfaces/Word.interface';
+import { AxiosError } from 'axios';
 
 const uri = '/words';
 
@@ -15,6 +16,6 @@ export const useWordQuery = (query: (string | number)[]) => {
       ),
     refetchOnWindowFocus: false,
     retry: 0,
-    onError: (error) => error
+    onError: (err: AxiosError) => err
   });
 };
