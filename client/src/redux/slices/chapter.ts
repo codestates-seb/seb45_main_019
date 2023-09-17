@@ -2,12 +2,19 @@ import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import { Chapter } from '../../interfaces/Chapter.interface';
 
+// const initialState: Chapter = {
+//   title: '',
+//   chapterId: 0,
+//   wordId: [0],
+//   chapterStatus: false,
+//   progress: [0]
+// };
 const initialState: Chapter = {
-  title: '',
-  chapterId: 0,
-  wordId: [0],
+  title: 'test',
+  chapterId: 1,
+  wordId: [1, 2, 3],
   chapterStatus: false,
-  progress: [0]
+  progress: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 };
 
 export const chapterSlice = createSlice({

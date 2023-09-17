@@ -1,7 +1,7 @@
 import { Box, Button, Chip, Typography, createTheme } from '@mui/material';
 import React, { useState } from 'react';
 import Word from '../../components/Word/Word';
-import { Progress } from './Progress';
+import { Progress } from '../../components/Progress/ResultProgress';
 import { Chapter } from '../../interfaces/Chapter.interface';
 import { pointAcc } from '../../common/utils/pointCalculator';
 import shadows from '@mui/material/styles/shadows';
