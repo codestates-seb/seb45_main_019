@@ -6,9 +6,10 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import api from '../../common/utils/api';
+import { alpha, createTheme, ThemeProvider } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import { AxiosError } from 'axios';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 import { useAppSelector } from '../../redux/hooks';
 
 const defaultTheme = createTheme({
@@ -26,7 +27,7 @@ const defaultTheme = createTheme({
 const centerStyle = {
   display: 'flex',
   justifyContent: 'center',
-  marginTop: '70px'
+  marginTop: '80px'
 };
 
 const topMargin = {
@@ -40,8 +41,8 @@ export default function MyPage() {
   const [editFlag, setEditFlag] = useState(false);
   const [editedUser, setEditedUser] = useState({
     nickname: '',
-    username: '',
-    email: ''
+    password: '',
+    confirmPassword: ''
   });
 
   const userInfo = useAppSelector((state) => state.user);
@@ -50,31 +51,25 @@ export default function MyPage() {
     queryFn: () =>
       api(`/members/${userInfo.userId}`, 'get').then(({ data }) => data.data)
   });
-  /*
-    const addToMyWords = useMutation(
-    () =>
-      api(`/words/members/${user.userId}`, 'post', {
-        wordId: props.wordId
-      }).then(({ data }) => {
-        console.log(data);
-      }),
-    {
-      onSuccess: () => queryClient.invalidateQueries(['userWordIds'])
-    }
-  );
-*/
+
   const modifiedUser = useMutation(
-    () =>
-      api(`/members/${userInfo.userId}`, 'patch', {
-        userId: userInfo.userId
-      }).then((res) => console.log(res.data)),
+    () => {
+      if (editedUser.password === editedUser.confirmPassword) {
+        return api(`/members/${userInfo.userId}`, 'patch', editedUser).then(
+          (res) => console.log(res.data)
+        );
+      } else {
+        throw new Error('Passwords do not match');
+      }
+    },
     {
       onSuccess: () => {
         const queryClient = useQueryClient();
-        queryClient.invalidateQueries(['userWordsIds']);
+        queryClient.invalidateQueries(['userInfo']);
       }
     }
   );
+
   const deleteUser = useMutation(
     () =>
       api(`/members/${userInfo.userId}`, 'delete', {
@@ -83,7 +78,7 @@ export default function MyPage() {
     {
       onSuccess: () => {
         const queryClient = useQueryClient();
-        queryClient.invalidateQueries(['userWordsIds']);
+        queryClient.invalidateQueries(['userInfo']);
       }
     }
   );
@@ -108,8 +103,8 @@ export default function MyPage() {
     if (data !== undefined) {
       setEditedUser({
         nickname: data.nickname,
-        username: data.username,
-        email: data.email
+        password: data.password,
+        confirmPassword: data.password
       });
     }
   }, [data]);
@@ -117,69 +112,120 @@ export default function MyPage() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <div style={centerStyle}>
-        <Card sx={{ minWidth: 1000 }}>
+        <Card
+          sx={{
+            minWidth: 1000,
+            borderRadius: '12px',
+            boxShadow: (theme) =>
+              alpha(theme.palette.primary.light, 0.5) + ` 0px 0.5rem 1.25rem`
+          }}
+        >
           <CardContent style={{ paddingLeft: '60px', paddingTop: '50px' }}>
             <Typography variant="h5" component="div">
-              {editedUser.username}
+              {editedUser.nickname}
             </Typography>
             <Typography variant="body2">2023년 8월 28일 가입</Typography>
           </CardContent>
 
-          <div style={centerStyle}>
-            <Typography
-              variant="h6"
-              component="div"
-              style={{ marginTop: '10px', marginRight: '50px' }}
-            >
-              닉네임
-            </Typography>
-            <TextField
-              required={editFlag}
-              id="outlined-read-only-input"
-              value={editedUser.nickname}
-              onChange={handleFieldChange('nickname')}
-              InputProps={{
-                readOnly: !editFlag
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginTop: '80px'
+            }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center'
               }}
-            />
+            >
+              <Typography
+                variant="h6"
+                component="div"
+                style={{
+                  marginTop: '10px',
+                  marginRight: '50px',
+                  width: '150px',
+                  textAlign: 'left'
+                }}
+              >
+                닉네임
+              </Typography>
+              <TextField
+                required={editFlag}
+                id="outlined-read-only-input"
+                value={editedUser.nickname}
+                onChange={handleFieldChange('nickname')}
+                InputProps={{
+                  readOnly: !editFlag
+                }}
+              />
+            </div>
+            <div style={topMargin} />
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center'
+              }}
+            >
+              <Typography
+                variant="h6"
+                component="div"
+                style={{
+                  marginTop: '10px',
+                  marginRight: '40px',
+                  width: '160px',
+                  textAlign: 'left'
+                }}
+              >
+                새 비밀번호
+              </Typography>
+              <TextField
+                required={editFlag}
+                id="outlined-read-only-input"
+                value={editedUser.password}
+                onChange={handleFieldChange('password')}
+                type="password"
+                InputProps={{
+                  readOnly: !editFlag
+                }}
+              />
+            </div>
+            <div style={topMargin} />
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center'
+              }}
+            >
+              <Typography
+                variant="h6"
+                component="div"
+                style={{
+                  marginRight: '50px',
+                  marginTop: '10px',
+                  width: '152px',
+                  textAlign: 'left'
+                }}
+              >
+                새 비밀번호 확인
+              </Typography>
+              <TextField
+                required={editFlag}
+                id="outlined-read-only-input"
+                value={editedUser.confirmPassword}
+                onChange={handleFieldChange('confirmPassword')}
+                type="password"
+                InputProps={{
+                  readOnly: !editFlag
+                }}
+              />
+            </div>
           </div>
 
-          <div style={topMargin}>
-            <Typography
-              variant="h6"
-              component="div"
-              style={{ marginRight: '50px' }}
-            >
-              아이디
-            </Typography>
-            <TextField
-              required={editFlag}
-              id="outlined-read-only-input"
-              value={editedUser.username}
-              onChange={handleFieldChange('username')}
-              InputProps={{
-                readOnly: !editFlag
-              }}
-            />
-          </div>
-          <div style={topMargin}>
-            <Typography
-              variant="h6"
-              component="div"
-              style={{ marginRight: '50px' }}
-            >
-              이메일
-            </Typography>
-            <TextField
-              required={editFlag}
-              id="outlined-read-only-input"
-              value={editedUser.email}
-              onChange={handleFieldChange('email')}
-              InputProps={{
-                readOnly: !editFlag
-              }}
-            />
-          </div>
           <div
             style={{
               display: 'flex',
@@ -191,7 +237,7 @@ export default function MyPage() {
             <div style={centerStyle}>
               {!editFlag && (
                 <Button
-                  variant="outlined"
+                  variant="contained"
                   style={{ marginLeft: '8px' }}
                   onClick={handleEditClick}
                 >
@@ -200,7 +246,7 @@ export default function MyPage() {
               )}
               {editFlag && (
                 <Button
-                  variant="outlined"
+                  variant="contained"
                   style={{ marginLeft: '8px' }}
                   onClick={() => {
                     handleReadClick();
@@ -212,7 +258,7 @@ export default function MyPage() {
               )}
 
               <Button
-                variant="outlined"
+                variant="contained"
                 style={{ marginLeft: '8px' }}
                 onClick={() => deleteUser.mutate()}
               >
