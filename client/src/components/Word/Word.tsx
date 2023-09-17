@@ -160,7 +160,7 @@ const WordInfo = ({ wordData }: WordInfoProps) => {
               boxShadow: (theme) => theme.shadows[3]
             }}
           >
-            {detailDescriptions
+            {/* {detailDescriptions
               ? detailDescriptions[detailCategory].map((el, key) => (
                   // {detailDescriptions &&
                   //   detailDescriptions.map((el, key: number) => (
@@ -180,7 +180,7 @@ const WordInfo = ({ wordData }: WordInfoProps) => {
                     {key + 1}. {el}{' '}
                   </Typography>
                 ))
-              : null}
+              : null} */}
           </Box>
           <Box
             sx={{
