@@ -84,12 +84,10 @@ const WordCard = ({ wordId, handleOpen }: WordCardProps) => {
             </IconButton>
           }
           title={`로딩중...`}
-          subheader="[...]"
+          // subheader="[...]"
         />
         <CardContent>
-          <Typography variant="body2" color="text.secondary">
-            ...
-          </Typography>
+          <Typography variant="body2" color="text.secondary"></Typography>
         </CardContent>
         <CardActions>
           <Button>
@@ -112,21 +110,19 @@ const WordCard = ({ wordId, handleOpen }: WordCardProps) => {
         subheader={word.symbol}
       />
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          {word.wordMeaning.map((el: string, key: number) => (
-            <Typography
-              variant="subtitle1"
-              key={key}
-              sx={{
-                color: 'text.primary',
-                fontWeight: 'fontWeightBold',
-                fontSize: 19
-              }}
-            >
-              {`${key + 1}. ${el} `}
-            </Typography>
-          ))}
-        </Typography>
+        {word.wordMeaning.map((el: string, key: number) => (
+          <Typography
+            variant="subtitle1"
+            key={key}
+            sx={{
+              color: 'text.primary',
+              fontWeight: 'fontWeightBold',
+              fontSize: 19
+            }}
+          >
+            {`${key + 1}. ${el} `}
+          </Typography>
+        ))}
       </CardContent>
       <CardActions>
         <Button>
