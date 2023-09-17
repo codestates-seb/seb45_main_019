@@ -1,8 +1,6 @@
 import axios from 'axios';
 
-// const SERVER_URL = process.env.REACT_APP_API_URL;
-const SERVER_URL =
-  'https://i-learn-lb-341312336.ap-northeast-2.elb.amazonaws.com/learning';
+const SERVER_URL = process.env.REACT_APP_API_URL;
 
 const api = (
   uri: string,
