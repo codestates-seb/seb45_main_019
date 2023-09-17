@@ -46,17 +46,22 @@ export default function MyPage() {
   });
 
   const userInfo = useAppSelector((state) => state.user);
+  const queryClient = useQueryClient(); // 추가한 내용
   const { isLoading, error, data } = useQuery({
     queryKey: ['username', userInfo.userId],
     queryFn: () =>
       api(`/members/${userInfo.userId}`, 'get').then(({ data }) => data.data)
   });
 
-  const modifiedUser = useMutation(
-    () => {
-      if (editedUser.password === editedUser.confirmPassword) {
-        return api(`/members/${userInfo.userId}`, 'patch', editedUser).then(
-          (res) => console.log(res.data)
+  const modifiedUserMutation = useMutation(
+    (newUserData: {
+      nickname: string;
+      password: string;
+      confirmPassword: string;
+    }) => {
+      if (newUserData.password === newUserData.confirmPassword) {
+        return api(`/members/${userInfo.userId}`, 'patch', newUserData).then(
+          (res) => res.data
         );
       } else {
         throw new Error('Passwords do not match');
@@ -64,21 +69,19 @@ export default function MyPage() {
     },
     {
       onSuccess: () => {
-        const queryClient = useQueryClient();
-        queryClient.invalidateQueries(['userInfo']);
+        queryClient.invalidateQueries(['username', userInfo.userId]);
       }
     }
   );
 
-  const deleteUser = useMutation(
+  const deleteUserMutation = useMutation(
     () =>
       api(`/members/${userInfo.userId}`, 'delete', {
         userId: userInfo.userId
-      }).then((res) => console.log(res.data)),
+      }).then((res) => res.data),
     {
       onSuccess: () => {
-        const queryClient = useQueryClient();
-        queryClient.invalidateQueries(['userInfo']);
+        queryClient.invalidateQueries(['username', userInfo.userId]);
       }
     }
   );
@@ -109,6 +112,10 @@ export default function MyPage() {
     }
   }, [data]);
 
+  const handleModifiedUser = () => {
+    modifiedUserMutation.mutate(editedUser);
+  };
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <div style={centerStyle}>
@@ -121,10 +128,14 @@ export default function MyPage() {
           }}
         >
           <CardContent style={{ paddingLeft: '60px', paddingTop: '50px' }}>
-            <Typography variant="h5" component="div">
+            <Typography
+              variant="h2"
+              component="div"
+              style={{ marginBottom: '20px' }}
+            >
               {editedUser.nickname}
             </Typography>
-            <Typography variant="body2">2023년 8월 28일 가입</Typography>
+            <Typography variant="body1">2023년 8월 28일 가입</Typography>
           </CardContent>
 
           <div
@@ -133,7 +144,7 @@ export default function MyPage() {
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
-              marginTop: '80px'
+              marginTop: '60px'
             }}
           >
             <div
@@ -231,7 +242,7 @@ export default function MyPage() {
               display: 'flex',
               justifyContent: 'flex-end',
               padding: '16px',
-              marginTop: '80px'
+              marginTop: '60px'
             }}
           >
             <div style={centerStyle}>
@@ -250,7 +261,7 @@ export default function MyPage() {
                   style={{ marginLeft: '8px' }}
                   onClick={() => {
                     handleReadClick();
-                    modifiedUser.mutate();
+                    handleModifiedUser();
                   }}
                 >
                   수정완료
@@ -260,7 +271,7 @@ export default function MyPage() {
               <Button
                 variant="contained"
                 style={{ marginLeft: '8px' }}
-                onClick={() => deleteUser.mutate()}
+                onClick={() => deleteUserMutation.mutate()}
               >
                 계정 삭제
               </Button>
