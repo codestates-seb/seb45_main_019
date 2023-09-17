@@ -109,7 +109,7 @@ const WordCard = ({ wordId, handleOpen }: WordCardProps) => {
         title={word.word}
         subheader={word.symbol}
       />
-      <CardContent>
+      <CardContent sx={{ display: 'flex', gap: 1 }}>
         {word.wordMeaning.map((el: string, key: number) => (
           <Typography
             variant="subtitle1"
