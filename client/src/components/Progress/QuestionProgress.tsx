@@ -8,7 +8,7 @@ import {
 import { Progress } from './MainProgress';
 import { Typography } from '@mui/material';
 
-export default function QuestionProgress({ progress }: Progress) {
+export default function QuestionProgress({ progress, questionNum }: Progress) {
   function itemMapping(el: number, idx: number) {
     let statusColor = 'default';
 
@@ -16,7 +16,7 @@ export default function QuestionProgress({ progress }: Progress) {
       statusColor = 'success.main';
     } else if (el === 2) {
       statusColor = 'error.main';
-    }
+    } else if (idx === questionNum! - 1) statusColor = '#fff';
 
     return (
       <TimelineItem key={idx}>
@@ -28,9 +28,15 @@ export default function QuestionProgress({ progress }: Progress) {
               height: '40px',
               justifyContent: 'center',
               alignItems: 'center',
-              boxShadow: 'rgba(0, 0, 0, 0.2) 0px 0px 10px',
+              boxShadow:
+                idx === questionNum! - 1
+                  ? ''
+                  : 'rgba(0, 0, 0, 0.2) 0px 0px 10px',
               backgroundColor: statusColor,
-              rotate: '90deg'
+              rotate: '90deg',
+              borderWidth: idx === questionNum! - 1 ? '3px' : '',
+              borderColor: idx === questionNum! - 1 ? 'primary.main' : '',
+              color: idx === questionNum! - 1 ? 'primary.main' : ''
             }}
           >
             <Typography variant="subtitle2">{idx + 1}</Typography>

@@ -1,4 +1,11 @@
-import { Box, Button, Container, IconButton, Stack } from '@mui/material';
+import {
+  Box,
+  Button,
+  Container,
+  IconButton,
+  Stack,
+  Typography
+} from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import QTypeChoice from '../../components/Questions/QTypeChoice';
@@ -7,20 +14,30 @@ import { useEffect, useState } from 'react';
 
 import QuestionProgress from '../../components/Progress/QuestionProgress';
 import { grey } from '@mui/material/colors';
-import { useAppSelector } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {
   UserChapter,
   UserChapterListItem
 } from '../../interfaces/Chapter.interface';
-import useUserChapterQuery from '../../queries/useUserChapterQuery';
-import { localStorageGet } from '../../common/utils/localStorageFuncs';
-import useLearningQuery from '../../queries/useLearningQuery';
-import { Learning } from '../../interfaces/Learning.interface';
-import { setUser } from '../../redux/slices/user';
+import useUserChapterQuery, {
+  QUERY_KEY as chapterKey
+} from '../../queries/useUserChapterQuery';
+import {
+  localStorageGet,
+  localStorageSet
+} from '../../common/utils/localStorageFuncs';
+import useLearningQuery, {
+  QUERY_KEY as learningKey
+} from '../../queries/useLearningQuery';
+import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
+import HighlightOffRoundedIcon from '@mui/icons-material/HighlightOffRounded';
+import useLearningMutation from '../../queries/useLearningMutation';
+import { useQueryClient } from '@tanstack/react-query';
+import { setChapter } from '../../redux/slices/chapter';
 export default function Questions() {
   const selectedChapter = useAppSelector((state) => state.chapter);
   const userInfo = useAppSelector((state) => state.user);
-
+  const queryClient = useQueryClient();
   // const [question, setQuestion] = useState<Learning>({} as Learning);
   const [progress, setProgress] = useState<(0 | 1 | 2)[]>([]);
   const [questionNum, setQuestionNum] = useState<number>(1);
@@ -32,10 +49,13 @@ export default function Questions() {
   // 0 : 디폴트, 1 : 정답, 2 : 오답
   const [correctFlag, setCorrectFlag] = useState<0 | 1 | 2>(0);
   const navigate = useNavigate();
-
+  const dispatch = useAppDispatch();
   const handleLearningExit = () => {
     const conf = confirm('학습을 종료하시겠습니까?');
     if (conf) {
+      // 정답 제출하고나서 학습종료 시
+      if (correctFlag !== 0) userChapterPatch();
+
       navigate('/');
     }
   };
@@ -45,12 +65,12 @@ export default function Questions() {
     selectedChapter.chapterId
   );
 
-  // typing 테스트 목적으로 3으로 요청
   const { data: learnData } = useLearningQuery(
     selectedChapter.chapterId,
-    3
-    // questionNum
+    questionNum
   );
+
+  const { mutate } = useLearningMutation();
 
   // 챕터 진행상황 가져오기
   function getUserChapter(): UserChapterListItem {
@@ -64,6 +84,8 @@ export default function Questions() {
     }
   }
 
+  console.log(learnData);
+  console.log(userChapterData);
   // 프로그레스 세팅
   function setLearningProgress(): void {
     const userChapter = getUserChapter();
@@ -81,14 +103,13 @@ export default function Questions() {
 
   // 주관식 문제 onChange
   function handleChangeUserInput(e: React.ChangeEvent<HTMLInputElement>) {
-    console.log(e.target.value);
     setUserInput(e.target.value);
     setCorrectBtnStatus('possible');
+    if (e.target.value === '') setCorrectBtnStatus('disabled');
   }
 
   // 객관식 문제 onClick
   function handleClickUserInput(e: React.MouseEvent<HTMLElement>) {
-    console.log(e.currentTarget.innerText);
     setUserInput(e.currentTarget.innerText);
     setCorrectBtnStatus('possible');
   }
@@ -119,8 +140,6 @@ export default function Questions() {
 
   // 정답 확인
   function handleCorrect() {
-    console.log(learnData?.correct);
-    console.log(userInput);
     if (userInput === learnData?.correct) setCorrectFlag(1);
     else setCorrectFlag(2);
 
@@ -130,12 +149,38 @@ export default function Questions() {
   // 정답 버튼 렌더링
   function correctBtnRender() {
     switch (correctBtnStatus) {
-      case 'possible':
-        return <Button onClick={handleCorrect}>확인</Button>;
-      case 'clicked':
-        return <Button>계속 하기</Button>;
       default:
-        return <Button disabled>확인</Button>;
+      case 'possible':
+        return (
+          <Button
+            disabled={correctBtnStatus === 'disabled'}
+            onClick={handleCorrect}
+            variant="contained"
+            style={{
+              width: '150px',
+              height: '50px',
+              fontSize: '1.1em'
+            }}
+          >
+            확인
+          </Button>
+        );
+      case 'clicked':
+        return (
+          <Button
+            onClick={userChapterPatch}
+            variant="contained"
+            color={correctFlag === 1 ? 'success' : 'error'}
+            style={{
+              width: '150px',
+              height: '50px',
+              fontSize: '1.1em',
+              marginLeft: 50
+            }}
+          >
+            {questionNum === 12 ? '결과 보기' : '계속 하기'}
+          </Button>
+        );
     }
   }
 
@@ -144,32 +189,109 @@ export default function Questions() {
     switch (correctFlag) {
       case 1:
         return (
-          <Box>
-            정답
-            {correctBtnRender()}
-          </Box>
+          <Stack flexDirection={'row'} gap={3} alignItems={'center'}>
+            <CheckCircleOutlineRoundedIcon
+              color="success"
+              sx={{ fontSize: 40 }}
+            />
+            <Typography variant="h4" color="success.main">
+              정답입니다!
+            </Typography>
+          </Stack>
         );
       case 2:
         return (
-          <Box>
-            오답
-            {learnData?.correct}
-            {correctBtnRender()}
-          </Box>
+          <Stack flexDirection={'row'} gap={3} alignItems={'center'}>
+            <HighlightOffRoundedIcon color="error" sx={{ fontSize: 40 }} />
+            <Typography variant="h4" color="error.main">
+              정답 : {learnData?.correct}
+            </Typography>
+          </Stack>
         );
       default:
-        return <Box>{correctBtnRender()}</Box>;
+        return null;
     }
   }
 
   // 진행상황 patch
-  function userChapterPatch() {}
+  function userChapterPatch() {
+    const userChapter = getUserChapter();
+    // 챕터 progress 변경
+    const copyProgress = [...userChapter.progress];
+    copyProgress[questionNum - 1] = correctFlag;
+    userChapter.progress = copyProgress;
+    console.log(userChapter);
+
+    let questionPoint = 0;
+    if (correctFlag === 1) {
+      if (learnData?.questionType === 4) questionPoint = 3;
+      else if (learnData?.questionType === 3) questionPoint = 2;
+      else questionPoint = 1;
+    }
+
+    //마지막 문제일 때 챕터 상태 변경
+    if (questionNum === 12) userChapter.chapterStatus = true;
+
+    // 비회원,회원 구분
+    if (!userInfo.memberStatus) {
+      // 비회원 로컬스토리지 세팅
+      const localUserChapter: UserChapter = {
+        data: []
+      };
+      const changeList = localStorageGet().data.map((el) => {
+        if (el.chapterId === selectedChapter.chapterId) {
+          el.progress = userChapter.progress;
+          el.chapterStatus = userChapter.chapterStatus;
+        }
+        return el;
+      });
+
+      localUserChapter.data = changeList;
+      localStorageSet(localUserChapter);
+
+      // 쿼리클라이언트 초기화
+      queryClient.invalidateQueries([learningKey]);
+      queryClient.invalidateQueries([chapterKey]);
+    } else {
+      // 회원 useMutation
+      const dataParam = {
+        chapterStatus: userChapter.chapterStatus,
+        progress: userChapter.progress,
+        point: questionPoint
+      };
+      const param = {
+        memberId: userInfo.userId,
+        chapterId: selectedChapter.chapterId,
+        data: dataParam
+      };
+      mutate(param);
+    }
+
+    // redux 상태변경
+    dispatch(
+      setChapter({
+        title: selectedChapter.title,
+        chapterId: selectedChapter.chapterId,
+        wordId: selectedChapter.wordId,
+        chapterStatus: userChapter.chapterStatus,
+        progress: copyProgress
+      })
+    );
+
+    // 뷰 상태변경
+    setCorrectBtnStatus('disabled');
+    setCorrectFlag(0);
+    setLearningProgress();
+    setLearningQuestionNum();
+
+    //마지막 문제일 때 결과페이지로 이동
+    if (questionNum === 12) navigate('/learn/result');
+  }
 
   useEffect(() => {
-    if (userChapterData !== undefined && learnData !== undefined) {
+    if (userChapterData !== undefined) {
       setLearningProgress();
       setLearningQuestionNum();
-      // setQuestion(learnData);
     }
   }, [userChapterData]);
 
@@ -179,7 +301,8 @@ export default function Questions() {
         display: 'flex',
         width: '100%',
         flexDirection: 'column',
-        height: '100vh'
+        height: '100vh',
+        backgroundColor: '#f5f7fa'
       }}
       maxWidth={false}
       disableGutters
@@ -192,7 +315,7 @@ export default function Questions() {
           position: 'relative'
         }}
       >
-        <QuestionProgress progress={progress} />
+        <QuestionProgress progress={progress} questionNum={questionNum} />
         <IconButton
           aria-label="delete"
           size="large"
@@ -206,14 +329,26 @@ export default function Questions() {
           display: 'flex',
           width: '100%',
           flexDirection: 'column',
-          marginTop: '30px',
-          height: '100vh'
+          mt: 15,
+          height: '100vh',
+          justifyContent: 'flex-start',
+          alignItems: 'center'
         }}
       >
         {handleQTypeRender()}
       </Container>
-      <Box sx={{ width: '100%', padding: '20px' }} bgcolor={grey[200]}>
+      <Box
+        sx={{
+          width: '100%',
+          padding: '50px',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+        bgcolor={grey[200]}
+      >
         {correctStatusRender()}
+        {correctBtnRender()}
       </Box>
     </Container>
   );

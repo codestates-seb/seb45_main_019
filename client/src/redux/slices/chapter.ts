@@ -2,13 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import { Chapter } from '../../interfaces/Chapter.interface';
 
-// const initialState: Chapter = {
-//   title: '',
-//   chapterId: 0,
-//   wordId: [0],
-//   chapterStatus: false,
-//   progress: [0]
-// };
 const initialState: Chapter = {
   title: '인사와 소통하기',
   chapterId: 1,

@@ -10,6 +10,7 @@ import { grey } from '@mui/material/colors';
 
 export interface Progress {
   progress: (0 | 1 | 2)[];
+  questionNum?: number;
 }
 export default function MainProgress({ progress }: Progress) {
   function itemMapping(el: number, idx: number) {
@@ -19,6 +20,7 @@ export default function MainProgress({ progress }: Progress) {
     let qType = '';
     let qTypeNo = 0;
 
+    console.log(progress);
     if (el === 1) {
       status = 'Success';
       statusColor = 'success.main';
