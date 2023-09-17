@@ -16,6 +16,7 @@ import Modal from '@mui/material/Modal';
 import React, { useState } from 'react';
 import Word from '../Word/Word';
 import { word } from '../../common/data/wordData';
+import { getWordQueryKey, useWordQuery } from '../../queries/useWordQuery';
 
 const style = {
   position: 'absolute' as const,
@@ -42,29 +43,7 @@ export default function GuideBook() {
     <Box sx={{ width: '100%' }}>
       <div>
         {chapter.wordId.map((el) => (
-          <div key={el}>
-            <Card sx={{ width: '100%', marginBottom: '40px' }}>
-              <CardHeader
-                action={
-                  <IconButton onClick={() => handleOpen(el)}>
-                    <SearchIcon sx={{ color: 'primary.main' }} />
-                  </IconButton>
-                }
-                title={`단어 ID : ${el}`}
-                subheader="[발음기호]"
-              />
-              <CardContent>
-                <Typography variant="body2" color="text.secondary">
-                  1. 자본 2. 수도 3. 자금 4. 자산 5. 대문자
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button>
-                  <VolumeUpIcon />
-                </Button>
-              </CardActions>
-            </Card>
-          </div>
+          <WordCard key={el} handleOpen={handleOpen} wordId={el}></WordCard>
         ))}
         <Modal open={open} onClose={handleClose}>
           <Box
@@ -82,3 +61,78 @@ export default function GuideBook() {
     </Box>
   );
 }
+
+interface WordCardProps {
+  wordId: number;
+  handleOpen: (wordId: number) => void;
+}
+const WordCard = ({ wordId, handleOpen }: WordCardProps) => {
+  const queryKey = getWordQueryKey(wordId);
+  const {
+    isLoading: wordIsLoading,
+    error,
+    data: word
+  } = useWordQuery(queryKey);
+
+  if (wordIsLoading || !word || error) {
+    return (
+      <Card sx={{ width: '100%', marginBottom: '40px' }}>
+        <CardHeader
+          action={
+            <IconButton onClick={() => null}>
+              <SearchIcon sx={{ color: 'primary.main' }} />
+            </IconButton>
+          }
+          title={`로딩중...`}
+          subheader="[...]"
+        />
+        <CardContent>
+          <Typography variant="body2" color="text.secondary">
+            ...
+          </Typography>
+        </CardContent>
+        <CardActions>
+          <Button>
+            <VolumeUpIcon />
+          </Button>
+        </CardActions>
+      </Card>
+    );
+  }
+
+  return (
+    <Card sx={{ width: '100%', marginBottom: '40px' }}>
+      <CardHeader
+        action={
+          <IconButton onClick={() => handleOpen(wordId)}>
+            <SearchIcon sx={{ color: 'primary.main' }} />
+          </IconButton>
+        }
+        title={word.word}
+        subheader={word.symbol}
+      />
+      <CardContent>
+        <Typography variant="body2" color="text.secondary">
+          {word.wordMeaning.map((el: string, key: number) => (
+            <Typography
+              variant="subtitle1"
+              key={key}
+              sx={{
+                color: 'text.primary',
+                fontWeight: 'fontWeightBold',
+                fontSize: 19
+              }}
+            >
+              {`${key + 1}. ${el} `}
+            </Typography>
+          ))}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button>
+          <VolumeUpIcon />
+        </Button>
+      </CardActions>
+    </Card>
+  );
+};
