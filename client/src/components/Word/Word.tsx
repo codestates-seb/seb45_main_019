@@ -12,7 +12,6 @@ import { AxiosError } from 'axios';
 import api from '../../common/utils/api';
 import AddWord from './AddWord';
 const defaultTheme = createTheme();
-console.log(defaultTheme);
 
 export default function Word(props: { wordId: number }) {
   const [detailCategory, setDetailCategory] = useState(0);
@@ -22,21 +21,10 @@ export default function Word(props: { wordId: number }) {
     queryFn: () => api(`/words/${props.wordId}`).then(({ data }) => data.data)
   });
 
-  if (isLoading) return <div> 로딩중... </div>;
-
-  if (error) {
-    const myError = error as AxiosError;
-    return <div> 에러: {myError.message} </div>;
-  }
-
-  return (
-    <ThemeProvider theme={defaultTheme}>
+  if (isLoading)
+    return (
       <Box
         sx={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
           backgroundColor: 'white',
           width: '55rem',
           height: '40rem',
@@ -44,7 +32,50 @@ export default function Word(props: { wordId: number }) {
           display: 'flex',
           flexDirection: 'column',
           gap: 2,
-          borderRadius: 4
+          borderRadius: 4,
+          boxShadow: (theme) => theme.shadows[3]
+        }}
+      >
+        {' '}
+        로딩중...{' '}
+      </Box>
+    );
+
+  if (error) {
+    const myError = error as AxiosError;
+    return (
+      <Box
+        sx={{
+          backgroundColor: 'white',
+          width: '55rem',
+          height: '40rem',
+          p: 4,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 2,
+          borderRadius: 4,
+          boxShadow: (theme) => theme.shadows[3]
+        }}
+      >
+        {' '}
+        에러: {myError.message}{' '}
+      </Box>
+    );
+  }
+
+  return (
+    <ThemeProvider theme={defaultTheme}>
+      <Box
+        sx={{
+          backgroundColor: 'white',
+          width: '55rem',
+          height: '40rem',
+          p: 4,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 2,
+          borderRadius: 4,
+          boxShadow: (theme) => theme.shadows[3]
         }}
       >
         <Box sx={{ display: 'flex', flexShrink: 1, gap: 1, alignItems: 'end' }}>
@@ -57,9 +88,18 @@ export default function Word(props: { wordId: number }) {
           >
             {data.word}
           </Typography>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            <Typography>{data.symbol}</Typography>
-            <Speaker text={data.word}></Speaker>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              flex: 1
+            }}
+          >
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <Typography>{data.symbol}</Typography>
+              <Speaker text={data.word}></Speaker>
+            </Box>
             <AddWord wordId={props.wordId}></AddWord>
           </Box>
         </Box>
