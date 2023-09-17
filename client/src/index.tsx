@@ -10,6 +10,8 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 const queryClient = new QueryClient();
 const defaultTheme = createTheme();
+console.log(defaultTheme);
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
