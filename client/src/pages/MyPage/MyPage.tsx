@@ -4,7 +4,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import api from '../../common/utils/api';
 import TextField from '@mui/material/TextField';
 import { AxiosError } from 'axios';
@@ -43,12 +43,6 @@ export default function MyPage() {
     username: '',
     email: ''
   });
-  // const [user, setUser] = useState(false);
-  // const [editedUser, setEditedUser] = useState({
-  //   nickname: data.nickname,
-  //   username: data.username,
-  //   email: data.email
-  // });
 
   const userInfo = useAppSelector((state) => state.user);
   const { isLoading, error, data } = useQuery({
@@ -56,48 +50,43 @@ export default function MyPage() {
     queryFn: () =>
       api(`/members/${userInfo.userId}`, 'get').then(({ data }) => data.data)
   });
-
-  // if (isLoading)
-  //   return (
-  //     <Box
-  //       sx={{
-  //         backgroundColor: 'white',
-  //         width: '55rem',
-  //         height: '40rem',
-  //         p: 4,
-  //         display: 'flex',
-  //         flexDirection: 'column',
-  //         gap: 2,
-  //         borderRadius: 4,
-  //         boxShadow: (theme) => theme.shadows[3]
-  //       }}
-  //     >
-  //       {' '}
-  //       로딩중...{' '}
-  //     </Box>
-  //   );
-
-  // if (error) {
-  //   const myError = error as AxiosError;
-  //   return (
-  //     <Box
-  //       sx={{
-  //         backgroundColor: 'white',
-  //         width: '55rem',
-  //         height: '40rem',
-  //         p: 4,
-  //         display: 'flex',
-  //         flexDirection: 'column',
-  //         gap: 2,
-  //         borderRadius: 4,
-  //         boxShadow: (theme) => theme.shadows[3]
-  //       }}
-  //     >
-  //       {' '}
-  //       에러: {myError.message}{' '}
-  //     </Box>
-  //   );
-  // }
+  /*
+    const addToMyWords = useMutation(
+    () =>
+      api(`/words/members/${user.userId}`, 'post', {
+        wordId: props.wordId
+      }).then(({ data }) => {
+        console.log(data);
+      }),
+    {
+      onSuccess: () => queryClient.invalidateQueries(['userWordIds'])
+    }
+  );
+*/
+  const modifiedUser = useMutation(
+    () =>
+      api(`/members/${userInfo.userId}`, 'patch', {
+        userId: userInfo.userId
+      }).then((res) => console.log(res.data)),
+    {
+      onSuccess: () => {
+        const queryClient = useQueryClient();
+        queryClient.invalidateQueries(['userWordsIds']);
+      }
+    }
+  );
+  const deleteUser = useMutation(
+    () =>
+      api(`/members/${userInfo.userId}`, 'delete', {
+        userId: userInfo.userId
+      }).then((res) => console.log(res.data)),
+    {
+      onSuccess: () => {
+        const queryClient = useQueryClient();
+        queryClient.invalidateQueries(['userWordsIds']);
+      }
+    }
+  );
 
   const handleEditClick = () => {
     setEditFlag(true);
@@ -131,7 +120,6 @@ export default function MyPage() {
         <Card sx={{ minWidth: 1000 }}>
           <CardContent style={{ paddingLeft: '60px', paddingTop: '50px' }}>
             <Typography variant="h5" component="div">
-              {/* {data.username} */}
               {editedUser.username}
             </Typography>
             <Typography variant="body2">2023년 8월 28일 가입</Typography>
@@ -214,13 +202,20 @@ export default function MyPage() {
                 <Button
                   variant="outlined"
                   style={{ marginLeft: '8px' }}
-                  onClick={handleReadClick}
+                  onClick={() => {
+                    handleReadClick();
+                    modifiedUser.mutate();
+                  }}
                 >
                   수정완료
                 </Button>
               )}
 
-              <Button variant="outlined" style={{ marginLeft: '8px' }}>
+              <Button
+                variant="outlined"
+                style={{ marginLeft: '8px' }}
+                onClick={() => deleteUser.mutate()}
+              >
                 계정 삭제
               </Button>
             </div>
