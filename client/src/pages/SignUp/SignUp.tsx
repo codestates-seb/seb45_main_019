@@ -105,14 +105,44 @@ export default function SignUp() {
     ) {
       api('/members', 'post', info)
         .then((res) => {
-          console.log(res.data.msg);
+          console.log('메시지: ', res.data.msg);
           if (res.data.status) {
             alert('가입이 성공적으로 처리되었습니다.');
             navigate('/signin');
+          } else {
+            throw res;
           }
         })
         .catch((error) => {
-          alert(error);
+          // console.log(error);
+          // console.log(error.response.data);
+
+          if (error.response.data.error === 900) {
+            alert('존재하는 아이디 입니다.');
+          } else if (error.response.data.error === 901) {
+            alert('존재하는 닉네임 입니다.');
+          } else if (error.response.data.error === 902) {
+            alert('존재하는 이메일 입니다.');
+          } else if (error.response.data.error === 903) {
+            alert('아이디를 입력해주세요.');
+          } else if (error.response.data.error === 904) {
+            alert('아이디 형식이 맞지 않습니다.');
+          } else if (error.response.data.error === 905) {
+            alert('비밀번호를 입력해주세요.');
+          } else if (error.response.data.error === 906) {
+            alert('비밀번호가 형식에 맞지 않습니다.');
+          } else if (error.response.data.error === 907) {
+            alert('닉네임을 입력해주세요.');
+          } else if (error.response.data.error === 908) {
+            alert('닉네임이 형식에 맞지 않습니다.');
+          } else if (error.response.data.error === 909) {
+            alert('이메일을 입력해주세요.');
+          } else if (error.response.data.error === 910) {
+            alert('이메일이 형식에 맞지 않습니다.');
+          } else {
+            console.log(error);
+            alert(error);
+          }
         });
     } else {
       alert('정보를 올바르게 입력 해주세요.');
