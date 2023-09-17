@@ -15,7 +15,7 @@ import { useAppSelector } from '../../redux/hooks';
 import Modal from '@mui/material/Modal';
 import React, { useState } from 'react';
 import Word from '../Word/Word';
-import { word } from '../../common/data/wordData';
+// import { word } from '../../common/data/wordData';
 import { getWordQueryKey, useWordQuery } from '../../queries/useWordQuery';
 import Speaker from '../Speaker/Speaker';
 

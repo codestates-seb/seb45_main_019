@@ -5,7 +5,13 @@ const defaultTheme = createTheme();
 export default function Speaker(props: { text: string }) {
   return (
     <ThemeProvider theme={defaultTheme}>
-      <IconButton onClick={() => playText(props.text)} sx={{ m: 0 }}>
+      <IconButton
+        onClick={(event) => {
+          event.stopPropagation();
+          playText(props.text);
+        }}
+        sx={{ m: 0 }}
+      >
         <RecordVoiceOverIcon
           sx={{ color: 'primary.main' }}
         ></RecordVoiceOverIcon>
