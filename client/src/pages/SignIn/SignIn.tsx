@@ -60,8 +60,12 @@ export default function SignIn() {
             // localStorage.setItem('token', res.headers.Authorization);
 
             navigate('/');
+          } else if (res.data.error === 911) {
+            alert('해당 유저가 존재하지 않습니다.');
+          } else if (res.data.error === 912) {
+            alert('비밀번호가 일치하지 않습니다.');
           } else {
-            alert('존재하지 않는 유저입니다.');
+            throw res;
           }
         })
         .catch((error) => {
