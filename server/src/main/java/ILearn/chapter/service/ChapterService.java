@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,7 +49,12 @@ public class ChapterService {
         // 챕터가 존재하는지에 대한 유효성검사
         globalException.findVerifiedChapter(chapterId);
 
+        Question question = globalException.findVerifiedQuestion(chapterId, questionNum);
+
+        List<String> examples = question.getExamples();
+        Collections.shuffle(examples);
+
         // ChapterId에 해당하는 문제가 존재하지는지에 대한 유효성검사 및 반환
-        return globalException.findVerifiedQuestion(chapterId, questionNum);
+        return question;
     }
 }

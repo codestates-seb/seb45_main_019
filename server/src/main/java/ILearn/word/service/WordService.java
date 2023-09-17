@@ -8,6 +8,7 @@ import ILearn.member.repository.MemberRepository;
 import ILearn.word.dto.WordBookGetDto;
 import ILearn.word.dto.WordGetDto;
 import ILearn.word.entity.Word;
+import ILearn.word.entity.WordDescription;
 import ILearn.word.mapper.WordMapper;
 import ILearn.word.repository.WordRepository;
 import ILearn.word.response.WordBookResponse;
@@ -32,6 +33,7 @@ public class WordService {
         Word word = globalException.findVerifiedWord(wordId);
 
         WordGetDto wordGetDto = WordMapper.INSTANCE.entityToResponseDto(word);
+
 
         return wordGetDto;
     }
@@ -59,9 +61,6 @@ public class WordService {
 
         // 회원이 존재하는지에 대한 유효성검사
         globalException.findVerifiedMember(userId);
-
-        // 회원의 단어장에 단어가 존재하는지에 대한 유효성 검사
-        globalException.findVerifiedUserWord(userId);
 
         List<Long> wordIds = wordRepository.findAllByMemberUserId(userId)
                 .stream()
@@ -154,7 +153,6 @@ public class WordService {
             }
             allWords.remove(randomIndex);
         }
-
         return randomWordMeanings;
     }
 

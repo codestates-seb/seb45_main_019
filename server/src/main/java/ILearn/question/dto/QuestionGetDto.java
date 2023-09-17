@@ -1,11 +1,8 @@
 package ILearn.question.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.FetchType;
 import java.util.List;
 
 @Getter
@@ -17,7 +14,7 @@ public class QuestionGetDto {
     private int questionNum;
     private Long questionType;
     private String question;
-    private String examples;
+    private List<String> examples;
     private String correct;
     private String translation;
 }
