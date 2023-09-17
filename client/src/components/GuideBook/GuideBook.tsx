@@ -67,7 +67,14 @@ export default function GuideBook() {
           </div>
         ))}
         <Modal open={open} onClose={handleClose}>
-          <Box>
+          <Box
+            sx={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)'
+            }}
+          >
             <Word wordId={selectedWordId}></Word>
           </Box>
         </Modal>

@@ -22,9 +22,9 @@ export default function MainProgress({ progress }: Progress) {
     if (el === 1) {
       status = 'Success';
       statusColor = 'success.main';
-      if (idx === 9 || idx === 10 || idx === 11) {
+      if (idx === 3 || idx === 7 || idx === 11) {
         point = '+ 3';
-      } else if (idx === 2 || idx === 5 || idx === 8) {
+      } else if (idx === 2 || idx === 6 || idx === 10) {
         point = '+ 2';
       } else {
         point = '+ 1';
@@ -35,21 +35,21 @@ export default function MainProgress({ progress }: Progress) {
       point = '+ 0';
     }
 
-    if (idx === 0 || idx === 3 || idx === 6) {
-      qType = '단어 선택하기';
-    } else if (idx === 1 || idx === 4 || idx === 7) {
-      qType = '의미 선택하기';
-    } else if (idx === 2 || idx === 5 || idx === 8) {
-      qType = '소리 듣고 입력하기';
+    if (idx === 0 || idx === 4 || idx === 8) {
+      qType = '영단어 고르기';
+    } else if (idx === 1 || idx === 5 || idx === 9) {
+      qType = '뜻 고르기';
+    } else if (idx === 2 || idx === 6 || idx === 10) {
+      qType = '스펠링 입력하기';
     } else {
-      qType = '문장 채우기';
+      qType = '빈칸 채우기';
     }
 
-    if (idx === 0 || idx === 1 || idx === 2 || idx === 9) {
+    if (idx === 0 || idx === 1 || idx === 2 || idx === 3) {
       qTypeNo = 1;
-    } else if (idx === 3 || idx === 4 || idx === 5 || idx === 10) {
+    } else if (idx === 4 || idx === 5 || idx === 6 || idx === 7) {
       qTypeNo = 2;
-    } else if (idx === 6 || idx === 7 || idx === 8 || idx === 11) {
+    } else {
       qTypeNo = 3;
     }
 
