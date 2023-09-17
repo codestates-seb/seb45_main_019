@@ -33,7 +33,7 @@ export default function Header(props: HeaderProp) {
       setUser({
         email: '',
         username: '',
-        userId: 0,
+        userId: 1,
         nickname: '',
         point: 0,
         memberStatus: false

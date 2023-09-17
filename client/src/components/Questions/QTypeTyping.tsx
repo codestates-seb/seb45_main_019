@@ -21,9 +21,7 @@ export default function QTypeTyping(props: QTypeProps) {
         </Typography>
         {/* 음성 출력 버튼 */}
         <Box>
-          <Speaker
-            text={`${question.question}'.  '${question.question}'.  '${question.question}`}
-          ></Speaker>
+          <Speaker text={`${question.question}`}></Speaker>
         </Box>
         {/* 답 입력 공간 */}
         <Box
@@ -36,6 +34,7 @@ export default function QTypeTyping(props: QTypeProps) {
         >
           <TextField
             sx={{ width: '15rem', fontSize: '3rem' }}
+            disabled={status === 'clicked'}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               return handleChange(e);
             }}
@@ -45,10 +44,6 @@ export default function QTypeTyping(props: QTypeProps) {
             required
             type="text"
           ></TextField>
-        </Box>
-        {/* 확인 버튼 */}
-        <Box>
-          <Button variant={'outlined'}>확인</Button>
         </Box>
       </Box>
     </Box>

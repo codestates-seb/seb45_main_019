@@ -10,7 +10,7 @@ import { Chapter } from '../../interfaces/Chapter.interface';
 //   progress: [0]
 // };
 const initialState: Chapter = {
-  title: 'test',
+  title: '인사와 소통하기',
   chapterId: 1,
   wordId: [1, 2, 3],
   chapterStatus: false,

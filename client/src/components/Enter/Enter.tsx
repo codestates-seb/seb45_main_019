@@ -126,7 +126,9 @@ export default function Enter() {
               }}
             >
               <Typography variant="h4" color={grey[700]}>
-                {pointAcc(chapter.progress!)}
+                {chapter.progress !== undefined
+                  ? pointAcc(chapter.progress)
+                  : null}
               </Typography>
               <Typography variant="subtitle2" color={grey[700]}>
                 포인트
@@ -134,7 +136,9 @@ export default function Enter() {
             </Box>
           </Box>
 
-          <MainProgress progress={chapter.progress!} />
+          {chapter.progress !== undefined ? (
+            <MainProgress progress={chapter.progress} />
+          ) : null}
         </Box>
       </Box>
     </Container>

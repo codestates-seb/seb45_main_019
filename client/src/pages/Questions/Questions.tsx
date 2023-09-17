@@ -67,7 +67,7 @@ export default function Questions() {
   // 프로그레스 세팅
   function setLearningProgress(): void {
     const userChapter = getUserChapter();
-    setProgress(userChapter.progress);
+    if (userChapter.progress !== undefined) setProgress(userChapter.progress);
   }
 
   // 문제 번호 세팅

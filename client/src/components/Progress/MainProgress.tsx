@@ -9,7 +9,7 @@ import { Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
 
 export interface Progress {
-  progress: number[];
+  progress: (0 | 1 | 2)[];
 }
 export default function MainProgress({ progress }: Progress) {
   function itemMapping(el: number, idx: number) {
