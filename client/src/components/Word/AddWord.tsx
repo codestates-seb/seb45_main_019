@@ -27,7 +27,7 @@ export default function AddWord(props: { wordId: number }) {
       data.data.includes(props.wordId)
         ? setWordInWords(true)
         : setWordInWords(false);
-  }, [data.data]);
+  }, [data]);
 
   const addToMyWords = useMutation(
     () =>

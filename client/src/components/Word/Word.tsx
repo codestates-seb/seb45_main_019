@@ -160,26 +160,27 @@ const WordInfo = ({ wordData }: WordInfoProps) => {
               boxShadow: (theme) => theme.shadows[3]
             }}
           >
-            {/* {detailDescriptions &&
-              detailDescriptions[detailCategory].map((el, key) => ( */}
-            {detailDescriptions &&
-              detailDescriptions.map((el, key: number) => (
-                <Typography
-                  variant="body1"
-                  key={key}
-                  sx={{
-                    color: 'text.primary',
-                    fontSize: 14,
-                    fontWeight: 'fontWeightBold',
-                    borderBottom: 1,
-                    pb: 1,
-                    mb: 1,
-                    borderColor: 'grey.400'
-                  }}
-                >
-                  {key + 1}. {el}{' '}
-                </Typography>
-              ))}
+            {detailDescriptions
+              ? detailDescriptions[detailCategory].map((el, key) => (
+                  // {detailDescriptions &&
+                  //   detailDescriptions.map((el, key: number) => (
+                  <Typography
+                    variant="body1"
+                    key={key}
+                    sx={{
+                      color: 'text.primary',
+                      fontSize: 14,
+                      fontWeight: 'fontWeightBold',
+                      borderBottom: 1,
+                      pb: 1,
+                      mb: 1,
+                      borderColor: 'grey.400'
+                    }}
+                  >
+                    {key + 1}. {el}{' '}
+                  </Typography>
+                ))
+              : null}
           </Box>
           <Box
             sx={{
