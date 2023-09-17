@@ -11,58 +11,69 @@ import { useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import api from '../../common/utils/api';
 import AddWord from './AddWord';
+import { getWordQueryKey, useWordQuery } from '../../queries/useWordQuery';
+import { WordInterface } from '../../interfaces/Word.interface';
 const defaultTheme = createTheme();
 
 export default function Word(props: { wordId: number }) {
-  const [detailCategory, setDetailCategory] = useState(0);
+  const queryKey = getWordQueryKey(props.wordId);
+  const {
+    isLoading: wordIsLoading,
+    error,
+    data: word
+  } = useWordQuery(queryKey);
 
-  const { isLoading, error, data } = useQuery({
-    queryKey: ['word', props.wordId],
-    queryFn: () => api(`/words/${props.wordId}`).then(({ data }) => data.data)
-  });
-
-  if (isLoading)
-    return (
-      <Box
-        sx={{
-          backgroundColor: 'white',
-          width: '55rem',
-          height: '40rem',
-          p: 4,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 2,
-          borderRadius: 4,
-          boxShadow: (theme) => theme.shadows[3]
-        }}
-      >
-        {' '}
-        로딩중...{' '}
-      </Box>
-    );
-
-  if (error) {
-    const myError = error as AxiosError;
-    return (
-      <Box
-        sx={{
-          backgroundColor: 'white',
-          width: '55rem',
-          height: '40rem',
-          p: 4,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 2,
-          borderRadius: 4,
-          boxShadow: (theme) => theme.shadows[3]
-        }}
-      >
-        {' '}
-        에러: {myError.message}{' '}
-      </Box>
-    );
+  if (wordIsLoading) {
+    return <WordMsgBox text={`로딩중...`}></WordMsgBox>;
   }
 
+  if (error || !word) {
+    const myError = error as AxiosError;
+    return <WordMsgBox text={`에러: ${myError.message}`}></WordMsgBox>;
+  }
+
+  return <WordInfo wordData={word} />;
+}
+
+interface WordMsgBoxProps {
+  text: string;
+}
+const WordMsgBox = ({ text }: WordMsgBoxProps) => {
+  return (
+    <Box
+      sx={{
+        backgroundColor: 'white',
+        width: '55rem',
+        height: '40rem',
+        p: 4,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 2,
+        borderRadius: 4,
+        boxShadow: (theme) => theme.shadows[3]
+      }}
+    >
+      {text}
+    </Box>
+  );
+};
+
+interface WordInfoProps {
+  wordData: WordInterface;
+}
+const WordInfo = ({ wordData }: WordInfoProps) => {
+  const {
+    wordId,
+    word,
+    symbol,
+    wordMeaning,
+    detailCategories,
+    detailDescriptions,
+    wordExample,
+    wordExampleMeaning
+  } = wordData;
+
+  const [detailCategory, setDetailCategory] = useState(0);
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box
@@ -86,7 +97,7 @@ export default function Word(props: { wordId: number }) {
               color: 'text.primary'
             }}
           >
-            {data.word}
+            {word}
           </Typography>
           <Box
             sx={{
@@ -97,15 +108,15 @@ export default function Word(props: { wordId: number }) {
             }}
           >
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <Typography>{data.symbol}</Typography>
-              <Speaker text={data.word}></Speaker>
+              <Typography>{symbol}</Typography>
+              <Speaker text={word}></Speaker>
             </Box>
-            <AddWord wordId={props.wordId}></AddWord>
+            <AddWord wordId={wordId}></AddWord>
           </Box>
         </Box>
         <Box sx={{ display: 'flex', flexShrink: 1, gap: 1 }}>
-          {data.wordMeaning &&
-            data.wordMeaning.map((el: string, key: number) => (
+          {wordMeaning &&
+            wordMeaning.map((el: string, key: number) => (
               <Typography
                 variant="subtitle1"
                 key={key}
@@ -126,8 +137,8 @@ export default function Word(props: { wordId: number }) {
             gap: 1
           }}
         >
-          {data.detailCategories &&
-            data.detailCategories.map((el: string, key: number) => (
+          {detailCategories &&
+            detailCategories.map((el: string, key: number) => (
               <Button
                 key={key + '1234'}
                 variant={detailCategory === key ? 'contained' : 'outlined'}
@@ -149,25 +160,27 @@ export default function Word(props: { wordId: number }) {
               boxShadow: (theme) => theme.shadows[3]
             }}
           >
-            {/* {wordInfo.detailDescriptions[detailCategory].map((el, key) => ( */}
-            {data.detailDescriptions &&
-              data.detailDescriptions.map((el: string, key: number) => (
-                <Typography
-                  variant="body1"
-                  key={key}
-                  sx={{
-                    color: 'text.primary',
-                    fontSize: 14,
-                    fontWeight: 'fontWeightBold',
-                    borderBottom: 1,
-                    pb: 1,
-                    mb: 1,
-                    borderColor: 'grey.400'
-                  }}
-                >
-                  {key + 1}. {el}{' '}
-                </Typography>
-              ))}
+            {detailDescriptions
+              ? detailDescriptions[detailCategory].map((el, key) => (
+                  // {detailDescriptions &&
+                  //   detailDescriptions.map((el, key: number) => (
+                  <Typography
+                    variant="body1"
+                    key={key}
+                    sx={{
+                      color: 'text.primary',
+                      fontSize: 14,
+                      fontWeight: 'fontWeightBold',
+                      borderBottom: 1,
+                      pb: 1,
+                      mb: 1,
+                      borderColor: 'grey.400'
+                    }}
+                  >
+                    {key + 1}. {el}{' '}
+                  </Typography>
+                ))
+              : null}
           </Box>
           <Box
             sx={{
@@ -178,8 +191,8 @@ export default function Word(props: { wordId: number }) {
               boxShadow: (theme) => theme.shadows[3]
             }}
           >
-            {data.wordExample &&
-              data.wordExample.map((el: string, key: number) => (
+            {wordExample &&
+              wordExample.map((el: string, key: number) => (
                 <Box
                   key={key}
                   sx={{ borderBottom: 1, mb: 1, borderColor: 'grey.400' }}
@@ -207,7 +220,7 @@ export default function Word(props: { wordId: number }) {
                         fontWeight: 'fontWeightBold'
                       }}
                     >
-                      {data.wordExampleMeaning[key]}
+                      {wordExampleMeaning[key]}
                     </Typography>
                   </Box>
                 </Box>
@@ -217,4 +230,4 @@ export default function Word(props: { wordId: number }) {
       </Box>
     </ThemeProvider>
   );
-}
+};
