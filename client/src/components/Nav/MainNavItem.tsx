@@ -1,6 +1,5 @@
 import { Chapter } from '../../interfaces/Chapter.interface';
 import DoneIcon from '@mui/icons-material/Done';
-import { grey } from '@mui/material/colors';
 import { ListItemButton, ListItemText, Avatar } from '@mui/material';
 import React from 'react';
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
