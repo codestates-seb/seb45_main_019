@@ -11,6 +11,7 @@ import ILearn.member.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -75,17 +76,40 @@ public class ManageService {
         int currentPoint = member.getPoint();
         int newPoint = currentPoint + pointToAdd;
 
-        // 필드 업데이트
-        Optional.ofNullable(patchDto.getProgress())
-                .ifPresent(progress -> optionalManage.setProgress(progress));
+//         필드 업데이트
         Optional.ofNullable(patchDto.isChapterStatus())
                 .ifPresent(chapterStatus -> optionalManage.setChapterStatus(chapterStatus));
+        Optional.ofNullable(patchDto.getProgress())
+                .ifPresent(progress -> optionalManage.setProgress(progress));
         Optional.ofNullable(member.getPoint())
                 .ifPresent(point -> member.setPoint(newPoint));
 
         // 필드 저장
         return manageRepository.save(optionalManage);
     }
+
+//    public Manage createManage(Long userId, Long chapterId, ManagePatchDto patchDto) {
+//
+//        // 유저 및 유저의 챕터가 존재하는지에 대한 유효성검사
+//        Member member = globalException.findVerifiedMember(userId);
+//        Manage optionalManage = globalException.findVerifiedUserChapter(userId, chapterId);
+//
+//        // point 필드 정의
+//        int pointToAdd = patchDto.getPoint();
+//        int currentPoint = member.getPoint();
+//        int newPoint = currentPoint + pointToAdd;
+//
+//        // 필드 업데이트
+//        Optional.ofNullable(patchDto.isChapterStatus())
+//                .ifPresent(chapterStatus -> optionalManage.setChapterStatus(chapterStatus));
+//        Optional.ofNullable(patchDto.getProgress())
+//                .ifPresent(progress -> optionalManage.setProgress(progress));
+//        Optional.ofNullable(member.getPoint())
+//                .ifPresent(point -> member.setPoint(newPoint));
+//
+//        // 필드 저장
+//        return manageRepository.save(optionalManage);
+//    }
 }
 
 

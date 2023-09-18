@@ -2,6 +2,7 @@ package ILearn.global.exception;
 
 import ILearn.chapter.entity.Chapter;
 import ILearn.chapter.repository.ChapterRepository;
+import ILearn.global.auth.loginDto.LoginDto;
 import ILearn.global.response.ApiResponse;
 import ILearn.global.response.ApiResponseException;
 import ILearn.manage.entity.Manage;
@@ -13,9 +14,15 @@ import ILearn.question.entity.Question;
 import ILearn.question.repository.QuestionRepository;
 import ILearn.word.entity.Word;
 import ILearn.word.repository.WordRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.io.IOException;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -23,11 +30,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.security.sasl.AuthenticationException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.io.PrintWriter;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -41,6 +50,7 @@ public class GlobalException {
     private final ManageRepository manageRepository;
     private final ChapterRepository chapterRepository;
     private final WordRepository wordRepository;
+//    private final AuthenticationManager authenticationManager;
 
 //     = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 //     = = = = = = = = = = 데이터 존재 유무에 대한 유효성검사 = = = = = = = = = =
@@ -116,6 +126,9 @@ public class GlobalException {
         }
         return optionalWord;
     }
+
+    // 비밀번호 유효성 검사
+
 
 //     = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 //     = = = = = = = = = = 입력 데이터에 대한 유효성검사 = = = = = = = = = =

@@ -75,5 +75,22 @@ public class ManageController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
     }
+
+//    @PostMapping("/{userId}/{chapterId}")
+//    public ResponseEntity<ApiResponse<?>> postChapter(@PathVariable Long userId,
+//                                                       @PathVariable Long chapterId,
+//                                                       @RequestBody ManagePatchDto patchDto) {
+//        try {
+//            manageService.createManage(userId, chapterId, patchDto);
+//
+//            ApiResponse<?> response = new ApiResponse<>(true, "SUCCESS","");
+//
+//            return ResponseEntity.ok(response);
+//
+//        } catch (ApiResponseException ex) {
+//            ApiResponse<?> response = ex.getResponse();
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+//        }
+//    }
 }
 
