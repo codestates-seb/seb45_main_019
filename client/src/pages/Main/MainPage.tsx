@@ -65,7 +65,7 @@ export default function MainPage() {
     // 첫 접속시 Enter, Nav 첫 챕터로 세팅
     // if (selectedChapter.chapterId === 0) {
     // }
-    dispatch(setChapter(changeStatusList[selectedChapter.chapterId]));
+    dispatch(setChapter(changeStatusList[selectedChapter.chapterId - 1]));
   }
 
   useEffect(() => {
