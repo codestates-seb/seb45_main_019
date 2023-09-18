@@ -17,7 +17,7 @@ interface dataParam {
 }
 
 const fetcher = ({ memberId, chapterId, data }: PatchParam) =>
-  api(`/manage/${memberId}/${chapterId}`, 'patch', { data });
+  api(`/manage/${memberId}/${chapterId}`, 'patch', data);
 
 const useLearningMutation = (
   memberId: number,
