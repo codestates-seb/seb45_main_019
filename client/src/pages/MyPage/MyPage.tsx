@@ -9,7 +9,10 @@ import api from '../../common/utils/api';
 import { alpha, createTheme, ThemeProvider } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import { AxiosError } from 'axios';
-
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
 import { useAppSelector } from '../../redux/hooks';
 
 const defaultTheme = createTheme({
@@ -45,6 +48,8 @@ export default function MyPage() {
     confirmPassword: ''
   });
 
+  const [isDeleteUserModal, setIsDeleteUserModal] = useState(false);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const userInfo = useAppSelector((state) => state.user);
   const queryClient = useQueryClient();
   const { isLoading, error, data } = useQuery({
@@ -70,6 +75,7 @@ export default function MyPage() {
     {
       onSuccess: () => {
         queryClient.invalidateQueries(['username', userInfo.userId]);
+        openSuccessModal();
       }
     }
   );
@@ -114,6 +120,27 @@ export default function MyPage() {
 
   const handleModifiedUser = () => {
     modifiedUserMutation.mutate(editedUser);
+  };
+
+  const handleDeleteClick = () => {
+    setIsDeleteUserModal(true);
+  };
+
+  const handleConfirmDelete = () => {
+    deleteUserMutation.mutate();
+    setIsDeleteUserModal(false);
+  };
+
+  const handleCancelDelete = () => {
+    setIsDeleteUserModal(false);
+  };
+
+  const openSuccessModal = () => {
+    setIsSuccessModalOpen(true);
+  };
+
+  const closeSuccessModal = () => {
+    setIsSuccessModalOpen(false);
   };
 
   return (
@@ -197,7 +224,7 @@ export default function MyPage() {
               <TextField
                 required={editFlag}
                 id="outlined-read-only-input"
-                value={editedUser.password}
+                value={editedUser.password || ''}
                 onChange={handleFieldChange('password')}
                 type="password"
                 InputProps={{
@@ -227,7 +254,7 @@ export default function MyPage() {
               <TextField
                 required={editFlag}
                 id="outlined-read-only-input"
-                value={editedUser.confirmPassword}
+                value={editedUser.confirmPassword || ''}
                 onChange={handleFieldChange('confirmPassword')}
                 type="password"
                 InputProps={{
@@ -236,7 +263,6 @@ export default function MyPage() {
               />
             </div>
           </div>
-
           <div
             style={{
               display: 'flex',
@@ -271,7 +297,10 @@ export default function MyPage() {
               <Button
                 variant="contained"
                 style={{ marginLeft: '8px' }}
-                onClick={() => deleteUserMutation.mutate()}
+                onClick={() => {
+                  handleDeleteClick();
+                  deleteUserMutation.mutate();
+                }}
               >
                 계정 삭제
               </Button>
@@ -279,6 +308,26 @@ export default function MyPage() {
           </div>
         </Card>
       </div>
+      <Dialog open={isDeleteUserModal} onClose={handleCancelDelete}>
+        <DialogTitle>계정 삭제</DialogTitle>
+        <DialogContent>
+          <Typography>정말로 계정을 삭제하시겠습니까?</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCancelDelete}>취소</Button>
+          <Button onClick={handleConfirmDelete}>확인</Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog open={isSuccessModalOpen} onClose={closeSuccessModal}>
+        <DialogTitle>수정 완료</DialogTitle>
+        <DialogContent>
+          <Typography>수정이 완료되었습니다</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closeSuccessModal}>확인</Button>
+        </DialogActions>
+      </Dialog>
     </ThemeProvider>
   );
 }
