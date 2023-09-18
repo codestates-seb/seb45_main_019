@@ -154,9 +154,6 @@ public class GlobalException {
             if (memberRepository.existsByNickname(member.getNickname())) {
                 throw new DuplicateFieldException("NICKNAME", 901);
             }
-            if (memberRepository.existsByEmail(member.getEmail())) {
-                throw new DuplicateFieldException("EMAIL", 902);
-            }
         }
 
 

@@ -46,7 +46,6 @@ public class MemberAuthenticationSuccessHandler implements AuthenticationSuccess
             MemberResponseDto memberResponseDto = new MemberResponseDto();
             memberResponseDto.setUserId(member.getUserId());
             memberResponseDto.setUsername(member.getUsername());
-            memberResponseDto.setEmail(member.getEmail());
             memberResponseDto.setNickname(member.getNickname());
             memberResponseDto.setPoint(member.getPoint());
             memberResponseDto.setMemberStatus(member.isMemberStatus());

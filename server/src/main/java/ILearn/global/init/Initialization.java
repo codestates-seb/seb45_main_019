@@ -2444,7 +2444,6 @@ public class Initialization implements CommandLineRunner {
         member.setUsername("test1");
         member.setPassword("password11!!");
         member.setNickname("memberTest");
-        member.setEmail("test@test.test");
         memberService.createMember(member);
     }
 }
