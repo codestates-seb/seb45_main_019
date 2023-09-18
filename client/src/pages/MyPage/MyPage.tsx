@@ -322,7 +322,7 @@ export default function MyPage() {
       <Dialog open={isSuccessModalOpen} onClose={closeSuccessModal}>
         <DialogTitle>수정 완료</DialogTitle>
         <DialogContent>
-          <Typography>수정이 완료되었습니다!</Typography>
+          <Typography>수정이 완료되었습니다</Typography>
         </DialogContent>
         <DialogActions>
           <Button onClick={closeSuccessModal}>확인</Button>
