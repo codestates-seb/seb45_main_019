@@ -83,7 +83,7 @@ public class QuestionService {
     public QuestionGetDto wordToWordMeaningMcq(Long wordId) {
         Optional<Word> optionalWord = wordRepository.findById(wordId);
         Word word = optionalWord.orElseThrow(() -> new NoSuchElementException("Word not found with ID: " + wordId));
-//        Chapter chapter = word.getChapter();
+
         Optional<Chapter> optionalChapter = chapterRepository.findById(word.getChapter().getChapterId());
         Chapter chapter = optionalChapter.orElseThrow(() -> new NoSuchElementException("Chapter not found for Word with ID: " + wordId));
 
@@ -112,7 +112,7 @@ public class QuestionService {
     public QuestionGetDto wordMeaningToWordMcq(Long wordId) {
 
         Optional<Word> optionalWord = wordRepository.findById(wordId);
-        Word word = optionalWord.get();
+        Word word = optionalWord.orElseThrow(() -> new NoSuchElementException("Word not found with ID: " + wordId));
         Chapter chapter = word.getChapter();
 
         Question question = new Question();
@@ -140,7 +140,7 @@ public class QuestionService {
     public QuestionGetDto pronunciationToSpellingSaq(Long wordId) {
 
         Optional<Word> optionalWord = wordRepository.findById(wordId);
-        Word word = optionalWord.get();
+        Word word = optionalWord.orElseThrow(() -> new NoSuchElementException("Word not found with ID: " + wordId));
         Chapter chapter = word.getChapter();
 
         Question question = new Question();
@@ -162,7 +162,7 @@ public class QuestionService {
     public QuestionGetDto blankToWordMcq(Long wordId) {
 
         Optional<Word> optionalWord = wordRepository.findById(wordId);
-        Word word = optionalWord.get();
+        Word word = optionalWord.orElseThrow(() -> new NoSuchElementException("Word not found with ID: " + wordId));
         Chapter chapter = word.getChapter();
 
         Question question = new Question();
