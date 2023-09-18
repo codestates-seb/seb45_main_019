@@ -4,19 +4,19 @@ import ILearn.chapter.entity.Chapter;
 import ILearn.member.entity.Member;
 import ILearn.question.entity.Question;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Word {
 
     @Id
@@ -32,18 +32,11 @@ public class Word {
 
     @Column(name = "WORDMEANING")
     @ElementCollection
-    @CollectionTable(name = "wordArray")
     private List<String> wordMeaning;
 
-    @Column(name = "DETAILCATEGORIES")
-    @ElementCollection
-    @CollectionTable(name = "wordArray")
-    private List<String> detailCategories;
-
     @Column(name = "DETAILDESCRIPTIONS")
-    @ElementCollection
-    @CollectionTable(name = "wordArray")
-    private List<String> detailDescriptions;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<WordDescription> detailDescriptions;
 
     @Column(name = "WORDEXAMPLE")
     @ElementCollection

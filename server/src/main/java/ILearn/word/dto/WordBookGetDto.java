@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @ApiModel(description = "단어 조회 응답")
-public class WordBookGetDto {
+public class WordBookGetDto extends RuntimeException{
 
     @ApiModelProperty(value = "성공 여부", example = "true")
     private boolean status;

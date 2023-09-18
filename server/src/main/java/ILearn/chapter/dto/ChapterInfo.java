@@ -20,8 +20,6 @@ public class ChapterInfo {//Learning에서 사용하는 info dto 클래스
     @ApiModelProperty(value = "Word ID 목록", example = "[1, 2, 3]")
     private List<Long> wordId;
 
-
-
     public ChapterInfo(String title, Long chapterId, List<Long> wordId) {
         this.title = title;
         this.chapterId = chapterId;

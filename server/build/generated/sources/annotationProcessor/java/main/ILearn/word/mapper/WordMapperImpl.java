@@ -2,6 +2,7 @@ package ILearn.word.mapper;
 
 import ILearn.word.dto.WordGetDto;
 import ILearn.word.entity.Word;
+import ILearn.word.entity.WordDescription;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-09-15T15:29:50+0900",
+    date = "2023-09-18T21:38:34+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.2.1.jar, environment: Java 11.0.20 (Azul Systems, Inc.)"
 )
 @Component
@@ -22,8 +23,7 @@ public class WordMapperImpl implements WordMapper {
         }
 
         List<String> wordMeaning = null;
-        List<String> detailCategories = null;
-        List<String> detailDescriptions = null;
+        List<WordDescription> detailDescriptions = null;
         List<String> wordExample = null;
         List<String> wordExampleMeaning = null;
         Long wordId = null;
@@ -34,27 +34,23 @@ public class WordMapperImpl implements WordMapper {
         if ( list != null ) {
             wordMeaning = new ArrayList<String>( list );
         }
-        List<String> list1 = word.getDetailCategories();
+        List<WordDescription> list1 = word.getDetailDescriptions();
         if ( list1 != null ) {
-            detailCategories = new ArrayList<String>( list1 );
+            detailDescriptions = new ArrayList<WordDescription>( list1 );
         }
-        List<String> list2 = word.getDetailDescriptions();
+        List<String> list2 = word.getWordExample();
         if ( list2 != null ) {
-            detailDescriptions = new ArrayList<String>( list2 );
+            wordExample = new ArrayList<String>( list2 );
         }
-        List<String> list3 = word.getWordExample();
+        List<String> list3 = word.getWordExampleMeaning();
         if ( list3 != null ) {
-            wordExample = new ArrayList<String>( list3 );
-        }
-        List<String> list4 = word.getWordExampleMeaning();
-        if ( list4 != null ) {
-            wordExampleMeaning = new ArrayList<String>( list4 );
+            wordExampleMeaning = new ArrayList<String>( list3 );
         }
         wordId = word.getWordId();
         word1 = word.getWord();
         symbol = word.getSymbol();
 
-        WordGetDto wordGetDto = new WordGetDto( wordId, word1, symbol, wordMeaning, detailCategories, detailDescriptions, wordExample, wordExampleMeaning );
+        WordGetDto wordGetDto = new WordGetDto( wordId, word1, symbol, wordMeaning, detailDescriptions, wordExample, wordExampleMeaning );
 
         return wordGetDto;
     }

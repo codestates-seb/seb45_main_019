@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-09-15T15:29:50+0900",
+    date = "2023-09-18T21:38:34+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.2.1.jar, environment: Java 11.0.20 (Azul Systems, Inc.)"
 )
 @Component
@@ -70,11 +70,6 @@ public class ManageMapperImpl implements ManageMapper {
         ManageListDto manageListDto = new ManageListDto();
 
         manageListDto.setChapterId( chapter.getChapterId() );
-        manageListDto.setChapterStatus( chapter.isChapterStatus() );
-        List<Integer> list = chapter.getProgress();
-        if ( list != null ) {
-            manageListDto.setProgress( new ArrayList<Integer>( list ) );
-        }
 
         return manageListDto;
     }

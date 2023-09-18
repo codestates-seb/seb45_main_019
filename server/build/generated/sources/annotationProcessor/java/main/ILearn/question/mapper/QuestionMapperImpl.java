@@ -3,12 +3,14 @@ package ILearn.question.mapper;
 import ILearn.question.dto.QuestionGetDto;
 import ILearn.question.dto.QuestionGetListDto;
 import ILearn.question.entity.Question;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-09-15T15:29:49+0900",
+    date = "2023-09-18T21:38:34+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.2.1.jar, environment: Java 11.0.20 (Azul Systems, Inc.)"
 )
 @Component
@@ -30,7 +32,10 @@ public class QuestionMapperImpl implements QuestionMapper {
         }
         questionGetDto.setQuestionType( question.getQuestionType() );
         questionGetDto.setQuestion( question.getQuestion() );
-        questionGetDto.setExamples( question.getExamples() );
+        List<String> list = question.getExamples();
+        if ( list != null ) {
+            questionGetDto.setExamples( new ArrayList<String>( list ) );
+        }
         questionGetDto.setCorrect( question.getCorrect() );
         questionGetDto.setTranslation( question.getTranslation() );
 
@@ -48,7 +53,7 @@ public class QuestionMapperImpl implements QuestionMapper {
         questionGetListDto.setQuestionNum( question.getQuestionNum() );
         questionGetListDto.setQuestionType( question.getQuestionType() );
         questionGetListDto.setQuestion( question.getQuestion() );
-        questionGetListDto.setExamples( question.getExamples() );
+        questionGetListDto.setExamples( map( question.getExamples() ) );
         questionGetListDto.setCorrect( question.getCorrect() );
         questionGetListDto.setTranslation( question.getTranslation() );
 
@@ -67,7 +72,10 @@ public class QuestionMapperImpl implements QuestionMapper {
         question.setQuestionNum( (long) questionGetDto.getQuestionNum() );
         question.setQuestionType( questionGetDto.getQuestionType() );
         question.setQuestion( questionGetDto.getQuestion() );
-        question.setExamples( questionGetDto.getExamples() );
+        List<String> list = questionGetDto.getExamples();
+        if ( list != null ) {
+            question.setExamples( new ArrayList<String>( list ) );
+        }
         question.setCorrect( questionGetDto.getCorrect() );
         question.setTranslation( questionGetDto.getTranslation() );
         question.setWordNum( questionGetDto.getWordNum() );

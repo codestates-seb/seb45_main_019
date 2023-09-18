@@ -3,27 +3,15 @@ package ILearn.chapter.service;
 import ILearn.chapter.dto.ChapterInfo;
 import ILearn.chapter.entity.Chapter;
 import ILearn.chapter.repository.ChapterRepository;
-import ILearn.global.response.ApiResponse;
-import ILearn.global.response.ApiResponseException;
-import ILearn.manage.dto.ManageGetDto;
-import ILearn.manage.entity.Manage;
-import ILearn.manage.service.ManageService;
-import ILearn.member.dto.MemberResponseDto;
-import ILearn.member.entity.Member;
-import ILearn.member.mapper.MemberMapper;
-import ILearn.member.repository.MemberRepository;
+import ILearn.global.exception.GlobalException;
 import ILearn.question.entity.Question;
-import ILearn.question.repository.QuestionRepository;
 import ILearn.word.entity.Word;
-import ILearn.word.repository.WordRepository;
-import ILearn.word.service.WordService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,10 +19,11 @@ import java.util.stream.Collectors;
 public class ChapterService {
 
     private final ChapterRepository chapterRepository;
-    private final QuestionRepository questionRepository;
+    private final GlobalException globalException;
 
     // Chapter List 조회
     public List<ChapterInfo> getById() {
+
         List<Chapter> chapters = chapterRepository.findAll();
         List<ChapterInfo> responseList = new ArrayList<>();
 
@@ -54,15 +43,18 @@ public class ChapterService {
         return responseList;
     }
 
-    // ChapterNum 에 해당하는 question 을 조회
+    // ChapterId에 해당하는 Question을 조회
     public Question getQuestionByChapterAndNum(Long chapterId, Long questionNum) {
-        Optional<Question> question = questionRepository.findByChapterNumAndQuestionNum(chapterId, questionNum);
 
-        if (question.isEmpty()) {
-            ApiResponse<Void> response = new ApiResponse<>(false, 941, "QUESTION_NOT_FOUND_IN_CHAPTER");
-            throw new ApiResponseException(response, new RuntimeException());
-        }
+        // 챕터가 존재하는지에 대한 유효성검사
+        globalException.findVerifiedChapter(chapterId);
 
-        return question.get();
+        Question question = globalException.findVerifiedQuestion(chapterId, questionNum);
+
+        List<String> examples = question.getExamples();
+        Collections.shuffle(examples);
+
+        // ChapterId에 해당하는 문제가 존재하지는지에 대한 유효성검사 및 반환
+        return question;
     }
 }

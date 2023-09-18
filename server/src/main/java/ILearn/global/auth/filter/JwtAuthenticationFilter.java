@@ -13,7 +13,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
-
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -37,7 +36,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 
     @SneakyThrows
-    @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -58,22 +56,32 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             // 사용자 정의 응답 JSON 생성
             Map<String, Object> responseBody = new HashMap<>();
             responseBody.put("status", false);
-            responseBody.put("msg", "로그인 실패");
-            responseBody.put("data", null);
+            responseBody.put("msg", "Login fail");
+            responseBody.put("data", "");
 
             try (PrintWriter writer = response.getWriter()) {
                 // JSON 응답 전송
                 ObjectMapper objectMapper = new ObjectMapper();
                 objectMapper.writeValue(writer, responseBody);
-            } catch (IOException ex) {
+            } catch (io.jsonwebtoken.io.IOException ex) {
                 throw new RuntimeException(ex);
             }
 
             return null;
-        } catch (IOException e) {
+        } catch (io.jsonwebtoken.io.IOException e) {
             throw new RuntimeException(e);
         }
     }
+//    @SneakyThrows
+//    @Override
+//    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) {
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        LoginDto loginDto = objectMapper.readValue(request.getInputStream(), LoginDto.class);
+//        UsernamePasswordAuthenticationToken authenticationToken =
+//                new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
+//
+//        return authenticationManager.authenticate(authenticationToken);
+//    }
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request,

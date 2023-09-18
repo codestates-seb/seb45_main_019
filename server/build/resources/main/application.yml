@@ -1,21 +1,20 @@
 spring:
   datasource:
-#  MySQL 설정
-#    url: jdbc:mysql://localhost:3306/maintest?serverTimezone=Asia/Seoul
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    username: root
-#    password: 160218
+    url: jdbc:mysql://main19.cdqj6ntsjuxl.ap-northeast-2.rds.amazonaws.com:3306/Main19
+    username: admin
+    password: 160218!!
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
 #  H2 설정
-    url: jdbc:h2:mem:test
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
+#    url: jdbc:h2:mem:test
+#    driver-class-name: org.h2.Driver
+#    username: sa
+#    password:
 
-  h2:
-    console:
-      enabled: true
-      path: /h2
+#  h2:
+#    console:
+#      enabled: true
+#      path: /h2
 
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
