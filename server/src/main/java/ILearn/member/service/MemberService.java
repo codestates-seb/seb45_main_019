@@ -71,6 +71,7 @@ public class MemberService {
         // 비밀번호 인코딩
         Optional.ofNullable(patchDto.getPassword())
                 .ifPresent(password -> {
+                    // 새 비밀번호를 PasswordEncoder를 사용하여 인코딩
                     String encodedPassword = passwordEncoder.encode(password);
                     findMember.setPassword(encodedPassword);
                 });

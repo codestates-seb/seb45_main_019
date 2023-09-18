@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
@@ -31,5 +30,4 @@ public class MemberPostDto {
             message = "NICKNAME_ERROR") // 닉네임은 5~20글자로 이루어져야 하며, 특수문자도 포함 가능합니다.
     private String nickname;
 
-    private String email;
 }

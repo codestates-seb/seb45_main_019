@@ -154,9 +154,6 @@ public class GlobalException {
             if (memberRepository.existsByNickname(member.getNickname())) {
                 throw new DuplicateFieldException("NICKNAME", 901);
             }
-//            if (memberRepository.existsByEmail(member.getEmail())) {
-//                throw new DuplicateFieldException("EMAIL", 902);
-//            }
         }
 
 
@@ -250,10 +247,6 @@ public class GlobalException {
             errorCode = 907;
         } else if(errorMessage.contains("NICKNAME_ERROR")) {
             errorCode = 908;
-        } else if(errorMessage.contains("EMAIL_NOT_BLANK")) {
-            errorCode = 909;
-        } else if (errorMessage.contains("EMAIL_ERROR")) {
-            errorCode = 910;
         }
 
         return new ApiResponseException(new ApiResponse<>(false, errorCode, errorMessage, ""), e).getResponse();

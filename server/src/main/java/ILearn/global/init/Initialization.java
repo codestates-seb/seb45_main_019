@@ -2458,14 +2458,6 @@ public class Initialization implements CommandLineRunner {
                 }
             }
         }
-
-        // 테스트 계정 생성
-        Member member = new Member();
-        member.setUsername("test1");
-        member.setPassword("password11!!");
-        member.setNickname("memberTest");
-        member.setEmail("test@test.test");
-        memberService.createMember(member);
     }
 }
 

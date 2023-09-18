@@ -36,8 +36,6 @@ public class Member {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "email")
-    private String email;
 
     @Column(name = "nickname", unique = true, nullable = false) // 닉네임 중복 컷
     private String nickname;
