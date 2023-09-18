@@ -13,13 +13,8 @@ const fetcher = async (
 };
 
 const useLearningQuery = (chapterId: number, questionNum: number) => {
-  return useQuery(
-    [QUERY_KEY, chapterId, questionNum],
-    () => fetcher(chapterId, questionNum),
-    {
-      refetchOnWindowFocus: false,
-      retry: 0
-    }
+  return useQuery([QUERY_KEY, chapterId, questionNum], () =>
+    fetcher(chapterId, questionNum)
   );
 };
 

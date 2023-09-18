@@ -10,10 +10,7 @@ const fetcher = async (memberId: number): Promise<UserChapter> => {
 };
 
 const useAllUserChapterQuery = (memberId: number) => {
-  return useQuery<UserChapter>([QUERY_KEY, memberId], () => fetcher(memberId), {
-    refetchOnWindowFocus: false,
-    retry: 0
-  });
+  return useQuery<UserChapter>([QUERY_KEY, memberId], () => fetcher(memberId));
 };
 
 export default useAllUserChapterQuery;

@@ -1,13 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '../common/utils/api';
-import { UserChapterListItem } from '../interfaces/Chapter.interface';
 import { QUERY_KEY as learningKey } from './useLearningQuery';
 import { QUERY_KEY as chapterKey } from './useUserChapterQuery';
-import { AxiosResponse } from 'axios';
 
 interface PatchParam {
   memberId: number;
   chapterId: number;
+  questionNum: number;
   data: dataParam;
 }
 
@@ -20,13 +19,17 @@ interface dataParam {
 const fetcher = ({ memberId, chapterId, data }: PatchParam) =>
   api(`/manage/${memberId}/${chapterId}`, 'patch', { data });
 
-const useLearningMutation = () => {
+const useLearningMutation = (
+  memberId: number,
+  chapterId: number,
+  questionNum: number
+) => {
   const queryClient = useQueryClient();
 
   return useMutation(fetcher, {
     onSuccess: () => {
-      // queryClient.invalidateQueries([chapterKey]);
-      // queryClient.invalidateQueries([learningKey]);
+      queryClient.invalidateQueries([chapterKey, memberId, chapterId]);
+      queryClient.invalidateQueries([learningKey, chapterId, questionNum]);
     }
   });
 };

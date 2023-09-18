@@ -67,7 +67,7 @@ export default function QTypeChoice(props: QTypeProps) {
               sx={{
                 backgroundColor: 'rgba(66, 165, 245, 0.2)',
                 px: 2,
-                py: 1
+                py: 1,
                 borderRadius: '5px'
               }}
             >

@@ -8,7 +8,20 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { createTheme, ThemeProvider } from '@mui/material';
 import { PersistGate } from 'redux-persist/integration/react';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      retryDelay: 0,
+      staleTime: 5 * 60 * 1000,
+      refetchOnWindowFocus: false
+    },
+    mutations: {
+      retry: 1,
+      retryDelay: 0
+    }
+  }
+});
 const defaultTheme = createTheme();
 console.log(defaultTheme);
 

@@ -13,13 +13,8 @@ const fetcher = async (
 };
 
 const useUserChapterQuery = (memberId: number, chapterId: number) => {
-  return useQuery(
-    [QUERY_KEY, memberId, chapterId],
-    () => fetcher(memberId, chapterId),
-    {
-      refetchOnWindowFocus: false,
-      retry: 0
-    }
+  return useQuery([QUERY_KEY, memberId, chapterId], () =>
+    fetcher(memberId, chapterId)
   );
 };
 

@@ -70,7 +70,11 @@ export default function Questions() {
     questionNum
   );
 
-  const { mutate } = useLearningMutation();
+  const { mutate } = useLearningMutation(
+    userInfo.userId,
+    selectedChapter.chapterId,
+    learnData?.questionNum as number
+  );
 
   // 챕터 진행상황 가져오기
   function getUserChapter(): UserChapterListItem {
@@ -83,9 +87,6 @@ export default function Questions() {
       return userChapterData as UserChapterListItem;
     }
   }
-
-  console.log(learnData);
-  console.log(userChapterData);
   // 프로그레스 세팅
   function setLearningProgress(): void {
     const userChapter = getUserChapter();
@@ -250,8 +251,16 @@ export default function Questions() {
       localStorageSet(localUserChapter);
 
       // 쿼리클라이언트 초기화
-      queryClient.invalidateQueries([learningKey]);
-      queryClient.invalidateQueries([chapterKey]);
+      queryClient.invalidateQueries([
+        learningKey,
+        selectedChapter.chapterId,
+        learnData?.questionNum
+      ]);
+      queryClient.invalidateQueries([
+        chapterKey,
+        userInfo.userId,
+        selectedChapter.chapterId
+      ]);
     } else {
       // 회원 useMutation
       const dataParam = {
@@ -262,6 +271,7 @@ export default function Questions() {
       const param = {
         memberId: userInfo.userId,
         chapterId: selectedChapter.chapterId,
+        questionNum: learnData!.questionNum,
         data: dataParam
       };
       mutate(param);

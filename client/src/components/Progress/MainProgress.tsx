@@ -13,6 +13,7 @@ export interface Progress {
   questionNum?: number;
 }
 export default function MainProgress({ progress }: Progress) {
+  console.log(progress);
   function itemMapping(el: number, idx: number) {
     let status = '';
     let point = '';
@@ -20,7 +21,6 @@ export default function MainProgress({ progress }: Progress) {
     let qType = '';
     let qTypeNo = 0;
 
-    console.log(progress);
     if (el === 1) {
       status = 'Success';
       statusColor = 'success.main';
@@ -115,9 +115,10 @@ export default function MainProgress({ progress }: Progress) {
         }
       }}
     >
-      {progress.map((el, idx) => {
-        return itemMapping(el, idx);
-      })}
+      {progress &&
+        progress.map((el, idx) => {
+          return itemMapping(el, idx);
+        })}
     </Timeline>
   );
 }

@@ -29,9 +29,7 @@ export default function QuestionProgress({ progress, questionNum }: Progress) {
               justifyContent: 'center',
               alignItems: 'center',
               boxShadow:
-                idx === questionNum! - 1
-                  ? ''
-                  : (theme) => theme.shadows[3],
+                idx === questionNum! - 1 ? '' : (theme) => theme.shadows[3],
               backgroundColor: statusColor,
               rotate: '90deg',
               borderWidth: idx === questionNum! - 1 ? '3px' : '',

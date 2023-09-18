@@ -10,10 +10,7 @@ const fetcher = async (): Promise<ChapterList> => {
 // const fetcher = () => api('/learning', 'get').then((res) => res.data);
 
 const useAllChapterQuery = () => {
-  return useQuery<ChapterList>([QUERY_KEY], fetcher, {
-    refetchOnWindowFocus: false,
-    retry: 0
-  });
+  return useQuery<ChapterList>([QUERY_KEY], fetcher);
 };
 
 export default useAllChapterQuery;

@@ -14,8 +14,6 @@ export const useWordQuery = (query: (string | number)[]) => {
       api(`${query[0]}/${String(query[1])}`).then(
         ({ data }) => data.data as WordInterface
       ),
-    refetchOnWindowFocus: false,
-    retry: 0,
     onError: (err: AxiosError) => err
   });
 };
