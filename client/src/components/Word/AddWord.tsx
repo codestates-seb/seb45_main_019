@@ -13,13 +13,14 @@ interface response extends AxiosResponse {
     status: boolean;
   };
 }
-interface AddWordError extends AxiosError {
+export interface AddWordError extends AxiosError {
   response: response;
 }
 
 export default function AddWord(props: { wordId: number }) {
   const queryClient = useQueryClient();
   const user = useAppSelector((state) => state.user);
+
   const queryKey = ['userWordIds', user.userId];
 
   const { isLoading, error, data } = useQuery({
