@@ -11,8 +11,6 @@ import java.util.Optional;
 
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, Long> {
-    Question findByWordNum(Long wordId);
-
     Optional<Question> findByQuestionNum(Long questionId);
 
     Optional<Question> findByChapterNumAndQuestionNum(Long chapterNum, Long questionNum);

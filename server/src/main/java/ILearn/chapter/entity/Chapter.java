@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Arrays;
 import java.util.List;
 
 @Getter
@@ -18,6 +19,10 @@ public class Chapter {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CHAPTER_ID")
     private Long chapterId;
+
+    @Column(name = "question_Id")
+    @ElementCollection
+    private List<Long> questionId;
 
     @Column(name = "CHAPTER_TITLE")
     private String title;
@@ -35,5 +40,9 @@ public class Chapter {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Member member;
+
+    public void setQuestionId(Long... questionId) {
+        this.questionId = Arrays.asList(questionId);
+    }
 
 }

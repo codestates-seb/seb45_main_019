@@ -9,6 +9,7 @@ import ILearn.word.entity.Word;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -44,6 +45,7 @@ public class ChapterService {
     }
 
     // ChapterId에 해당하는 Question을 조회
+    @Transactional
     public Question getQuestionByChapterAndNum(Long chapterId, Long questionNum) {
 
         // 챕터가 존재하는지에 대한 유효성검사
