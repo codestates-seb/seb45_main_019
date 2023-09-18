@@ -9,9 +9,11 @@ import { Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
 
 export interface Progress {
-  progress: number[];
+  progress: (0 | 1 | 2)[];
+  questionNum?: number;
 }
 export default function MainProgress({ progress }: Progress) {
+  console.log(progress);
   function itemMapping(el: number, idx: number) {
     let status = '';
     let point = '';
@@ -113,9 +115,10 @@ export default function MainProgress({ progress }: Progress) {
         }
       }}
     >
-      {progress.map((el, idx) => {
-        return itemMapping(el, idx);
-      })}
+      {progress &&
+        progress.map((el, idx) => {
+          return itemMapping(el, idx);
+        })}
     </Timeline>
   );
 }

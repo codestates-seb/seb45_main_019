@@ -49,7 +49,7 @@ export default function MainPage() {
         return {
           ...chapter,
           chapterStatus: true,
-          progress: sameChapter?.progress
+          progress: sameChapter.progress!
         };
       } else {
         return {
@@ -63,9 +63,9 @@ export default function MainPage() {
     setChapterList(changeStatusList);
 
     // 첫 접속시 Enter, Nav 첫 챕터로 세팅
-    if (selectedChapter.chapterId === 0) {
-      dispatch(setChapter(changeStatusList[0]));
-    }
+    // if (selectedChapter.chapterId === 0) {
+    // }
+    dispatch(setChapter(changeStatusList[selectedChapter.chapterId]));
   }
 
   useEffect(() => {
