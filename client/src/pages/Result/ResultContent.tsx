@@ -32,30 +32,6 @@ export const ResultContent = ({ QuestionData }: ResultContentProps) => {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 10 }}>
-      {/* <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Typography
-          variant="h4"
-          sx={{
-            fontWeight: 700
-          }}
-        >{`${chapterId}. ${title}`}</Typography>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
-          <Chip
-            label={`+ ${earnedPoints(progress)} Point`}
-            color="success"
-            sx={{
-              fontSize: 17,
-              fontWeight: 500,
-              boxShadow: shadows[3],
-              height: 0.9,
-              borderRadius: 5
-            }}
-          />
-          <Link to={'/main'}>
-            <Button variant="contained">학습 완료</Button>
-          </Link>
-        </Box>
-      </Box> */}
       <Box
         sx={{
           width: '100%',
