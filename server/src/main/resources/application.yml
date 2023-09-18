@@ -25,7 +25,7 @@ user:
   admin:
     username: raeseop123  # 관리자 사용자 이름
 
-#
+##
 ### local H2 Tes†
 #spring:
 #  datasource:

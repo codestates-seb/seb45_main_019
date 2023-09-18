@@ -2,6 +2,7 @@ package ILearn.member.mapper;
 
 import ILearn.member.dto.MemberPatchDto;
 import ILearn.member.dto.MemberPostDto;
+import ILearn.member.dto.MemberPostResponseDto;
 import ILearn.member.dto.MemberResponseDto;
 import ILearn.member.entity.Member;
 import org.mapstruct.Mapper;
@@ -25,4 +26,6 @@ public interface MemberMapper {
     Member memberPatchDtoToEntity(MemberPatchDto memberPatchDto);
 
     MemberResponseDto entityToResponseDto(Member member);
+
+    MemberPostResponseDto entityToPostResponseDto(Member member);
 }

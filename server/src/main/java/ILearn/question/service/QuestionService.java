@@ -103,7 +103,7 @@ public class QuestionService {
         questionDto.setQuestion(word.getWord());
         questionDto.setExamples(examples);
         questionDto.setTranslation("");
-        questionDto.setCorrect(word.getWordMeaning().get(0).toString());
+        questionDto.setCorrect(word.getWordMeaning().get(0));
 
         return questionDto;
     }
@@ -120,7 +120,7 @@ public class QuestionService {
         List<String> examples = wordService.getRandomWords(wordId, 3);
 
         // 배열을 문자열로 변경하면서 인덱스 0번의 데이터로 고정
-        String wordMeaningAsString = word.getWordMeaning().isEmpty() ? "" : word.getWordMeaning().get(0).toString();
+        String wordMeaningAsString = word.getWordMeaning().isEmpty() ? "" : word.getWordMeaning().get(0);
 
 
         QuestionGetDto questionDto = questionMapper.entityToResponseDto(question);
@@ -151,7 +151,7 @@ public class QuestionService {
         questionDto.setChapterNum(chapter.getChapterId());
         questionDto.setQuestionType(3L);
         questionDto.setQuestion(word.getWord());
-        questionDto.setExamples(Collections.singletonList(word.getWord())); //
+        questionDto.setExamples(Collections.singletonList(word.getWord()));
         questionDto.setTranslation("");
         questionDto.setCorrect(word.getWord());
 
