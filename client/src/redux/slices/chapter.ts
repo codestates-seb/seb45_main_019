@@ -3,11 +3,10 @@ import { RootState } from '../store';
 import { Chapter } from '../../interfaces/Chapter.interface';
 
 const initialState: Chapter = {
-  title: '인사 나누기',
+  title: '인사와 소통하기',
   chapterId: 1,
   wordId: [1, 2, 3],
   chapterStatus: false,
-  learningChapterId: 1,
   progress: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 };
 

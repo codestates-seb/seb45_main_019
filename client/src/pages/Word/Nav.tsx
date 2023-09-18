@@ -1,32 +1,18 @@
 import { Box, List } from '@mui/material';
-import { Chapter } from '../../interfaces/Chapter.interface';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import MainNavItem from './MainNavItem';
+import NavItem from './NavItem';
 
 interface NavProps {
-  chapterList?: Chapter[];
-  location: string;
-  myWordList?: number[]; // TODO: Word 인터페이스 추가
+  ids: number[];
+  args: {
+    selectedId: number;
+    setSelectedId: (wordId: number) => void;
+    getTitle: (id: number) => string | undefined;
+    getSubTitle: (id: number) => string | undefined;
+  };
 }
-
-export default function Nav(props: NavProps) {
-  const chapterList = props.chapterList;
-  const location = props.location;
-  const myWordList = props.myWordList;
-
-  function handleNavPage() {
-    if (location === '/') {
-      return chapterList?.map((el) => (
-        <MainNavItem key={el.chapterId} chapter={el} />
-      ));
-    } else if (location === '/my-word') {
-      // WordNavItem.tsx 렌더링
-      return myWordList;
-    } else {
-      return null;
-    }
-  }
-
+export default function Nav({ ids, args }: NavProps) {
   return (
     <Box
       sx={{
@@ -35,7 +21,6 @@ export default function Nav(props: NavProps) {
         padding: 0,
         backgroundColor: '#fff',
         position: 'fixed',
-
         zIndex: 10
       }}
     >
@@ -74,7 +59,10 @@ export default function Nav(props: NavProps) {
           }
         }}
       >
-        {handleNavPage()}
+        {ids.map((id) => (
+          <NavItem key={id} listItem={{ id: id, ...args }}></NavItem>
+        ))}
+        {ids.length === 0 && <div>표시할 항목이 없습니다.</div>}
       </List>
     </Box>
   );

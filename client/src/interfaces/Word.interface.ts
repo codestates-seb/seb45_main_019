@@ -3,8 +3,10 @@ export interface WordInterface {
   word: string;
   symbol: string;
   wordMeaning: string[];
-  detailCategories: string[];
-  detailDescriptions: string[][];
+  detailDescriptions: {
+    category: string;
+    descriptions: string[];
+  }[];
   wordExample: string[];
   wordExampleMeaning: string[];
 }

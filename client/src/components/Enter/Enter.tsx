@@ -3,28 +3,19 @@ import GuideBook from '../GuideBook/GuideBook';
 import { useAppSelector } from '../../redux/hooks';
 import { Link } from 'react-router-dom';
 import { grey } from '@mui/material/colors';
-import Progress from './MainProgress';
+import MainProgress from '../Progress/MainProgress';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import EastOutlinedIcon from '@mui/icons-material/EastOutlined';
+import { pointAcc } from '../../common/utils/pointCalculator';
+import { Chapter } from '../../interfaces/Chapter.interface';
 export default function Enter() {
   const chapter = useAppSelector((state) => state.chapter);
 
-  function pointAcc() {
-    let point = 0;
+  const earnedPoints = (progress: Chapter['progress']) => {
+    if (progress) return pointAcc(progress);
+    return 0;
+  };
 
-    for (let i = 0; i < chapter.progress!.length; i++) {
-      if (chapter.progress![i] === 1) {
-        if (i === 9 || i === 10 || i === 11) {
-          point += 3;
-        } else if (i === 2 || i === 5 || i === 8) {
-          point += 2;
-        } else {
-          point += 1;
-        }
-      }
-    }
-    return point;
-  }
   return (
     <Container
       sx={{
@@ -141,7 +132,7 @@ export default function Enter() {
               }}
             >
               <Typography variant="h4" color={grey[700]}>
-                {pointAcc()}
+                {earnedPoints(chapter.progress)}
               </Typography>
               <Typography variant="subtitle2" color={grey[700]}>
                 포인트
@@ -149,7 +140,7 @@ export default function Enter() {
             </Box>
           </Box>
 
-          <Progress progress={chapter.progress!} />
+          <MainProgress progress={chapter.progress!} />
         </Box>
       </Box>
     </Container>
