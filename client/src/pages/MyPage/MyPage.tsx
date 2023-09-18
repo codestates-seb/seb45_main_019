@@ -46,7 +46,7 @@ export default function MyPage() {
   });
 
   const userInfo = useAppSelector((state) => state.user);
-  const queryClient = useQueryClient(); // 추가한 내용
+  const queryClient = useQueryClient();
   const { isLoading, error, data } = useQuery({
     queryKey: ['username', userInfo.userId],
     queryFn: () =>
