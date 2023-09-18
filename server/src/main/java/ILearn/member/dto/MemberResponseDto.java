@@ -19,8 +19,6 @@ public class MemberResponseDto { //회원 정보 조회 응답 형식
         @ApiModelProperty(value = "유저 이름", example = "Test1")
         private String username;
         @ApiModelProperty(value = "유저 이름", example = "Test1")
-        private String email;
-        @ApiModelProperty(value = "유저 이름", example = "Test1")
         private String nickname;
         @ApiModelProperty(value = "유저 이름", example = "Test1")
         private int point;
