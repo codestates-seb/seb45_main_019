@@ -50,7 +50,6 @@ public class GlobalException {
     private final ManageRepository manageRepository;
     private final ChapterRepository chapterRepository;
     private final WordRepository wordRepository;
-//    private final AuthenticationManager authenticationManager;
 
 //     = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 //     = = = = = = = = = = 데이터 존재 유무에 대한 유효성검사 = = = = = = = = = =
