@@ -30,17 +30,6 @@ public class QuestionService {
     private final QuestionRepository questionRepository;
     private final ChapterRepository chapterRepository;
 
-    /* Todo:
-        1. 중복된 wordId가 입력될경우 예외반환
-        2. 문제를 풀었을 경우 (정답,오답,미답) 구분(엔티티 하나 추가해서 0,1,2로 관리하면 될듯)
-        3. 포인트 가산
-        4. 챕터에서 문제를 가져올 수 있는 메서드 추가
-        5. 챕터에 chapterStatus, progress 구현(문제를 어디까지 풀었나, 챕터 진행 상황 상세조회)
-        6. /learning 에서 chapterList 를 조회
-        7. 예외 에러코드 정리
-
-     */
-
     private int currentQuestionNum = 0;
 
     public List<Question> generateQuestionsByWordId(Long wordId) {
@@ -124,6 +113,7 @@ public class QuestionService {
 
 
         QuestionGetDto questionDto = questionMapper.entityToResponseDto(question);
+        questionDto.setChapterId(chapter.getChapterId());
         questionDto.setQuestionNum(updateQuestionNum());
         questionDto.setWordNum(word.getWordId());
         questionDto.setChapterNum(chapter.getChapterId());
@@ -146,6 +136,7 @@ public class QuestionService {
         Question question = new Question();
 
         QuestionGetDto questionDto = questionMapper.entityToResponseDto(question);
+        questionDto.setChapterId(chapter.getChapterId());
         questionDto.setQuestionNum(updateQuestionNum());
         questionDto.setWordNum(word.getWordId());
         questionDto.setChapterNum(chapter.getChapterId());
@@ -176,6 +167,7 @@ public class QuestionService {
         String wordExampleMeaningAsString = word.getWordExampleMeaning().isEmpty() ? "" : word.getWordExampleMeaning().get(0);
 
         QuestionGetDto questionDto = questionMapper.entityToResponseDto(question);
+        questionDto.setChapterId(chapter.getChapterId());
         questionDto.setQuestionNum(updateQuestionNum());
         questionDto.setWordNum(word.getWordId());
         questionDto.setChapterNum(chapter.getChapterId());

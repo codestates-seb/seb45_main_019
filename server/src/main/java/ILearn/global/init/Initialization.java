@@ -21,7 +21,6 @@ import java.util.*;
 
 @Component
 @RequiredArgsConstructor
-@Transactional
 public class Initialization implements CommandLineRunner {
     private final WordRepository wordRepository;
     private final ChapterRepository chapterRepository;
@@ -29,7 +28,7 @@ public class Initialization implements CommandLineRunner {
     private final QuestionService questionService;
     private final MemberService memberService;
 
-    @Transactional
+
     public void run(String... args) {
 
         // 챕터 생성
@@ -38,7 +37,7 @@ public class Initialization implements CommandLineRunner {
         chapter1.setQuestionId(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L);
 
         Chapter chapter2 = new Chapter();
-        chapter2.setTitle("인사와 소통하기");
+        chapter2.setTitle("쇼핑 및 주문하기");
         chapter2.setQuestionId(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L);
 
         Chapter chapter3 = new Chapter();
