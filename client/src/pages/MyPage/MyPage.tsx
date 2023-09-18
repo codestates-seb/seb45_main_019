@@ -49,6 +49,7 @@ export default function MyPage() {
   });
 
   const [isDeleteUserModal, setIsDeleteUserModal] = useState(false);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const userInfo = useAppSelector((state) => state.user);
   const queryClient = useQueryClient();
   const { isLoading, error, data } = useQuery({
@@ -74,6 +75,7 @@ export default function MyPage() {
     {
       onSuccess: () => {
         queryClient.invalidateQueries(['username', userInfo.userId]);
+        openSuccessModal();
       }
     }
   );
@@ -121,19 +123,24 @@ export default function MyPage() {
   };
 
   const handleDeleteClick = () => {
-    // 삭제 버튼을 클릭했을 때 모달 열기
     setIsDeleteUserModal(true);
   };
 
   const handleConfirmDelete = () => {
-    // 모달 내에서 확인 버튼을 눌렀을 때 실행될 함수
     deleteUserMutation.mutate();
-    setIsDeleteUserModal(false); // 모달 닫기
+    setIsDeleteUserModal(false);
   };
 
   const handleCancelDelete = () => {
-    // 모달 내에서 취소 버튼을 눌렀을 때 실행될 함수
-    setIsDeleteUserModal(false); // 모달 닫기
+    setIsDeleteUserModal(false);
+  };
+
+  const openSuccessModal = () => {
+    setIsSuccessModalOpen(true);
+  };
+
+  const closeSuccessModal = () => {
+    setIsSuccessModalOpen(false);
   };
 
   return (
@@ -256,7 +263,6 @@ export default function MyPage() {
               />
             </div>
           </div>
-
           <div
             style={{
               display: 'flex',
@@ -310,6 +316,16 @@ export default function MyPage() {
         <DialogActions>
           <Button onClick={handleCancelDelete}>취소</Button>
           <Button onClick={handleConfirmDelete}>확인</Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog open={isSuccessModalOpen} onClose={closeSuccessModal}>
+        <DialogTitle>수정 완료</DialogTitle>
+        <DialogContent>
+          <Typography>수정이 완료되었습니다!</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closeSuccessModal}>확인</Button>
         </DialogActions>
       </Dialog>
     </ThemeProvider>
