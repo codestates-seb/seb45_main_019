@@ -1,7 +1,6 @@
 package ILearn.member.entity;
 
 import ILearn.chapter.entity.Chapter;
-import ILearn.learning.entity.Learning;
 import ILearn.manage.entity.Manage;
 import ILearn.question.entity.Question;
 import ILearn.word.entity.Word;
@@ -58,11 +57,8 @@ public class Member {
     @Column(name = "point")
     private int point;
 
-    @Enumerated(EnumType.STRING)
-    private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE;
-
-    @Column(name = "word_book", columnDefinition = "TEXT")
-    private String wordBook;
+    @Column(name = "memberStatus")
+    private boolean memberStatus = true;
 
     //유저 권한 부여
     @ElementCollection(fetch = FetchType.EAGER)
@@ -72,11 +68,6 @@ public class Member {
     @JoinColumn(name = "member")
     @JsonIgnore
     private List<Word> words;
-
-    @OneToMany
-    @JoinColumn(name = "member")
-    @JsonIgnore
-    private List<Learning> learnings;
 
     @OneToMany
     @JoinColumn(name = "member")
@@ -93,17 +84,7 @@ public class Member {
     @JsonIgnore
     private List<Manage> manage;
 
-
-    public enum MemberStatus {
-        MEMBER_ACTIVE("활동중"),
-        MEMBER_QUIT("회원 탈퇴");
-
-        @Getter
-        private String status;
-
-        MemberStatus(String status) {
-            this.status = status;
-        }
+    public boolean isMemberStatus() {
+        return memberStatus;
     }
-
 }

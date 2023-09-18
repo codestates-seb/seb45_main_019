@@ -12,13 +12,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
-
+import javax.security.sasl.AuthenticationException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.*;
 
 import java.util.Date;
@@ -35,15 +36,52 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 
     @SneakyThrows
-    @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        LoginDto loginDto = objectMapper.readValue(request.getInputStream(), LoginDto.class);
-        UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            LoginDto loginDto = objectMapper.readValue(request.getInputStream(), LoginDto.class);
+            UsernamePasswordAuthenticationToken authenticationToken =
+                    new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
 
-        return authenticationManager.authenticate(authenticationToken);
+            // 사용자 인증 시도
+            Authentication authentication = authenticationManager.authenticate(authenticationToken);
+
+            return authentication;
+        } catch (AuthenticationException e) {
+            // 인증 실패 시 400 Bad Request 오류와 사용자 정의 메시지를 반환
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+
+            // 사용자 정의 응답 JSON 생성
+            Map<String, Object> responseBody = new HashMap<>();
+            responseBody.put("status", false);
+            responseBody.put("msg", "Login fail");
+            responseBody.put("data", "");
+
+            try (PrintWriter writer = response.getWriter()) {
+                // JSON 응답 전송
+                ObjectMapper objectMapper = new ObjectMapper();
+                objectMapper.writeValue(writer, responseBody);
+            } catch (io.jsonwebtoken.io.IOException ex) {
+                throw new RuntimeException(ex);
+            }
+
+            return null;
+        } catch (io.jsonwebtoken.io.IOException e) {
+            throw new RuntimeException(e);
+        }
     }
+//    @SneakyThrows
+//    @Override
+//    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) {
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        LoginDto loginDto = objectMapper.readValue(request.getInputStream(), LoginDto.class);
+//        UsernamePasswordAuthenticationToken authenticationToken =
+//                new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
+//
+//        return authenticationManager.authenticate(authenticationToken);
+//    }
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request,

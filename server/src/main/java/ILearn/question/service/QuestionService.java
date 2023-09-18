@@ -16,10 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -83,7 +80,7 @@ public class QuestionService {
 //    [QuestionType 1] 단어를 보고 뜻 맞추기
     public QuestionGetDto wordToWordMeaningMcq(Long wordId) {
         Optional<Word> optionalWord = wordRepository.findById(wordId);
-        Word word = optionalWord.get();
+        Word word = optionalWord.orElseThrow(() -> new NoSuchElementException("Word not found with ID: " + wordId));
         Chapter chapter = word.getChapter();
 
         Question question = new Question();
@@ -98,9 +95,9 @@ public class QuestionService {
         questionDto.setChapterNum(chapter.getChapterId());
         questionDto.setQuestionType(1L);
         questionDto.setQuestion(word.getWord());
-        questionDto.setExamples(examples.toString());
+        questionDto.setExamples(examples);
         questionDto.setTranslation("");
-        questionDto.setCorrect(word.getWordMeaning().get(0));
+        questionDto.setCorrect(word.getWordMeaning().get(0).toString());
 
         return questionDto;
     }
@@ -115,15 +112,18 @@ public class QuestionService {
         Question question = new Question();
 
         List<String> examples = wordService.getRandomWords(wordId, 3);
-        Collections.shuffle(examples);
+
+        // 배열을 문자열로 변경하면서 인덱스 0번의 데이터로 고정
+        String wordMeaningAsString = word.getWordMeaning().isEmpty() ? "" : word.getWordMeaning().get(0).toString();
+
 
         QuestionGetDto questionDto = questionMapper.entityToResponseDto(question);
         questionDto.setQuestionNum(updateQuestionNum());
         questionDto.setWordNum(word.getWordId());
         questionDto.setChapterNum(chapter.getChapterId());
         questionDto.setQuestionType(2L);
-        questionDto.setQuestion(word.getWordMeaning().toString());
-        questionDto.setExamples(examples.toString());
+        questionDto.setQuestion(wordMeaningAsString);
+        questionDto.setExamples(examples);
         questionDto.setTranslation("");
         questionDto.setCorrect(word.getWord());
 
@@ -145,7 +145,7 @@ public class QuestionService {
         questionDto.setChapterNum(chapter.getChapterId());
         questionDto.setQuestionType(3L);
         questionDto.setQuestion(word.getWord());
-        questionDto.setExamples(word.getWord());
+        questionDto.setExamples(Collections.singletonList(word.getWord())); //
         questionDto.setTranslation("");
         questionDto.setCorrect(word.getWord());
 
@@ -161,20 +161,22 @@ public class QuestionService {
 
         Question question = new Question();
 
-        String originalString = word.getWordExample().toString();
+        String originalString = word.getWordExample().get(0);
         String replacedString = originalString.replaceAll(word.getWord().toLowerCase(), "_");
 
         List<String> examples = wordService.getRandomWords(wordId, 3);
-        Collections.shuffle(examples);
+
+        // 배열을 문자열로 변경하면서 인덱스 0번의 데이터로 고정
+        String wordExampleMeaningAsString = word.getWordExampleMeaning().isEmpty() ? "" : word.getWordExampleMeaning().get(0);
 
         QuestionGetDto questionDto = questionMapper.entityToResponseDto(question);
         questionDto.setQuestionNum(updateQuestionNum());
         questionDto.setWordNum(word.getWordId());
         questionDto.setChapterNum(chapter.getChapterId());
         questionDto.setQuestionType(4L);
-        questionDto.setQuestion(replacedString.substring(0, 1).toUpperCase() + replacedString.substring(1));
-        questionDto.setExamples(examples.toString());
-        questionDto.setTranslation(word.getWordExampleMeaning().toString());
+        questionDto.setQuestion(replacedString);
+        questionDto.setExamples(examples);
+        questionDto.setTranslation(wordExampleMeaningAsString);
         questionDto.setCorrect(word.getWord());
 
         return questionDto;

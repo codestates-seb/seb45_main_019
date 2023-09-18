@@ -27,10 +27,9 @@ public class MemberAuthenticationFailureHandler implements AuthenticationFailure
 
         sendMemberNotFoundResponse(response);
     }
-    // Todo: 현재 멤버가 존재하지 않을 경우만 예외반환처리 됨, 추가 예외처리 구현 필요(인증이 안된 사용자일 경우 등..)
     private void sendMemberNotFoundResponse(HttpServletResponse response) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        ApiResponse<String> apiResponse = new ApiResponse<>(false, "Member not found");
+        ApiResponse<String> apiResponse = new ApiResponse<>(false, 911,"USER_NOT_FOUND", "");
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();

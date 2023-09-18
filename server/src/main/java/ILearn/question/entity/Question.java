@@ -23,7 +23,8 @@ public class Question {
     @Column(name = "QUESTIONTYPE")
     private Long questionType;
     private String question;
-    private String examples;
+    @ElementCollection
+    private List<String> examples;
     private String correct;
     private String translation;
     @JsonIgnore
