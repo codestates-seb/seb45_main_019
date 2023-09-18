@@ -16,7 +16,8 @@ export default function App() {
     if (
       location === '/' ||
       location === '/learn/question' ||
-      location === '/learn/result'
+      location === '/learn/result' ||
+      location === '/my-word'
     ) {
       return null;
     }

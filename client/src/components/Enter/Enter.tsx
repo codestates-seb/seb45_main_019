@@ -7,8 +7,14 @@ import MainProgress from '../Progress/MainProgress';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import EastOutlinedIcon from '@mui/icons-material/EastOutlined';
 import { pointAcc } from '../../common/utils/pointCalculator';
+import { Chapter } from '../../interfaces/Chapter.interface';
 export default function Enter() {
   const chapter = useAppSelector((state) => state.chapter);
+
+  const earnedPoints = (progress: Chapter['progress']) => {
+    if (progress) return pointAcc(progress);
+    return 0;
+  };
 
   return (
     <Container
@@ -126,7 +132,7 @@ export default function Enter() {
               }}
             >
               <Typography variant="h4" color={grey[700]}>
-                {pointAcc(chapter.progress!)}
+                {earnedPoints(chapter.progress)}
               </Typography>
               <Typography variant="subtitle2" color={grey[700]}>
                 포인트
