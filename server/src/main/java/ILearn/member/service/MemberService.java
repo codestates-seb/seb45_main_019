@@ -3,6 +3,7 @@ package ILearn.member.service;
 import ILearn.global.auth.utils.CustomAuthorityUtils;
 import ILearn.global.exception.GlobalException;
 import ILearn.global.init.MemberInitialization;
+import ILearn.member.dto.MemberPostResponseDto;
 import ILearn.member.entity.Member;
 import ILearn.member.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
@@ -44,6 +45,16 @@ public class MemberService {
         memberInitialization.initializeData(member);
 
         return member;
+    }
+
+    // 회원조회
+    public MemberPostResponseDto getMemberId(Long user_id) {
+
+        // 회원이 존재하는지에 대한 유효성검사
+        Member findMember = globalException.findVerifiedMember(user_id);
+        MemberPostResponseDto memberPostResponseDto = MemberMapper.INSTANCE.entityToPostResponseDto(findMember);
+
+        return memberPostResponseDto;
     }
 
     // 회원조회

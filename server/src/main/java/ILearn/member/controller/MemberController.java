@@ -48,9 +48,9 @@ public class MemberController {
 
             memberService.createMember(member);
 
-//            MemberPostResponseDto memberPostResponseDto
+            MemberPostResponseDto memberPostResponseDto = memberService.getMemberId(member.getUserId());
 
-            ApiResponse<?> response = new ApiResponse<>(true, "SUCCESS", "");
+            ApiResponse<?> response = new ApiResponse<>(true, "SUCCESS", memberPostResponseDto);
 
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
