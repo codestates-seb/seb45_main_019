@@ -31,7 +31,5 @@ public class MemberPostDto {
             message = "NICKNAME_ERROR") // 닉네임은 5~20글자로 이루어져야 하며, 특수문자도 포함 가능합니다.
     private String nickname;
 
-    @NotBlank(message = "EMAIL_NOT_BLANK") // 이메일을 입력해주세요.
-    @Email(message = "EMAIL_ERROR") // 올바른 이메일 형식을 입력해주세요.
     private String email;
 }

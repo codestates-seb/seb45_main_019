@@ -57,6 +57,9 @@ public class Member {
     @Column(name = "point")
     private int point;
 
+    @Column(name = "rank")
+    private int rank;
+
     @Column(name = "memberStatus")
     private boolean memberStatus = true;
 
