@@ -67,7 +67,6 @@ const WordInfo = ({ wordData }: WordInfoProps) => {
     word,
     symbol,
     wordMeaning,
-    detailCategories,
     detailDescriptions,
     wordExample,
     wordExampleMeaning
@@ -137,18 +136,16 @@ const WordInfo = ({ wordData }: WordInfoProps) => {
             gap: 1
           }}
         >
-          {detailCategories &&
-            detailCategories.map((el: string, key: number) => (
+          {detailDescriptions &&
+            detailDescriptions.map((el, key: number) => (
               <Button
-                key={key + '1234'}
+                key={key}
                 variant={detailCategory === key ? 'contained' : 'outlined'}
                 onClick={() => setDetailCategory(key)}
               >
-                {el}
+                {el.category}
               </Button>
             ))}
-
-          <Button></Button>
         </Box>
         <Box sx={{ display: 'flex', flexGrow: 1, flexShrink: 9, gap: 2 }}>
           <Box
@@ -160,27 +157,27 @@ const WordInfo = ({ wordData }: WordInfoProps) => {
               boxShadow: (theme) => theme.shadows[3]
             }}
           >
-            {/* {detailDescriptions
-              ? detailDescriptions[detailCategory].map((el, key) => (
-                  // {detailDescriptions &&
-                  //   detailDescriptions.map((el, key: number) => (
-                  <Typography
-                    variant="body1"
-                    key={key}
-                    sx={{
-                      color: 'text.primary',
-                      fontSize: 14,
-                      fontWeight: 'fontWeightBold',
-                      borderBottom: 1,
-                      pb: 1,
-                      mb: 1,
-                      borderColor: 'grey.400'
-                    }}
-                  >
-                    {key + 1}. {el}{' '}
-                  </Typography>
-                ))
-              : null} */}
+            {detailDescriptions
+              ? detailDescriptions[detailCategory].descriptions.map(
+                  (el, key) => (
+                    <Typography
+                      variant="body1"
+                      key={key}
+                      sx={{
+                        color: 'text.primary',
+                        fontSize: 14,
+                        fontWeight: 'fontWeightBold',
+                        borderBottom: 1,
+                        pb: 1,
+                        mb: 1,
+                        borderColor: 'grey.400'
+                      }}
+                    >
+                      {key + 1}. {el}{' '}
+                    </Typography>
+                  )
+                )
+              : null}
           </Box>
           <Box
             sx={{
