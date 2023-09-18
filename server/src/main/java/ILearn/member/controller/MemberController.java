@@ -4,6 +4,7 @@ import ILearn.global.response.ApiResponseException;
 import ILearn.global.response.ApiResponse;
 import ILearn.member.dto.MemberPatchDto;
 import ILearn.member.dto.MemberPostDto;
+import ILearn.member.dto.MemberPostResponseDto;
 import ILearn.member.dto.MemberResponseDto;
 import ILearn.member.entity.Member;
 import ILearn.member.mapper.MemberMapper;
@@ -46,6 +47,8 @@ public class MemberController {
             Member member = memberMapper.memberPostDtoToEntity(memberPostDto);
 
             memberService.createMember(member);
+
+//            MemberPostResponseDto memberPostResponseDto
 
             ApiResponse<?> response = new ApiResponse<>(true, "SUCCESS", "");
 
