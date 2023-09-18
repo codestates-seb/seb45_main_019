@@ -4,11 +4,12 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import api from '../../common/utils/api';
+import { alpha, createTheme, ThemeProvider } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import { AxiosError } from 'axios';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 import { useAppSelector } from '../../redux/hooks';
 
 const defaultTheme = createTheme({
@@ -26,7 +27,7 @@ const defaultTheme = createTheme({
 const centerStyle = {
   display: 'flex',
   justifyContent: 'center',
-  marginTop: '70px'
+  marginTop: '80px'
 };
 
 const topMargin = {
@@ -40,64 +41,50 @@ export default function MyPage() {
   const [editFlag, setEditFlag] = useState(false);
   const [editedUser, setEditedUser] = useState({
     nickname: '',
-    username: '',
-    email: ''
+    password: '',
+    confirmPassword: ''
   });
-  // const [user, setUser] = useState(false);
-  // const [editedUser, setEditedUser] = useState({
-  //   nickname: data.nickname,
-  //   username: data.username,
-  //   email: data.email
-  // });
 
   const userInfo = useAppSelector((state) => state.user);
+  const queryClient = useQueryClient();
   const { isLoading, error, data } = useQuery({
     queryKey: ['username', userInfo.userId],
     queryFn: () =>
       api(`/members/${userInfo.userId}`, 'get').then(({ data }) => data.data)
   });
 
-  // if (isLoading)
-  //   return (
-  //     <Box
-  //       sx={{
-  //         backgroundColor: 'white',
-  //         width: '55rem',
-  //         height: '40rem',
-  //         p: 4,
-  //         display: 'flex',
-  //         flexDirection: 'column',
-  //         gap: 2,
-  //         borderRadius: 4,
-  //         boxShadow: (theme) => theme.shadows[3]
-  //       }}
-  //     >
-  //       {' '}
-  //       로딩중...{' '}
-  //     </Box>
-  //   );
+  const modifiedUserMutation = useMutation(
+    (newUserData: {
+      nickname: string;
+      password: string;
+      confirmPassword: string;
+    }) => {
+      if (newUserData.password === newUserData.confirmPassword) {
+        return api(`/members/${userInfo.userId}`, 'patch', newUserData).then(
+          (res) => res.data
+        );
+      } else {
+        throw new Error('Passwords do not match');
+      }
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['username', userInfo.userId]);
+      }
+    }
+  );
 
-  // if (error) {
-  //   const myError = error as AxiosError;
-  //   return (
-  //     <Box
-  //       sx={{
-  //         backgroundColor: 'white',
-  //         width: '55rem',
-  //         height: '40rem',
-  //         p: 4,
-  //         display: 'flex',
-  //         flexDirection: 'column',
-  //         gap: 2,
-  //         borderRadius: 4,
-  //         boxShadow: (theme) => theme.shadows[3]
-  //       }}
-  //     >
-  //       {' '}
-  //       에러: {myError.message}{' '}
-  //     </Box>
-  //   );
-  // }
+  const deleteUserMutation = useMutation(
+    () =>
+      api(`/members/${userInfo.userId}`, 'delete', {
+        userId: userInfo.userId
+      }).then((res) => res.data),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['username', userInfo.userId]);
+      }
+    }
+  );
 
   const handleEditClick = () => {
     setEditFlag(true);
@@ -119,91 +106,149 @@ export default function MyPage() {
     if (data !== undefined) {
       setEditedUser({
         nickname: data.nickname,
-        username: data.username,
-        email: data.email
+        password: data.password,
+        confirmPassword: data.password
       });
     }
   }, [data]);
 
+  const handleModifiedUser = () => {
+    modifiedUserMutation.mutate(editedUser);
+  };
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <div style={centerStyle}>
-        <Card sx={{ minWidth: 1000 }}>
+        <Card
+          sx={{
+            minWidth: 1000,
+            borderRadius: '12px',
+            boxShadow: (theme) =>
+              alpha(theme.palette.primary.light, 0.5) + ` 0px 0.5rem 1.25rem`
+          }}
+        >
           <CardContent style={{ paddingLeft: '60px', paddingTop: '50px' }}>
-            <Typography variant="h5" component="div">
-              {/* {data.username} */}
-              {editedUser.username}
+            <Typography
+              variant="h2"
+              component="div"
+              style={{ marginBottom: '20px' }}
+            >
+              {editedUser.nickname}
             </Typography>
-            <Typography variant="body2">2023년 8월 28일 가입</Typography>
+            <Typography variant="body1">2023년 8월 28일 가입</Typography>
           </CardContent>
 
-          <div style={centerStyle}>
-            <Typography
-              variant="h6"
-              component="div"
-              style={{ marginTop: '10px', marginRight: '50px' }}
-            >
-              닉네임
-            </Typography>
-            <TextField
-              required={editFlag}
-              id="outlined-read-only-input"
-              value={editedUser.nickname}
-              onChange={handleFieldChange('nickname')}
-              InputProps={{
-                readOnly: !editFlag
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginTop: '60px'
+            }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center'
               }}
-            />
+            >
+              <Typography
+                variant="h6"
+                component="div"
+                style={{
+                  marginTop: '10px',
+                  marginRight: '50px',
+                  width: '150px',
+                  textAlign: 'left'
+                }}
+              >
+                닉네임
+              </Typography>
+              <TextField
+                required={editFlag}
+                id="outlined-read-only-input"
+                value={editedUser.nickname}
+                onChange={handleFieldChange('nickname')}
+                InputProps={{
+                  readOnly: !editFlag
+                }}
+              />
+            </div>
+            <div style={topMargin} />
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center'
+              }}
+            >
+              <Typography
+                variant="h6"
+                component="div"
+                style={{
+                  marginTop: '10px',
+                  marginRight: '40px',
+                  width: '160px',
+                  textAlign: 'left'
+                }}
+              >
+                새 비밀번호
+              </Typography>
+              <TextField
+                required={editFlag}
+                id="outlined-read-only-input"
+                value={editedUser.password}
+                onChange={handleFieldChange('password')}
+                type="password"
+                InputProps={{
+                  readOnly: !editFlag
+                }}
+              />
+            </div>
+            <div style={topMargin} />
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center'
+              }}
+            >
+              <Typography
+                variant="h6"
+                component="div"
+                style={{
+                  marginRight: '50px',
+                  marginTop: '10px',
+                  width: '152px',
+                  textAlign: 'left'
+                }}
+              >
+                새 비밀번호 확인
+              </Typography>
+              <TextField
+                required={editFlag}
+                id="outlined-read-only-input"
+                value={editedUser.confirmPassword}
+                onChange={handleFieldChange('confirmPassword')}
+                type="password"
+                InputProps={{
+                  readOnly: !editFlag
+                }}
+              />
+            </div>
           </div>
 
-          <div style={topMargin}>
-            <Typography
-              variant="h6"
-              component="div"
-              style={{ marginRight: '50px' }}
-            >
-              아이디
-            </Typography>
-            <TextField
-              required={editFlag}
-              id="outlined-read-only-input"
-              value={editedUser.username}
-              onChange={handleFieldChange('username')}
-              InputProps={{
-                readOnly: !editFlag
-              }}
-            />
-          </div>
-          <div style={topMargin}>
-            <Typography
-              variant="h6"
-              component="div"
-              style={{ marginRight: '50px' }}
-            >
-              이메일
-            </Typography>
-            <TextField
-              required={editFlag}
-              id="outlined-read-only-input"
-              value={editedUser.email}
-              onChange={handleFieldChange('email')}
-              InputProps={{
-                readOnly: !editFlag
-              }}
-            />
-          </div>
           <div
             style={{
               display: 'flex',
               justifyContent: 'flex-end',
               padding: '16px',
-              marginTop: '80px'
+              marginTop: '60px'
             }}
           >
             <div style={centerStyle}>
               {!editFlag && (
                 <Button
-                  variant="outlined"
+                  variant="contained"
                   style={{ marginLeft: '8px' }}
                   onClick={handleEditClick}
                 >
@@ -212,15 +257,22 @@ export default function MyPage() {
               )}
               {editFlag && (
                 <Button
-                  variant="outlined"
+                  variant="contained"
                   style={{ marginLeft: '8px' }}
-                  onClick={handleReadClick}
+                  onClick={() => {
+                    handleReadClick();
+                    handleModifiedUser();
+                  }}
                 >
                   수정완료
                 </Button>
               )}
 
-              <Button variant="outlined" style={{ marginLeft: '8px' }}>
+              <Button
+                variant="contained"
+                style={{ marginLeft: '8px' }}
+                onClick={() => deleteUserMutation.mutate()}
+              >
                 계정 삭제
               </Button>
             </div>
