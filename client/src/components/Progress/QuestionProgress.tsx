@@ -31,7 +31,7 @@ export default function QuestionProgress({ progress, questionNum }: Progress) {
               boxShadow:
                 idx === questionNum! - 1
                   ? ''
-                  : 'rgba(0, 0, 0, 0.2) 0px 0px 10px',
+                  : (theme) => theme.shadows[3],
               backgroundColor: statusColor,
               rotate: '90deg',
               borderWidth: idx === questionNum! - 1 ? '3px' : '',
