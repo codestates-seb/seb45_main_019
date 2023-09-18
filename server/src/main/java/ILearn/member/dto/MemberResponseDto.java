@@ -22,8 +22,8 @@ public class MemberResponseDto { //회원 정보 조회 응답 형식
         private String nickname;
         @ApiModelProperty(value = "유저 이름", example = "Test1")
         private int point;
-//        @ApiModelProperty(value = "유저 이름", example = "Test1")
-//        private int rank;
+        @ApiModelProperty(value = "유저 이름", example = "Test1")
+        private int rank;
         @ApiModelProperty(value = "유저 이름", example = "Test1")
         private boolean memberStatus;
         @ApiModelProperty(value = "유저 이름", example = "Test1")
