@@ -1,6 +1,6 @@
 import { ChapterList, UserChapter } from '../../interfaces/Chapter.interface';
 
-export function localStorageInit(allChapterList: ChapterList) {
+export function localStorageInit(allChapterList: ChapterList): void {
   if (localStorageIsNull()) {
     const localUserChapter: UserChapter = {
       data: []
@@ -18,7 +18,7 @@ export function localStorageInit(allChapterList: ChapterList) {
   }
 }
 
-export function localStorageIsNull() {
+export function localStorageIsNull(): boolean {
   return localStorage.getItem('userChapter') == null;
 }
 
@@ -27,6 +27,10 @@ export function localStorageGet(): UserChapter {
   return JSON.parse(localUserChapter!);
 }
 
-export function localStorageSet(userChapter: UserChapter) {
+export function localStorageSet(userChapter: UserChapter): void {
   localStorage.setItem('userChapter', JSON.stringify(userChapter));
+}
+
+export function localStorageRemove(): void {
+  localStorage.removeItem('userChapter');
 }

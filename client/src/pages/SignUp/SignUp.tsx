@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/no-autofocus */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -16,19 +16,13 @@ import Checkbox from '@mui/material/Checkbox';
 import { GlobalContainer } from '../../style/Global.styled';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import { Card, CardMedia } from '@mui/material';
+import {
+  localStorageGet,
+  localStorageRemove
+} from '../../common/utils/localStorageFuncs';
+import { pointAcc } from '../../common/utils/pointCalculator';
+import useSignUpMutation from '../../queries/useSignUpMutation';
 // TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme({
-  components: {
-    MuiFormControlLabel: {
-      styleOverrides: {
-        label: {
-          fontSize: 14
-        }
-      }
-    }
-  }
-});
-// console.log(defaultTheme);
 
 export default function SignUp() {
   const [password, setPassword] = useState('');
@@ -40,6 +34,8 @@ export default function SignUp() {
   const [emailIsValid, setEmailIsValid] = useState(true);
   const [usernameIsValid, setUsernameIsValid] = useState(true);
   const [nicknameIsValid, setNicknameIsValid] = useState(true);
+
+  const { mutate } = useSignUpMutation();
 
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;
@@ -105,10 +101,26 @@ export default function SignUp() {
     ) {
       api('/members', 'post', info)
         .then((res) => {
-          console.log('메시지: ', res.data.msg);
           if (res.data.status) {
+            localStorageGet().data.map((el) => {
+              const dataParam = {
+                chapterStatus: el.chapterStatus,
+                progress: el.progress,
+                point: pointAcc(el.progress)
+              };
+
+              const param = {
+                memberId: res.data.data.userId,
+                chapterId: el.chapterId,
+                data: dataParam
+              };
+
+              mutate(param);
+            });
+            localStorageRemove();
+
             alert('가입이 성공적으로 처리되었습니다.');
-            navigate('/signin');
+            navigate('/sign-in');
           } else {
             throw res;
           }
@@ -150,197 +162,192 @@ export default function SignUp() {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <GlobalContainer>
-        <Container component="main" maxWidth="xs">
-          <CssBaseline />
-          <Box
+    <GlobalContainer>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center'
+          }}
+        >
+          <Box sx={{ mb: 3, display: 'inline-flex' }}>
+            <Link
+              component={RouterLink}
+              to="/"
+              underline="none"
+              sx={{ display: 'inline-flex' }}
+            >
+              <img src={`images/main-logo.png`} alt="Jumbo React" />
+            </Link>
+          </Box>
+          <Card
             sx={{
-              marginTop: 8,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center'
+              maxWidth: '100%',
+              width: 360,
+              mb: 4,
+              borderRadius: '12px',
+              boxShadow: (theme) =>
+                alpha(theme.palette.primary.light, 0.5) + ` 0px 0.5rem 1.25rem`
             }}
           >
-            <Box sx={{ mb: 3, display: 'inline-flex' }}>
-              <Link
-                component={RouterLink}
-                to="/"
-                underline="none"
-                sx={{ display: 'inline-flex' }}
-              >
-                <img src={`images/main-logo.png`} alt="Jumbo React" />
-              </Link>
-            </Box>
-            <Card
-              sx={{
-                maxWidth: '100%',
-                width: 360,
-                mb: 4,
-                borderRadius: '12px',
-                boxShadow: (theme) =>
-                  alpha(theme.palette.primary.light, 0.5) +
-                  ` 0px 0.5rem 1.25rem`
-              }}
-            >
-              <Box sx={{ position: 'relative', height: '200px' }}>
-                <CardMedia
-                  component="img"
-                  alt="green iguana"
-                  height="200"
-                  image={`images/sign.png`}
-                />
-                <Box
-                  sx={{
-                    flex: 1,
-                    inset: 0,
-                    position: 'absolute',
-                    display: 'flex',
-                    alignItems: 'center',
-                    backgroundColor: (theme) =>
-                      alpha(theme.palette.common.black, 0.5),
-                    p: (theme) => theme.spacing(3)
-                  }}
-                >
-                  <Typography
-                    variant={'h2'}
-                    sx={{
-                      color: 'common.white',
-                      fontSize: '1.5rem',
-                      mb: 0,
-                      fontWeight: 400
-                    }}
-                  >
-                    Sign Up
-                  </Typography>
-                </Box>
-              </Box>
+            <Box sx={{ position: 'relative', height: '200px' }}>
+              <CardMedia
+                component="img"
+                alt="green iguana"
+                height="200"
+                image={`images/sign.png`}
+              />
               <Box
-                component="form"
-                noValidate
-                onSubmit={handleSubmit}
                 sx={{
-                  mt: 1,
-                  padding: '24px'
+                  flex: 1,
+                  inset: 0,
+                  position: 'absolute',
+                  display: 'flex',
+                  alignItems: 'center',
+                  backgroundColor: (theme) =>
+                    alpha(theme.palette.common.black, 0.5),
+                  p: (theme) => theme.spacing(3)
                 }}
               >
-                <Input
-                  autoComplete=""
-                  name="username"
-                  required
-                  id="username"
-                  label="ID"
-                  checkValid
-                  isValid={usernameIsValid}
-                  setIsValid={setUsernameIsValid}
-                  autoFocus
-                  margin="normal"
-                ></Input>
-
-                <Input
-                  autoComplete=""
-                  name="nickname"
-                  required
-                  id="nickname"
-                  label="Nickname"
-                  checkValid
-                  isValid={nicknameIsValid}
-                  setIsValid={setNicknameIsValid}
-                  margin="normal"
-                ></Input>
-
-                <TextField
-                  fullWidth
-                  // eslint-disable-next-line jsx-a11y/no-autofocus
-                  value={password}
-                  onChange={handlePasswordChange}
-                  autoComplete="new-password"
-                  name="password"
-                  required
-                  id="password"
-                  label="Password"
-                  type="password"
-                  margin="normal"
-                />
-                {passwordIsValid ? null : (
-                  <Typography
-                    display="block"
-                    gutterBottom
-                    sx={{ color: 'warning.main', mb: 0, fontSize: 12, pl: 1 }}
-                  >
-                    {passwordError}
-                  </Typography>
-                )}
-
-                <TextField
-                  fullWidth
-                  // eslint-disable-next-line jsx-a11y/no-autofocus
-                  value={passwordConfirm}
-                  onChange={handlePasswordConfirmChange}
-                  type="password"
-                  id="password_confirm"
-                  label="Confirm Password"
-                  name="password_confirm"
-                  required
-                  margin="normal"
-                />
-                {passwordConfirmIsValid ? null : (
-                  <Typography
-                    display="block"
-                    gutterBottom
-                    sx={{ color: 'warning.main', pl: 1, mb: 0, fontSize: 12 }}
-                  >
-                    {passwordConfirmError}
-                  </Typography>
-                )}
-
-                <Input
-                  autoComplete=""
-                  name="email"
-                  required
-                  id="email"
-                  label="Email Address"
-                  type="email"
-                  checkValid
-                  isValid={emailIsValid}
-                  setIsValid={setEmailIsValid}
-                  margin="normal"
-                ></Input>
-
-                <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
-                  }
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                  sx={{ mt: 3 }}
-                />
-
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
+                <Typography
+                  variant={'h2'}
+                  sx={{
+                    color: 'common.white',
+                    fontSize: '1.5rem',
+                    mb: 0,
+                    fontWeight: 400
+                  }}
                 >
                   Sign Up
-                </Button>
-                <Link
-                  component={RouterLink}
-                  to="/signin"
-                  sx={{
-                    fontSize: 14,
-                    display: 'block',
-                    textAlign: 'center'
-                  }}
-                  underline="none"
-                >
-                  {'Already have an account? Sign in'}
-                </Link>
+                </Typography>
               </Box>
-            </Card>
-          </Box>
-          <Copyright sx={{ mt: 5 }} />
-        </Container>
-      </GlobalContainer>
-    </ThemeProvider>
+            </Box>
+            <Box
+              component="form"
+              noValidate
+              onSubmit={handleSubmit}
+              sx={{
+                mt: 1,
+                padding: '24px'
+              }}
+            >
+              <Input
+                autoComplete=""
+                name="username"
+                required
+                id="username"
+                label="ID"
+                checkValid
+                isValid={usernameIsValid}
+                setIsValid={setUsernameIsValid}
+                autoFocus
+                margin="normal"
+              ></Input>
+
+              <Input
+                autoComplete=""
+                name="nickname"
+                required
+                id="nickname"
+                label="Nickname"
+                checkValid
+                isValid={nicknameIsValid}
+                setIsValid={setNicknameIsValid}
+                margin="normal"
+              ></Input>
+
+              <TextField
+                fullWidth
+                // eslint-disable-next-line jsx-a11y/no-autofocus
+                value={password}
+                onChange={handlePasswordChange}
+                autoComplete="new-password"
+                name="password"
+                required
+                id="password"
+                label="Password"
+                type="password"
+                margin="normal"
+              />
+              {passwordIsValid ? null : (
+                <Typography
+                  display="block"
+                  gutterBottom
+                  sx={{ color: 'warning.main', mb: 0, fontSize: 12, pl: 1 }}
+                >
+                  {passwordError}
+                </Typography>
+              )}
+
+              <TextField
+                fullWidth
+                // eslint-disable-next-line jsx-a11y/no-autofocus
+                value={passwordConfirm}
+                onChange={handlePasswordConfirmChange}
+                type="password"
+                id="password_confirm"
+                label="Confirm Password"
+                name="password_confirm"
+                required
+                margin="normal"
+              />
+              {passwordConfirmIsValid ? null : (
+                <Typography
+                  display="block"
+                  gutterBottom
+                  sx={{ color: 'warning.main', pl: 1, mb: 0, fontSize: 12 }}
+                >
+                  {passwordConfirmError}
+                </Typography>
+              )}
+
+              <Input
+                autoComplete=""
+                name="email"
+                required
+                id="email"
+                label="Email Address"
+                type="email"
+                checkValid
+                isValid={emailIsValid}
+                setIsValid={setEmailIsValid}
+                margin="normal"
+              ></Input>
+
+              <FormControlLabel
+                control={<Checkbox value="allowExtraEmails" color="primary" />}
+                label="I want to receive inspiration, marketing promotions and updates via email."
+                sx={{ mt: 3 }}
+              />
+
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Sign Up
+              </Button>
+              <Link
+                component={RouterLink}
+                to="/sign-in"
+                sx={{
+                  fontSize: 14,
+                  display: 'block',
+                  textAlign: 'center'
+                }}
+                underline="none"
+              >
+                {'Already have an account? Sign in'}
+              </Link>
+            </Box>
+          </Card>
+        </Box>
+        <Copyright sx={{ mt: 5 }} />
+      </Container>
+    </GlobalContainer>
   );
 }

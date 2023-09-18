@@ -8,12 +8,12 @@ const api = (
   method?: 'get' | 'post' | 'patch' | 'delete',
   data?: object
 ) => {
-  // const token = localStorage.getItem('token');
   const config = {
     method: method ? method : 'get',
     url: SERVER_URL + uri,
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'ngrok-skip-browser-warning': '69420'
       // Add more headers as needed
       // Authorization: token
     },
