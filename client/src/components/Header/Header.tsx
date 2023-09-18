@@ -19,6 +19,8 @@ import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import FactCheckOutlinedIcon from '@mui/icons-material/FactCheckOutlined';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setUser } from '../../redux/slices/user';
+import { useQueryClient } from '@tanstack/react-query';
+import { QUERY_KEY as chapterKey } from '../../queries/useAllUserChapterQuery';
 interface HeaderProp {
   invisiblePath?: boolean;
 }
@@ -27,18 +29,21 @@ export default function Header(props: HeaderProp) {
 
   const userInfo = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
-
+  const queryClient = useQueryClient();
   const handleLogout = () => {
+    queryClient.invalidateQueries([chapterKey, userInfo.userId]);
     dispatch(
       setUser({
         email: '',
         username: '',
-        userId: 0,
+        userId: 1,
         nickname: '',
         point: 0,
         memberStatus: false
       })
     );
+
+    navigate('/');
   };
 
   function handleNavigate(page: string) {
@@ -76,73 +81,60 @@ export default function Header(props: HeaderProp) {
           )}
 
           <Stack direction={'row'} spacing={1}>
-            <Tooltip title="단어장">
-              <IconButton
-                onClick={() => handleNavigate('/my-word')}
-                sx={{
-                  width: '40px',
-                  height: '40px',
-                  boxShadow: 'rgba(0, 0, 0, 0.2) 0px 5px 10px',
-                  color: userInfo.memberStatus ? 'primary.main' : 'default'
-                }}
-              >
-                <ClassOutlinedIcon fontSize="small" />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="학습 기록">
-              <IconButton
-                onClick={() => handleNavigate('/my-record')}
-                sx={{
-                  width: '40px',
-                  height: '40px',
-                  boxShadow: 'rgba(0, 0, 0, 0.2) 0px 5px 10px',
-                  color: userInfo.memberStatus ? 'primary.main' : 'default'
-                }}
-              >
-                <FactCheckOutlinedIcon fontSize="small" />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="내 정보">
-              <IconButton
-                onClick={() => handleNavigate('/my-page')}
-                sx={{
-                  width: '40px',
-                  height: '40px',
-                  boxShadow: 'rgba(0, 0, 0, 0.2) 0px 5px 10px',
-                  color: userInfo.memberStatus ? 'primary.main' : 'default'
-                }}
-              >
-                <PersonOutlineOutlinedIcon fontSize="small" />
-              </IconButton>
-            </Tooltip>
             {userInfo.memberStatus ? (
-              <Tooltip title="로그아웃">
-                <IconButton
-                  onClick={handleLogout}
-                  sx={{
-                    width: '40px',
-                    height: '40px',
-                    boxShadow: 'rgba(0, 0, 0, 0.2) 0px 5px 10px',
-                    color: 'default'
-                  }}
-                >
-                  <LogoutOutlinedIcon fontSize="small" />
-                </IconButton>
-              </Tooltip>
-            ) : (
-              <Link to="/signin">
-                <Tooltip title="로그인">
+              <>
+                <Tooltip title="단어장">
                   <IconButton
+                    onClick={() => handleNavigate('/my-word')}
                     sx={{
                       width: '40px',
                       height: '40px',
                       boxShadow: 'rgba(0, 0, 0, 0.2) 0px 5px 10px',
-                      color: 'primary.main'
+                      color: userInfo.memberStatus ? 'primary.main' : 'default'
                     }}
                   >
-                    <LoginOutlinedIcon fontSize="small" />
+                    <ClassOutlinedIcon fontSize="small" />
                   </IconButton>
                 </Tooltip>
+                <Tooltip title="내 정보">
+                  <IconButton
+                    onClick={() => handleNavigate('/my-page')}
+                    sx={{
+                      width: '40px',
+                      height: '40px',
+                      boxShadow: 'rgba(0, 0, 0, 0.2) 0px 5px 10px',
+                      color: userInfo.memberStatus ? 'primary.main' : 'default'
+                    }}
+                  >
+                    <PersonOutlineOutlinedIcon fontSize="small" />
+                  </IconButton>
+                </Tooltip>
+
+                <Tooltip title="로그아웃">
+                  <IconButton
+                    onClick={handleLogout}
+                    sx={{
+                      width: '40px',
+                      height: '40px',
+                      boxShadow: 'rgba(0, 0, 0, 0.2) 0px 5px 10px',
+                      color: 'default'
+                    }}
+                  >
+                    <LogoutOutlinedIcon fontSize="small" />
+                  </IconButton>
+                </Tooltip>
+              </>
+            ) : (
+              <Link to="/signin">
+                <Button
+                  variant="contained"
+                  size="medium"
+                  color="primary"
+                  endIcon={<LoginOutlinedIcon fontSize="small" />}
+                  sx={{ textTransform: 'none' }}
+                >
+                  Login
+                </Button>
               </Link>
             )}
           </Stack>
