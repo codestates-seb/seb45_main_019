@@ -100,98 +100,65 @@ const WordCard = ({ wordId, handleOpen }: WordCardProps) => {
   }
 
   return (
-    <>
-      <Card sx={{ width: '100%', marginBottom: '40px' }}>
-        <CardHeader
-          action={
-            <IconButton onClick={() => handleOpen(wordId)}>
-              <SearchIcon sx={{ color: 'primary.main' }} />
-            </IconButton>
-          }
-          title={word.word}
-          subheader={word.symbol}
-        />
-        <CardContent sx={{ display: 'flex', gap: 1 }}>
-          {word.wordMeaning.map((el: string, key: number) => (
-            <Typography
-              variant="subtitle1"
-              key={key}
-              sx={{
-                color: 'text.primary',
-                fontWeight: 'fontWeightBold',
-                fontSize: 19
-              }}
-            >
-              {`${key + 1}. ${el} `}
-            </Typography>
-          ))}
-        </CardContent>
-        <CardActions>
-          <Button>
-            <VolumeUpIcon />
-          </Button>
-        </CardActions>
-      </Card>
+    <Box
+      sx={{
+        width: '100%',
+        marginBottom: '40px',
+        background: 'white',
+        boxShadow: (theme) => theme.shadows[1],
+        p: 4,
+        borderRadius: 1,
+        '&:hover': {
+          cursor: 'pointer',
+          backgroundColor: 'action.hover'
+        }
+      }}
+      onClick={() => handleOpen(wordId)}
+    >
       <Box
         sx={{
-          width: '100%',
-          marginBottom: '40px',
-          background: 'white',
-          boxShadow: (theme) => theme.shadows[1],
-          p: 4,
-          borderRadius: 1,
-          '&:hover': {
-            cursor: 'pointer',
-            backgroundColor: 'action.hover'
-          }
+          display: 'flex',
+          gap: 1,
+          alignItems: 'center'
         }}
-        onClick={() => handleOpen(wordId)}
       >
-        <Box
+        <Typography
           sx={{
-            display: 'flex',
-            gap: 1,
-            alignItems: 'center'
+            fontWeight: 'fontWeightBold',
+            fontSize: 35,
+            color: 'text.primary'
           }}
         >
+          {word.word}
+        </Typography>
+        <Typography
+          sx={{
+            fontWeight: 'fontWeightNormal',
+            fontSize: 16,
+            color: 'text.secondary'
+          }}
+        >
+          {word.symbol}
+        </Typography>
+        <Box>
+          <Speaker text={word.word}></Speaker>
+        </Box>
+      </Box>
+      <Box sx={{ display: 'flex', gap: 1 }}>
+        {word.wordMeaning.map((el: string, key: number) => (
           <Typography
+            key={key}
             sx={{
               fontWeight: 'fontWeightBold',
-              fontSize: 35,
+              fontSize: 16,
               color: 'text.primary'
             }}
           >
-            {word.word}
+            {`${key + 1}. ${el} `}
           </Typography>
-          <Typography
-            sx={{
-              fontWeight: 'fontWeightNormal',
-              fontSize: 16,
-              color: 'text.secondary'
-            }}
-          >
-            {word.symbol}
-          </Typography>
-          <Box>
-            <Speaker text={word.word}></Speaker>
-          </Box>
-        </Box>
-        <Box sx={{ display: 'flex', gap: 1 }}>
-          {word.wordMeaning.map((el: string, key: number) => (
-            <Typography
-              key={key}
-              sx={{
-                fontWeight: 'fontWeightBold',
-                fontSize: 16,
-                color: 'text.primary'
-              }}
-            >
-              {`${key + 1}. ${el} `}
-            </Typography>
-          ))}
-        </Box>
-        <Box></Box>
+        ))}
       </Box>
-    </>
+      <Box></Box>
+    </Box>
   );
 };
