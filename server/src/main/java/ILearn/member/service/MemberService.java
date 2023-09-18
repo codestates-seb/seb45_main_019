@@ -72,7 +72,11 @@ public class MemberService {
         Optional.ofNullable(patchDto.getNickname())
                 .ifPresent(nickname -> findMember.setNickname(nickname));
         Optional.ofNullable(patchDto.getPassword())
-                .ifPresent(password -> findMember.setPassword(password));
+                .ifPresent(password -> {
+                    // 새 비밀번호를 PasswordEncoder를 사용하여 인코딩
+                    String encodedPassword = passwordEncoder.encode(password);
+                    findMember.setPassword(encodedPassword);
+                });
 
         return memberRepository.save(findMember);
     }
