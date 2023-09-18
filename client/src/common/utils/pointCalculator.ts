@@ -1,5 +1,5 @@
 export function pointAcc(progress: (0 | 1 | 2)[]) {
-  return progress.reduce((cur, acc, i) => {
+  return progress.reduce((acc, cur, i) => {
     if (cur === 0 || cur === 2) return acc;
 
     if (cur === 1)
