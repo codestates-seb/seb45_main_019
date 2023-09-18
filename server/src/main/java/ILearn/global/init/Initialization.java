@@ -35,63 +35,83 @@ public class Initialization implements CommandLineRunner {
         // 챕터 생성
         Chapter chapter1 = new Chapter();
         chapter1.setTitle("인사와 소통하기");
+        chapter1.setQuestionId(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L);
 
         Chapter chapter2 = new Chapter();
         chapter2.setTitle("인사와 소통하기");
+        chapter2.setQuestionId(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L);
 
         Chapter chapter3 = new Chapter();
         chapter3.setTitle("여행 중 도움 요청하기");
+        chapter3.setQuestionId(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L);
 
         Chapter chapter4 = new Chapter();
         chapter4.setTitle("질문하고 답변하기");
+        chapter4.setQuestionId(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L);
 
         Chapter chapter5 = new Chapter();
         chapter5.setTitle("날씨와 환경 이야기하기");
+        chapter5.setQuestionId(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L);
 
         Chapter chapter6 = new Chapter();
         chapter6.setTitle("상황 표현하기");
+        chapter6.setQuestionId(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L);
 
         Chapter chapter7 = new Chapter();
         chapter7.setTitle("요리하고 음식 만들기");
+        chapter7.setQuestionId(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L);
 
         Chapter chapter8 = new Chapter();
         chapter8.setTitle("대명사 활용하기");
+        chapter8.setQuestionId(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L);
 
         Chapter chapter9 = new Chapter();
         chapter9.setTitle("이웃과 대화하기");
+        chapter9.setQuestionId(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L);
 
         Chapter chapter10 = new Chapter();
         chapter10.setTitle("과거 사건 이야기하기");
+        chapter10.setQuestionId(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L);
 
         Chapter chapter11 = new Chapter();
         chapter11.setTitle("학교와 교육 공유하기");
+        chapter11.setQuestionId(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L);
 
         Chapter chapter12 = new Chapter();
         chapter12.setTitle("운동하고 스포츠 즐기기");
+        chapter12.setQuestionId(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L);
 
         Chapter chapter13 = new Chapter();
         chapter13.setTitle("예술과 문화 탐험하기");
+        chapter13.setQuestionId(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L);
 
         Chapter chapter14 = new Chapter();
         chapter14.setTitle("건강과 운동 논의하기");
+        chapter14.setQuestionId(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L);
 
         Chapter chapter15 = new Chapter();
         chapter15.setTitle("기술과 컴퓨터 이야기하기");
+        chapter15.setQuestionId(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L);
 
         Chapter chapter16 = new Chapter();
         chapter16.setTitle("환경과 지구과학 이해하기");
+        chapter16.setQuestionId(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L);
 
         Chapter chapter17 = new Chapter();
         chapter17.setTitle("역사와 과거 탐구하기");
+        chapter17.setQuestionId(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L);
 
         Chapter chapter18 = new Chapter();
         chapter18.setTitle("정치와 정부 이슈 토론하기");
+        chapter18.setQuestionId(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L);
 
         Chapter chapter19 = new Chapter();
         chapter19.setTitle("경제와 금융 알아보기");
+        chapter19.setQuestionId(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L);
 
         Chapter chapter20 = new Chapter();
         chapter20.setTitle("과학과 연구 이야기하기");
+        chapter20.setQuestionId(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L);
 
         Set<Long> existingChapterIds = new HashSet<>();
         List<Long> allChapterIds = chapterRepository.findAllChapterIds();

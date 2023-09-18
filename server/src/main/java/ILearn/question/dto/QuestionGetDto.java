@@ -9,6 +9,7 @@ import java.util.List;
 @Setter
 public class QuestionGetDto {
     private Long questionId;
+    private Long chapterId;
     private Long chapterNum;
     private Long wordNum;
     private int questionNum;
