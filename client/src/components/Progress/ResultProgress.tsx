@@ -1,12 +1,10 @@
-import { Box, Typography, createTheme } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import React from 'react';
 import CircleIcon from '@mui/icons-material/Circle';
 
 interface ProgressProps {
   progress: (0 | 1 | 2)[];
 }
-// const defaultTheme = createTheme();
-// console.log(defaultTheme.palette.);
 
 export const Progress = ({ progress }: ProgressProps) => {
   const text = ['영단어 고르기', '뜻 고르기', '스펠링 입력하기', '빈칸 채우기'];
@@ -42,9 +40,9 @@ export const Progress = ({ progress }: ProgressProps) => {
                 // color: 'error.dark',
                 color:
                   el === 1
-                    ? 'success.dark'
+                    ? 'success.main'
                     : el == 2
-                    ? 'error.dark'
+                    ? 'error.main'
                     : 'grey[300]',
                 fontSize: 100,
                 m: 0,

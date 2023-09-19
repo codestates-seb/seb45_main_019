@@ -26,6 +26,7 @@ interface HeaderProp {
 }
 export default function Header(props: HeaderProp) {
   const navigate = useNavigate();
+  const { pathname: location } = useLocation();
 
   const userInfo = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
@@ -124,8 +125,8 @@ export default function Header(props: HeaderProp) {
                   </IconButton>
                 </Tooltip>
               </>
-            ) : (
-              <Link to="/signin">
+            ) : location === '/sign-up' || location === '/sign-in' ? null : (
+              <Link to="/sign-in">
                 <Button
                   variant="contained"
                   size="medium"

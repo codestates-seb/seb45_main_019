@@ -13,7 +13,6 @@ export interface Progress {
   questionNum?: number;
 }
 export default function MainProgress({ progress }: Progress) {
-  console.log(progress);
   function itemMapping(el: number, idx: number) {
     let status = '';
     let point = '';

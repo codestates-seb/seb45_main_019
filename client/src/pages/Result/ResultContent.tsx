@@ -1,4 +1,4 @@
-import { Box, Button, Chip, Typography, createTheme } from '@mui/material';
+import { Box, Button, Chip, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import Word from '../../components/Word/Word';
 import { Progress } from '../../components/Progress/ResultProgress';
@@ -8,7 +8,6 @@ import shadows from '@mui/material/styles/shadows';
 import { Link } from 'react-router-dom';
 import EastOutlinedIcon from '@mui/icons-material/EastOutlined';
 
-const defaultTheme = createTheme();
 interface ResultContentProps {
   QuestionData: Chapter;
 }
@@ -32,30 +31,6 @@ export const ResultContent = ({ QuestionData }: ResultContentProps) => {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 10 }}>
-      {/* <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Typography
-          variant="h4"
-          sx={{
-            fontWeight: 700
-          }}
-        >{`${chapterId}. ${title}`}</Typography>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
-          <Chip
-            label={`+ ${earnedPoints(progress)} Point`}
-            color="success"
-            sx={{
-              fontSize: 17,
-              fontWeight: 500,
-              boxShadow: shadows[3],
-              height: 0.9,
-              borderRadius: 5
-            }}
-          />
-          <Link to={'/main'}>
-            <Button variant="contained">학습 완료</Button>
-          </Link>
-        </Box>
-      </Box> */}
       <Box
         sx={{
           width: '100%',
@@ -82,9 +57,6 @@ export const ResultContent = ({ QuestionData }: ResultContentProps) => {
           </Typography>
           <Typography variant="subtitle2" gutterBottom sx={{ color: '#fff' }}>
             {title}
-          </Typography>
-          <Typography variant="subtitle2" gutterBottom sx={{ color: '#fff' }}>
-            {`+ ${earnedPoints(progress)} Point`}
           </Typography>
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>

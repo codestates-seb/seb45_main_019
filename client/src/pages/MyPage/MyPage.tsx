@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import api from '../../common/utils/api';
-import { alpha, createTheme, ThemeProvider } from '@mui/material/styles';
+import { alpha } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import { AxiosError } from 'axios';
 import Dialog from '@mui/material/Dialog';
@@ -14,18 +14,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import { useAppSelector } from '../../redux/hooks';
-
-const defaultTheme = createTheme({
-  components: {
-    MuiFormControlLabel: {
-      styleOverrides: {
-        label: {
-          fontSize: 14
-        }
-      }
-    }
-  }
-});
+import { GlobalContainer } from '../../style/Global.styled';
+import { Container } from '@mui/material';
 
 const centerStyle = {
   display: 'flex',
@@ -144,8 +134,15 @@ export default function MyPage() {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <div style={centerStyle}>
+    <GlobalContainer>
+      <Container
+        sx={{
+          display: 'flex',
+          minHeight: 'calc(100vh - 70px)',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+      >
         <Card
           sx={{
             minWidth: 1000,
@@ -307,7 +304,7 @@ export default function MyPage() {
             </div>
           </div>
         </Card>
-      </div>
+      </Container>
       <Dialog open={isDeleteUserModal} onClose={handleCancelDelete}>
         <DialogTitle>계정 삭제</DialogTitle>
         <DialogContent>
@@ -328,6 +325,6 @@ export default function MyPage() {
           <Button onClick={closeSuccessModal}>확인</Button>
         </DialogActions>
       </Dialog>
-    </ThemeProvider>
+    </GlobalContainer>
   );
 }
