@@ -13,6 +13,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import AlertDialog from '../../components/Dialogs/AlertDialog';
 
 export default function WordPage() {
   //const [open, setOpen] = useState(false); //추가
@@ -28,47 +29,22 @@ export default function WordPage() {
     setOpen(false);
   };
 */
+  const [loginDialogOpen, setloginDialogOpen] = useState(false);
   useEffect(() => {
-    console.log(user);
     if (!user.memberStatus) {
-      alert('로그인 후 이용해 주세요.');
-      navigate('/sign-in');
+      setloginDialogOpen(true);
     }
   }, []);
 
+  const [emptyDialogOpen, setEmptyDialogOpen] = useState(false);
   useEffect(() => {
     if (wordIds) {
       if (wordIds.length === 0) {
-        alert('단어장이 비었습니다.');
-        navigate('/');
+        setEmptyDialogOpen(true);
       } else setSelectedWordId(wordIds[0]);
     }
   }, [wordIds]);
 
-  /*
-  useEffect(() => {
-    if (!wordIds) {
-      return (
-        <Dialog open={open} onClose={handleClose}>
-          <DialogTitle id="alert-dialog-title">
-            {'단어장을 찾을 수 없습니다.'}
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              단어가 없습니다!
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button variant="contained" onClick={handleClose}>
-              닫기
-            </Button>
-          </DialogActions>
-        </Dialog>
-      );
-      navigate('/');
-    }
-  }, []);
-*/
   return (
     <Box
       sx={{
@@ -78,6 +54,20 @@ export default function WordPage() {
         backgroundColor: '#f5f7fa'
       }}
     >
+      <AlertDialog
+        open={loginDialogOpen}
+        setOpen={setloginDialogOpen}
+        title="단어장 기능"
+        content="회원만 이용이 가능합니다."
+        onConfirm={() => navigate('/signin')}
+      ></AlertDialog>
+      <AlertDialog
+        open={emptyDialogOpen}
+        setOpen={setEmptyDialogOpen}
+        title="단어장 기능"
+        content="단어장이 비었습니다."
+        onConfirm={() => navigate('/')}
+      ></AlertDialog>
       <Nav
         ids={wordIds}
         args={{

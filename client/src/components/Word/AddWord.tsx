@@ -5,6 +5,9 @@ import api from '../../common/utils/api';
 import { useAppSelector } from '../../redux/hooks';
 import { AxiosError, AxiosResponse } from 'axios';
 import { getUserWordIds } from '../../pages/Word/methods';
+import AlertDialog from '../Dialogs/AlertDialog';
+import { useNavigate } from 'react-router-dom';
+import ConfirmDialog from '../Dialogs/ConfirmDialog';
 interface response extends AxiosResponse {
   data: {
     error: number;
@@ -20,7 +23,7 @@ export interface AddWordError extends AxiosError {
 export default function AddWord(props: { wordId: number }) {
   const queryClient = useQueryClient();
   const user = useAppSelector((state) => state.user);
-
+  const navigate = useNavigate();
   const queryKey = ['userWordIds', user.userId];
   const data = getUserWordIds();
   const [wordInWords, setWordInWords] = useState(false);
@@ -37,7 +40,6 @@ export default function AddWord(props: { wordId: number }) {
         wordId: props.wordId
       }).then(({ data }) => {
         // console.log(data);
-        // alert('단어장에 추가되었습니다.');
       }),
     {
       onSuccess: () => queryClient.invalidateQueries(queryKey)
@@ -57,26 +59,36 @@ export default function AddWord(props: { wordId: number }) {
     }
   );
 
-  const handeClick = () => {
+  const [loginDialogOpen, setloginDialogOpen] = useState(false);
+  const handleClick = () => {
     if (user.memberStatus)
       if (wordInWords) {
         deleteFromMyWords.mutate();
       } else {
         addToMyWords.mutate();
       }
-    else alert('로그인 후 이용하실 수 있습니다.');
+    else setloginDialogOpen(true);
   };
 
   if (!data) return <div> 로딩중... </div>;
 
   return (
-    <Box sx={{}}>
-      <Button
-        variant={wordInWords ? 'outlined' : 'contained'}
-        onClick={handeClick}
-      >
-        {wordInWords ? '단어장 해제' : '단어장 추가'}
-      </Button>
-    </Box>
+    <>
+      <AlertDialog
+        open={loginDialogOpen}
+        setOpen={setloginDialogOpen}
+        title="단어장 기능"
+        content="회원만 이용이 가능합니다."
+      ></AlertDialog>
+
+      <Box sx={{}}>
+        <Button
+          variant={wordInWords ? 'outlined' : 'contained'}
+          onClick={handleClick}
+        >
+          {wordInWords ? '단어장 해제' : '단어장 추가'}
+        </Button>
+      </Box>
+    </>
   );
 }
