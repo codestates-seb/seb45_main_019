@@ -15,11 +15,11 @@ export default function SelectButton(props: SelectButtonProps) {
 
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     playText(question);
-    console.log(e.currentTarget.innerText);
+    // console.log(e.currentTarget.innerText);
     setIsThick(e.currentTarget.innerText);
     handleClickUserInput(e);
   };
-  console.log(isThick);
+  // console.log(isThick);
 
   return (
     <Button

@@ -17,12 +17,18 @@ import { setUser } from '../../redux/slices/user';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import { GlobalContainer } from '../../style/Global.styled';
 import { Card, CardMedia } from '@mui/material';
+import AlertDialog from '../../components/Dialogs/AlertDialog';
 
 export default function SignIn() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
+  const [dialogOpen, setdialogOpen] = useState(false);
+  const [dialogTitle, setdialogTitle] = useState('');
+  const [dialogContent, setdialogContent] = useState('');
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (username.length > 0 && password.length > 0) {
@@ -53,23 +59,36 @@ export default function SignIn() {
           }
         })
         .catch((error) => {
-          // console.log(error);
-          if (error.data.error === 911) {
-            alert('해당 유저가 존재하지 않습니다.');
-          } else if (error.data.error === 912) {
-            alert('비밀번호가 일치하지 않습니다.');
+          if (error.response.data.error === 911) {
+            setdialogOpen(true);
+            setdialogTitle('로그인 실패');
+            setdialogContent('해당 유저가 존재하지 않습니다.');
+          } else if (error.response.data.error === 912) {
+            setdialogOpen(true);
+            setdialogTitle('로그인 실패');
+            setdialogContent('비밀번호가 일치하지 않습니다.');
           } else {
             console.log(error);
-            alert(error);
+            setdialogOpen(true);
+            setdialogTitle('에러 발생');
+            setdialogContent(error.response.data);
           }
         });
     } else {
-      alert('정보를 올바르게 입력해주세요.');
+      setdialogOpen(true);
+      setdialogTitle('로그인 실패');
+      setdialogContent('정보를 올바르게 입력해주세요.');
     }
   };
 
   return (
     <GlobalContainer>
+      <AlertDialog
+        open={dialogOpen}
+        setOpen={setdialogOpen}
+        title={dialogTitle}
+        content={dialogContent}
+      ></AlertDialog>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box

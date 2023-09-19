@@ -7,7 +7,7 @@ import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { alpha, createTheme, ThemeProvider } from '@mui/material/styles';
+import { alpha } from '@mui/material/styles';
 import api from '../../common/utils/api';
 import Input from './Input';
 import Copyright from '../../components/Copyright/Copyright';
@@ -22,6 +22,7 @@ import {
 } from '../../common/utils/localStorageFuncs';
 import { pointAcc } from '../../common/utils/pointCalculator';
 import useSignUpMutation from '../../queries/useSignUpMutation';
+import AlertDialog from '../../components/Dialogs/AlertDialog';
 // TODO remove, this demo shouldn't need to reset the theme.
 
 export default function SignUp() {
@@ -34,6 +35,11 @@ export default function SignUp() {
   const [emailIsValid, setEmailIsValid] = useState(true);
   const [usernameIsValid, setUsernameIsValid] = useState(true);
   const [nicknameIsValid, setNicknameIsValid] = useState(true);
+
+  const [dialogOpen, setdialogOpen] = useState(false);
+  const [dialogTitle, setdialogTitle] = useState('');
+  const [dialogContent, setdialogContent] = useState('');
+  const [success, setSuccess] = useState(false);
 
   const { mutate } = useSignUpMutation();
 
@@ -119,8 +125,10 @@ export default function SignUp() {
             });
             localStorageRemove();
 
-            alert('가입이 성공적으로 처리되었습니다.');
-            navigate('/sign-in');
+            setdialogOpen(true);
+            setdialogTitle('회원가입 성공');
+            setdialogContent('가입이 성공적으로 처리되었습니다.');
+            setSuccess(true);
           } else {
             throw res;
           }
@@ -130,39 +138,72 @@ export default function SignUp() {
           // console.log(error.response.data);
 
           if (error.response.data.error === 900) {
-            alert('존재하는 아이디 입니다.');
+            setdialogOpen(true);
+            setdialogTitle('회원가입 실패');
+            setdialogContent('존재하는 아이디 입니다.');
           } else if (error.response.data.error === 901) {
-            alert('존재하는 닉네임 입니다.');
+            setdialogOpen(true);
+            setdialogTitle('회원가입 실패');
+            setdialogContent('존재하는 닉네임 입니다.');
           } else if (error.response.data.error === 902) {
-            alert('존재하는 이메일 입니다.');
+            setdialogOpen(true);
+            setdialogTitle('회원가입 실패');
+            setdialogContent('존재하는 이메일 입니다.');
           } else if (error.response.data.error === 903) {
-            alert('아이디를 입력해주세요.');
+            setdialogOpen(true);
+            setdialogTitle('회원가입 실패');
+            setdialogContent('아이디를 입력해주세요.');
           } else if (error.response.data.error === 904) {
-            alert('아이디 형식이 맞지 않습니다.');
+            setdialogOpen(true);
+            setdialogTitle('회원가입 실패');
+            setdialogContent('아이디 형식이 맞지 않습니다.');
           } else if (error.response.data.error === 905) {
-            alert('비밀번호를 입력해주세요.');
+            setdialogOpen(true);
+            setdialogTitle('회원가입 실패');
+            setdialogContent('비밀번호를 입력해주세요.');
           } else if (error.response.data.error === 906) {
-            alert('비밀번호가 형식에 맞지 않습니다.');
+            setdialogOpen(true);
+            setdialogTitle('회원가입 실패');
+            setdialogContent('비밀번호가 형식에 맞지 않습니다.');
           } else if (error.response.data.error === 907) {
-            alert('닉네임을 입력해주세요.');
+            setdialogOpen(true);
+            setdialogTitle('회원가입 실패');
+            setdialogContent('닉네임을 입력해주세요.');
           } else if (error.response.data.error === 908) {
-            alert('닉네임이 형식에 맞지 않습니다.');
+            setdialogOpen(true);
+            setdialogTitle('회원가입 실패');
+            setdialogContent('닉네임이 형식에 맞지 않습니다.');
           } else if (error.response.data.error === 909) {
-            alert('이메일을 입력해주세요.');
+            setdialogOpen(true);
+            setdialogTitle('회원가입 실패');
+            setdialogContent('이메일을 입력해주세요.');
           } else if (error.response.data.error === 910) {
-            alert('이메일이 형식에 맞지 않습니다.');
+            setdialogOpen(true);
+            setdialogTitle('회원가입 실패');
+            setdialogContent('이메일이 형식에 맞지 않습니다.');
           } else {
-            console.log(error);
-            alert(error);
+            // console.log(error);
+            setdialogOpen(true);
+            setdialogTitle('에러 발생');
+            setdialogContent(error.response.data);
           }
         });
     } else {
-      alert('정보를 올바르게 입력 해주세요.');
+      setdialogOpen(true);
+      setdialogTitle('회원가입 실패');
+      setdialogContent('정보를 올바르게 입력 해주세요.');
     }
   };
 
   return (
     <GlobalContainer>
+      <AlertDialog
+        open={dialogOpen}
+        setOpen={setdialogOpen}
+        title={dialogTitle}
+        content={dialogContent}
+        onConfirm={success ? () => navigate('/sign-in') : () => null}
+      ></AlertDialog>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
