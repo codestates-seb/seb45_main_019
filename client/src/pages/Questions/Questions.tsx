@@ -49,7 +49,7 @@ export default function Questions() {
   >('disabled');
   // 0 : 디폴트, 1 : 정답, 2 : 오답
   const [correctFlag, setCorrectFlag] = useState<0 | 1 | 2>(0);
-  const [correctColor, setCorrectColor] = useState<string>('#eee');
+
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const handleLearningExit = () => {
@@ -145,10 +145,8 @@ export default function Questions() {
   function handleCorrect() {
     if (userInput === learnData?.correct) {
       setCorrectFlag(1);
-      setCorrectColor('success.main');
     } else {
       setCorrectFlag(2);
-      setCorrectColor('error.main');
     }
 
     setCorrectBtnStatus('clicked');
@@ -183,7 +181,8 @@ export default function Questions() {
               width: '150px',
               height: '50px',
               fontSize: '1.1em',
-              marginLeft: 50
+              marginLeft: 50,
+              color: '#fff'
             }}
           >
             {questionNum === 12 ? '결과 보기' : '계속 하기'}
@@ -300,7 +299,6 @@ export default function Questions() {
     setCorrectFlag(0);
     setLearningProgress();
     setLearningQuestionNum();
-    setCorrectColor('#eee');
     //마지막 문제일 때 결과페이지로 이동
     if (questionNum === 12) navigate('/learn/result');
   }
@@ -363,8 +361,10 @@ export default function Questions() {
           alignItems: 'center',
           backgroundColor:
             correctFlag === 0
-              ? correctColor
-              : () => alpha(correctColor, 0.4) + ` 0px 0.5rem 1.25rem`
+              ? grey[200]
+              : correctFlag === 1
+              ? (theme) => alpha(theme.palette.success.main, 0.25)
+              : (theme) => alpha(theme.palette.error.main, 0.25)
         }}
       >
         {correctStatusRender()}
