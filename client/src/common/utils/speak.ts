@@ -58,6 +58,17 @@ synth.onvoiceschanged = () => {
     console.log('voice is set to: ', utterance.voice);
   }
 };
+console.log('onvoiceschanged');
+const browserInfo = getBrowserInfo();
+const desiredVoiceName = getDesiredVoice(browserInfo);
+
+const desiredVoice = synth
+  .getVoices()
+  .find((voice) => voice.name === desiredVoiceName);
+if (desiredVoice) {
+  utterance.voice = desiredVoice;
+  console.log('voice is set to: ', utterance.voice);
+}
 
 export const playText = (text: string) => {
   utterance.text = text;
