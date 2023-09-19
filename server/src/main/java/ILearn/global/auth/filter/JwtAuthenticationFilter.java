@@ -3,6 +3,7 @@ package ILearn.global.auth.filter;
 import ILearn.global.auth.jwt.JwtTokenizer;
 import ILearn.global.auth.loginDto.LoginDto;
 import ILearn.global.auth.utils.CustomAuthorityUtils;
+import ILearn.global.response.ApiResponse;
 import ILearn.member.entity.Member;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
@@ -54,15 +55,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             response.setCharacterEncoding("UTF-8");
 
             // 사용자 정의 응답 JSON 생성
-            Map<String, Object> responseBody = new HashMap<>();
-            responseBody.put("status", false);
-            responseBody.put("msg", "Login fail");
-            responseBody.put("data", "");
+            ApiResponse<String> apiResponse = new ApiResponse<>(false, 911,"USER_NOT_FOUND", "");
 
             try (PrintWriter writer = response.getWriter()) {
                 // JSON 응답 전송
                 ObjectMapper objectMapper = new ObjectMapper();
-                objectMapper.writeValue(writer, responseBody);
+                objectMapper.writeValue(writer, apiResponse);
             } catch (io.jsonwebtoken.io.IOException ex) {
                 throw new RuntimeException(ex);
             }
