@@ -32,7 +32,7 @@ export default function WordPage() {
     console.log(user);
     if (!user.memberStatus) {
       alert('로그인 후 이용해 주세요.');
-      navigate('/signin');
+      navigate('/sign-in');
     }
   }, []);
 
