@@ -79,14 +79,11 @@ function changeVoice() {
       'Microsoft Christopher Online (Natural) - English (United States)'
   );
   if (voice === undefined) {
-    voice = voices.find((voice) => voice.name === 'Flo');
+    voice = voices.find((voice) => voice.name === 'Google US English');
     if (voice === undefined) {
       voice = voices.find(
         (voice) => voice.name === 'Microsoft David - English (United States)'
       );
-      if (voice === undefined) {
-        voice = voices.find((voice) => voice.lang === 'en-US');
-      }
     }
   }
   if (voice) {
