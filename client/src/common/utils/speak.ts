@@ -50,6 +50,7 @@ synth.onvoiceschanged = () => {
     .find((voice) => voice.name === desiredVoiceName);
   if (desiredVoice) {
     utterance.voice = desiredVoice;
+    console.log('voice is set to: ', utterance.voice);
   }
 };
 
