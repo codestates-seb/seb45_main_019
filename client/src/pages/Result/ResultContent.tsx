@@ -19,7 +19,7 @@ export const ResultContent = ({ QuestionData }: ResultContentProps) => {
 
   const [selectedIndex, setSelectedIndex] = useState(0);
   // const queryClient = useQueryClient();
-  const user = useAppSelector((state) => state.user);
+  // const user = useAppSelector((state) => state.user);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const id = event.currentTarget.id;
