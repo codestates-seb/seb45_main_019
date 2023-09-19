@@ -1,13 +1,5 @@
 const synth = window.speechSynthesis;
 const utterance = new SpeechSynthesisUtterance();
-const voice: SpeechSynthesisVoice = {
-  voiceURI: 'Microsoft Christopher Online (Natural) - English (United States)',
-  name: 'Microsoft Christopher Online (Natural) - English (United States)',
-  lang: 'en-US',
-  localService: false,
-  default: false
-};
-console.log(voice);
 
 function getBrowserInfo() {
   // Get the user agent string
@@ -46,7 +38,7 @@ const getDesiredVoice = (browserInfo: string) => {
     case 'Edge':
       return 'Microsoft Christopher Online (Natural) - English (United States)';
     case 'Safari':
-      return 'Fred';
+      return 'Flo';
     default:
       console.log('currently tts is not supporting this browser.');
       return '';
