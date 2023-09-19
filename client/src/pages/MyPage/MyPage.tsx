@@ -16,6 +16,7 @@ import DialogActions from '@mui/material/DialogActions';
 import { useAppSelector } from '../../redux/hooks';
 import { GlobalContainer } from '../../style/Global.styled';
 import { Container } from '@mui/material';
+import RecordChart from '../../components/Record/RecordChart';
 
 const centerStyle = {
   display: 'flex',
@@ -161,6 +162,8 @@ export default function MyPage() {
             </Typography>
             <Typography variant="body1">2023년 8월 28일 가입</Typography>
           </CardContent>
+
+          <RecordChart />
 
           <div
             style={{

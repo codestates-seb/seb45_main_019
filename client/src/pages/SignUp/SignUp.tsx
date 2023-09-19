@@ -10,7 +10,6 @@ import Container from '@mui/material/Container';
 import { alpha } from '@mui/material/styles';
 import api from '../../common/utils/api';
 import Input from './Input';
-import Copyright from '../../components/Copyright/Copyright';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { GlobalContainer } from '../../style/Global.styled';
@@ -32,7 +31,7 @@ export default function SignUp() {
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [passwordConfirmIsValid, setPasswordConfirmIsValid] = useState(true);
   const [passwordConfirmError, setPasswordConfirmError] = useState('');
-  const [emailIsValid, setEmailIsValid] = useState(true);
+
   const [usernameIsValid, setUsernameIsValid] = useState(true);
   const [nicknameIsValid, setNicknameIsValid] = useState(true);
 
@@ -83,27 +82,20 @@ export default function SignUp() {
     const info = {
       username: data.get('username'),
       nickname: data.get('nickname'),
-      password: data.get('password'),
-      // passwordConfirm: data.get('password_confirm'),
-      email: data.get('email')
+      password: data.get('password')
     };
 
     if (
       usernameIsValid &&
       passwordIsValid &&
       passwordConfirmIsValid &&
-      emailIsValid &&
       nicknameIsValid &&
       info.username &&
       info.nickname &&
       info.password &&
-      // info.passwordConfirm &&
-      info.email &&
       info.username.length > 0 &&
       info.nickname.length > 0 &&
-      info.password.length > 0 &&
-      // info.passwordConfirm.length > 0 &&
-      info.email.length > 0
+      info.password.length > 0
     ) {
       api('/members', 'post', info)
         .then((res) => {
@@ -249,7 +241,7 @@ export default function SignUp() {
                   display: 'flex',
                   alignItems: 'center',
                   backgroundColor: (theme) =>
-                    alpha(theme.palette.common.black, 0.5),
+                    alpha(theme.palette.common.black, 0.6),
                   p: (theme) => theme.spacing(3)
                 }}
               >
@@ -259,7 +251,8 @@ export default function SignUp() {
                     color: 'common.white',
                     fontSize: '1.5rem',
                     mb: 0,
-                    fontWeight: 400
+                    fontWeight: 400,
+                    fontFamily: 'Pacifico'
                   }}
                 >
                   Sign Up
@@ -280,7 +273,7 @@ export default function SignUp() {
                 name="username"
                 required
                 id="username"
-                label="ID"
+                label="아이디"
                 checkValid
                 isValid={usernameIsValid}
                 setIsValid={setUsernameIsValid}
@@ -293,7 +286,7 @@ export default function SignUp() {
                 name="nickname"
                 required
                 id="nickname"
-                label="Nickname"
+                label="닉네임"
                 checkValid
                 isValid={nicknameIsValid}
                 setIsValid={setNicknameIsValid}
@@ -309,7 +302,7 @@ export default function SignUp() {
                 name="password"
                 required
                 id="password"
-                label="Password"
+                label="비밀번호"
                 type="password"
                 margin="normal"
               />
@@ -330,7 +323,7 @@ export default function SignUp() {
                 onChange={handlePasswordConfirmChange}
                 type="password"
                 id="password_confirm"
-                label="Confirm Password"
+                label="비밀번호 확인"
                 name="password_confirm"
                 required
                 margin="normal"
@@ -345,49 +338,30 @@ export default function SignUp() {
                 </Typography>
               )}
 
-              <Input
-                autoComplete=""
-                name="email"
-                required
-                id="email"
-                label="Email Address"
-                type="email"
-                checkValid
-                isValid={emailIsValid}
-                setIsValid={setEmailIsValid}
-                margin="normal"
-              ></Input>
-
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-                sx={{ mt: 3 }}
-              />
-
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Sign Up
+                회원가입
               </Button>
               <Link
                 component={RouterLink}
                 to="/sign-in"
                 sx={{
-                  fontSize: 14,
+                  fontSize: 13,
                   display: 'block',
-                  textAlign: 'center'
+                  textAlign: 'center',
+                  textDecoration: 'underline'
                 }}
                 underline="none"
               >
-                {'Already have an account? Sign in'}
+                이미 계정이 있으신가요?
               </Link>
             </Box>
           </Card>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
       </Container>
     </GlobalContainer>
   );
