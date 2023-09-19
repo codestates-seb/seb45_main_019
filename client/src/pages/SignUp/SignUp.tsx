@@ -31,7 +31,7 @@ export default function SignUp() {
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [passwordConfirmIsValid, setPasswordConfirmIsValid] = useState(true);
   const [passwordConfirmError, setPasswordConfirmError] = useState('');
-  const [emailIsValid, setEmailIsValid] = useState(true);
+
   const [usernameIsValid, setUsernameIsValid] = useState(true);
   const [nicknameIsValid, setNicknameIsValid] = useState(true);
 
@@ -82,27 +82,20 @@ export default function SignUp() {
     const info = {
       username: data.get('username'),
       nickname: data.get('nickname'),
-      password: data.get('password'),
-      // passwordConfirm: data.get('password_confirm'),
-      email: data.get('email')
+      password: data.get('password')
     };
 
     if (
       usernameIsValid &&
       passwordIsValid &&
       passwordConfirmIsValid &&
-      emailIsValid &&
       nicknameIsValid &&
       info.username &&
       info.nickname &&
       info.password &&
-      // info.passwordConfirm &&
-      info.email &&
       info.username.length > 0 &&
       info.nickname.length > 0 &&
-      info.password.length > 0 &&
-      // info.passwordConfirm.length > 0 &&
-      info.email.length > 0
+      info.password.length > 0
     ) {
       api('/members', 'post', info)
         .then((res) => {
