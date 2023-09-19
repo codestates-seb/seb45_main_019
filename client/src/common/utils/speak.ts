@@ -84,6 +84,9 @@ function changeVoice() {
       voice = voices.find(
         (voice) => voice.name === 'Microsoft David - English (United States)'
       );
+      if (voice === undefined) {
+        voice = voices.find((voice) => voice.lang === 'en-US');
+      }
     }
   }
   if (voice) {
