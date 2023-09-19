@@ -79,7 +79,7 @@ function changeVoice() {
       'Microsoft Christopher Online (Natural) - English (United States)'
   );
   if (voice === undefined) {
-    voice = voices.find((voice) => voice.name === 'Fred');
+    voice = voices.find((voice) => voice.name === 'Flo');
     if (voice === undefined) {
       voice = voices.find(
         (voice) => voice.name === 'Microsoft David - English (United States)'
