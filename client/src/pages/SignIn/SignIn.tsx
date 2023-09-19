@@ -10,7 +10,6 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { alpha } from '@mui/material/styles';
-import Copyright from '../../components/Copyright/Copyright';
 import api from '../../common/utils/api';
 import { useAppDispatch } from '../../redux/hooks';
 import { setUser } from '../../redux/slices/user';
@@ -115,7 +114,7 @@ export default function SignIn() {
                   display: 'flex',
                   alignItems: 'center',
                   backgroundColor: (theme) =>
-                    alpha(theme.palette.common.black, 0.5),
+                    alpha(theme.palette.common.black, 0.6),
                   p: (theme) => theme.spacing(3)
                 }}
               >
@@ -125,7 +124,8 @@ export default function SignIn() {
                     color: 'common.white',
                     fontSize: '1.5rem',
                     mb: 0,
-                    fontWeight: 400
+                    fontWeight: 400,
+                    fontFamily: 'Pacifico'
                   }}
                 >
                   Sign In
@@ -147,7 +147,7 @@ export default function SignIn() {
                 required
                 fullWidth
                 id="username"
-                label="ID"
+                label="아이디"
                 name="username"
                 autoComplete="id"
                 autoFocus
@@ -160,50 +160,38 @@ export default function SignIn() {
                 required
                 fullWidth
                 name="password"
-                label="Password"
+                label="비밀번호"
                 type="password"
                 id="password"
                 autoComplete="current-password"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
               />
-              <Link
-                component={RouterLink}
-                to="/"
-                style={{ fontSize: 14, display: 'block', textAlign: 'end' }}
-                underline="none"
-              >
-                {'Forgot password?'}
-              </Link>
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
+
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Sign In
+                로그인
               </Button>
               <Link
                 component={RouterLink}
                 to="/sign-up"
                 sx={{
-                  fontSize: 14,
+                  fontSize: 13,
                   display: 'block',
-                  textAlign: 'center'
+                  textAlign: 'center',
+                  textDecoration: 'underline'
                 }}
                 underline="none"
               >
-                {"Don't have an account? Sign Up"}
+                아직 계정이 없으신가요?
               </Link>
             </Box>
           </Card>
         </Box>
-
-        <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </GlobalContainer>
   );
