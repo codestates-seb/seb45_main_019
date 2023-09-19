@@ -1,5 +1,16 @@
 const synth = window.speechSynthesis;
 const utterance = new SpeechSynthesisUtterance();
+synth.onvoiceschanged = () => {
+  console.log('onvoiceschanged');
+
+  const desiredVoice = synth
+    .getVoices()
+    .find((voice) => voice.name === desiredVoiceName);
+  if (desiredVoice) {
+    utterance.voice = desiredVoice;
+    console.log('voice is set to: ', utterance.voice);
+  }
+};
 
 function getBrowserInfo() {
   // Get the user agent string
@@ -43,16 +54,6 @@ const getDesiredVoice = (browserInfo: string) => {
   }
 };
 const desiredVoiceName = getDesiredVoice(browserInfo);
-
-synth.onvoiceschanged = () => {
-  const desiredVoice = synth
-    .getVoices()
-    .find((voice) => voice.name === desiredVoiceName);
-  if (desiredVoice) {
-    utterance.voice = desiredVoice;
-    console.log('voice is set to: ', utterance.voice);
-  }
-};
 
 export const playText = (text: string) => {
   utterance.text = text;
