@@ -128,8 +128,8 @@ export default function Header(props: HeaderProp) {
             ) : location === '/sign-up' || location === '/sign-in' ? null : (
               <Link to="/sign-in">
                 <Button
-                  variant="contained"
-                  size="medium"
+                  variant="outlined"
+                  size="small"
                   color="primary"
                   endIcon={<LoginOutlinedIcon fontSize="small" />}
                   sx={{ textTransform: 'none' }}

@@ -1,7 +1,8 @@
 import { Box, Typography } from '@mui/material';
 import React from 'react';
 import CircleIcon from '@mui/icons-material/Circle';
-
+import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
+import HighlightOffRoundedIcon from '@mui/icons-material/HighlightOffRounded';
 interface ProgressProps {
   progress: (0 | 1 | 2)[];
 }
@@ -23,7 +24,15 @@ export const Progress = ({ progress }: ProgressProps) => {
         boxShadow: (theme) => theme.shadows[3]
       }}
     >
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 2,
+          justifyContent: 'space-between',
+          height: '100%'
+        }}
+      >
         {progress.map((el: number, index: number) => (
           <Box key={index} sx={{ textAlign: 'center' }}>
             <Typography
@@ -34,7 +43,18 @@ export const Progress = ({ progress }: ProgressProps) => {
             >
               {text[index]}
             </Typography>
-            <CircleIcon
+            {el === 1 ? (
+              <CheckCircleOutlineRoundedIcon
+                color="success"
+                sx={{ fontSize: '5rem' }}
+              />
+            ) : (
+              <HighlightOffRoundedIcon
+                color="error"
+                sx={{ fontSize: '5rem' }}
+              />
+            )}
+            {/* <CircleIcon
               sx={{
                 width: '5rem',
                 // color: 'error.dark',
@@ -48,7 +68,7 @@ export const Progress = ({ progress }: ProgressProps) => {
                 m: 0,
                 p: 0
               }}
-            />
+            /> */}
           </Box>
         ))}
       </Box>
