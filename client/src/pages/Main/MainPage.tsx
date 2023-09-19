@@ -39,7 +39,6 @@ export default function MainPage() {
 
   function setUserChapters(): void {
     const userChapter = getUserChapters();
-
     const changeStatusList = allChapterList!.data.map((chapter) => {
       const sameChapter = userChapter?.data.find(
         (userChapter) => userChapter.chapterId === chapter.chapterId
@@ -62,17 +61,14 @@ export default function MainPage() {
 
     setChapterList(changeStatusList);
 
-    // 첫 접속시 Enter, Nav 첫 챕터로 세팅
-    // if (selectedChapter.chapterId === 0) {
-    // }
     dispatch(setChapter(changeStatusList[selectedChapter.chapterId - 1]));
   }
 
   useEffect(() => {
-    if (allChapterList !== undefined) {
+    if (allChapterList !== undefined && allUserChapterList !== undefined) {
       setUserChapters();
     }
-  }, [allChapterList]);
+  }, [allChapterList, allUserChapterList]);
   return (
     <Box
       sx={{

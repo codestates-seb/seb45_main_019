@@ -144,13 +144,13 @@ const WordCard = ({ wordId, handleOpen }: WordCardProps) => {
           <Speaker text={word.word}></Speaker>
         </Box>
       </Box>
-      <Box sx={{ display: 'flex', gap: 1 }}>
+      <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
         {word.wordMeaning.map((el: string, key: number) => (
           <Typography
             key={key}
             sx={{
-              fontWeight: 'fontWeightBold',
-              fontSize: 16,
+              fontWeight: 'fontWeightSemiBold',
+              fontSize: 15,
               color: 'text.primary'
             }}
           >

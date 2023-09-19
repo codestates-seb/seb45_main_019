@@ -4,7 +4,8 @@ import {
   Container,
   IconButton,
   Stack,
-  Typography
+  Typography,
+  alpha
 } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
@@ -48,6 +49,7 @@ export default function Questions() {
   >('disabled');
   // 0 : 디폴트, 1 : 정답, 2 : 오답
   const [correctFlag, setCorrectFlag] = useState<0 | 1 | 2>(0);
+  const [correctColor, setCorrectColor] = useState<string>('#eee');
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const handleLearningExit = () => {
@@ -141,8 +143,13 @@ export default function Questions() {
 
   // 정답 확인
   function handleCorrect() {
-    if (userInput === learnData?.correct) setCorrectFlag(1);
-    else setCorrectFlag(2);
+    if (userInput === learnData?.correct) {
+      setCorrectFlag(1);
+      setCorrectColor('success.main');
+    } else {
+      setCorrectFlag(2);
+      setCorrectColor('error.main');
+    }
 
     setCorrectBtnStatus('clicked');
   }
@@ -293,7 +300,7 @@ export default function Questions() {
     setCorrectFlag(0);
     setLearningProgress();
     setLearningQuestionNum();
-
+    setCorrectColor('#eee');
     //마지막 문제일 때 결과페이지로 이동
     if (questionNum === 12) navigate('/learn/result');
   }
@@ -353,9 +360,12 @@ export default function Questions() {
           padding: '50px',
           display: 'flex',
           justifyContent: 'center',
-          alignItems: 'center'
+          alignItems: 'center',
+          backgroundColor:
+            correctFlag === 0
+              ? correctColor
+              : () => alpha(correctColor, 0.4) + ` 0px 0.5rem 1.25rem`
         }}
-        bgcolor={grey[200]}
       >
         {correctStatusRender()}
         {correctBtnRender()}

@@ -31,8 +31,8 @@ export default function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/learn/question" element={<Questions />} />
         <Route path="/learn/result" element={<Result />} />
-        <Route path="/signup" element={<SignUp></SignUp>} />
-        <Route path="/signin" element={<SignIn></SignIn>} />
+        <Route path="/sign-up" element={<SignUp></SignUp>} />
+        <Route path="/sign-in" element={<SignIn></SignIn>} />
         <Route path="/my-word" element={<WordPage />} />
         <Route path="/my-page" element={<MyPage />} />
       </Routes>

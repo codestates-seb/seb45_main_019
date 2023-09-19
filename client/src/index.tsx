@@ -22,7 +22,31 @@ const queryClient = new QueryClient({
     }
   }
 });
-const defaultTheme = createTheme();
+const defaultTheme = createTheme({
+  components: {
+    MuiFormControlLabel: {
+      styleOverrides: {
+        label: {
+          fontSize: 14
+        }
+      }
+    }
+  },
+  palette: {
+    primary: {
+      main: '#3290ca'
+    },
+    secondary: {
+      main: '#01579b'
+    },
+    success: {
+      main: '#27ae60'
+    },
+    error: {
+      main: '#e74c3c'
+    }
+  }
+});
 console.log(defaultTheme);
 
 const root = ReactDOM.createRoot(
