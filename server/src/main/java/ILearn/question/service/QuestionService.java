@@ -84,7 +84,6 @@ public class QuestionService {
         Collections.shuffle(examples);
 
         QuestionGetDto questionDto = questionMapper.entityToResponseDto(question);
-        questionDto.setChapterId(chapter.getChapterId());
         questionDto.setQuestionNum(updateQuestionNum());
         questionDto.setWordNum(word.getWordId());
         questionDto.setChapterNum(chapter.getChapterId());
@@ -113,7 +112,6 @@ public class QuestionService {
 
 
         QuestionGetDto questionDto = questionMapper.entityToResponseDto(question);
-        questionDto.setChapterId(chapter.getChapterId());
         questionDto.setQuestionNum(updateQuestionNum());
         questionDto.setWordNum(word.getWordId());
         questionDto.setChapterNum(chapter.getChapterId());
@@ -136,7 +134,6 @@ public class QuestionService {
         Question question = new Question();
 
         QuestionGetDto questionDto = questionMapper.entityToResponseDto(question);
-        questionDto.setChapterId(chapter.getChapterId());
         questionDto.setQuestionNum(updateQuestionNum());
         questionDto.setWordNum(word.getWordId());
         questionDto.setChapterNum(chapter.getChapterId());
@@ -167,7 +164,6 @@ public class QuestionService {
         String wordExampleMeaningAsString = word.getWordExampleMeaning().isEmpty() ? "" : word.getWordExampleMeaning().get(0);
 
         QuestionGetDto questionDto = questionMapper.entityToResponseDto(question);
-        questionDto.setChapterId(chapter.getChapterId());
         questionDto.setQuestionNum(updateQuestionNum());
         questionDto.setWordNum(word.getWordId());
         questionDto.setChapterNum(chapter.getChapterId());

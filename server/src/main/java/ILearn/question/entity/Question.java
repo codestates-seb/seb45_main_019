@@ -20,7 +20,6 @@ public class Question {
     @JsonIgnore
     private Long questionId;
     private Long questionNum;
-
     @Column(name = "QUESTIONTYPE")
     private Long questionType;
     private String question;
