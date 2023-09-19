@@ -59,7 +59,7 @@ public class GlobalException {
     public Member findVerifiedMember(Long userId) {
         Optional<Member> optionalMember = memberRepository.findById(userId);
 
-        if (optionalMember.isEmpty()) {
+        if (optionalMember.isEmpty() || !optionalMember.get().isMemberStatus()) {
             ApiResponse<?> response = new ApiResponse<>(false, 911, "USER_NOT_FOUND", "");
             throw new ApiResponseException(response, new RuntimeException());
         }

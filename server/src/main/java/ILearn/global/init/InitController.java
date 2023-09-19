@@ -142,6 +142,7 @@ public class InitController {
             existingChapterIds.add(chapterId);
         }
 
+
         // 단어1 : hello
         Word word1 = new Word();
         word1.setChapter(chapter1);
@@ -156,7 +157,7 @@ public class InitController {
         ));
 
         word1.setWordExampleMeaning(Arrays.asList(
-                "안녕하세요, 어떠세요?",
+                "안녕하세요, 요즘 어떠세요?",
                 "그녀는 친구를 따뜻한 인사로 맞이했습니다.",
                 "그냥 인사를 드리고 소식을 나누고 싶었어요."
         ));
@@ -198,8 +199,8 @@ public class InitController {
 
         word2.setWordExampleMeaning(Arrays.asList(
                 "그녀는 파티를 떠날 때 손을 흔들며 작별 인사를 했습니다.",
-                "떠날 때, 그는 모두에게 따뜻한 작별 인사를 했습니다.",
-                "공항에서 친구들에게 작별 인사하는 것은 아쉬운 순간이었습니다."
+                "떠날 시간이 되자, 그는 모두에게 따뜻한 작별을 고했습니다.",
+                "공항에서 그녀의 친구들에게 작별인사를 하는 것은 씁쓸하고 달콤한 순간이었습니다."
         ));
 
         List<WordDescription> detailDescriptions2 = new ArrayList<>();
@@ -238,7 +239,7 @@ public class InitController {
         ));
 
         word3.setWordExampleMeaning(Arrays.asList(
-                "안녕하세요, 여러분! 오늘은 어떻게 지내세요?",
+                "안녕하세요, 여러분! 오늘은 어떻게 지내셨나요?",
                 "시장은 손님들에게 따뜻한 환영과 인사를 했습니다.",
                 "많은 문화에서 인사를 나누는 것은 흔한 사회적 관행입니다."
         ));
@@ -278,7 +279,7 @@ public class InitController {
 
         word4.setWordExampleMeaning(Arrays.asList(
                 "그녀는 쇼핑몰에서 옷을 사는 것을 즐깁니다.",
-                "이번 주말에 식료품 쇼핑을 가야 해요.",
+                "나는 이번 주말에 식료품을 사러 가야합니다.",
                 "온라인 쇼핑은 점점 더 인기를 얻고 있습니다."
         ));
 
@@ -318,7 +319,7 @@ public class InitController {
         ));
 
         word5.setWordExampleMeaning(Arrays.asList(
-                "일을 위해 새 노트북을 구매해야 합니다.",
+                "나는 일을 하기 위해 새 노트북을 구매해야 합니다.",
                 "회사가 대량의 원자재를 매입했습니다.",
                 "고객들은 쉽게 제품을 온라인으로 구입할 수 있습니다."
         ));
@@ -390,9 +391,9 @@ public class InitController {
         ));
 
         word7.setWordExampleMeaning(Arrays.asList(
-                "이 무거운 가방들을 나 좀 도와줄 수 있을까요?",
-                "구명원수는 위급한 순간에 의식을 잃은 수영자를 돕기 위해 급히 움직였다.",
-                "난 어려운 숙제 과제에 대해 도움이 필요해요."
+                "이 무거운 가방 옮기는 것 좀 도와주시겠습니까?",
+                "구조대원이 급박한 순간에 물에 빠진 수영선수를 돕기 위해 달려갔습니다.",
+                "난 어려운 숙제에 대해 도움이 필요해요."
         ));
 
         List<WordDescription> detailDescriptions7 = new ArrayList<>();
@@ -431,9 +432,9 @@ public class InitController {
         ));
 
         word8.setWordExampleMeaning(Arrays.asList(
-                "그녀는 노인 남자가 장을 들고 가는데 도움을 제안했습니다.",
-                "그 회사는 필요한 직원에게 금융 지원을 제공합니다.",
-                "건강 문제를 경험하면 의료 지원을 받으십시오."
+                "그녀는 노인의 식료품을 나르는 것을 돕겠다고 했습니다.",
+                "회사는 도움이 필요한 직원에게 재정적 지원을 제공합니다.",
+                "건강에 문제가 있을 경우 의료 지원을 요청하십시오."
         ));
 
         List<WordDescription> detailDescriptions8 = new ArrayList<>();
@@ -471,9 +472,9 @@ public class InitController {
         ));
 
         word9.setWordExampleMeaning(Arrays.asList(
-                "긴급한 상황이 발생한 경우 즉시 도움을 요청하기 위해 911로 전화하십시오.",
-                "병원은 중대한 경우를 위한 별도의 응급실을 갖고 있습니다.",
-                "우리는 이 문제를 긴급 상황으로 처리해야 합니다."
+                "응급상황이 발생하면 즉시 911에 전화하여 도움을 받으시기 바랍니다.",
+                "병원에는 위독한 환자를 위한 전담 응급실이 있다.",
+                "우리는 이 문제를 긴급 상황으로 다룰 필요가 있다."
         ));
 
         List<WordDescription> detailDescriptions9 = new ArrayList<>();
@@ -576,9 +577,9 @@ public class InitController {
         ));
 
         word12.setWordExampleMeaning(Arrays.asList(
-                "그녀는 설문 조사 결과에 의문을 제기하기로 결정했습니다.",
+                "그녀는 그 조사 결과에 의문을 제기하기로 결정했다.",
                 "형사는 더 많은 정보를 얻기 위해 목격자에게 질문을 했습니다.",
-                "나는 프로젝트 지연에 대해 관리자에게 질문할 예정입니다."
+                "프로젝트가 지연되는 것에 대해 매니저에게 문의하려고 합니다."
         ));
 
         List<WordDescription> detailDescriptions12 = new ArrayList<>();
@@ -735,7 +736,7 @@ public class InitController {
         ));
 
         word16.setWordExampleMeaning(Arrays.asList(
-                "지금 시점에서 나는 시험 공부 중이다.",
+                "저는 지금 시험공부를 하고 있습니다.",
                 "프로젝트는 현재 진행 중이다.",
                 "그는 현재 기술 회사에서 일하고 있다."
         ));
@@ -775,8 +776,8 @@ public class InitController {
 
         word17.setWordExampleMeaning(Arrays.asList(
                 "이 프로젝트는 아직 진행 중이며 다음 달에 완료될 예정입니다.",
-                "회사의 서비스 개선 노력은 계속되어 성공적으로 진행되고 있습니다.",
-                "이 문제와 관련된 조사는 현재 진행 중입니다."
+                "회사의 서비스를 개선하기 위한 지속적인 노력이 성공적이었습니다.",
+                "그 문제에 대한 조사는 현재 진행중입니다."
         ));
 
         List<WordDescription> descriptions17 = new ArrayList<>();
@@ -805,7 +806,7 @@ public class InitController {
         ));
 
         word18.setWordExampleMeaning(Arrays.asList(
-                "나는 현재 새로운 프로젝트에 참여하고 있다.",
+                "저는 현재 새로운 프로젝트를 진행하고 있습니다.",
                 "날씨는 현재 상당히 쾌적하다.",
                 "그녀는 현재 그 회사의 CEO이다."
         ));
@@ -837,8 +838,8 @@ public class InitController {
 
         word19.setWordExampleMeaning(Arrays.asList(
                 "나는 이탈리아 요리를 만드는 것을 좋아한다.",
-                "그녀는 빠르게 맛있는 식사를 요리할 수 있다.",
-                "그 레스토랑의 요리사는 그의 요리 기술로 유명하다."
+                "그녀는 맛있는 식사를 금방 만들 수 있습니다.",
+                "그 식당의 요리사는 요리 솜씨로 유명합니다."
         ));
 
         List<WordDescription> descriptions19 = new ArrayList<>();
@@ -878,7 +879,7 @@ public class InitController {
         word20.setWordExampleMeaning(Arrays.asList(
                 "나는 온라인에서 훌륭한 초콜릿 케이크 레시피를 찾았다.",
                 "이 레시피는 신선한 재료와 허브를 요구한다.",
-                "그녀는 완벽한 요리를 만들기 위해 레시피를 주의 깊게 따랐다."
+                "그녀는 완벽한 요리를 만들기 위해 요리법을 신중하게 따라 했습니다."
         ));
 
         List<WordDescription> descriptions20 = new ArrayList<>();
@@ -907,7 +908,7 @@ public class InitController {
         ));
 
         word21.setWordExampleMeaning(Arrays.asList(
-                "이 수프는 독특하고 맛있는 풍미가 있다.",
+                "이 수프는 독특하고 맛있습니다.",
                 "그녀는 예술과 음악에 세련된 취향을 가지고 있다.",
                 "당신의 집에서 만든 쿠키의 샘플을 맛보고 싶습니다."
         ));
@@ -976,7 +977,7 @@ public class InitController {
         ));
 
         word23.setWordExampleMeaning(Arrays.asList(
-                "그녀는 능숙한 과학자이다.",
+                "그녀는 뛰어난 과학자입니다.",
                 "그녀는 여가 시간에 피아노를 연주하는 것을 즐긴다."
         ));
 
@@ -1037,7 +1038,7 @@ public class InitController {
         word25.setWordExampleMeaning(Arrays.asList(
                 "우리 이웃은 매우 친절하다.",
                 "나는 이웃으로부터 설탕을 빌렸다.",
-                "이웃과 좋은 관계를 유지하는 것은 중요하다."
+                "이웃과 좋은 관계를 유지하는 것이 중요합니다."
         ));
 
         List<WordDescription> descriptions25 = new ArrayList<>();
@@ -1073,7 +1074,7 @@ public class InitController {
         ));
 
         word26.setWordExampleMeaning(Arrays.asList(
-                "커피를 마시면서 잠시 수다 떨어보자.",
+                "커피 마시면서 잠시 이야기좀 하자.",
                 "그들의 대화는 몇 시간 동안 계속되었다."
         ));
 
@@ -1111,7 +1112,7 @@ public class InitController {
         ));
 
         word27.setWordExampleMeaning(Arrays.asList(
-                "그녀는 친근한 이웃입니다.",
+                "그녀는 친한 이웃입니다.",
                 "호텔 직원들은 매우 친절합니다.",
                 "그들은 친근한 대화를 나눴습니다."
         ));
@@ -1143,8 +1144,8 @@ public class InitController {
 
         word28.setWordExampleMeaning(Arrays.asList(
                 "그는 자신의 과거 경험에 대해 이야기했다.",
-                "지난 몇 년 동안은 어려움이 많았다.",
-                "과거에 대해 생각하며 시간을 보내지 말자."
+                "지난 몇 년 동안은 힘든 시간이었습니다.",
+                "과거에 연연하지 말자."
         ));
 
         List<WordDescription> descriptions28 = new ArrayList<>();
@@ -1241,7 +1242,7 @@ public class InitController {
         ));
 
         word31.setWordExampleMeaning(Arrays.asList(
-                "오늘 밤에 할 숙제가 많아.",
+                "오늘 밤에 해야 할 숙제가 많아.",
                 "선생님이 주말에 수학 숙제를 내주셨어.",
                 "그녀는 숙제를 일찍 끝냈다."
         ));
@@ -1319,9 +1320,9 @@ public class InitController {
         ));
 
         word33.setWordExampleMeaning(Arrays.asList(
-                "내일 중요한 시험이 있다.",
+                "내일 중요한 시험이 있어.",
                 "기말 시험은 우리가 공부한 모든 내용을 포함한다.",
-                "그녀는 입학 시험을 통과했다."
+                "그녀는 입학 시험에 합격했다."
         ));
 
         List<WordDescription> descriptions33 = new ArrayList<>();
@@ -2469,12 +2470,6 @@ public class InitController {
                 existingQuestionIds.add(questionId);
             }
         }
-                // 테스트 계정 생성
-        Member member = new Member();
-        member.setUsername("test1");
-        member.setPassword("password11!!");
-        member.setNickname("memberTest");
-        memberService.createMember(member);
     }
 }
 

@@ -17,6 +17,7 @@ import ILearn.member.dto.MemberResponseDto;
 import ILearn.member.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.transaction.Transactional;
 
 
 @Service
@@ -60,6 +61,7 @@ public class MemberService {
     // 회원조회
     public MemberResponseDto getMember(Long user_id) {
 
+        assignUserRanks();
         // 회원이 존재하는지에 대한 유효성검사
         Member findMember = globalException.findVerifiedMember(user_id);
         MemberResponseDto memberResponseDto = MemberMapper.INSTANCE.entityToResponseDto(findMember);
@@ -114,8 +116,28 @@ public class MemberService {
         member.setRoles(roles);
     }
 
-    // [회원가입] 작성 양식에 맞추지 않거나, 중복된 이메일, 아이디, 닉네임에 대한 유효성 검사
+    @Transactional
+    public void assignUserRanks() {
+        List<Member> members = memberRepository.findAll();
+
+        members.sort((m1, m2) -> Integer.compare(m2.getPoint(), m1.getPoint())); // 내림차순 정렬
+
+        int userRank = 1;
+        for (Member member : members) {
+            if (!member.isMemberStatus()) {
+                member.setUserRank(0); // memberStatus가 false인 사용자에게 rank 0을 할당
+            } else if (member.getPoint() == 0) {
+                member.setUserRank(0); // point가 0인 사용자에게도 rank 0을 할당
+            } else {
+                member.setUserRank(userRank);
+                userRank++;
+            }
+        }
+        memberRepository.saveAll(members);
+    }
+}
+
+// [회원가입] 작성 양식에 맞추지 않거나, 중복된 이메일, 아이디, 닉네임에 대한 유효성 검사
     // [회원조회] 존재하지 않는 유저정보 유효성 검사
     // [회원수정] 작성 양식에 맞추지 않거나, 중복된 닉네임에 대한 유효성 검사
     // -> GlobalException 클래스로 이동
-}

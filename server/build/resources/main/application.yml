@@ -25,35 +25,6 @@ user:
   admin:
     username: raeseop123  # 관리자 사용자 이름
 
-#------------------
-#spring:
-#  datasource:
-#    url: jdbc:mysql://main19.cdqj6ntsjuxl.ap-northeast-2.rds.amazonaws.com:3306/Main19?useSSL=false&serverTimezone=UTC
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    username: admin
-#    password: 160218!!
-#  jpa:
-#    hibernate:
-#      ddl-auto: update
-#    database-platform: org.hibernate.dialect.MySQL8Dialect
-#
-#  autoconfigure:
-#    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
-#
-#  mvc:
-#    pathmatch:
-#      matching-strategy: ant_path_matcher
-#
-#jwt:
-#  key: LEARN123  # JWT 키 설정
-#  access-token-expiration-minutes: 40  # Access Token 만료 시간(분)
-#  refresh-token-expiration-minutes: 420  # Refresh Token 만료 시간(분)
-#
-#user:
-#  admin:
-#    username: raeseop123  # 관리자 사용자 이름
-
-
 #--------------------
 #
 ## local H2 Tes†
