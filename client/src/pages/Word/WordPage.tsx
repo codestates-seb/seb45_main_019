@@ -7,15 +7,29 @@ import Nav from './Nav';
 import { getUserWordIds, getWordSub, getWordWord } from './methods';
 import Word from '../../components/Word/Word';
 import { number } from 'yargs';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 export default function WordPage() {
+  //const [open, setOpen] = useState(false); //추가
   const user = useAppSelector((state) => state.user);
   const navigate = useNavigate();
   const [selectedWordId, setSelectedWordId] = useState(0);
   const wordIds = getUserWordIds();
 
   console.log(wordIds);
-
+  /*
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+*/
   useEffect(() => {
     console.log(user);
     if (!user.memberStatus) {
@@ -35,6 +49,30 @@ export default function WordPage() {
     return <Header />;
   }
 
+  /*
+  useEffect(() => {
+    if (!wordIds) {
+      return (
+        <Dialog open={open} onClose={handleClose}>
+          <DialogTitle id="alert-dialog-title">
+            {'단어장을 찾을 수 없습니다.'}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              단어가 없습니다!
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button variant="contained" onClick={handleClose}>
+              닫기
+            </Button>
+          </DialogActions>
+        </Dialog>
+      );
+      navigate('/');
+    }
+  }, []);
+*/
   return (
     <Box
       sx={{
