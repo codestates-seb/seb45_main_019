@@ -13,6 +13,8 @@ jobs:
         run: npm i --force
         working-directory: ./client
       - name: Build
+        env:
+          REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
         run: CI='' npm run build
         working-directory: ./client
       - name: SHOW AWS CLI VERSION
