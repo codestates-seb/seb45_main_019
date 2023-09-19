@@ -7,6 +7,9 @@ import { pointAcc } from '../../common/utils/pointCalculator';
 import shadows from '@mui/material/styles/shadows';
 import { Link } from 'react-router-dom';
 import EastOutlinedIcon from '@mui/icons-material/EastOutlined';
+import WestOutlinedIcon from '@mui/icons-material/WestOutlined';
+import { useQueryClient } from 'react-query';
+import { useAppSelector } from '../../redux/hooks';
 
 interface ResultContentProps {
   QuestionData: Chapter;
@@ -15,10 +18,12 @@ export const ResultContent = ({ QuestionData }: ResultContentProps) => {
   const { chapterId, title, progress, wordId: wordIds } = QuestionData;
 
   const [selectedIndex, setSelectedIndex] = useState(0);
+  // const queryClient = useQueryClient();
+  const user = useAppSelector((state) => state.user);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const id = event.currentTarget.id;
-
+    // queryClient.invalidateQueries(['userWordIds', user.userId]);
     if (id === 'previous') {
       setSelectedIndex(selectedIndex - 1);
       return;
@@ -74,8 +79,8 @@ export const ResultContent = ({ QuestionData }: ResultContentProps) => {
           />
           <Link to={'/'}>
             <Button
-              variant="contained"
-              size="large"
+              variant="outlined"
+              size="medium"
               endIcon={<EastOutlinedIcon />}
             >
               학습 종료
@@ -93,6 +98,7 @@ export const ResultContent = ({ QuestionData }: ResultContentProps) => {
               onClick={handleClick}
               variant="contained"
               disabled={selectedIndex === 0}
+              startIcon={<WestOutlinedIcon />}
             >
               이전
             </Button>
@@ -101,6 +107,7 @@ export const ResultContent = ({ QuestionData }: ResultContentProps) => {
               onClick={handleClick}
               variant="contained"
               disabled={selectedIndex === wordIds.length - 1}
+              endIcon={<EastOutlinedIcon />}
             >
               다음
             </Button>
