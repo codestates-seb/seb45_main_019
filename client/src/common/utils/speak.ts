@@ -44,8 +44,11 @@ const getDesiredVoice = (browserInfo: string) => {
       return '';
   }
 };
-
+changeVoice();
 synth.onvoiceschanged = () => {
+  changeVoice();
+};
+function changeVoice() {
   console.log('onvoiceschanged');
   const browserInfo = getBrowserInfo();
   const desiredVoiceName = getDesiredVoice(browserInfo);
@@ -57,19 +60,7 @@ synth.onvoiceschanged = () => {
     utterance.voice = desiredVoice;
     console.log('voice is set to: ', utterance.voice);
   }
-};
-console.log('onvoiceschanged');
-const browserInfo = getBrowserInfo();
-const desiredVoiceName = getDesiredVoice(browserInfo);
-
-const desiredVoice = synth
-  .getVoices()
-  .find((voice) => voice.name === desiredVoiceName);
-if (desiredVoice) {
-  utterance.voice = desiredVoice;
-  console.log('voice is set to: ', utterance.voice);
 }
-
 export const playText = (text: string) => {
   utterance.text = text;
   synth.speak(utterance);
