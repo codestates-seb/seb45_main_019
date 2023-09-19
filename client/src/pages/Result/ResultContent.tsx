@@ -1,7 +1,7 @@
 import { Box, Button, Chip, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import Word from '../../components/Word/Word';
-import { Progress } from '../../components/Progress/ResultProgress';
+import { ResultProgress } from '../../components/Progress/ResultProgress';
 import { Chapter } from '../../interfaces/Chapter.interface';
 import { pointAcc } from '../../common/utils/pointCalculator';
 import shadows from '@mui/material/styles/shadows';
@@ -81,6 +81,7 @@ export const ResultContent = ({ QuestionData }: ResultContentProps) => {
             <Button
               variant="outlined"
               size="medium"
+              color="info"
               endIcon={<EastOutlinedIcon />}
             >
               학습 종료
@@ -114,7 +115,7 @@ export const ResultContent = ({ QuestionData }: ResultContentProps) => {
           </Box>
         </Box>
         {progress ? (
-          <Progress
+          <ResultProgress
             progress={progress.slice(selectedIndex * 4, selectedIndex * 4 + 4)}
           />
         ) : (

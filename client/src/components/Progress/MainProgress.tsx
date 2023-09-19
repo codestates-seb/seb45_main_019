@@ -94,7 +94,7 @@ export default function MainProgress({ progress }: Progress) {
     <Timeline
       position="right"
       sx={{
-        maxHeight: '390px',
+        maxHeight: '447px',
         overflowY: 'auto',
         '&::-webkit-scrollbar': {
           width: '0.4em',

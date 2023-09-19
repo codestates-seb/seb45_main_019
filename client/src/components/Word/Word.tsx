@@ -165,11 +165,11 @@ const WordInfo = ({ wordData }: WordInfoProps) => {
                   sx={{
                     color: 'text.primary',
                     fontSize: 14,
-                    fontWeight: 'fontWeightBold',
+                    fontWeight: 'fontWeightSemiBold',
                     borderBottom: 1,
-                    pb: 1,
-                    mb: 1,
-                    borderColor: 'grey.400'
+                    pb: 2,
+                    mb: 2,
+                    borderColor: 'grey.300'
                   }}
                 >
                   {key + 1}. {el}{' '}
@@ -190,7 +190,7 @@ const WordInfo = ({ wordData }: WordInfoProps) => {
             wordExample.map((el: string, key: number) => (
               <Box
                 key={key}
-                sx={{ borderBottom: 1, mb: 1, borderColor: 'grey.400' }}
+                sx={{ borderBottom: 1, mb: 2, borderColor: 'grey.300' }}
               >
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
                   <Typography
@@ -198,7 +198,7 @@ const WordInfo = ({ wordData }: WordInfoProps) => {
                     sx={{
                       color: 'text.primary',
                       fontSize: 14,
-                      fontWeight: 'fontWeightBold'
+                      fontWeight: 'fontWeightSemiBold'
                     }}
                   >
                     {el}{' '}
@@ -209,10 +209,10 @@ const WordInfo = ({ wordData }: WordInfoProps) => {
                   <Typography
                     variant="body1"
                     sx={{
-                      color: 'text.primary',
+                      color: 'text.secondary',
                       mb: 1,
                       fontSize: 14,
-                      fontWeight: 'fontWeightBold'
+                      fontWeight: 'fontWeightSemiBold'
                     }}
                   >
                     {wordExampleMeaning[key]}

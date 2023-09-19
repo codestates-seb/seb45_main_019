@@ -19,17 +19,6 @@ import Word from '../Word/Word';
 import { getWordQueryKey, useWordQuery } from '../../queries/useWordQuery';
 import Speaker from '../Speaker/Speaker';
 
-// const style = {
-//   position: 'absolute' as const,
-//   top: '50%',
-//   left: '50%',
-//   transform: 'translate(-50%, -50%)',
-//   width: 1000,
-//   bgcolor: 'background.paper',
-//   border: '2px solid #000',
-//   boxShadow: 24,
-//   p: 4
-// };
 export default function GuideBook() {
   const [open, setOpen] = React.useState(false);
   const [selectedWordId, setSelectedWordId] = useState(0);
@@ -103,8 +92,9 @@ const WordCard = ({ wordId, handleOpen }: WordCardProps) => {
     <Box
       sx={{
         width: '100%',
-        marginBottom: '40px',
-        background: 'white',
+        marginBottom: '50px',
+        height: '215px',
+        background: '#fff',
         boxShadow: (theme) => theme.shadows[1],
         p: 4,
         borderRadius: 1,
@@ -158,7 +148,17 @@ const WordCard = ({ wordId, handleOpen }: WordCardProps) => {
           </Typography>
         ))}
       </Box>
-      <Box></Box>
+      <Box sx={{ mt: 2 }}>
+        <Typography
+          sx={{
+            fontWeight: 'fontWeightSemiBold',
+            fontSize: 15,
+            color: 'text.secondary'
+          }}
+        >
+          {word.detailDescriptions[0].descriptions[0]}
+        </Typography>
+      </Box>
     </Box>
   );
 };
