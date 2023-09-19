@@ -1,5 +1,13 @@
 const synth = window.speechSynthesis;
 const utterance = new SpeechSynthesisUtterance();
+const voice: SpeechSynthesisVoice = {
+  voiceURI: 'Microsoft Christopher Online (Natural) - English (United States)',
+  name: 'Microsoft Christopher Online (Natural) - English (United States)',
+  lang: 'en-US',
+  localService: false,
+  default: false
+};
+console.log(voice);
 
 function getBrowserInfo() {
   // Get the user agent string
@@ -45,20 +53,55 @@ const getDesiredVoice = (browserInfo: string) => {
   }
 };
 changeVoice();
+
 synth.onvoiceschanged = () => {
+  console.log('onvoiceschanged');
   changeVoice();
 };
-function changeVoice() {
-  console.log('onvoiceschanged');
-  const browserInfo = getBrowserInfo();
-  const desiredVoiceName = getDesiredVoice(browserInfo);
 
-  const desiredVoice = synth
-    .getVoices()
-    .find((voice) => voice.name === desiredVoiceName);
-  if (desiredVoice) {
-    utterance.voice = desiredVoice;
+function changeVoice() {
+  // const browserInfo = getBrowserInfo();
+  // const desiredVoiceName = getDesiredVoice(browserInfo);
+
+  // const desiredVoice = synth
+  //   .getVoices()
+  //   .find((voice) => voice.name === desiredVoiceName);
+  // if (desiredVoice) {
+  //   utterance.voice = desiredVoice;
+  //   console.log('voice is set to: ', utterance.voice);
+  // }
+
+  // utterance.voice = {
+  //   voiceURI:
+  //     'Microsoft Christopher Online (Natural) - English (United States)',
+  //   name: 'Microsoft Christopher Online (Natural) - English (United States)',
+  //   lang: 'en-US',
+  //   localService: false,
+  //   default: false
+  // };
+
+  const voices = synth.getVoices();
+  let voice = voices.find(
+    (voice) =>
+      voice.name ===
+      'Microsoft Christopher Online (Natural) - English (United States)'
+  );
+  if (voice === undefined) {
+    voice = voices.find((voice) => voice.name === 'Fred');
+    if (voice === undefined) {
+      voice = voices.find(
+        (voice) => voice.name === 'Microsoft David - English (United States)'
+      );
+      if (voice === undefined) {
+        voice = voices.find((voice) => voice.lang === 'en-US');
+      }
+    }
+  }
+  if (voice) {
+    utterance.voice = voice;
     console.log('voice is set to: ', utterance.voice);
+  } else {
+    console.log('cannot set voice');
   }
 }
 export const playText = (text: string) => {
