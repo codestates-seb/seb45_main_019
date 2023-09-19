@@ -20,8 +20,6 @@ export default function WordPage() {
   const navigate = useNavigate();
   const [selectedWordId, setSelectedWordId] = useState(0);
   const wordIds = getUserWordIds();
-
-  console.log(wordIds);
   /*
   const handleOpen = () => {
     setOpen(true);
@@ -45,7 +43,6 @@ export default function WordPage() {
   }, [wordIds]);
 
   if (!wordIds) {
-    alert('단어장을 불러올 수 없습니다.');
     return <Header />;
   }
 
