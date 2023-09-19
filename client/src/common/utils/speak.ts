@@ -87,7 +87,7 @@ function changeVoice() {
       );
       if (voice === undefined) {
         voice = voices.find(
-          (voice) => voice.name === 'Albert' && voice.lang === 'en-US'
+          (voice) => voice.name === 'Samantha' && voice.lang === 'en-US'
         );
       }
     }
