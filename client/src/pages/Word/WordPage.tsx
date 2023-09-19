@@ -38,13 +38,12 @@ export default function WordPage() {
 
   useEffect(() => {
     if (wordIds) {
-      setSelectedWordId(wordIds[0]);
+      if (wordIds.length === 0) {
+        alert('단어장이 비었습니다.');
+        navigate('/');
+      } else setSelectedWordId(wordIds[0]);
     }
   }, [wordIds]);
-
-  if (!wordIds) {
-    return <Header />;
-  }
 
   /*
   useEffect(() => {

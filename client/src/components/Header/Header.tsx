@@ -21,6 +21,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setUser } from '../../redux/slices/user';
 import { useQueryClient } from '@tanstack/react-query';
 import { QUERY_KEY as chapterKey } from '../../queries/useAllUserChapterQuery';
+import { getUserWordIds } from '../../pages/Word/methods';
 interface HeaderProp {
   invisiblePath?: boolean;
 }
@@ -55,6 +56,17 @@ export default function Header(props: HeaderProp) {
     }
   }
 
+  const wordIds = getUserWordIds();
+
+  const enterWordPage = () => {
+    if (wordIds.length === 0) {
+      console.log('단어장이 비어있습니다.');
+      alert('단어장이 비어있습니다.');
+    } else {
+      handleNavigate('/my-word');
+    }
+  };
+
   return (
     <AppBar
       sx={{
@@ -86,7 +98,7 @@ export default function Header(props: HeaderProp) {
               <>
                 <Tooltip title="단어장">
                   <IconButton
-                    onClick={() => handleNavigate('/my-word')}
+                    onClick={enterWordPage}
                     sx={{
                       width: '40px',
                       height: '40px',
