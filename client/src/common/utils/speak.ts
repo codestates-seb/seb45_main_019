@@ -94,7 +94,7 @@ function changeVoice() {
   if (voice) {
     utterance.voice = voice;
   } else {
-    console.log('cannot set voice');
+    // console.log('cannot set voice');
   }
 }
 
