@@ -100,22 +100,36 @@ export default function QTypeChoice(props: QTypeProps) {
               sx={{
                 backgroundColor: 'rgba(66, 165, 245, 0.2)',
                 padding: '20px 40px',
-                borderRadius: '5px'
+                borderRadius: '5px',
+                minWidth: '510px'
               }}
             >
-              <Stack flexDirection={'row'}>
+              <Stack
+                flexDirection={'row'}
+                justifyContent={'center'}
+                alignItems={'center'}
+              >
                 <Typography variant="h6">{splitStr[0]}</Typography>
-                <Box
+                <Typography
+                  variant="h6"
                   sx={{
-                    width: '100px',
+                    minWidth: '100px',
                     backgroundColor: '#fff',
                     borderRadius: '5px',
                     margin: '0 8px',
                     borderWidth: 1,
                     borderStyle: 'dashed',
-                    borderColor: grey[500]
+                    borderColor: grey[500],
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    fontWeight: 'bold',
+                    px: 1.5,
+                    py: 1
                   }}
-                />
+                >
+                  {isThick}
+                </Typography>
                 <Box>
                   <Typography variant="h6">{splitStr[1]}</Typography>
                 </Box>

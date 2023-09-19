@@ -44,6 +44,10 @@ const defaultTheme = createTheme({
     },
     error: {
       main: '#e74c3c'
+    },
+    info: {
+      main: '#757575',
+      light: '#bdbdbd'
     }
   }
 });

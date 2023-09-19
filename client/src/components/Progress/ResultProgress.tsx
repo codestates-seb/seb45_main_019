@@ -7,7 +7,7 @@ interface ProgressProps {
   progress: (0 | 1 | 2)[];
 }
 
-export const Progress = ({ progress }: ProgressProps) => {
+export const ResultProgress = ({ progress }: ProgressProps) => {
   const text = ['영단어 고르기', '뜻 고르기', '스펠링 입력하기', '빈칸 채우기'];
   return (
     <Box
@@ -36,9 +36,9 @@ export const Progress = ({ progress }: ProgressProps) => {
         {progress.map((el: number, index: number) => (
           <Box key={index} sx={{ textAlign: 'center' }}>
             <Typography
+              color={'info.main'}
               sx={{
-                fontSize: 13,
-                fontWeight: 700
+                fontSize: 14
               }}
             >
               {text[index]}
@@ -46,29 +46,16 @@ export const Progress = ({ progress }: ProgressProps) => {
             {el === 1 ? (
               <CheckCircleOutlineRoundedIcon
                 color="success"
-                sx={{ fontSize: '5rem' }}
+                sx={{ fontSize: '4rem' }}
               />
-            ) : (
+            ) : el === 2 ? (
               <HighlightOffRoundedIcon
                 color="error"
-                sx={{ fontSize: '5rem' }}
+                sx={{ fontSize: '4rem' }}
               />
+            ) : (
+              <CircleIcon color="info" sx={{ fontSize: '4rem' }} />
             )}
-            {/* <CircleIcon
-              sx={{
-                width: '5rem',
-                // color: 'error.dark',
-                color:
-                  el === 1
-                    ? 'success.main'
-                    : el == 2
-                    ? 'error.main'
-                    : 'grey[300]',
-                fontSize: 100,
-                m: 0,
-                p: 0
-              }}
-            /> */}
           </Box>
         ))}
       </Box>
