@@ -48,7 +48,6 @@ const utterance = new SpeechSynthesisUtterance();
 changeVoice();
 
 synth.onvoiceschanged = () => {
-  console.log('onvoiceschanged');
   changeVoice();
 };
 
@@ -94,7 +93,6 @@ function changeVoice() {
   }
   if (voice) {
     utterance.voice = voice;
-    console.log('voice is set to: ', utterance.voice);
   } else {
     console.log('cannot set voice');
   }
