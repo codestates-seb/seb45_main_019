@@ -28,11 +28,13 @@ function getBrowserInfo() {
 }
 
 // Get and display the browser name and version
-const browserInfo = getBrowserInfo();
+
 const getDesiredVoice = (browserInfo: string) => {
+  console.log(browserInfo);
+
   switch (browserInfo) {
     case 'Chrome':
-      return 'Google US English';
+      return 'Microsoft Christopher Online (Natural) - English (United States)';
     case 'Edge':
       return 'Microsoft Christopher Online (Natural) - English (United States)';
     case 'Safari':
@@ -42,10 +44,11 @@ const getDesiredVoice = (browserInfo: string) => {
       return '';
   }
 };
-const desiredVoiceName = getDesiredVoice(browserInfo);
 
 synth.onvoiceschanged = () => {
   console.log('onvoiceschanged');
+  const browserInfo = getBrowserInfo();
+  const desiredVoiceName = getDesiredVoice(browserInfo);
 
   const desiredVoice = synth
     .getVoices()
