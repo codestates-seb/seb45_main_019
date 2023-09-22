@@ -13,25 +13,28 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
-import { useAppSelector } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { GlobalContainer } from '../../style/Global.styled';
 import { Container } from '@mui/material';
 import RecordChart from '../../components/Record/RecordChart';
-
-const centerStyle = {
-  display: 'flex',
-  justifyContent: 'center',
-  marginTop: '80px'
-};
-
-const topMargin = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  marginTop: '20px'
-};
+import { useNavigate } from 'react-router-dom';
+import { setUser } from '../../redux/slices/user';
+import { QUERY_KEY as chapterKey } from '../../queries/useAllUserChapterQuery';
 
 export default function MyPage() {
+  const centerStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: '80px'
+  };
+
+  const topMargin = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: '20px'
+  };
+
   const [editFlag, setEditFlag] = useState(false);
   const [editedUser, setEditedUser] = useState({
     nickname: '',
@@ -42,6 +45,8 @@ export default function MyPage() {
   const [isDeleteUserModal, setIsDeleteUserModal] = useState(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const userInfo = useAppSelector((state) => state.user);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
   const { isLoading, error, data } = useQuery({
     queryKey: ['username', userInfo.userId],
@@ -120,6 +125,19 @@ export default function MyPage() {
   const handleConfirmDelete = () => {
     deleteUserMutation.mutate();
     setIsDeleteUserModal(false);
+
+    queryClient.invalidateQueries([chapterKey, userInfo.userId]);
+    dispatch(
+      setUser({
+        email: '',
+        username: '',
+        userId: 1,
+        nickname: '',
+        point: 0,
+        memberStatus: false
+      })
+    );
+    navigate('/');
   };
 
   const handleCancelDelete = () => {
@@ -197,6 +215,7 @@ export default function MyPage() {
                 id="outlined-read-only-input"
                 value={editedUser.nickname}
                 onChange={handleFieldChange('nickname')}
+                disabled={!editFlag}
                 InputProps={{
                   readOnly: !editFlag
                 }}
@@ -227,6 +246,7 @@ export default function MyPage() {
                 value={editedUser.password || ''}
                 onChange={handleFieldChange('password')}
                 type="password"
+                disabled={!editFlag}
                 InputProps={{
                   readOnly: !editFlag
                 }}
@@ -257,6 +277,7 @@ export default function MyPage() {
                 value={editedUser.confirmPassword || ''}
                 onChange={handleFieldChange('confirmPassword')}
                 type="password"
+                disabled={!editFlag}
                 InputProps={{
                   readOnly: !editFlag
                 }}

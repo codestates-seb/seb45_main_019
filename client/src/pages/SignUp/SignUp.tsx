@@ -281,18 +281,6 @@ export default function SignUp() {
                 margin="normal"
               ></Input>
 
-              <Input
-                autoComplete=""
-                name="nickname"
-                required
-                id="nickname"
-                label="닉네임"
-                checkValid
-                isValid={nicknameIsValid}
-                setIsValid={setNicknameIsValid}
-                margin="normal"
-              ></Input>
-
               <TextField
                 fullWidth
                 // eslint-disable-next-line jsx-a11y/no-autofocus
@@ -338,6 +326,17 @@ export default function SignUp() {
                 </Typography>
               )}
 
+              <Input
+                autoComplete=""
+                name="nickname"
+                required
+                id="nickname"
+                label="닉네임"
+                checkValid
+                isValid={nicknameIsValid}
+                setIsValid={setNicknameIsValid}
+                margin="normal"
+              ></Input>
               <Button
                 type="submit"
                 fullWidth
