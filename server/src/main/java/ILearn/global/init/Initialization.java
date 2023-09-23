@@ -22,7 +22,6 @@
 //
 //@Component
 //@RequiredArgsConstructor
-////@Profile() //
 //public class Initialization implements CommandLineRunner {
 //    private final WordRepository wordRepository;
 //    private final ChapterRepository chapterRepository;
