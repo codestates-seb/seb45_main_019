@@ -33,8 +33,6 @@ public class InitController {
     private final ChapterRepository chapterRepository;
     private final QuestionRepository questionRepository;
     private final QuestionService questionService;
-    private final MemberService memberService;
-
 
     @PostMapping("/init")
     public void InitGenerator() {

@@ -14,6 +14,7 @@
 //
 //import lombok.RequiredArgsConstructor;
 //import org.springframework.boot.CommandLineRunner;
+//import org.springframework.context.annotation.Profile;
 //import org.springframework.stereotype.Component;
 //
 //import javax.transaction.Transactional;
@@ -21,13 +22,12 @@
 //
 //@Component
 //@RequiredArgsConstructor
+////@Profile() //
 //public class Initialization implements CommandLineRunner {
 //    private final WordRepository wordRepository;
 //    private final ChapterRepository chapterRepository;
 //    private final QuestionRepository questionRepository;
 //    private final QuestionService questionService;
-//    private final MemberService memberService;
-//
 //
 //    public void run(String... args) {
 //
@@ -35,7 +35,6 @@
 //        Chapter chapter1 = new Chapter();
 //        chapter1.setTitle("인사와 소통하기");
 //        chapter1.setQuestionId(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L);
-//
 //        Chapter chapter2 = new Chapter();
 //        chapter2.setTitle("쇼핑 및 주문하기");
 //        chapter2.setQuestionId(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L);
