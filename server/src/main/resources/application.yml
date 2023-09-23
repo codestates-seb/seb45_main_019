@@ -27,7 +27,7 @@ user:
 
 #--------------------
 #
-## local H2 Tes†
+### local H2 Tes†
 #spring:
 #  datasource:
 #    #  MySQL 설정

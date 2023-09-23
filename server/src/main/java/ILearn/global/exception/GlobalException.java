@@ -176,12 +176,8 @@ public class GlobalException {
             // 왜 methodArgumentExceptionHandler 메서드에서 가지고 오질 못할까...
             int errorCode = 0;
 
-            if (replaceErrorMsg.contains("PASSWORD_NOT_BLANK")) {
-                errorCode = 905;
-            } else if (replaceErrorMsg.contains("PASSWORD_ERROR")) {
+            if (replaceErrorMsg.contains("PASSWORD_ERROR")) {
                 errorCode = 906;
-            } else if (replaceErrorMsg.contains("NICKNAME_NOT_BLANK")) {
-                errorCode = 907;
             } else if (replaceErrorMsg.contains("NICKNAME_ERROR")) {
                 errorCode = 908;
             }
