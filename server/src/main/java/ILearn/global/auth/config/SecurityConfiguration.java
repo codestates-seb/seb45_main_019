@@ -83,7 +83,7 @@ public class SecurityConfiguration {
                         .antMatchers(HttpMethod.DELETE, "/words/members/*").permitAll()
                         .antMatchers(HttpMethod.GET, "/words/members/*").permitAll()
                         .antMatchers(HttpMethod.POST, "/generator/*").permitAll()
-                        //.anyRequest().authenticated()
+                        .anyRequest().authenticated()
 //                        .anyRequest().permitAll() // h2 데이터베이스 사용
                 );
         return http.build();
