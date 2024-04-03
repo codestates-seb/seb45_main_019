@@ -181,7 +181,7 @@ export default function MyPage() {
             <Typography variant="body1">2023년 8월 28일 가입</Typography>
           </CardContent>
 
-          {/* <RecordChart /> */}
+          <RecordChart />
 
           <div
             style={{

@@ -48,11 +48,12 @@ export default function RecordChart() {
       '20'
     ]
   };
+
+  console.log(xAxis.data);
   const yAxis = {
     label: '맞춘 문제'
   };
 
-  const sample = [1, 10, 30, 50, 70, 90, 100];
   const chapters = [
     { ...type1, stack: 'total' },
     { ...type2, stack: 'total' },
