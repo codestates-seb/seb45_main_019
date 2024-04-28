@@ -7,7 +7,6 @@ const fetcher = async (): Promise<ChapterList> => {
   const response = await api('/learning', 'get');
   return response.data;
 };
-// const fetcher = () => api('/learning', 'get').then((res) => res.data);
 
 const useAllChapterQuery = () => {
   return useQuery<ChapterList>([QUERY_KEY], fetcher);

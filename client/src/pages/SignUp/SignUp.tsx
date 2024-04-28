@@ -126,9 +126,6 @@ export default function SignUp() {
           }
         })
         .catch((error) => {
-          // console.log(error);
-          // console.log(error.response.data);
-
           if (error.response.data.error === 900) {
             setdialogOpen(true);
             setdialogTitle('회원가입 실패');
@@ -174,7 +171,6 @@ export default function SignUp() {
             setdialogTitle('회원가입 실패');
             setdialogContent('이메일이 형식에 맞지 않습니다.');
           } else {
-            // console.log(error);
             setdialogOpen(true);
             setdialogTitle('에러 발생');
             setdialogContent(error.response.data);

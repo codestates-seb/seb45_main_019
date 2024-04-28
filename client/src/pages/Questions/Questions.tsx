@@ -227,7 +227,6 @@ export default function Questions() {
     const copyProgress = [...userChapter.progress];
     copyProgress[questionNum - 1] = correctFlag;
     userChapter.progress = copyProgress;
-    console.log(userChapter);
 
     let questionPoint = 0;
     if (correctFlag === 1) {

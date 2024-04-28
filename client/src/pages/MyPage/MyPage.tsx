@@ -16,7 +16,6 @@ import DialogActions from '@mui/material/DialogActions';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { GlobalContainer } from '../../style/Global.styled';
 import { Container } from '@mui/material';
-import RecordChart from '../../components/Record/RecordChart';
 import { useNavigate } from 'react-router-dom';
 import { setUser } from '../../redux/slices/user';
 import { QUERY_KEY as chapterKey } from '../../queries/useAllUserChapterQuery';
@@ -180,8 +179,6 @@ export default function MyPage() {
             </Typography>
             <Typography variant="body1">2023년 8월 28일 가입</Typography>
           </CardContent>
-
-          <RecordChart />
 
           <div
             style={{
