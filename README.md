@@ -1,6 +1,8 @@
 <br>
 <br>
-<center><img src="./client/public/images/main-logo.png"></center>
+
+<center> <img src="./client/public/images/main-logo.png"> <center>
+
 <br>
 <br>
 영단어 학습 서비스 ‘아이런(I Learn)’은 사용자가 영어 단어를 재밌게 학습할 수 있는 서비스 입니다.<br>
@@ -14,9 +16,9 @@
 
 ### 😀 백엔드
 
-| <center>남현우<center>                                      | <center>김시형<center>                                         | <center>정승관<center>                                          | <center>홍래섭<center>                                  |
-| ----------------------------------------------------------- | -------------------------------------------------------------- | --------------------------------------------------------------- | ------------------------------------------------------- |
-| <center>[@Hyeonwoxo](https://github.com/Hyeonwoxo) <center> | <center>[@kimsihyuong](https://github.com/kimsihyuong)<center> | <center>[@roycode7891](https://github.com/roycode7891) <center> | <center>[@raeseop](https://github.com/raeseop) <center> |
+| <center>남현우<center> | <center>김시형<center> | <center>정승관<center> | <center>홍래섭<center>  |
+| ---- | ------ | ------------------| ------------ |
+| <center>[@Hyeonwoxo](https://github.com/Hyeonwoxo)<center> | <center>[@kimsihyuong](https://github.com/kimsihyuong)<center> | <center>[@roycode7891](https://github.com/roycode7891) <center> | <center>[@raeseop](https://github.com/raeseop) <center> |
 | <center>팀장<center>                                        | <center>BE 팀원</center>                                       | <center>BE 팀원</center>                                        | <center>BE 팀원</center>                                |
 | - 회원가입<br>- 챕터 및 문제풀이 로직                       | - 유저 단어장 <br>- ERD, DB 담당 <br> - 서버 배포              | - 회원가입 예외처리                                             | - 로그인<br>- JWT 토큰                                  |
 
@@ -48,8 +50,7 @@
 
 ### **프론트엔드**
 
-<img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" height="30"> 
-<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white" height="30"/> 
+<img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" height="30"> <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white" height="30"/> 
 <img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=Redux&logoColor=white" height="30"/> 
 <img src="https://img.shields.io/badge/reactquery-FF4154?style=for-the-badge&logo=reactquery&logoColor=white" height="30"/> 
 <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white" height="30"> 
@@ -61,8 +62,7 @@
 
 ### **백엔드**
 
-<img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white" height="30"> 
-<img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white" height="30"> 
+<img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white" height="30"> <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white" height="30"> 
 <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white" height="30"> 
 <img src="https://img.shields.io/badge/springsecurity-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white" height="30"> 
 <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white" height="30">
@@ -71,8 +71,7 @@
 
 ### **공통**
 
-<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white" height="30"> 
-<img src="https://img.shields.io/badge/postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white" height="30">
+<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white" height="30"> <img src="https://img.shields.io/badge/postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white" height="30">
 <img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white" height="30">
 <img src="https://img.shields.io/badge/discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" height="30">
 
