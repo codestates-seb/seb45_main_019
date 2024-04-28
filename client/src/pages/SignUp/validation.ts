@@ -9,9 +9,9 @@ export const useValidation = (id?: string) => {
       };
     case 'nickname':
       return (value: string) => {
-        return value.length >= 2 && value.length < 20
+        return value.length >= 5 && value.length < 20
           ? { valid: true, msg: '' }
-          : { valid: false, msg: '2~20 글자' };
+          : { valid: false, msg: '5~20 글자' };
       };
     case 'email':
       return (value: string) => {
